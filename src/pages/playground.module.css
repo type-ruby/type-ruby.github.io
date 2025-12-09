@@ -1,0 +1,255 @@
+.playground {
+  padding: 2rem 0;
+  min-height: calc(100vh - var(--ifm-navbar-height) - 200px);
+}
+
+.header {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.header h1 {
+  margin-bottom: 0.5rem;
+}
+
+.subtitle {
+  color: var(--ifm-color-emphasis-700);
+  font-size: 1.1rem;
+}
+
+.container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+@media (max-width: 996px) {
+  .container {
+    grid-template-columns: 1fr;
+  }
+}
+
+.panel {
+  display: flex;
+  flex-direction: column;
+  background: var(--ifm-background-surface-color);
+  border: 1px solid var(--ifm-color-emphasis-200);
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+[data-theme='dark'] .panel {
+  background: #161b22;
+  border-color: #30363d;
+}
+
+.panelHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.75rem 1rem;
+  background: var(--ifm-color-emphasis-100);
+  border-bottom: 1px solid var(--ifm-color-emphasis-200);
+}
+
+[data-theme='dark'] .panelHeader {
+  background: #21262d;
+  border-color: #30363d;
+}
+
+.panelTitle {
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+
+.panelActions {
+  display: flex;
+  gap: 0.75rem;
+  align-items: center;
+}
+
+.exampleSelect {
+  padding: 0.4rem 0.75rem;
+  border: 1px solid var(--ifm-color-emphasis-300);
+  border-radius: 6px;
+  background: var(--ifm-background-color);
+  color: var(--ifm-font-color-base);
+  font-size: 0.85rem;
+  cursor: pointer;
+}
+
+[data-theme='dark'] .exampleSelect {
+  background: #0d1117;
+  border-color: #30363d;
+}
+
+.compileButton {
+  padding: 0.5rem 1rem;
+  background: var(--ifm-color-primary);
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-weight: 600;
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.compileButton:hover:not(:disabled) {
+  background: var(--ifm-color-primary-dark);
+}
+
+.compileButton:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.tabs {
+  display: flex;
+  gap: 0;
+}
+
+.tab {
+  padding: 0.4rem 0.75rem;
+  background: transparent;
+  border: 1px solid transparent;
+  border-radius: 6px;
+  color: var(--ifm-color-emphasis-600);
+  font-size: 0.85rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.tab:hover {
+  background: var(--ifm-color-emphasis-200);
+  color: var(--ifm-font-color-base);
+}
+
+.tabActive {
+  background: var(--ifm-color-primary);
+  color: white;
+}
+
+.tabActive:hover {
+  background: var(--ifm-color-primary);
+  color: white;
+}
+
+.tabError {
+  color: #ef4444;
+}
+
+.tabError.tabActive {
+  background: #ef4444;
+  color: white;
+}
+
+.editorWrapper {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-height: 400px;
+}
+
+.filenameBar {
+  padding: 0.5rem 1rem;
+  background: var(--ifm-color-emphasis-100);
+  border-bottom: 1px solid var(--ifm-color-emphasis-200);
+  font-family: var(--ifm-font-family-monospace);
+  font-size: 0.8rem;
+  color: var(--ifm-color-emphasis-600);
+}
+
+[data-theme='dark'] .filenameBar {
+  background: #1e1e1e;
+  border-color: #333;
+}
+
+.editor {
+  flex: 1;
+  width: 100%;
+  padding: 1rem;
+  border: none;
+  resize: none;
+  font-family: var(--ifm-font-family-monospace);
+  font-size: 0.9rem;
+  line-height: 1.6;
+  background: var(--ifm-background-color);
+  color: var(--ifm-font-color-base);
+}
+
+[data-theme='dark'] .editor {
+  background: #1e1e1e;
+  color: #d4d4d4;
+}
+
+.editor:focus {
+  outline: none;
+}
+
+.output {
+  flex: 1;
+  padding: 1rem;
+  overflow: auto;
+  background: var(--ifm-background-color);
+}
+
+[data-theme='dark'] .output {
+  background: #1e1e1e;
+}
+
+.outputCode {
+  margin: 0;
+  font-family: var(--ifm-font-family-monospace);
+  font-size: 0.9rem;
+  line-height: 1.6;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+.errorList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.errorItem {
+  padding: 0.75rem;
+  background: rgba(239, 68, 68, 0.1);
+  border-left: 3px solid #ef4444;
+  margin-bottom: 0.5rem;
+  font-family: var(--ifm-font-family-monospace);
+  font-size: 0.85rem;
+  color: #ef4444;
+}
+
+[data-theme='dark'] .errorItem {
+  background: rgba(239, 68, 68, 0.15);
+}
+
+.noErrors {
+  color: var(--ifm-color-emphasis-600);
+  font-style: italic;
+}
+
+.footer {
+  max-width: 1400px;
+  margin: 2rem auto 0;
+  padding: 1rem;
+  text-align: center;
+}
+
+.footer p {
+  color: var(--ifm-color-emphasis-600);
+  font-size: 0.9rem;
+}
+
+.footer code {
+  background: var(--ifm-color-emphasis-200);
+  padding: 0.2rem 0.5rem;
+  border-radius: 4px;
+}
