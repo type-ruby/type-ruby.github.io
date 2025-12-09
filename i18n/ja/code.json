@@ -1,0 +1,206 @@
+{
+  "theme.ErrorPageContent.title": {
+    "message": "このページはクラッシュしました。",
+    "description": "The title of the fallback page when the page crashed"
+  },
+  "theme.NotFound.title": {
+    "message": "ページが見つかりません",
+    "description": "The title of the 404 page"
+  },
+  "theme.NotFound.p1": {
+    "message": "お探しのページが見つかりませんでした。",
+    "description": "The first paragraph of the 404 page"
+  },
+  "theme.NotFound.p2": {
+    "message": "このページへのリンクを含むサイトの所有者に連絡して、リンクが壊れていることをお知らせください。",
+    "description": "The 2nd paragraph of the 404 page"
+  },
+  "theme.common.skipToMainContent": {
+    "message": "メインコンテンツまでスキップ",
+    "description": "The skip to content label"
+  },
+  "theme.navbar.mobileLanguageDropdown.label": {
+    "message": "言語",
+    "description": "The label for the mobile language switcher dropdown"
+  },
+  "theme.TOCCollapsible.toggleButtonLabel": {
+    "message": "このページの内容",
+    "description": "The label for the button to toggle the table of contents"
+  },
+  "theme.docs.sidebar.collapseButtonTitle": {
+    "message": "サイドバーを折りたたむ",
+    "description": "The title for the button to collapse sidebar"
+  },
+  "theme.docs.sidebar.expandButtonTitle": {
+    "message": "サイドバーを展開",
+    "description": "The title for the button to expand sidebar"
+  },
+  "theme.docs.sidebar.navAriaLabel": {
+    "message": "ドキュメントサイドバー",
+    "description": "The ARIA label for the sidebar navigation"
+  },
+  "theme.ColorModeToggle.ariaLabel": {
+    "message": "ダークモードとライトモードの切り替え（現在{mode}）",
+    "description": "The ARIA label for the color mode toggle"
+  },
+  "theme.ColorModeToggle.ariaLabel.mode.dark": {
+    "message": "ダークモード",
+    "description": "The name of dark mode"
+  },
+  "theme.ColorModeToggle.ariaLabel.mode.light": {
+    "message": "ライトモード",
+    "description": "The name of light mode"
+  },
+  "theme.docs.breadcrumbs.navAriaLabel": {
+    "message": "パンくずリスト",
+    "description": "The ARIA label for the breadcrumbs navigation"
+  },
+  "theme.docs.breadcrumbs.home": {
+    "message": "ホーム",
+    "description": "The home label for the breadcrumbs"
+  },
+  "theme.docs.DocCard.categoryDescription.plurals": {
+    "message": "{count}件",
+    "description": "The description of a category doc card"
+  },
+  "theme.docs.paginator.navAriaLabel": {
+    "message": "ドキュメントページナビゲーション",
+    "description": "The ARIA label for the docs paginator"
+  },
+  "theme.docs.paginator.previous": {
+    "message": "前へ",
+    "description": "The label for the previous page"
+  },
+  "theme.docs.paginator.next": {
+    "message": "次へ",
+    "description": "The label for the next page"
+  },
+  "theme.docs.tagDocListPageTitle.nDocsTagged": {
+    "message": "{count}件のドキュメントにタグ付け",
+    "description": "The title of the page listing docs with a certain tag"
+  },
+  "theme.docs.tagDocListPageTitle": {
+    "message": "\"{tagName}\" タグの付いた {nDocsTagged}",
+    "description": "The title of the page listing docs with a certain tag"
+  },
+  "theme.docs.versionBadge.label": {
+    "message": "バージョン: {versionLabel}",
+    "description": "The label for the docs version badge"
+  },
+  "theme.common.editThisPage": {
+    "message": "このページを編集",
+    "description": "The link label to edit a page"
+  },
+  "theme.common.headingLinkTitle": {
+    "message": "{heading}への直接リンク",
+    "description": "Title for the link to a heading"
+  },
+  "theme.lastUpdated.atDate": {
+    "message": " {date}に",
+    "description": "The date used in the last updated"
+  },
+  "theme.lastUpdated.byUser": {
+    "message": " {user}が",
+    "description": "The user used in the last updated"
+  },
+  "theme.lastUpdated.lastUpdatedAtBy": {
+    "message": "最終更新:{atDate}{byUser}",
+    "description": "The combined string for last updated"
+  },
+  "theme.tags.tagsPageTitle": {
+    "message": "タグ",
+    "description": "The title of the page listing all tags"
+  },
+  "theme.tags.tagsListLabel": {
+    "message": "タグ:",
+    "description": "The label for the tags list"
+  },
+  "theme.AnnouncementBar.closeButtonAriaLabel": {
+    "message": "閉じる",
+    "description": "The ARIA label for the close button of the announcement bar"
+  },
+  "theme.admonition.caution": {
+    "message": "注意",
+    "description": "The default label for the caution admonition"
+  },
+  "theme.admonition.danger": {
+    "message": "危険",
+    "description": "The default label for the danger admonition"
+  },
+  "theme.admonition.info": {
+    "message": "情報",
+    "description": "The default label for the info admonition"
+  },
+  "theme.admonition.note": {
+    "message": "備考",
+    "description": "The default label for the note admonition"
+  },
+  "theme.admonition.tip": {
+    "message": "ヒント",
+    "description": "The default label for the tip admonition"
+  },
+  "theme.admonition.warning": {
+    "message": "警告",
+    "description": "The default label for the warning admonition"
+  },
+  "theme.SearchBar.label": {
+    "message": "検索",
+    "description": "The label for the search bar"
+  },
+  "theme.SearchPage.existingResultsTitle": {
+    "message": "\"{query}\"の検索結果",
+    "description": "The search page title for queries with results"
+  },
+  "theme.SearchPage.emptyResultsTitle": {
+    "message": "ドキュメントを検索",
+    "description": "The search page title for queries with empty results"
+  },
+  "theme.SearchPage.noResultsText": {
+    "message": "検索結果がありません。",
+    "description": "The text for empty search results"
+  },
+  "theme.navbar.mobileSidebarSecondaryMenu.backButtonLabel": {
+    "message": "← メインメニューに戻る",
+    "description": "The label for the back button in the mobile secondary menu"
+  },
+  "homepage.hero.title": {
+    "message": "RubyのためのTypeScriptスタイル型システム",
+    "description": "Hero title"
+  },
+  "homepage.hero.subtitle": {
+    "message": "型安全なRubyコードを書きましょう。TypeScriptの構文で、Rubyのエレガンスはそのままに。",
+    "description": "Hero subtitle"
+  },
+  "homepage.cta.getStarted": {
+    "message": "はじめる",
+    "description": "Get Started button"
+  },
+  "homepage.cta.playground": {
+    "message": "プレイグラウンド",
+    "description": "Playground button"
+  },
+  "homepage.features.typeSystem.title": {
+    "message": "馴染みのある型システム",
+    "description": "Feature title"
+  },
+  "homepage.features.typeSystem.description": {
+    "message": "Union型、インターフェース、ジェネリクスなど、TypeScriptにインスパイアされた型構文をRubyで使用できます。",
+    "description": "Feature description"
+  },
+  "homepage.features.rbsCompat.title": {
+    "message": "RBS互換",
+    "description": "Feature title"
+  },
+  "homepage.features.rbsCompat.description": {
+    "message": ".trbファイルからRBS型定義を生成します。Rubyのエコシステムと完全に互換性があります。",
+    "description": "Feature description"
+  },
+  "homepage.features.zeroRuntime.title": {
+    "message": "ゼロランタイム",
+    "description": "Feature title"
+  },
+  "homepage.features.zeroRuntime.description": {
+    "message": "型はビルド時にのみ存在します。ランタイムオーバーヘッドなしで純粋なRubyコードにコンパイルされます。",
+    "description": "Feature description"
+  }
+}
