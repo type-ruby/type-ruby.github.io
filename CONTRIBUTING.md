@@ -60,20 +60,20 @@ t-ruby.github.io/
 ### 1. 의존성 설치
 
 ```bash
-npm install
+pnpm install
 ```
 
 ### 2. 개발 서버 실행
 
 ```bash
 # 영문 버전으로 실행 (기본)
-npm start
+pnpm start
 
 # 한국어 버전으로 실행
-npm start -- --locale ko
+pnpm start --locale ko
 
 # 일본어 버전으로 실행
-npm start -- --locale ja
+pnpm start --locale ja
 ```
 
 브라우저에서 `http://localhost:3000`으로 접속하면 실시간으로 변경사항을 확인할 수 있습니다.
@@ -233,7 +233,7 @@ i18n/ja/docusaurus-plugin-content-docs/current/getting-started/installation.md
 
 ```bash
 # 한국어 버전으로 개발 서버 실행
-npm start -- --locale ko
+pnpm start --locale ko
 ```
 
 ---
@@ -244,10 +244,10 @@ npm start -- --locale ko
 
 ```bash
 # 프로덕션 빌드
-npm run build
+pnpm build
 
 # 빌드된 사이트 미리보기
-npm run serve
+pnpm serve
 ```
 
 ### 2. 빌드 에러 확인
@@ -273,64 +273,14 @@ git commit -m "docs: Update utility types documentation"
 
 ### 4. GitHub Pages 배포
 
-#### 방법 A: 수동 배포
-
 ```bash
 # gh-pages 브랜치로 빌드 및 배포
-npm run deploy
+pnpm deploy
 ```
 
-#### 방법 B: GitHub Actions (권장)
-
-`.github/workflows/deploy.yml` 파일을 생성:
-
-```yaml
-name: Deploy to GitHub Pages
-
-on:
-  push:
-    branches:
-      - main
-
-permissions:
-  contents: read
-  pages: write
-  id-token: write
-
-jobs:
-  build:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
-        with:
-          node-version: 20
-          cache: npm
-
-      - name: Install dependencies
-        run: npm ci
-
-      - name: Build website
-        run: npm run build
-
-      - name: Upload artifact
-        uses: actions/upload-pages-artifact@v3
-        with:
-          path: build
-
-  deploy:
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-    runs-on: ubuntu-latest
-    needs: build
-    steps:
-      - name: Deploy to GitHub Pages
-        id: deployment
-        uses: actions/deploy-pages@v4
-```
-
-이후 main 브랜치에 push하면 자동으로 배포됩니다.
+이 명령어는:
+1. 사이트를 빌드합니다
+2. 빌드 결과물을 `gh-pages` 브랜치에 푸시합니다
 
 ---
 
@@ -367,7 +317,7 @@ Broken link on page ...
 
 ```bash
 # 개발 서버 재시작
-npm start
+pnpm start
 ```
 
 ### 빌드 캐시 문제
@@ -375,7 +325,7 @@ npm start
 ```bash
 # 캐시 삭제 후 재빌드
 rm -rf .docusaurus build node_modules/.cache
-npm run build
+pnpm build
 ```
 
 ---
@@ -404,12 +354,12 @@ git commit -m "fix: Escape generic types in utility-types headings"
 
 | 명령어 | 설명 |
 |--------|------|
-| `npm install` | 의존성 설치 |
-| `npm start` | 개발 서버 실행 |
-| `npm start -- --locale ko` | 한국어로 개발 서버 실행 |
-| `npm run build` | 프로덕션 빌드 |
-| `npm run serve` | 빌드된 사이트 미리보기 |
-| `npm run deploy` | GitHub Pages 배포 |
+| `pnpm install` | 의존성 설치 |
+| `pnpm start` | 개발 서버 실행 |
+| `pnpm start --locale ko` | 한국어로 개발 서버 실행 |
+| `pnpm build` | 프로덕션 빌드 |
+| `pnpm serve` | 빌드된 사이트 미리보기 |
+| `pnpm deploy` | GitHub Pages 배포 |
 
 ---
 
