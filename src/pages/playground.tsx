@@ -1,12 +1,13 @@
 import React, {useState, useCallback} from 'react';
 import Layout from '@theme/Layout';
 import Heading from '@theme/Heading';
+import Translate, {translate} from '@docusaurus/Translate';
 
 import styles from './playground.module.css';
 
 const EXAMPLES = {
   'hello-world': {
-    name: 'Hello World',
+    name: translate({id: 'playground.examples.helloWorld', message: 'Hello World'}),
     code: `# hello.trb
 def greet(name: String): String
   "Hello, #{name}!"
@@ -15,7 +16,7 @@ end
 puts greet("World")`,
   },
   'basic-types': {
-    name: 'Basic Types',
+    name: translate({id: 'playground.examples.basicTypes', message: 'Basic Types'}),
     code: `# Basic type annotations
 def add(a: Integer, b: Integer): Integer
   a + b
@@ -33,7 +34,7 @@ result = add(10, 20)
 puts result`,
   },
   'union-types': {
-    name: 'Union Types',
+    name: translate({id: 'playground.examples.unionTypes', message: 'Union Types'}),
     code: `# Union types allow multiple types
 def stringify(value: String | Integer | Float): String
   value.to_s
@@ -50,7 +51,7 @@ def get_name(user: User?): String?
 end`,
   },
   generics: {
-    name: 'Generics',
+    name: translate({id: 'playground.examples.generics', message: 'Generics'}),
     code: `# Generic functions
 def first<T>(arr: Array<T>): T | nil
   arr[0]
@@ -77,7 +78,7 @@ box = Box.new(42)
 puts box.get`,
   },
   interfaces: {
-    name: 'Interfaces',
+    name: translate({id: 'playground.examples.interfaces', message: 'Interfaces'}),
     code: `# Define an interface
 interface Printable
   def to_string: String
@@ -105,7 +106,7 @@ class User
 end`,
   },
   classes: {
-    name: 'Classes',
+    name: translate({id: 'playground.examples.classes', message: 'Classes'}),
     code: `# Class with type annotations
 class Person
   @name: String
@@ -193,8 +194,8 @@ export default function Playground(): JSX.Element {
   const [selectedExample, setSelectedExample] = useState<ExampleKey>('hello-world');
   const [activeTab, setActiveTab] = useState<OutputTab>('ruby');
   const [output, setOutput] = useState({
-    ruby: '# Click "Compile" to see output',
-    rbs: '# Click "Compile" to generate RBS',
+    ruby: translate({id: 'playground.output.clickToCompile', message: '# Click "Compile" to see output'}),
+    rbs: translate({id: 'playground.output.clickToGenerateRbs', message: '# Click "Compile" to generate RBS'}),
     errors: [] as string[],
   });
   const [isCompiling, setIsCompiling] = useState(false);
@@ -229,13 +230,17 @@ export default function Playground(): JSX.Element {
 
   return (
     <Layout
-      title="Playground"
-      description="Try T-Ruby in your browser">
+      title={translate({id: 'playground.layout.title', message: 'Playground'})}
+      description={translate({id: 'playground.layout.description', message: 'Try T-Ruby in your browser'})}>
       <div className={styles.playground}>
         <div className={styles.header}>
-          <Heading as="h1">Playground</Heading>
+          <Heading as="h1">
+            <Translate id="playground.title">Playground</Translate>
+          </Heading>
           <p className={styles.subtitle}>
-            Write T-Ruby code and see the compiled output in real-time.
+            <Translate id="playground.subtitle">
+              Write T-Ruby code and see the compiled output in real-time.
+            </Translate>
           </p>
         </div>
 
@@ -243,7 +248,9 @@ export default function Playground(): JSX.Element {
           {/* Editor Panel */}
           <div className={styles.panel}>
             <div className={styles.panelHeader}>
-              <span className={styles.panelTitle}>Input</span>
+              <span className={styles.panelTitle}>
+                <Translate id="playground.input.title">Input</Translate>
+              </span>
               <div className={styles.panelActions}>
                 <select
                   value={selectedExample}
@@ -261,20 +268,26 @@ export default function Playground(): JSX.Element {
                   disabled={isCompiling}
                   className={styles.compileButton}
                 >
-                  {isCompiling ? 'Compiling...' : 'Compile'}
+                  {isCompiling ? (
+                    <Translate id="playground.compile.compiling">Compiling...</Translate>
+                  ) : (
+                    <Translate id="playground.compile.button">Compile</Translate>
+                  )}
                 </button>
               </div>
             </div>
             <div className={styles.editorWrapper}>
               <div className={styles.filenameBar}>
-                <span>example.trb</span>
+                <span>
+                  <Translate id="playground.input.filename">example.trb</Translate>
+                </span>
               </div>
               <textarea
                 value={code}
                 onChange={(e) => setCode(e.target.value)}
                 className={styles.editor}
                 spellCheck={false}
-                placeholder="Write your T-Ruby code here..."
+                placeholder={translate({id: 'playground.input.placeholder', message: 'Write your T-Ruby code here...'})}
               />
             </div>
           </div>
@@ -282,25 +295,27 @@ export default function Playground(): JSX.Element {
           {/* Output Panel */}
           <div className={styles.panel}>
             <div className={styles.panelHeader}>
-              <span className={styles.panelTitle}>Output</span>
+              <span className={styles.panelTitle}>
+                <Translate id="playground.output.title">Output</Translate>
+              </span>
               <div className={styles.tabs}>
                 <button
                   className={`${styles.tab} ${activeTab === 'ruby' ? styles.tabActive : ''}`}
                   onClick={() => setActiveTab('ruby')}
                 >
-                  .rb
+                  <Translate id="playground.output.ruby">.rb</Translate>
                 </button>
                 <button
                   className={`${styles.tab} ${activeTab === 'rbs' ? styles.tabActive : ''}`}
                   onClick={() => setActiveTab('rbs')}
                 >
-                  .rbs
+                  <Translate id="playground.output.rbs">.rbs</Translate>
                 </button>
                 <button
                   className={`${styles.tab} ${activeTab === 'errors' ? styles.tabActive : ''} ${output.errors.length > 0 ? styles.tabError : ''}`}
                   onClick={() => setActiveTab('errors')}
                 >
-                  Errors {output.errors.length > 0 && `(${output.errors.length})`}
+                  <Translate id="playground.output.errors">Errors</Translate> {output.errors.length > 0 && `(${output.errors.length})`}
                 </button>
               </div>
             </div>
@@ -309,7 +324,9 @@ export default function Playground(): JSX.Element {
                 <span>
                   {activeTab === 'ruby' && 'example.rb'}
                   {activeTab === 'rbs' && 'example.rbs'}
-                  {activeTab === 'errors' && 'Compilation Errors'}
+                  {activeTab === 'errors' && (
+                    <Translate id="playground.output.compilationErrors">Compilation Errors</Translate>
+                  )}
                 </span>
               </div>
               <div className={styles.output}>
@@ -323,7 +340,9 @@ export default function Playground(): JSX.Element {
                       ))}
                     </ul>
                   ) : (
-                    <p className={styles.noErrors}>No errors</p>
+                    <p className={styles.noErrors}>
+                      <Translate id="playground.output.noErrors">No errors</Translate>
+                    </p>
                   )
                 ) : (
                   <pre className={styles.outputCode}>
@@ -337,8 +356,12 @@ export default function Playground(): JSX.Element {
 
         <div className={styles.footer}>
           <p>
-            <strong>Note:</strong> This playground uses a simplified compiler for demonstration.
-            For full functionality, install T-Ruby locally with <code>gem install t-ruby</code>.
+            <strong>
+              <Translate id="playground.footer.note">
+                Note: This playground uses a simplified compiler for demonstration.
+                For full functionality, install T-Ruby locally with gem install t-ruby.
+              </Translate>
+            </strong>
           </p>
         </div>
       </div>

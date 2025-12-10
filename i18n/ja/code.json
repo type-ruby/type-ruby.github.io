@@ -202,5 +202,265 @@
   "homepage.features.zeroRuntime.description": {
     "message": "型はビルド時にのみ存在します。ランタイムオーバーヘッドなしで純粋なRubyコードにコンパイルされます。",
     "description": "Feature description"
+  },
+  "homepage.hero.badge": {
+    "message": "実験的",
+    "description": "Experimental badge"
+  },
+  "homepage.hero.title2": {
+    "message": "型安全なRubyを",
+    "description": "Hero title line 1"
+  },
+  "homepage.hero.titleHighlight": {
+    "message": "TypeScriptの方法で",
+    "description": "Hero title line 2 highlighted"
+  },
+  "homepage.hero.subtitle2": {
+    "message": "型アノテーション付きの.trbファイルを書きましょう。ランタイムオーバーヘッドなしで標準の.rbファイルにコンパイルします。",
+    "description": "Hero subtitle"
+  },
+  "homepage.install.command": {
+    "message": "gem install t-ruby",
+    "description": "Install command"
+  },
+  "homepage.features.typeSafety.title": {
+    "message": "型安全性",
+    "description": "Feature title"
+  },
+  "homepage.features.typeSafety.description": {
+    "message": "ランタイムではなくコンパイル時に型エラーをキャッチします。既存のRubyコードに徐々に型を追加できます。",
+    "description": "Feature description"
+  },
+  "homepage.features.rbsGeneration.title": {
+    "message": "RBS生成",
+    "description": "Feature title"
+  },
+  "homepage.features.rbsGeneration.description": {
+    "message": "Steep、Ruby LSPなどとの統合のために.rbsシグネチャファイルを自動的に生成します。",
+    "description": "Feature description"
+  },
+  "homepage.features.tsInspired.title": {
+    "message": "TypeScriptにインスパイア",
+    "description": "Feature title"
+  },
+  "homepage.features.tsInspired.description": {
+    "message": "TypeScript開発者にとって馴染みのある構文。Union型、ジェネリクス、インターフェースなどをサポートします。",
+    "description": "Feature description"
+  },
+  "homepage.features.greatDX.title": {
+    "message": "優れたDX",
+    "description": "Feature title"
+  },
+  "homepage.features.greatDX.description": {
+    "message": "構文ハイライト、LSP、リアルタイムエラー報告をサポートするVS CodeとNeovimのサポート。",
+    "description": "Feature description"
+  },
+  "homepage.features.gradualAdoption.title": {
+    "message": "段階的な導入",
+    "description": "Feature title"
+  },
+  "homepage.features.gradualAdoption.description": {
+    "message": "1つのファイルから始めましょう。型付きコードと型なしコードを混在させることができます。自分のペースで移行してください。",
+    "description": "Feature description"
+  },
+  "homepage.codeShowcase.title": {
+    "message": "実際の動作を見る",
+    "description": "Code showcase title"
+  },
+  "homepage.codeShowcase.subtitle": {
+    "message": "型付きRubyを書いて、生成された型シグネチャと共に標準Rubyにコンパイルします。",
+    "description": "Code showcase subtitle"
+  },
+  "homepage.codeShowcase.input": {
+    "message": "入力",
+    "description": "Input label"
+  },
+  "homepage.codeShowcase.output": {
+    "message": "出力",
+    "description": "Output label"
+  },
+  "homepage.codeShowcase.generated": {
+    "message": "生成",
+    "description": "Generated label"
+  },
+  "homepage.quickStart.title": {
+    "message": "クイックスタート",
+    "description": "Quick start title"
+  },
+  "homepage.quickStart.step1.title": {
+    "message": "T-Rubyをインストール",
+    "description": "Step 1 title"
+  },
+  "homepage.quickStart.step2.title": {
+    "message": ".trbファイルを作成",
+    "description": "Step 2 title"
+  },
+  "homepage.quickStart.step3.title": {
+    "message": "コンパイルして実行",
+    "description": "Step 3 title"
+  },
+  "homepage.quickStart.cta": {
+    "message": "完全なガイドを読む",
+    "description": "Quick start CTA"
+  },
+  "homepage.tooling.title": {
+    "message": "お使いのツールと連携",
+    "description": "Tooling title"
+  },
+  "homepage.tooling.subtitle": {
+    "message": "T-RubyはRubyエコシステムとシームレスに統合されます。",
+    "description": "Tooling subtitle"
+  },
+  "homepage.tooling.editors.title": {
+    "message": "エディタ",
+    "description": "Editors title"
+  },
+  "homepage.tooling.editors.vscode": {
+    "message": "VS Code拡張機能",
+    "description": "VS Code extension"
+  },
+  "homepage.tooling.editors.neovim": {
+    "message": "Neovimプラグイン",
+    "description": "Neovim plugin"
+  },
+  "homepage.tooling.editors.lsp": {
+    "message": "ランゲージサーバー（LSP）",
+    "description": "Language server"
+  },
+  "homepage.tooling.typeCheckers.title": {
+    "message": "型チェッカー",
+    "description": "Type checkers title"
+  },
+  "homepage.tooling.typeCheckers.steep": {
+    "message": "Steep",
+    "description": "Steep"
+  },
+  "homepage.tooling.typeCheckers.rubyLsp": {
+    "message": "Ruby LSP",
+    "description": "Ruby LSP"
+  },
+  "homepage.tooling.typeCheckers.sorbet": {
+    "message": "Sorbet（RBS経由）",
+    "description": "Sorbet via RBS"
+  },
+  "homepage.tooling.ecosystem.title": {
+    "message": "Rubyエコシステム",
+    "description": "Ruby ecosystem title"
+  },
+  "homepage.tooling.ecosystem.rbs": {
+    "message": "RBS互換",
+    "description": "RBS compatible"
+  },
+  "homepage.tooling.ecosystem.ruby": {
+    "message": "すべてのRubyバージョン",
+    "description": "Any Ruby version"
+  },
+  "homepage.tooling.ecosystem.gems": {
+    "message": "すべてのgemが動作",
+    "description": "All gems work"
+  },
+  "homepage.layout.title": {
+    "message": "型安全なRuby",
+    "description": "Layout title"
+  },
+  "homepage.layout.description": {
+    "message": "T-Ruby: RubyのためのTypeScriptスタイル型システム。型アノテーション付きの.trbファイルを書いて、標準の.rbファイルにコンパイルします。",
+    "description": "Layout description"
+  },
+  "playground.title": {
+    "message": "プレイグラウンド",
+    "description": "Playground title"
+  },
+  "playground.subtitle": {
+    "message": "T-Rubyコードを書いて、コンパイルされた出力をリアルタイムで確認しましょう。",
+    "description": "Playground subtitle"
+  },
+  "playground.input.title": {
+    "message": "入力",
+    "description": "Input panel title"
+  },
+  "playground.input.filename": {
+    "message": "example.trb",
+    "description": "Input filename"
+  },
+  "playground.input.placeholder": {
+    "message": "ここにT-Rubyコードを書いてください...",
+    "description": "Editor placeholder"
+  },
+  "playground.output.title": {
+    "message": "出力",
+    "description": "Output panel title"
+  },
+  "playground.output.ruby": {
+    "message": ".rb",
+    "description": "Ruby output tab"
+  },
+  "playground.output.rbs": {
+    "message": ".rbs",
+    "description": "RBS output tab"
+  },
+  "playground.output.errors": {
+    "message": "エラー",
+    "description": "Errors tab"
+  },
+  "playground.output.noErrors": {
+    "message": "エラーなし",
+    "description": "No errors message"
+  },
+  "playground.output.compilationErrors": {
+    "message": "コンパイルエラー",
+    "description": "Compilation errors title"
+  },
+  "playground.output.clickToCompile": {
+    "message": "# 出力を見るには「コンパイル」をクリックしてください",
+    "description": "Click to compile message"
+  },
+  "playground.output.clickToGenerateRbs": {
+    "message": "# RBSを生成するには「コンパイル」をクリックしてください",
+    "description": "Click to generate RBS message"
+  },
+  "playground.compile.button": {
+    "message": "コンパイル",
+    "description": "Compile button"
+  },
+  "playground.compile.compiling": {
+    "message": "コンパイル中...",
+    "description": "Compiling state"
+  },
+  "playground.examples.helloWorld": {
+    "message": "Hello World",
+    "description": "Hello World example"
+  },
+  "playground.examples.basicTypes": {
+    "message": "基本型",
+    "description": "Basic Types example"
+  },
+  "playground.examples.unionTypes": {
+    "message": "Union型",
+    "description": "Union Types example"
+  },
+  "playground.examples.generics": {
+    "message": "ジェネリクス",
+    "description": "Generics example"
+  },
+  "playground.examples.interfaces": {
+    "message": "インターフェース",
+    "description": "Interfaces example"
+  },
+  "playground.examples.classes": {
+    "message": "クラス",
+    "description": "Classes example"
+  },
+  "playground.footer.note": {
+    "message": "このプレイグラウンドはデモンストレーション用に簡略化されたコンパイラを使用しています。完全な機能を使用するには、gem install t-rubyでT-Rubyをローカルにインストールしてください。",
+    "description": "Footer note"
+  },
+  "playground.layout.title": {
+    "message": "プレイグラウンド",
+    "description": "Layout title"
+  },
+  "playground.layout.description": {
+    "message": "ブラウザでT-Rubyを試してみましょう",
+    "description": "Layout description"
   }
 }
