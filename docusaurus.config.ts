@@ -11,11 +11,11 @@ const config: Config = {
     v4: true,
   },
 
-  url: 'https://t-ruby.github.io',
+  url: 'https://type-ruby.github.io',
   baseUrl: '/',
 
   organizationName: 'type-ruby',
-  projectName: 't-ruby.github.io',
+  projectName: 'type-ruby.github.io',
 
   onBrokenLinks: 'throw',
   onBrokenMarkdownLinks: 'warn',
