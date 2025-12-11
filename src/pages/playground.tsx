@@ -155,41 +155,6 @@ interface TRubyCompiler {
   compile(code: string): CompileResult | Promise<CompileResult>;
 }
 
-// Fallback mock compiler (used when WASM fails to load)
-function createMockCompiler(): TRubyCompiler {
-  return {
-    compile(code: string): CompileResult {
-      const lines = code.split('\n');
-      const rubyLines: string[] = [];
-      const rbsLines: string[] = [];
-
-      for (const line of lines) {
-        let rubyLine = line
-          .replace(/\):\s*\w+(\s*\|\s*\w+)*(\?)?(\s*{|$)/g, ')$3')
-          .replace(/(\w+):\s*([A-Z]\w*(\s*\|\s*\w+)*\??)/g, '$1')
-          .replace(/<[A-Z]\w*(,\s*[A-Z]\w*)*>/g, '')
-          .replace(/^interface\s+.*$/g, '# interface removed')
-          .replace(/^\s*implements\s+.*$/g, '')
-          .replace(/@(\w+):\s*([A-Z]\w*(\s*\|\s*\w+)*\??)(\s*=.*)?$/g, '@$1$4');
-        rubyLines.push(rubyLine);
-      }
-
-      const methodMatches = code.matchAll(/def\s+(\w+)(\([^)]*\))?:\s*(\w+(\s*\|\s*\w+)*\??)/g);
-      for (const match of methodMatches) {
-        const [, name, params, returnType] = match;
-        rbsLines.push(`def ${name}: ${params || '()'} -> ${returnType}`);
-      }
-
-      return {
-        success: true,
-        ruby: rubyLines.join('\n'),
-        rbs: rbsLines.length > 0 ? rbsLines.join('\n\n') : '# No type signatures generated',
-        errors: [],
-      };
-    }
-  };
-}
-
 function PlaygroundContent(): JSX.Element {
   const [code, setCode] = useState(EXAMPLES['hello-world'].code);
   const [selectedExample, setSelectedExample] = useState<ExampleKey>('hello-world');
@@ -221,14 +186,10 @@ function PlaygroundContent(): JSX.Element {
       setCompiler(loadedCompiler);
       return loadedCompiler;
     } catch (error) {
-      console.warn('WASM compiler failed to load, using mock compiler:', error);
+      console.error('WASM compiler failed to load:', error);
       setCompilerState('error');
-      setLoadingMessage('');
-
-      // Fall back to mock compiler
-      const mockCompiler = createMockCompiler();
-      setCompiler(mockCompiler);
-      return mockCompiler;
+      setLoadingMessage(error instanceof Error ? error.message : 'Failed to load compiler');
+      throw error;
     }
   }, []);
 
@@ -308,7 +269,7 @@ function PlaygroundContent(): JSX.Element {
         )}
         {compilerState === 'error' && (
           <span className={styles.compilerStatusFallback}>
-            <Translate id="playground.status.fallback">Using simplified compiler</Translate>
+            Compiler Error
           </span>
         )}
       </div>
@@ -422,10 +383,8 @@ function PlaygroundContent(): JSX.Element {
       <div className={styles.footer}>
         <p>
           {compilerState === 'error' ? (
-            <strong>
-              <Translate id="playground.footer.fallbackNote">
-                Note: Using simplified compiler. For full functionality, install T-Ruby locally with gem install t-ruby.
-              </Translate>
+            <strong style={{color: 'var(--ifm-color-danger)'}}>
+              {loadingMessage || 'Failed to load compiler. Please try refreshing the page.'}
             </strong>
           ) : (
             <Translate id="playground.footer.wasmNote">
