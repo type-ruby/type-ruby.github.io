@@ -45,6 +45,12 @@ function generateRequestId(): string {
   return `req_${++requestIdCounter}_${Date.now()}`;
 }
 
+// T-Ruby WASM package version - update this when publishing new version
+const T_RUBY_WASM_VERSION = '0.0.8';
+
+// T-Ruby library CDN base URL
+const T_RUBY_CDN_BASE = `https://cdn.jsdelivr.net/npm/@t-ruby/wasm@${T_RUBY_WASM_VERSION}/dist/lib/`;
+
 // T-Ruby library files in dependency order (only core compilation files)
 // Excluded: lsp_server, watcher, cli, cache, package_manager, bundler_integration, benchmark, doc_generator
 // These require external gems (listen, etc.) not available in WASM
@@ -80,8 +86,8 @@ const RUBY_WASM_CDN = 'https://cdn.jsdelivr.net/npm/@ruby/wasm-wasi@2.7.1/dist/b
 // Use Ruby 3.4 WASM binary (more stable)
 const RUBY_WASM_BINARY = 'https://cdn.jsdelivr.net/npm/@ruby/3.4-wasm-wasi@2.7.1/dist/ruby+stdlib.wasm';
 
-// T-Ruby library base URL (will be set from main thread)
-let T_RUBY_LIB_BASE = '';
+// T-Ruby library CDN base URL
+const T_RUBY_LIB_BASE = '${T_RUBY_CDN_BASE}';
 
 // T-Ruby library files in dependency order
 const T_RUBY_FILES = ${JSON.stringify(T_RUBY_FILES)};
@@ -263,8 +269,6 @@ self.addEventListener('message', (event) => {
 
   switch (type) {
     case 'init':
-      // Set base URL from main thread
-      T_RUBY_LIB_BASE = data.origin + '/t-ruby-lib/';
       initialize();
       break;
     case 'compile':
@@ -335,7 +339,7 @@ async function doLoadCompiler(
       switch (type) {
         case 'loaded':
           console.log('[T-Ruby] Worker loaded, sending init command...');
-          worker.postMessage({ type: 'init', data: { origin: window.location.origin } });
+          worker.postMessage({ type: 'init' });
           break;
 
         case 'progress':
