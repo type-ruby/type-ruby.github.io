@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>T-Ruby WASM Worker</title>
+</head>
+<body>
+<script type="module">
+// CDN URLs
+const RUBY_WASM_CDN = 'https://cdn.jsdelivr.net/npm/@ruby/3.3-wasm-wasi@2.7.0/dist/browser/+esm';
+const RUBY_WASM_BINARY = 'https://cdn.jsdelivr.net/npm/@ruby/3.3-wasm-wasi@2.7.0/dist/ruby+stdlib.wasm';
+
+// Bootstrap code for T-Ruby compiler
+const BOOTSTRAP_CODE = `
+require "json"
+
+$trb_compiler = nil
+
+def get_compiler
+  $trb_compiler ||= TRuby::Compiler.new
+end
+
+def __trb_compile__(code)
+  compiler = get_compiler
+
+  begin
+    result = compiler.compile_string(code)
+
+    {
+      success: result[:errors].empty?,
+      ruby: result[:ruby] || "",
+      rbs: result[:rbs] || "",
+      errors: result[:errors] || []
+    }.to_json
+  rescue TRuby::ParseError => e
+    {
+      success: false,
+      ruby: "",
+      rbs: "",
+      errors: [e.message]
+    }.to_json
+  rescue StandardError => e
+    {
+      success: false,
+      ruby: "",
+      rbs: "",
+      errors: ["Compilation error: " + e.message]
+    }.to_json
+  end
+end
+
+def __trb_health_check__
+  {
+    loaded: defined?(TRuby) == "constant",
+    version: defined?(TRuby::VERSION) ? TRuby::VERSION : "unknown",
+    ruby_version: RUBY_VERSION
+  }.to_json
+end
+`;
+
+let vm = null;
+let isReady = false;
+
+// Send message to parent
+function sendToParent(type, data, requestId) {
+  parent.postMessage({ type, data, requestId }, '*');
+}
+
+// Initialize Ruby VM
+async function initialize() {
+  try {
+    console.log('[WASM Worker] Step 1: Loading Ruby WASM module...');
+    sendToParent('progress', { message: 'Loading Ruby runtime...', progress: 10 });
+
+    const { DefaultRubyVM } = await import(RUBY_WASM_CDN);
+    console.log('[WASM Worker] Step 1 complete');
+
+    console.log('[WASM Worker] Step 2: Fetching WASM binary...');
+    sendToParent('progress', { message: 'Downloading Ruby WASM binary...', progress: 30 });
+
+    const response = await fetch(RUBY_WASM_BINARY);
+    const wasmModule = await WebAssembly.compileStreaming(response);
+    console.log('[WASM Worker] Step 2 complete');
+
+    console.log('[WASM Worker] Step 3: Initializing Ruby VM...');
+    sendToParent('progress', { message: 'Initializing Ruby VM...', progress: 60 });
+
+    const result = await DefaultRubyVM(wasmModule);
+    vm = result.vm;
+    console.log('[WASM Worker] Step 3 complete');
+
+    console.log('[WASM Worker] Step 4: Loading T-Ruby bootstrap...');
+    sendToParent('progress', { message: 'Loading T-Ruby compiler...', progress: 80 });
+
+    vm.eval(BOOTSTRAP_CODE);
+    console.log('[WASM Worker] Step 4 complete');
+
+    // Health check
+    const healthResult = vm.eval('__trb_health_check__');
+    console.log('[WASM Worker] Health check:', healthResult.toString());
+
+    isReady = true;
+    sendToParent('ready', { health: JSON.parse(healthResult.toString()) });
+
+  } catch (error) {
+    console.error('[WASM Worker] Init error:', error);
+    sendToParent('error', { message: error.message });
+  }
+}
+
+// Compile code
+function compile(code, requestId) {
+  if (!isReady || !vm) {
+    sendToParent('compile-result', {
+      success: false,
+      errors: ['Compiler not ready']
+    }, requestId);
+    return;
+  }
+
+  try {
+    console.log('[WASM Worker] Compiling:', code.substring(0, 50) + '...');
+    const resultJson = vm.eval(`__trb_compile__(${JSON.stringify(code)})`);
+    const result = JSON.parse(resultJson.toString());
+    console.log('[WASM Worker] Compile result:', result);
+    sendToParent('compile-result', result, requestId);
+  } catch (error) {
+    console.error('[WASM Worker] Compile error:', error);
+    sendToParent('compile-result', {
+      success: false,
+      ruby: '',
+      rbs: '',
+      errors: [error.message]
+    }, requestId);
+  }
+}
+
+// Listen for messages from parent
+window.addEventListener('message', (event) => {
+  const { type, data, requestId } = event.data || {};
+
+  switch (type) {
+    case 'init':
+      initialize();
+      break;
+    case 'compile':
+      compile(data.code, requestId);
+      break;
+  }
+});
+
+// Signal that worker is loaded
+sendToParent('loaded', {});
+</script>
+</body>
+</html>

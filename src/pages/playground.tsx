@@ -152,7 +152,7 @@ interface CompileResult {
 }
 
 interface TRubyCompiler {
-  compile(code: string): CompileResult;
+  compile(code: string): CompileResult | Promise<CompileResult>;
 }
 
 // Fallback mock compiler (used when WASM fails to load)
@@ -249,7 +249,7 @@ function PlaygroundContent(): JSX.Element {
       }
 
       // Compile the code
-      const result = currentCompiler.compile(code);
+      const result = await currentCompiler.compile(code);
 
       setOutput({
         ruby: result.ruby,
