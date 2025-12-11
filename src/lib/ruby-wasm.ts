@@ -127,6 +127,7 @@ async function doLoadCompiler(
 ): Promise<TRubyCompiler> {
   try {
     // Step 1: Load Ruby WASM module
+    console.log('[T-Ruby] Step 1: Loading Ruby WASM module from', RUBY_WASM_CDN);
     onProgress?.({
       state: 'loading',
       message: 'Loading Ruby runtime...',
@@ -134,6 +135,7 @@ async function doLoadCompiler(
     });
 
     const { DefaultRubyVM } = await import(/* webpackIgnore: true */ RUBY_WASM_CDN);
+    console.log('[T-Ruby] Step 1 complete: DefaultRubyVM loaded');
 
     onProgress?.({
       state: 'loading',
@@ -142,8 +144,11 @@ async function doLoadCompiler(
     });
 
     // Step 2: Fetch and compile WASM binary
+    console.log('[T-Ruby] Step 2: Fetching WASM binary from', RUBY_WASM_BINARY);
     const response = await fetch(RUBY_WASM_BINARY);
+    console.log('[T-Ruby] Step 2: WASM fetch response status:', response.status);
     const wasmModule = await WebAssembly.compileStreaming(response);
+    console.log('[T-Ruby] Step 2 complete: WASM module compiled');
 
     onProgress?.({
       state: 'loading',
@@ -152,8 +157,10 @@ async function doLoadCompiler(
     });
 
     // Step 3: Initialize Ruby VM
+    console.log('[T-Ruby] Step 3: Initializing Ruby VM...');
     const { vm } = await DefaultRubyVM(wasmModule);
     rubyVM = vm;
+    console.log('[T-Ruby] Step 3 complete: Ruby VM initialized');
 
     onProgress?.({
       state: 'loading',
@@ -162,11 +169,15 @@ async function doLoadCompiler(
     });
 
     // Step 4: Load T-Ruby library
-    // For now, we'll use a simplified approach that works without VFS mounting
-    // In production, the T-Ruby lib files should be bundled or fetched
+    console.log('[T-Ruby] Step 4: Loading T-Ruby compiler bootstrap...');
 
     // Initialize the compiler bootstrap
     vm.eval(BOOTSTRAP_CODE);
+    console.log('[T-Ruby] Step 4 complete: Bootstrap code evaluated');
+
+    // Health check
+    const healthResult = vm.eval('__trb_health_check__');
+    console.log('[T-Ruby] Health check:', healthResult.toString());
 
     onProgress?.({
       state: 'ready',
@@ -177,8 +188,18 @@ async function doLoadCompiler(
     // Return compiler interface
     return {
       compile(code: string): CompileResult {
-        const resultJson = vm.eval(`__trb_compile__(${JSON.stringify(code)})`);
-        return JSON.parse(resultJson.toString());
+        console.log('[T-Ruby] Compiling code:', code.substring(0, 100) + (code.length > 100 ? '...' : ''));
+        try {
+          const resultJson = vm.eval(`__trb_compile__(${JSON.stringify(code)})`);
+          const resultStr = resultJson.toString();
+          console.log('[T-Ruby] Raw compile result:', resultStr);
+          const result = JSON.parse(resultStr);
+          console.log('[T-Ruby] Parsed compile result:', result);
+          return result;
+        } catch (e) {
+          console.error('[T-Ruby] Compile error:', e);
+          throw e;
+        }
       },
 
       healthCheck() {
@@ -192,6 +213,7 @@ async function doLoadCompiler(
       }
     };
   } catch (error) {
+    console.error('[T-Ruby] Loading error:', error);
     onProgress?.({
       state: 'error',
       message: error instanceof Error ? error.message : 'Unknown error'
