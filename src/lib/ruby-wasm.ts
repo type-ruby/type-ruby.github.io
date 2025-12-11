@@ -55,26 +55,6 @@ const WORKER_HTML = `<!DOCTYPE html>
   <title>T-Ruby WASM Worker</title>
 </head>
 <body>
-<script>
-// Protect native APIs before any extension can modify them
-(function() {
-  const nativeFinalizationRegistry = window.FinalizationRegistry;
-  const nativeWeakRef = window.WeakRef;
-
-  // Ensure these are the native implementations
-  Object.defineProperty(window, 'FinalizationRegistry', {
-    value: nativeFinalizationRegistry,
-    writable: false,
-    configurable: false
-  });
-
-  Object.defineProperty(window, 'WeakRef', {
-    value: nativeWeakRef,
-    writable: false,
-    configurable: false
-  });
-})();
-<\/script>
 <script type="module">
 // CDN URLs
 const RUBY_WASM_CDN = 'https://cdn.jsdelivr.net/npm/@ruby/3.3-wasm-wasi@2.7.0/dist/browser/+esm';
@@ -266,14 +246,20 @@ async function doLoadCompiler(
       progress: 5
     });
 
-    // Create sandboxed iframe with srcdoc
-    // Using srcdoc creates an about:srcdoc origin which most extensions don't target
+    // Create iframe with blob URL
+    // Using blob: URL creates a unique origin that extensions typically don't target
     const iframe = document.createElement('iframe');
     iframe.style.display = 'none';
-    // allow-scripts: needed to run JavaScript
-    // allow-same-origin: needed for postMessage to work properly
-    iframe.sandbox.add('allow-scripts');
-    iframe.srcdoc = WORKER_HTML;
+
+    // Create blob URL - this gives us a blob: origin
+    const blob = new Blob([WORKER_HTML], { type: 'text/html' });
+    const blobUrl = URL.createObjectURL(blob);
+    iframe.src = blobUrl;
+
+    // Clean up blob URL after iframe loads
+    iframe.onload = () => {
+      URL.revokeObjectURL(blobUrl);
+    };
 
     // Message handler
     const messageHandler = (event: MessageEvent) => {
