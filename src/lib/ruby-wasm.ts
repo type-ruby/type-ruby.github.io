@@ -1,13 +1,9 @@
 /**
  * T-Ruby WASM Loader for Playground
  *
- * Handles lazy loading and initialization of Ruby WASM with T-Ruby compiler
+ * Uses a sandboxed iframe to isolate WASM execution from browser extensions
+ * that might interfere with FinalizationRegistry and other APIs.
  */
-
-// CDN URLs
-const RUBY_WASM_CDN = 'https://cdn.jsdelivr.net/npm/@ruby/3.3-wasm-wasi@2.7.0/dist/browser/+esm';
-const RUBY_WASM_BINARY = 'https://cdn.jsdelivr.net/npm/@ruby/3.3-wasm-wasi@2.7.0/dist/ruby+stdlib.wasm';
-const T_RUBY_LIB_CDN = 'https://cdn.jsdelivr.net/npm/@t-ruby/wasm/dist/lib/';
 
 // Types
 export interface CompileResult {
@@ -18,7 +14,7 @@ export interface CompileResult {
 }
 
 export interface TRubyCompiler {
-  compile(code: string): CompileResult;
+  compile(code: string): Promise<CompileResult>;
   healthCheck(): { loaded: boolean; version: string; ruby_version: string };
   getVersion(): { t_ruby: string; ruby: string };
 }
@@ -32,68 +28,25 @@ export interface LoadingProgress {
 }
 
 // Singleton state
-let rubyVM: any = null;
 let compiler: TRubyCompiler | null = null;
 let loadingPromise: Promise<TRubyCompiler> | null = null;
+let workerIframe: HTMLIFrameElement | null = null;
+let healthData: { loaded: boolean; version: string; ruby_version: string } | null = null;
 
-// Bootstrap code for T-Ruby compiler
-const BOOTSTRAP_CODE = `
-require "json"
+// Pending compile requests
+const pendingRequests = new Map<string, {
+  resolve: (result: CompileResult) => void;
+  reject: (error: Error) => void;
+}>();
 
-# Global compiler instance
-$trb_compiler = nil
+let requestIdCounter = 0;
 
-def get_compiler
-  $trb_compiler ||= TRuby::Compiler.new
-end
-
-def __trb_compile__(code)
-  compiler = get_compiler
-
-  begin
-    result = compiler.compile_string(code)
-
-    {
-      success: result[:errors].empty?,
-      ruby: result[:ruby] || "",
-      rbs: result[:rbs] || "",
-      errors: result[:errors] || []
-    }.to_json
-  rescue TRuby::ParseError => e
-    {
-      success: false,
-      ruby: "",
-      rbs: "",
-      errors: [e.message]
-    }.to_json
-  rescue StandardError => e
-    {
-      success: false,
-      ruby: "",
-      rbs: "",
-      errors: ["Compilation error: " + e.message]
-    }.to_json
-  end
-end
-
-def __trb_health_check__
-  {
-    loaded: defined?(TRuby) == "constant",
-    version: defined?(TRuby::VERSION) ? TRuby::VERSION : "unknown",
-    ruby_version: RUBY_VERSION
-  }.to_json
-end
-
-def __trb_version__
-  {
-    t_ruby: defined?(TRuby::VERSION) ? TRuby::VERSION : "unknown",
-    ruby: RUBY_VERSION
-  }.to_json
-end
-`;
+function generateRequestId(): string {
+  return `req_${++requestIdCounter}_${Date.now()}`;
+}
 
 /**
- * Load the T-Ruby WASM compiler
+ * Load the T-Ruby WASM compiler using sandboxed iframe
  * Returns cached instance if already loaded
  */
 export async function loadTRubyCompiler(
@@ -125,101 +78,142 @@ export async function loadTRubyCompiler(
 async function doLoadCompiler(
   onProgress?: (progress: LoadingProgress) => void
 ): Promise<TRubyCompiler> {
-  try {
-    // Step 1: Load Ruby WASM module
-    console.log('[T-Ruby] Step 1: Loading Ruby WASM module from', RUBY_WASM_CDN);
+  return new Promise((resolve, reject) => {
+    console.log('[T-Ruby] Creating sandboxed iframe for WASM execution...');
     onProgress?.({
       state: 'loading',
-      message: 'Loading Ruby runtime...',
-      progress: 10
+      message: 'Initializing compiler sandbox...',
+      progress: 5
     });
 
-    const { DefaultRubyVM } = await import(/* webpackIgnore: true */ RUBY_WASM_CDN);
-    console.log('[T-Ruby] Step 1 complete: DefaultRubyVM loaded');
+    // Create sandboxed iframe
+    const iframe = document.createElement('iframe');
+    iframe.style.display = 'none';
+    iframe.sandbox.add('allow-scripts');
+    iframe.src = '/wasm-worker.html';
 
-    onProgress?.({
-      state: 'loading',
-      message: 'Downloading Ruby WASM binary...',
-      progress: 30
-    });
+    // Message handler
+    const messageHandler = (event: MessageEvent) => {
+      // Only accept messages from our iframe
+      if (event.source !== iframe.contentWindow) return;
 
-    // Step 2: Fetch and compile WASM binary
-    console.log('[T-Ruby] Step 2: Fetching WASM binary from', RUBY_WASM_BINARY);
-    const response = await fetch(RUBY_WASM_BINARY);
-    console.log('[T-Ruby] Step 2: WASM fetch response status:', response.status);
-    const wasmModule = await WebAssembly.compileStreaming(response);
-    console.log('[T-Ruby] Step 2 complete: WASM module compiled');
+      const { type, data, requestId } = event.data || {};
+      console.log('[T-Ruby] Received message from worker:', type, data);
 
-    onProgress?.({
-      state: 'loading',
-      message: 'Initializing Ruby VM...',
-      progress: 60
-    });
+      switch (type) {
+        case 'loaded':
+          console.log('[T-Ruby] Worker iframe loaded, sending init command...');
+          iframe.contentWindow?.postMessage({ type: 'init' }, '*');
+          break;
 
-    // Step 3: Initialize Ruby VM
-    console.log('[T-Ruby] Step 3: Initializing Ruby VM...');
-    const { vm } = await DefaultRubyVM(wasmModule);
-    rubyVM = vm;
-    console.log('[T-Ruby] Step 3 complete: Ruby VM initialized');
+        case 'progress':
+          onProgress?.({
+            state: 'loading',
+            message: data.message,
+            progress: data.progress
+          });
+          break;
 
-    onProgress?.({
-      state: 'loading',
-      message: 'Loading T-Ruby compiler...',
-      progress: 80
-    });
+        case 'ready':
+          console.log('[T-Ruby] Worker ready, health:', data.health);
+          healthData = data.health;
+          onProgress?.({
+            state: 'ready',
+            message: 'Compiler ready',
+            progress: 100
+          });
 
-    // Step 4: Load T-Ruby library
-    console.log('[T-Ruby] Step 4: Loading T-Ruby compiler bootstrap...');
+          // Create compiler interface
+          const compilerInstance: TRubyCompiler = {
+            async compile(code: string): Promise<CompileResult> {
+              return new Promise((res, rej) => {
+                const reqId = generateRequestId();
+                pendingRequests.set(reqId, { resolve: res, reject: rej });
 
-    // Initialize the compiler bootstrap
-    vm.eval(BOOTSTRAP_CODE);
-    console.log('[T-Ruby] Step 4 complete: Bootstrap code evaluated');
+                console.log('[T-Ruby] Sending compile request:', reqId);
+                iframe.contentWindow?.postMessage({
+                  type: 'compile',
+                  data: { code },
+                  requestId: reqId
+                }, '*');
 
-    // Health check
-    const healthResult = vm.eval('__trb_health_check__');
-    console.log('[T-Ruby] Health check:', healthResult.toString());
+                // Timeout after 30 seconds
+                setTimeout(() => {
+                  if (pendingRequests.has(reqId)) {
+                    pendingRequests.delete(reqId);
+                    rej(new Error('Compile timeout'));
+                  }
+                }, 30000);
+              });
+            },
 
-    onProgress?.({
-      state: 'ready',
-      message: 'Compiler ready',
-      progress: 100
-    });
+            healthCheck() {
+              return healthData || { loaded: false, version: 'unknown', ruby_version: 'unknown' };
+            },
 
-    // Return compiler interface
-    return {
-      compile(code: string): CompileResult {
-        console.log('[T-Ruby] Compiling code:', code.substring(0, 100) + (code.length > 100 ? '...' : ''));
-        try {
-          const resultJson = vm.eval(`__trb_compile__(${JSON.stringify(code)})`);
-          const resultStr = resultJson.toString();
-          console.log('[T-Ruby] Raw compile result:', resultStr);
-          const result = JSON.parse(resultStr);
-          console.log('[T-Ruby] Parsed compile result:', result);
-          return result;
-        } catch (e) {
-          console.error('[T-Ruby] Compile error:', e);
-          throw e;
-        }
-      },
+            getVersion() {
+              return {
+                t_ruby: healthData?.version || 'unknown',
+                ruby: healthData?.ruby_version || 'unknown'
+              };
+            }
+          };
 
-      healthCheck() {
-        const resultJson = vm.eval('__trb_health_check__');
-        return JSON.parse(resultJson.toString());
-      },
+          workerIframe = iframe;
+          resolve(compilerInstance);
+          break;
 
-      getVersion() {
-        const resultJson = vm.eval('__trb_version__');
-        return JSON.parse(resultJson.toString());
+        case 'compile-result':
+          console.log('[T-Ruby] Compile result received for:', requestId);
+          const pending = pendingRequests.get(requestId);
+          if (pending) {
+            pendingRequests.delete(requestId);
+            pending.resolve(data);
+          }
+          break;
+
+        case 'error':
+          console.error('[T-Ruby] Worker error:', data.message);
+          onProgress?.({
+            state: 'error',
+            message: data.message
+          });
+          window.removeEventListener('message', messageHandler);
+          document.body.removeChild(iframe);
+          reject(new Error(data.message));
+          break;
       }
     };
-  } catch (error) {
-    console.error('[T-Ruby] Loading error:', error);
-    onProgress?.({
-      state: 'error',
-      message: error instanceof Error ? error.message : 'Unknown error'
-    });
-    throw error;
-  }
+
+    window.addEventListener('message', messageHandler);
+
+    // Error handling for iframe load failure
+    iframe.onerror = () => {
+      console.error('[T-Ruby] Failed to load worker iframe');
+      window.removeEventListener('message', messageHandler);
+      reject(new Error('Failed to load WASM worker'));
+    };
+
+    // Timeout for initial load
+    const loadTimeout = setTimeout(() => {
+      if (!compiler) {
+        console.error('[T-Ruby] Worker initialization timeout');
+        window.removeEventListener('message', messageHandler);
+        document.body.removeChild(iframe);
+        reject(new Error('WASM worker initialization timeout'));
+      }
+    }, 60000); // 60 second timeout for initial load
+
+    // Clear timeout when ready
+    const originalResolve = resolve;
+    resolve = (value) => {
+      clearTimeout(loadTimeout);
+      originalResolve(value);
+    };
+
+    // Add iframe to document
+    document.body.appendChild(iframe);
+  });
 }
 
 /**
