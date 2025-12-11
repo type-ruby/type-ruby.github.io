@@ -202,5 +202,265 @@
   "homepage.features.zeroRuntime.description": {
     "message": "타입은 빌드 시간에만 존재합니다. 런타임 오버헤드가 없는 순수 Ruby 코드로 컴파일됩니다.",
     "description": "Feature description"
+  },
+  "homepage.hero.badge": {
+    "message": "실험적",
+    "description": "Experimental badge"
+  },
+  "homepage.hero.title2": {
+    "message": "타입 안전한 Ruby를",
+    "description": "Hero title line 1"
+  },
+  "homepage.hero.titleHighlight": {
+    "message": "TypeScript 방식으로",
+    "description": "Hero title line 2 highlighted"
+  },
+  "homepage.hero.subtitle2": {
+    "message": "타입 어노테이션이 있는 .trb 파일을 작성하세요. 런타임 오버헤드 없이 표준 .rb 파일로 컴파일됩니다.",
+    "description": "Hero subtitle"
+  },
+  "homepage.install.command": {
+    "message": "gem install t-ruby",
+    "description": "Install command"
+  },
+  "homepage.features.typeSafety.title": {
+    "message": "타입 안전성",
+    "description": "Feature title"
+  },
+  "homepage.features.typeSafety.description": {
+    "message": "런타임이 아닌 컴파일 시간에 타입 오류를 찾아냅니다. 기존 Ruby 코드에 점진적으로 타입을 추가하세요.",
+    "description": "Feature description"
+  },
+  "homepage.features.rbsGeneration.title": {
+    "message": "RBS 생성",
+    "description": "Feature title"
+  },
+  "homepage.features.rbsGeneration.description": {
+    "message": "Steep, Ruby LSP 등과의 통합을 위해 .rbs 서명 파일을 자동으로 생성합니다.",
+    "description": "Feature description"
+  },
+  "homepage.features.tsInspired.title": {
+    "message": "TypeScript에서 영감받은",
+    "description": "Feature title"
+  },
+  "homepage.features.tsInspired.description": {
+    "message": "TypeScript 개발자에게 친숙한 문법. Union 타입, 제네릭, 인터페이스 등을 지원합니다.",
+    "description": "Feature description"
+  },
+  "homepage.features.greatDX.title": {
+    "message": "훌륭한 개발 경험",
+    "description": "Feature title"
+  },
+  "homepage.features.greatDX.description": {
+    "message": "구문 강조, LSP, 실시간 오류 보고를 지원하는 VS Code 및 Neovim 지원.",
+    "description": "Feature description"
+  },
+  "homepage.features.gradualAdoption.title": {
+    "message": "점진적 도입",
+    "description": "Feature title"
+  },
+  "homepage.features.gradualAdoption.description": {
+    "message": "하나의 파일부터 시작하세요. 타입이 있는 코드와 없는 코드를 혼합할 수 있습니다. 자신의 속도에 맞춰 마이그레이션하세요.",
+    "description": "Feature description"
+  },
+  "homepage.codeShowcase.title": {
+    "message": "실제 동작 보기",
+    "description": "Code showcase title"
+  },
+  "homepage.codeShowcase.subtitle": {
+    "message": "타입이 있는 Ruby를 작성하고, 생성된 타입 서명과 함께 표준 Ruby로 컴파일합니다.",
+    "description": "Code showcase subtitle"
+  },
+  "homepage.codeShowcase.input": {
+    "message": "입력",
+    "description": "Input label"
+  },
+  "homepage.codeShowcase.output": {
+    "message": "출력",
+    "description": "Output label"
+  },
+  "homepage.codeShowcase.generated": {
+    "message": "생성됨",
+    "description": "Generated label"
+  },
+  "homepage.quickStart.title": {
+    "message": "빠른 시작",
+    "description": "Quick start title"
+  },
+  "homepage.quickStart.step1.title": {
+    "message": "T-Ruby 설치",
+    "description": "Step 1 title"
+  },
+  "homepage.quickStart.step2.title": {
+    "message": ".trb 파일 생성",
+    "description": "Step 2 title"
+  },
+  "homepage.quickStart.step3.title": {
+    "message": "컴파일 및 실행",
+    "description": "Step 3 title"
+  },
+  "homepage.quickStart.cta": {
+    "message": "전체 가이드 읽기",
+    "description": "Quick start CTA"
+  },
+  "homepage.tooling.title": {
+    "message": "사용하는 도구와 함께 작동",
+    "description": "Tooling title"
+  },
+  "homepage.tooling.subtitle": {
+    "message": "T-Ruby는 Ruby 에코시스템과 완벽하게 통합됩니다.",
+    "description": "Tooling subtitle"
+  },
+  "homepage.tooling.editors.title": {
+    "message": "편집기",
+    "description": "Editors title"
+  },
+  "homepage.tooling.editors.vscode": {
+    "message": "VS Code 확장",
+    "description": "VS Code extension"
+  },
+  "homepage.tooling.editors.neovim": {
+    "message": "Neovim 플러그인",
+    "description": "Neovim plugin"
+  },
+  "homepage.tooling.editors.lsp": {
+    "message": "언어 서버 (LSP)",
+    "description": "Language server"
+  },
+  "homepage.tooling.typeCheckers.title": {
+    "message": "타입 체커",
+    "description": "Type checkers title"
+  },
+  "homepage.tooling.typeCheckers.steep": {
+    "message": "Steep",
+    "description": "Steep"
+  },
+  "homepage.tooling.typeCheckers.rubyLsp": {
+    "message": "Ruby LSP",
+    "description": "Ruby LSP"
+  },
+  "homepage.tooling.typeCheckers.sorbet": {
+    "message": "Sorbet (RBS 통해)",
+    "description": "Sorbet via RBS"
+  },
+  "homepage.tooling.ecosystem.title": {
+    "message": "Ruby 에코시스템",
+    "description": "Ruby ecosystem title"
+  },
+  "homepage.tooling.ecosystem.rbs": {
+    "message": "RBS 호환",
+    "description": "RBS compatible"
+  },
+  "homepage.tooling.ecosystem.ruby": {
+    "message": "모든 Ruby 버전",
+    "description": "Any Ruby version"
+  },
+  "homepage.tooling.ecosystem.gems": {
+    "message": "모든 gem 작동",
+    "description": "All gems work"
+  },
+  "homepage.layout.title": {
+    "message": "타입 안전한 Ruby",
+    "description": "Layout title"
+  },
+  "homepage.layout.description": {
+    "message": "T-Ruby: Ruby를 위한 TypeScript 스타일 타입 시스템. 타입 어노테이션이 있는 .trb 파일을 작성하고, 표준 .rb 파일로 컴파일하세요.",
+    "description": "Layout description"
+  },
+  "playground.title": {
+    "message": "플레이그라운드",
+    "description": "Playground title"
+  },
+  "playground.subtitle": {
+    "message": "T-Ruby 코드를 작성하고 컴파일된 출력을 실시간으로 확인하세요.",
+    "description": "Playground subtitle"
+  },
+  "playground.input.title": {
+    "message": "입력",
+    "description": "Input panel title"
+  },
+  "playground.input.filename": {
+    "message": "example.trb",
+    "description": "Input filename"
+  },
+  "playground.input.placeholder": {
+    "message": "여기에 T-Ruby 코드를 작성하세요...",
+    "description": "Editor placeholder"
+  },
+  "playground.output.title": {
+    "message": "출력",
+    "description": "Output panel title"
+  },
+  "playground.output.ruby": {
+    "message": ".rb",
+    "description": "Ruby output tab"
+  },
+  "playground.output.rbs": {
+    "message": ".rbs",
+    "description": "RBS output tab"
+  },
+  "playground.output.errors": {
+    "message": "오류",
+    "description": "Errors tab"
+  },
+  "playground.output.noErrors": {
+    "message": "오류 없음",
+    "description": "No errors message"
+  },
+  "playground.output.compilationErrors": {
+    "message": "컴파일 오류",
+    "description": "Compilation errors title"
+  },
+  "playground.output.clickToCompile": {
+    "message": "# 출력을 보려면 \"컴파일\"을 클릭하세요",
+    "description": "Click to compile message"
+  },
+  "playground.output.clickToGenerateRbs": {
+    "message": "# RBS를 생성하려면 \"컴파일\"을 클릭하세요",
+    "description": "Click to generate RBS message"
+  },
+  "playground.compile.button": {
+    "message": "컴파일",
+    "description": "Compile button"
+  },
+  "playground.compile.compiling": {
+    "message": "컴파일 중...",
+    "description": "Compiling state"
+  },
+  "playground.examples.helloWorld": {
+    "message": "Hello World",
+    "description": "Hello World example"
+  },
+  "playground.examples.basicTypes": {
+    "message": "기본 타입",
+    "description": "Basic Types example"
+  },
+  "playground.examples.unionTypes": {
+    "message": "Union 타입",
+    "description": "Union Types example"
+  },
+  "playground.examples.generics": {
+    "message": "제네릭",
+    "description": "Generics example"
+  },
+  "playground.examples.interfaces": {
+    "message": "인터페이스",
+    "description": "Interfaces example"
+  },
+  "playground.examples.classes": {
+    "message": "클래스",
+    "description": "Classes example"
+  },
+  "playground.footer.note": {
+    "message": "이 플레이그라운드는 데모를 위해 단순화된 컴파일러를 사용합니다. 전체 기능을 사용하려면 gem install t-ruby로 T-Ruby를 로컬에 설치하세요.",
+    "description": "Footer note"
+  },
+  "playground.layout.title": {
+    "message": "플레이그라운드",
+    "description": "Layout title"
+  },
+  "playground.layout.description": {
+    "message": "브라우저에서 T-Ruby를 사용해보세요",
+    "description": "Layout description"
   }
 }

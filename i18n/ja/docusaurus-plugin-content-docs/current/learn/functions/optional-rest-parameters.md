@@ -1,0 +1,484 @@
+---
+sidebar_position: 2
+title: オプショナル & 残余パラメータ
+description: オプショナルパラメータと残余引数
+---
+
+# オプショナル & 残余パラメータ
+
+Ruby関数は、パラメータリストに柔軟性が必要になることがよくあります。T-Rubyは、完全な型安全性を維持しながら、オプショナルパラメータ（デフォルト値付き）と残余パラメータ（可変長引数リスト）の両方をサポートします。
+
+## デフォルト値付きオプショナルパラメータ
+
+オプショナルパラメータは、引数が提供されない場合に使用されるデフォルト値を持ちます：
+
+```ruby title="optional.trb"
+def greet(name: String, greeting: String = "Hello"): String
+  "#{greeting}, #{name}!"
+end
+
+def create_user(name: String, role: String = "user", active: Boolean = true): User
+  User.new(name: name, role: role, active: active)
+end
+
+# 異なる数の引数で呼び出し
+puts greet("Alice")                    # "Hello, Alice!"
+puts greet("Bob", "Hi")                # "Hi, Bob!"
+
+user1 = create_user("Alice")                           # デフォルト使用: role="user", active=true
+user2 = create_user("Bob", "admin")                    # デフォルト使用: active=true
+user3 = create_user("Charlie", "moderator", false)     # デフォルト使用なし
+```
+
+型アノテーションは、パラメータが提供されても、デフォルト値を使用しても適用されます。
+
+## Nilable型のオプショナルパラメータ
+
+「提供されていない」と「明示的にnil」を区別したい場合があります。nilable型を使用します：
+
+```ruby title="nilable_optional.trb"
+def format_title(text: String, prefix: String? = nil): String
+  if prefix
+    "#{prefix}: #{text}"
+  else
+    text
+  end
+end
+
+def send_email(to: String, subject: String, cc: String? = nil): void
+  email = Email.new(to: to, subject: subject)
+  email.cc = cc if cc
+  email.send
+end
+
+# nilableオプショナルパラメータの使用
+title1 = format_title("Introduction")              # "Introduction"
+title2 = format_title("Chapter 1", "Book")        # "Book: Chapter 1"
+title3 = format_title("Epilogue", nil)            # "Epilogue"
+
+send_email("alice@example.com", "Hello")
+send_email("bob@example.com", "Meeting", "team@example.com")
+```
+
+## 残余パラメータ
+
+残余パラメータは複数の引数を配列に収集します。配列の要素型を指定します：
+
+```ruby title="rest.trb"
+def sum(*numbers: Integer): Integer
+  numbers.reduce(0, :+)
+end
+
+def concat_strings(*strings: String): String
+  strings.join(" ")
+end
+
+def log_messages(level: String, *messages: String): void
+  messages.each do |msg|
+    puts "[#{level}] #{msg}"
+  end
+end
+
+# 可変引数で呼び出し
+puts sum(1, 2, 3, 4, 5)                    # 15
+puts sum(10)                                # 10
+puts sum()                                  # 0
+
+result = concat_strings("Hello", "world", "from", "T-Ruby")
+# "Hello world from T-Ruby"
+
+log_messages("INFO", "App started", "Database connected", "Ready")
+# [INFO] App started
+# [INFO] Database connected
+# [INFO] Ready
+```
+
+型アノテーション `*numbers: Integer` は「配列に収集される0個以上のInteger引数」を意味します。
+
+## オプショナルパラメータと残余パラメータの組み合わせ
+
+オプショナルパラメータと残余パラメータを組み合わせることができますが、残余パラメータはオプショナルパラメータの後に来る必要があります：
+
+```ruby title="combined.trb"
+def create_team(
+  name: String,
+  leader: String,
+  active: Boolean = true,
+  *members: String
+): Team
+  Team.new(
+    name: name,
+    leader: leader,
+    active: active,
+    members: members
+  )
+end
+
+# 様々な呼び出し方法
+team1 = create_team("Alpha", "Alice")
+# name="Alpha", leader="Alice", active=true, members=[]
+
+team2 = create_team("Beta", "Bob", false)
+# name="Beta", leader="Bob", active=false, members=[]
+
+team3 = create_team("Gamma", "Charlie", true, "Dave", "Eve", "Frank")
+# name="Gamma", leader="Charlie", active=true, members=["Dave", "Eve", "Frank"]
+```
+
+## キーワード引数
+
+Rubyのキーワード引数も型を指定できます。位置引数よりも明確性を提供します：
+
+```ruby title="keyword.trb"
+def create_post(
+  title: String,
+  content: String,
+  published: Boolean = false,
+  tags: Array<String> = []
+): Post
+  Post.new(
+    title: title,
+    content: content,
+    published: published,
+    tags: tags
+  )
+end
+
+# キーワード引数で呼び出し（順序は関係なし）
+post1 = create_post(
+  title: "My First Post",
+  content: "Hello world"
+)
+
+post2 = create_post(
+  content: "Another post",
+  title: "Second Post",
+  published: true,
+  tags: ["ruby", "programming"]
+)
+```
+
+## キーワード残余パラメータ
+
+ダブルスプラット `**` を使用してキーワード引数をハッシュに収集します：
+
+```ruby title="keyword_rest.trb"
+def build_query(table: String, **conditions: String | Integer): String
+  where_clause = conditions.map { |k, v| "#{k} = #{v}" }.join(" AND ")
+  "SELECT * FROM #{table} WHERE #{where_clause}"
+end
+
+def create_config(env: String, **options: String | Integer | Boolean): Config
+  Config.new(environment: env, options: options)
+end
+
+# キーワード残余パラメータの使用
+query1 = build_query(table: "users", id: 123, active: 1)
+# "SELECT * FROM users WHERE id = 123 AND active = 1"
+
+query2 = build_query(table: "posts", author_id: 5, published: 1, category: "tech")
+# "SELECT * FROM posts WHERE author_id = 5 AND published = 1 AND category = tech"
+
+config = create_config(
+  env: "production",
+  debug: false,
+  timeout: 30,
+  host: "example.com"
+)
+```
+
+型アノテーション `**conditions: String | Integer` は「ハッシュに収集されるStringまたはInteger値を持つ0個以上のキーワード引数」を意味します。
+
+## 必須キーワード引数
+
+Rubyでは、デフォルト値を省略することでキーワード引数を必須にできます：
+
+```ruby title="required_kwargs.trb"
+def register_user(
+  email: String,
+  password: String,
+  name: String = "Anonymous",
+  age: Integer
+): User
+  # email、password、ageは必須
+  # nameはデフォルト値付きのオプショナル
+  User.new(email: email, password: password, name: name, age: age)
+end
+
+# email、password、ageは必ず提供する必要がある
+user = register_user(
+  email: "alice@example.com",
+  password: "secret123",
+  age: 25
+)
+
+# nameはオプションで上書き可能
+user2 = register_user(
+  email: "bob@example.com",
+  password: "secret456",
+  name: "Bob",
+  age: 30
+)
+```
+
+## 位置、オプショナル、残余パラメータの混合
+
+すべてのパラメータタイプを組み合わせることができますが、次の順序に従う必要があります：
+1. 必須位置パラメータ
+2. オプショナル位置パラメータ
+3. 残余パラメータ (`*args`)
+4. 必須キーワード引数
+5. オプショナルキーワード引数
+6. キーワード残余パラメータ (`**kwargs`)
+
+```ruby title="all_types.trb"
+def complex_function(
+  required_pos: String,                    # 1. 必須位置
+  optional_pos: Integer = 0,               # 2. オプショナル位置
+  *rest_args: String,                      # 3. 残余パラメータ
+  required_kw: Boolean,                    # 4. 必須キーワード
+  optional_kw: String = "default",         # 5. オプショナルキーワード
+  **rest_kwargs: String | Integer          # 6. キーワード残余
+): Hash<String, String | Integer | Boolean>
+  {
+    "required_pos" => required_pos,
+    "optional_pos" => optional_pos,
+    "rest_args" => rest_args.join(","),
+    "required_kw" => required_kw,
+    "optional_kw" => optional_kw,
+    "rest_kwargs" => rest_kwargs
+  }
+end
+
+# 呼び出し例
+result = complex_function(
+  "hello",                    # required_pos
+  42,                         # optional_pos
+  "a", "b", "c",             # rest_args
+  required_kw: true,          # required_kw
+  optional_kw: "custom",      # optional_kw
+  extra1: "value1",           # rest_kwargs
+  extra2: 123                 # rest_kwargs
+)
+```
+
+## 実践例: HTTPリクエストビルダー
+
+様々なパラメータタイプを示す実際の例です：
+
+```ruby title="http_builder.trb"
+class HTTPRequestBuilder
+  # 必須パラメータのみ
+  def get(url: String): Response
+    make_request("GET", url, nil, {})
+  end
+
+  # 必須 + オプショナルパラメータ
+  def post(url: String, body: String, content_type: String = "application/json"): Response
+    headers = { "Content-Type" => content_type }
+    make_request("POST", url, body, headers)
+  end
+
+  # 必須 + 残余パラメータ
+  def delete(*urls: String): Array<Response>
+    urls.map { |url| make_request("DELETE", url, nil, {}) }
+  end
+
+  # デフォルト値付きキーワード引数
+  def request(
+    method: String,
+    url: String,
+    body: String? = nil,
+    timeout: Integer = 30,
+    retry_count: Integer = 3
+  ): Response
+    make_request(method, url, body, {}, timeout, retry_count)
+  end
+
+  # キーワード残余パラメータ
+  def custom_request(
+    method: String,
+    url: String,
+    **headers: String
+  ): Response
+    make_request(method, url, nil, headers)
+  end
+
+  private
+
+  def make_request(
+    method: String,
+    url: String,
+    body: String?,
+    headers: Hash<String, String>,
+    timeout: Integer = 30,
+    retry_count: Integer = 3
+  ): Response
+    # 実装の詳細...
+    Response.new
+  end
+end
+
+# ビルダーの使用
+builder = HTTPRequestBuilder.new
+
+# シンプルなGET
+response1 = builder.get("https://api.example.com/users")
+
+# カスタムcontent typeでPOST
+response2 = builder.post(
+  "https://api.example.com/users",
+  '{"name": "Alice"}',
+  "application/json"
+)
+
+# 複数リソースをDELETE
+responses = builder.delete(
+  "https://api.example.com/users/1",
+  "https://api.example.com/users/2",
+  "https://api.example.com/users/3"
+)
+
+# カスタムオプションでリクエスト
+response3 = builder.request(
+  method: "PATCH",
+  url: "https://api.example.com/users/1",
+  body: '{"age": 31}',
+  timeout: 60,
+  retry_count: 5
+)
+
+# カスタムヘッダーでリクエスト
+response4 = builder.custom_request(
+  method: "GET",
+  url: "https://api.example.com/protected",
+  Authorization: "Bearer token123",
+  Accept: "application/json",
+  User_Agent: "MyApp/1.0"
+)
+```
+
+## 実践例: ロガー
+
+柔軟なパラメータ処理を示す別の例です：
+
+```ruby title="logger.trb"
+class Logger
+  # オプショナルレベル付きのシンプルなメッセージ
+  def log(message: String, level: String = "INFO"): void
+    puts "[#{level}] #{message}"
+  end
+
+  # 残余パラメータで複数メッセージ
+  def log_many(level: String, *messages: String): void
+    messages.each { |msg| log(msg, level) }
+  end
+
+  # キーワード残余で構造化ロギング
+  def log_structured(message: String, **metadata: String | Integer | Boolean): void
+    meta_str = metadata.map { |k, v| "#{k}=#{v}" }.join(" ")
+    puts "[INFO] #{message} | #{meta_str}"
+  end
+
+  # 柔軟なデバッグロギング
+  def debug(*messages: String, **context: String | Integer): void
+    messages.each do |msg|
+      ctx_str = context.empty? ? "" : " (#{context.map { |k, v| "#{k}=#{v}" }.join(", ")})"
+      puts "[DEBUG] #{msg}#{ctx_str}"
+    end
+  end
+end
+
+# ロガーの使用
+logger = Logger.new
+
+# シンプルなロギング
+logger.log("Application started")
+logger.log("Warning: Low memory", "WARN")
+
+# 複数メッセージ
+logger.log_many("ERROR", "Database connection failed", "Retrying...", "Giving up")
+
+# 構造化ロギング
+logger.log_structured(
+  "User logged in",
+  user_id: 123,
+  ip: "192.168.1.1",
+  success: true
+)
+
+# コンテキスト付きデバッグ
+logger.debug(
+  "Processing request",
+  "Validating data",
+  "Saving to database",
+  request_id: 789,
+  user_id: 123
+)
+```
+
+## ベストプラクティス
+
+1. **真にオプショナルな動作にデフォルト値を使用する**: パラメータがオプショナルであることが意味を持つ場合にのみデフォルト値を追加します。
+
+2. **パラメータを論理的に順序付ける**: 必須パラメータを最初に、次にオプショナル、最後に残余パラメータを配置します。
+
+3. **明確性のためにキーワード引数を優先する**: 複数のオプショナルパラメータがある場合、キーワード引数は呼び出しをより読みやすくします。
+
+4. **コレクションには残余パラメータを使用する**: 可変数の類似アイテムを期待する場合、残余パラメータは配列パラメータよりもクリーンです。
+
+5. **残余パラメータに適切な型を付ける**: 文字列のみを期待する場合、`*args: String | Integer`より`*args: String`の方が良いです。
+
+6. **複雑なシグネチャを文書化する**: 多くのパラメータタイプを組み合わせる場合、使用法を説明するコメントを追加します。
+
+## 一般的なパターン
+
+### デフォルト付きビルダーメソッド
+
+```ruby title="builder_pattern.trb"
+def build_email(
+  to: String,
+  subject: String,
+  from: String = "noreply@example.com",
+  reply_to: String? = nil,
+  cc: Array<String> = [],
+  bcc: Array<String> = []
+): Email
+  Email.new(to, subject, from, reply_to, cc, bcc)
+end
+```
+
+### 可変ファクトリ関数
+
+```ruby title="factory.trb"
+def create_users(*names: String, role: String = "user"): Array<User>
+  names.map { |name| User.new(name: name, role: role) }
+end
+
+users = create_users("Alice", "Bob", "Charlie", role: "admin")
+```
+
+### 設定のマージ
+
+```ruby title="config.trb"
+def merge_config(base: Hash<String, String>, **overrides: String): Hash<String, String>
+  base.merge(overrides)
+end
+
+config = merge_config(
+  { "host" => "localhost", "port" => "3000" },
+  port: "8080",
+  ssl: "true"
+)
+```
+
+## まとめ
+
+オプショナルパラメータと残余パラメータは、型安全性を維持しながら関数に柔軟性を提供します：
+
+- **オプショナルパラメータ** (`param: Type = default`) はデフォルト値を持ちます
+- **残余パラメータ** (`*args: Type`) は複数の引数を配列に収集します
+- **キーワード残余** (`**kwargs: Type`) はキーワード引数をハッシュに収集します
+- T-Rubyはすべてのパラメータのバリエーションに対して型安全性を保証します
+
+これらのパターンをマスターして、使いやすい柔軟で型安全なAPIを作成しましょう。
