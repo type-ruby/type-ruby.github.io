@@ -253,3 +253,42 @@
   padding: 0.2rem 0.5rem;
   border-radius: 4px;
 }
+
+.loading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 400px;
+  color: var(--ifm-color-emphasis-600);
+  font-size: 1.1rem;
+}
+
+.compilerStatus {
+  display: inline-block;
+  margin-top: 0.5rem;
+  padding: 0.25rem 0.75rem;
+  background: rgba(34, 197, 94, 0.15);
+  color: #22c55e;
+  border-radius: 9999px;
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+[data-theme='dark'] .compilerStatus {
+  background: rgba(34, 197, 94, 0.2);
+}
+
+.compilerStatusFallback {
+  display: inline-block;
+  margin-top: 0.5rem;
+  padding: 0.25rem 0.75rem;
+  background: rgba(234, 179, 8, 0.15);
+  color: #eab308;
+  border-radius: 9999px;
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+[data-theme='dark'] .compilerStatusFallback {
+  background: rgba(234, 179, 8, 0.2);
+}
