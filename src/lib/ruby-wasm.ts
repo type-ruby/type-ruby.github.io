@@ -50,8 +50,10 @@ const WORKER_CODE = `
 // Web Worker for T-Ruby WASM compilation
 // This runs in a separate thread, isolated from browser extensions
 
-const RUBY_WASM_CDN = 'https://cdn.jsdelivr.net/npm/@ruby/3.3-wasm-wasi@2.7.0/dist/browser/+esm';
-const RUBY_WASM_BINARY = 'https://cdn.jsdelivr.net/npm/@ruby/3.3-wasm-wasi@2.7.0/dist/ruby+stdlib.wasm';
+// Use @ruby/wasm-wasi package directly for DefaultRubyVM
+const RUBY_WASM_CDN = 'https://cdn.jsdelivr.net/npm/@ruby/wasm-wasi@2.7.1/dist/browser/+esm';
+// Use Ruby 3.4 WASM binary (more stable)
+const RUBY_WASM_BINARY = 'https://cdn.jsdelivr.net/npm/@ruby/3.4-wasm-wasi@2.7.1/dist/ruby+stdlib.wasm';
 
 const BOOTSTRAP_CODE = \`
 require "json"
