@@ -1,8 +1,8 @@
 /**
  * T-Ruby WASM Loader for Playground
  *
- * Uses a sandboxed iframe with srcdoc to isolate WASM execution from browser extensions
- * that might interfere with FinalizationRegistry and other APIs.
+ * Uses a Web Worker to isolate WASM execution from browser extensions.
+ * Web Workers run in a separate thread and extensions don't inject content scripts into them.
  */
 
 // Types
@@ -30,7 +30,7 @@ export interface LoadingProgress {
 // Singleton state
 let compiler: TRubyCompiler | null = null;
 let loadingPromise: Promise<TRubyCompiler> | null = null;
-let workerIframe: HTMLIFrameElement | null = null;
+let wasmWorker: Worker | null = null;
 let healthData: { loaded: boolean; version: string; ruby_version: string } | null = null;
 
 // Pending compile requests
@@ -45,22 +45,14 @@ function generateRequestId(): string {
   return `req_${++requestIdCounter}_${Date.now()}`;
 }
 
-// Worker HTML content - embedded as string to use srcdoc
-// This creates an about:srcdoc origin iframe which most extensions don't target
-const WORKER_HTML = `<!DOCTYPE html>
-<html>
-<head>
-  <meta charset="UTF-8">
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self' 'unsafe-inline' 'unsafe-eval' blob: data: https://cdn.jsdelivr.net;">
-  <title>T-Ruby WASM Worker</title>
-</head>
-<body>
-<script type="module">
-// CDN URLs
+// Web Worker code as a string - runs in isolated thread
+const WORKER_CODE = `
+// Web Worker for T-Ruby WASM compilation
+// This runs in a separate thread, isolated from browser extensions
+
 const RUBY_WASM_CDN = 'https://cdn.jsdelivr.net/npm/@ruby/3.3-wasm-wasi@2.7.0/dist/browser/+esm';
 const RUBY_WASM_BINARY = 'https://cdn.jsdelivr.net/npm/@ruby/3.3-wasm-wasi@2.7.0/dist/ruby+stdlib.wasm';
 
-// Bootstrap code for T-Ruby compiler
 const BOOTSTRAP_CODE = \`
 require "json"
 
@@ -111,36 +103,36 @@ end
 let vm = null;
 let isReady = false;
 
-// Send message to parent
-function sendToParent(type, data, requestId) {
-  parent.postMessage({ type, data, requestId }, '*');
+// Send message to main thread
+function sendToMain(type, data, requestId) {
+  self.postMessage({ type, data, requestId });
 }
 
 // Initialize Ruby VM
 async function initialize() {
   try {
     console.log('[WASM Worker] Step 1: Loading Ruby WASM module...');
-    sendToParent('progress', { message: 'Loading Ruby runtime...', progress: 10 });
+    sendToMain('progress', { message: 'Loading Ruby runtime...', progress: 10 });
 
     const { DefaultRubyVM } = await import(RUBY_WASM_CDN);
     console.log('[WASM Worker] Step 1 complete');
 
     console.log('[WASM Worker] Step 2: Fetching WASM binary...');
-    sendToParent('progress', { message: 'Downloading Ruby WASM binary...', progress: 30 });
+    sendToMain('progress', { message: 'Downloading Ruby WASM binary...', progress: 30 });
 
     const response = await fetch(RUBY_WASM_BINARY);
     const wasmModule = await WebAssembly.compileStreaming(response);
     console.log('[WASM Worker] Step 2 complete');
 
     console.log('[WASM Worker] Step 3: Initializing Ruby VM...');
-    sendToParent('progress', { message: 'Initializing Ruby VM...', progress: 60 });
+    sendToMain('progress', { message: 'Initializing Ruby VM...', progress: 60 });
 
     const result = await DefaultRubyVM(wasmModule);
     vm = result.vm;
     console.log('[WASM Worker] Step 3 complete');
 
     console.log('[WASM Worker] Step 4: Loading T-Ruby bootstrap...');
-    sendToParent('progress', { message: 'Loading T-Ruby compiler...', progress: 80 });
+    sendToMain('progress', { message: 'Loading T-Ruby compiler...', progress: 80 });
 
     vm.eval(BOOTSTRAP_CODE);
     console.log('[WASM Worker] Step 4 complete');
@@ -150,19 +142,21 @@ async function initialize() {
     console.log('[WASM Worker] Health check:', healthResult.toString());
 
     isReady = true;
-    sendToParent('ready', { health: JSON.parse(healthResult.toString()) });
+    sendToMain('ready', { health: JSON.parse(healthResult.toString()) });
 
   } catch (error) {
     console.error('[WASM Worker] Init error:', error);
-    sendToParent('error', { message: error.message });
+    sendToMain('error', { message: error.message });
   }
 }
 
 // Compile code
 function compile(code, requestId) {
   if (!isReady || !vm) {
-    sendToParent('compile-result', {
+    sendToMain('compile-result', {
       success: false,
+      ruby: '',
+      rbs: '',
       errors: ['Compiler not ready']
     }, requestId);
     return;
@@ -173,10 +167,10 @@ function compile(code, requestId) {
     const resultJson = vm.eval('__trb_compile__(' + JSON.stringify(code) + ')');
     const result = JSON.parse(resultJson.toString());
     console.log('[WASM Worker] Compile result:', result);
-    sendToParent('compile-result', result, requestId);
+    sendToMain('compile-result', result, requestId);
   } catch (error) {
     console.error('[WASM Worker] Compile error:', error);
-    sendToParent('compile-result', {
+    sendToMain('compile-result', {
       success: false,
       ruby: '',
       rbs: '',
@@ -185,8 +179,8 @@ function compile(code, requestId) {
   }
 }
 
-// Listen for messages from parent
-window.addEventListener('message', (event) => {
+// Listen for messages from main thread
+self.addEventListener('message', (event) => {
   const { type, data, requestId } = event.data || {};
 
   switch (type) {
@@ -200,13 +194,11 @@ window.addEventListener('message', (event) => {
 });
 
 // Signal that worker is loaded
-sendToParent('loaded', {});
-<\/script>
-</body>
-</html>`;
+sendToMain('loaded', {});
+`;
 
 /**
- * Load the T-Ruby WASM compiler using sandboxed iframe with srcdoc
+ * Load the T-Ruby WASM compiler using Web Worker
  * Returns cached instance if already loaded
  */
 export async function loadTRubyCompiler(
@@ -239,40 +231,31 @@ async function doLoadCompiler(
   onProgress?: (progress: LoadingProgress) => void
 ): Promise<TRubyCompiler> {
   return new Promise((resolve, reject) => {
-    console.log('[T-Ruby] Creating sandboxed srcdoc iframe for WASM execution...');
+    console.log('[T-Ruby] Creating Web Worker for WASM execution...');
     onProgress?.({
       state: 'loading',
-      message: 'Initializing compiler sandbox...',
+      message: 'Initializing compiler worker...',
       progress: 5
     });
 
-    // Create iframe with blob URL
-    // Using blob: URL creates a unique origin that extensions typically don't target
-    const iframe = document.createElement('iframe');
-    iframe.style.display = 'none';
-
-    // Create blob URL - this gives us a blob: origin
-    const blob = new Blob([WORKER_HTML], { type: 'text/html' });
+    // Create Web Worker from blob URL
+    // Web Workers run in a separate thread, isolated from extension content scripts
+    const blob = new Blob([WORKER_CODE], { type: 'application/javascript' });
     const blobUrl = URL.createObjectURL(blob);
-    iframe.src = blobUrl;
+    const worker = new Worker(blobUrl, { type: 'module' });
 
-    // Clean up blob URL after iframe loads
-    iframe.onload = () => {
-      URL.revokeObjectURL(blobUrl);
-    };
+    // Clean up blob URL
+    URL.revokeObjectURL(blobUrl);
 
     // Message handler
-    const messageHandler = (event: MessageEvent) => {
-      // Only accept messages from our iframe
-      if (event.source !== iframe.contentWindow) return;
-
+    worker.onmessage = (event: MessageEvent) => {
       const { type, data, requestId } = event.data || {};
       console.log('[T-Ruby] Received message from worker:', type, data);
 
       switch (type) {
         case 'loaded':
-          console.log('[T-Ruby] Worker iframe loaded, sending init command...');
-          iframe.contentWindow?.postMessage({ type: 'init' }, '*');
+          console.log('[T-Ruby] Worker loaded, sending init command...');
+          worker.postMessage({ type: 'init' });
           break;
 
         case 'progress':
@@ -300,11 +283,11 @@ async function doLoadCompiler(
                 pendingRequests.set(reqId, { resolve: res, reject: rej });
 
                 console.log('[T-Ruby] Sending compile request:', reqId);
-                iframe.contentWindow?.postMessage({
+                worker.postMessage({
                   type: 'compile',
                   data: { code },
                   requestId: reqId
-                }, '*');
+                });
 
                 // Timeout after 30 seconds
                 setTimeout(() => {
@@ -328,7 +311,7 @@ async function doLoadCompiler(
             }
           };
 
-          workerIframe = iframe;
+          wasmWorker = worker;
           resolve(compilerInstance);
           break;
 
@@ -347,28 +330,23 @@ async function doLoadCompiler(
             state: 'error',
             message: data.message
           });
-          window.removeEventListener('message', messageHandler);
-          document.body.removeChild(iframe);
+          worker.terminate();
           reject(new Error(data.message));
           break;
       }
     };
 
-    window.addEventListener('message', messageHandler);
-
-    // Error handling for iframe load failure
-    iframe.onerror = () => {
-      console.error('[T-Ruby] Failed to load worker iframe');
-      window.removeEventListener('message', messageHandler);
-      reject(new Error('Failed to load WASM worker'));
+    // Error handling
+    worker.onerror = (error) => {
+      console.error('[T-Ruby] Worker error:', error);
+      reject(new Error('Failed to initialize WASM worker'));
     };
 
     // Timeout for initial load
     const loadTimeout = setTimeout(() => {
       if (!compiler) {
         console.error('[T-Ruby] Worker initialization timeout');
-        window.removeEventListener('message', messageHandler);
-        document.body.removeChild(iframe);
+        worker.terminate();
         reject(new Error('WASM worker initialization timeout'));
       }
     }, 60000); // 60 second timeout for initial load
@@ -379,9 +357,6 @@ async function doLoadCompiler(
       clearTimeout(loadTimeout);
       originalResolve(value);
     };
-
-    // Add iframe to document
-    document.body.appendChild(iframe);
   });
 }
 
