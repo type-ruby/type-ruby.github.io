@@ -1,4 +1,5 @@
-import type {ReactNode} from 'react';
+import type {ReactNode, ComponentType} from 'react';
+import {useState} from 'react';
 import clsx from 'clsx';
 import Link from '@docusaurus/Link';
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
@@ -6,16 +7,37 @@ import Translate, {translate} from '@docusaurus/Translate';
 import Layout from '@theme/Layout';
 import Heading from '@theme/Heading';
 import CodeBlock from '@theme/CodeBlock';
+import {Shield, Zap, FileText, Code2, Wrench, RefreshCw, Copy, Check} from 'lucide-react';
 
 import styles from './index.module.css';
 
 function HeroBanner() {
+  const [copied, setCopied] = useState(false);
+
+  const handleCopy = () => {
+    navigator.clipboard.writeText('gem install t-ruby');
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2000);
+  };
+
   return (
     <header className={styles.heroBanner}>
       <div className="container">
-        <span className="badge badge--experimental">
-          <Translate id="homepage.hero.badge">Experimental</Translate>
-        </span>
+        <div className={styles.badges}>
+          <span className="badge badge--experimental">
+            <Translate id="homepage.hero.badge">Experimental</Translate>
+          </span>
+          <a
+            href="https://github.com/type-ruby/t-ruby"
+            target="_blank"
+            rel="noopener noreferrer"
+            className={styles.githubBadge}>
+            <img
+              src="https://img.shields.io/github/stars/type-ruby/t-ruby?style=social"
+              alt="GitHub stars"
+            />
+          </a>
+        </div>
         <Heading as="h1" className={styles.heroTitle}>
           <Translate id="homepage.hero.title2">Type-safe Ruby,</Translate><br />
           <span className={styles.heroHighlight}>
@@ -30,9 +52,13 @@ function HeroBanner() {
 
         <div className={styles.installCommand}>
           <span className={styles.dollar}>$</span>
-          <code>
-            <Translate id="homepage.install.command">gem install t-ruby</Translate>
-          </code>
+          <code>gem install t-ruby</code>
+          <button
+            onClick={handleCopy}
+            className={styles.copyButton}
+            aria-label={copied ? 'Copied!' : 'Copy to clipboard'}>
+            {copied ? <Check size={16} /> : <Copy size={16} />}
+          </button>
         </div>
 
         <div className={styles.heroButtons}>
@@ -52,36 +78,42 @@ function HeroBanner() {
   );
 }
 
+interface FeatureItem {
+  title: string;
+  Icon: ComponentType<{size?: number; className?: string}>;
+  description: string;
+}
+
 function FeaturesSection() {
-  const FEATURES = [
+  const FEATURES: FeatureItem[] = [
     {
       title: translate({id: 'homepage.features.typeSafety.title', message: 'Type Safety'}),
-      icon: '🔒',
+      Icon: Shield,
       description: translate({id: 'homepage.features.typeSafety.description', message: 'Catch type errors at compile time, not runtime. Add types gradually to your existing Ruby code.'}),
     },
     {
       title: translate({id: 'homepage.features.zeroRuntime.title', message: 'Zero Runtime'}),
-      icon: '🚀',
+      Icon: Zap,
       description: translate({id: 'homepage.features.zeroRuntime.description', message: 'Types are erased during compilation. The output is pure Ruby that runs anywhere.'}),
     },
     {
       title: translate({id: 'homepage.features.rbsGeneration.title', message: 'RBS Generation'}),
-      icon: '📝',
+      Icon: FileText,
       description: translate({id: 'homepage.features.rbsGeneration.description', message: 'Automatically generates .rbs signature files for integration with Steep, Ruby LSP, and more.'}),
     },
     {
       title: translate({id: 'homepage.features.tsInspired.title', message: 'TypeScript-inspired'}),
-      icon: '💡',
+      Icon: Code2,
       description: translate({id: 'homepage.features.tsInspired.description', message: 'Familiar syntax for TypeScript developers. Union types, generics, interfaces, and more.'}),
     },
     {
       title: translate({id: 'homepage.features.greatDX.title', message: 'Great DX'}),
-      icon: '🛠',
+      Icon: Wrench,
       description: translate({id: 'homepage.features.greatDX.description', message: 'VS Code and Neovim support with syntax highlighting, LSP, and real-time error reporting.'}),
     },
     {
       title: translate({id: 'homepage.features.gradualAdoption.title', message: 'Gradual Adoption'}),
-      icon: '🔄',
+      Icon: RefreshCw,
       description: translate({id: 'homepage.features.gradualAdoption.description', message: 'Start with one file. Mix typed and untyped code. Migrate at your own pace.'}),
     },
   ];
@@ -92,7 +124,7 @@ function FeaturesSection() {
         <div className={styles.featuresGrid}>
           {FEATURES.map((feature, idx) => (
             <div key={idx} className={styles.featureCard}>
-              <div className={styles.featureIcon}>{feature.icon}</div>
+              <feature.Icon size={32} className={styles.featureIconSvg} />
               <Heading as="h3" className={styles.featureTitle}>{feature.title}</Heading>
               <p className={styles.featureDescription}>{feature.description}</p>
             </div>
@@ -148,7 +180,17 @@ def parse_id: (String | Integer id) -> String
 def first: [T] (Array[T] arr) -> T?`,
 };
 
+type TabKey = 'input' | 'output' | 'rbs';
+
+const TAB_CONFIG: {key: TabKey; filename: string; labelId: string; defaultLabel: string}[] = [
+  {key: 'input', filename: 'hello.trb', labelId: 'homepage.codeShowcase.input', defaultLabel: 'Input'},
+  {key: 'output', filename: 'hello.rb', labelId: 'homepage.codeShowcase.output', defaultLabel: 'Output'},
+  {key: 'rbs', filename: 'hello.rbs', labelId: 'homepage.codeShowcase.generated', defaultLabel: 'Generated'},
+];
+
 function CodeShowcase() {
+  const [activeTab, setActiveTab] = useState<TabKey>('input');
+
   return (
     <section className={styles.codeShowcase}>
       <div className="container">
@@ -161,42 +203,30 @@ function CodeShowcase() {
           </Translate>
         </p>
 
-        <div className={styles.codeGrid}>
-          <div className={styles.codeBlock}>
-            <div className={styles.codeHeader}>
-              <span className={styles.codeFilename}>hello.trb</span>
-              <span className={styles.codeLabel}>
-                <Translate id="homepage.codeShowcase.input">Input</Translate>
+        <div className={styles.codeTabs}>
+          {TAB_CONFIG.map(({key, filename, labelId, defaultLabel}) => (
+            <button
+              key={key}
+              className={clsx(styles.codeTab, activeTab === key && styles.codeTabActive)}
+              onClick={() => setActiveTab(key)}>
+              <span className={styles.codeTabFilename}>{filename}</span>
+              <span className={styles.codeTabLabel}>
+                <Translate id={labelId}>{defaultLabel}</Translate>
               </span>
-            </div>
-            <CodeBlock language="ruby" className={styles.codeContent}>
-              {CODE_EXAMPLES.input}
-            </CodeBlock>
-          </div>
+            </button>
+          ))}
+        </div>
 
-          <div className={styles.codeBlock}>
-            <div className={styles.codeHeader}>
-              <span className={styles.codeFilename}>hello.rb</span>
-              <span className={styles.codeLabel}>
-                <Translate id="homepage.codeShowcase.output">Output</Translate>
-              </span>
-            </div>
-            <CodeBlock language="ruby" className={styles.codeContent}>
-              {CODE_EXAMPLES.output}
-            </CodeBlock>
-          </div>
+        <div className={styles.codeTabContent}>
+          <CodeBlock language="ruby">
+            {CODE_EXAMPLES[activeTab]}
+          </CodeBlock>
+        </div>
 
-          <div className={styles.codeBlock}>
-            <div className={styles.codeHeader}>
-              <span className={styles.codeFilename}>hello.rbs</span>
-              <span className={styles.codeLabel}>
-                <Translate id="homepage.codeShowcase.generated">Generated</Translate>
-              </span>
-            </div>
-            <CodeBlock language="ruby" className={styles.codeContent}>
-              {CODE_EXAMPLES.rbs}
-            </CodeBlock>
-          </div>
+        <div className={styles.tryItWrapper}>
+          <Link to="/playground" className={styles.tryItButton}>
+            <Translate id="homepage.codeShowcase.tryIt">Try it in Playground →</Translate>
+          </Link>
         </div>
       </div>
     </section>

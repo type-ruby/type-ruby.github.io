@@ -1,3 +1,15 @@
+/* Animations */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 /* Hero Banner */
 .heroBanner {
   padding: 6rem 0;
@@ -12,6 +24,23 @@
 
 [data-theme='light'] .heroBanner {
   background: linear-gradient(180deg, #ffffff 0%, #f6f8fa 100%);
+}
+
+.badges {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 0.5rem;
+}
+
+.githubBadge {
+  display: inline-flex;
+  align-items: center;
+}
+
+.githubBadge img {
+  height: 20px;
 }
 
 .heroTitle {
@@ -73,6 +102,28 @@
   font-size: 1rem;
 }
 
+.copyButton {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 0.25rem;
+  color: #6a9955;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: color 0.2s ease, transform 0.2s ease;
+  border-radius: 4px;
+}
+
+.copyButton:hover {
+  color: #8fbc8f;
+  transform: scale(1.1);
+}
+
+.copyButton:active {
+  transform: scale(0.95);
+}
+
 .heroButtons {
   display: flex;
   gap: 1rem;
@@ -83,6 +134,7 @@
 /* Features Section */
 .features {
   padding: 5rem 0;
+  animation: fadeInUp 0.6s ease-out;
 }
 
 .featuresGrid {
@@ -97,7 +149,15 @@
   border-radius: 12px;
   padding: 1.75rem;
   transition: transform 0.2s ease, box-shadow 0.2s ease;
+  animation: fadeInUp 0.6s ease-out both;
 }
+
+.featureCard:nth-child(1) { animation-delay: 0.1s; }
+.featureCard:nth-child(2) { animation-delay: 0.15s; }
+.featureCard:nth-child(3) { animation-delay: 0.2s; }
+.featureCard:nth-child(4) { animation-delay: 0.25s; }
+.featureCard:nth-child(5) { animation-delay: 0.3s; }
+.featureCard:nth-child(6) { animation-delay: 0.35s; }
 
 .featureCard:hover {
   transform: translateY(-4px);
@@ -118,6 +178,11 @@
   margin-bottom: 1rem;
 }
 
+.featureIconSvg {
+  color: var(--ifm-color-primary);
+  margin-bottom: 1rem;
+}
+
 .featureTitle {
   font-size: 1.25rem;
   font-weight: 600;
@@ -135,6 +200,7 @@
 .codeShowcase {
   padding: 5rem 0;
   background: var(--ifm-background-surface-color);
+  animation: fadeInUp 0.6s ease-out;
 }
 
 [data-theme='dark'] .codeShowcase {
@@ -152,9 +218,100 @@
   text-align: center;
   color: var(--ifm-color-emphasis-700);
   font-size: 1.1rem;
-  margin-bottom: 3rem;
+  margin-bottom: 2rem;
 }
 
+/* Code Tabs */
+.codeTabs {
+  display: flex;
+  gap: 0.5rem;
+  justify-content: center;
+  margin-bottom: 1.5rem;
+  flex-wrap: wrap;
+}
+
+.codeTab {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.25rem;
+  padding: 0.75rem 1.25rem;
+  background: var(--ifm-color-emphasis-100);
+  border: 1px solid var(--ifm-color-emphasis-200);
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+[data-theme='dark'] .codeTab {
+  background: #21262d;
+  border-color: #30363d;
+}
+
+.codeTab:hover {
+  border-color: var(--ifm-color-primary);
+}
+
+.codeTabActive {
+  background: var(--ifm-color-primary);
+  border-color: var(--ifm-color-primary);
+  color: white;
+}
+
+[data-theme='dark'] .codeTabActive {
+  background: var(--ifm-color-primary);
+  border-color: var(--ifm-color-primary);
+}
+
+.codeTabFilename {
+  font-family: var(--ifm-font-family-monospace);
+  font-size: 0.875rem;
+  font-weight: 500;
+}
+
+.codeTabLabel {
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  opacity: 0.8;
+}
+
+.codeTabContent {
+  max-width: 700px;
+  margin: 0 auto;
+  border-radius: 12px;
+  overflow: hidden;
+  border: 1px solid var(--ifm-color-emphasis-200);
+}
+
+[data-theme='dark'] .codeTabContent {
+  border-color: #30363d;
+}
+
+.codeTabContent pre {
+  margin: 0 !important;
+  border-radius: 0 !important;
+}
+
+.tryItWrapper {
+  text-align: center;
+  margin-top: 1.5rem;
+}
+
+.tryItButton {
+  display: inline-block;
+  color: var(--ifm-color-primary);
+  font-weight: 500;
+  font-size: 1rem;
+  transition: color 0.2s ease;
+}
+
+.tryItButton:hover {
+  color: var(--ifm-color-primary-dark);
+  text-decoration: underline;
+}
+
+/* Legacy code grid styles (keeping for reference) */
 .codeGrid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
@@ -217,6 +374,7 @@
 /* Quick Start Section */
 .quickStart {
   padding: 5rem 0;
+  animation: fadeInUp 0.6s ease-out;
 }
 
 .steps {
@@ -262,6 +420,7 @@
 .tooling {
   padding: 5rem 0;
   background: var(--ifm-background-surface-color);
+  animation: fadeInUp 0.6s ease-out;
 }
 
 [data-theme='dark'] .tooling {
@@ -336,6 +495,18 @@
     height: 36px;
     font-size: 1rem;
   }
+
+  .codeTabs {
+    gap: 0.375rem;
+  }
+
+  .codeTab {
+    padding: 0.5rem 0.875rem;
+  }
+
+  .codeTabFilename {
+    font-size: 0.75rem;
+  }
 }
 
 @media (max-width: 576px) {
@@ -355,5 +526,15 @@
   .heroButtons .button {
     width: 100%;
     max-width: 280px;
+  }
+
+  .installCommand {
+    padding: 0.75rem 1rem;
+    font-size: 0.875rem;
+  }
+
+  .badges {
+    flex-direction: column;
+    gap: 0.5rem;
   }
 }

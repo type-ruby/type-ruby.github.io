@@ -283,6 +283,10 @@
     "message": "생성됨",
     "description": "Generated label"
   },
+  "homepage.codeShowcase.tryIt": {
+    "message": "플레이그라운드에서 시도해보기 →",
+    "description": "Try it in Playground link"
+  },
   "homepage.quickStart.title": {
     "message": "빠른 시작",
     "description": "Quick start title"
