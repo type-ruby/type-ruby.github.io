@@ -45,6 +45,31 @@ function generateRequestId(): string {
   return `req_${++requestIdCounter}_${Date.now()}`;
 }
 
+// T-Ruby library files in dependency order (only core compilation files)
+// Excluded: lsp_server, watcher, cli, cache, package_manager, bundler_integration, benchmark, doc_generator
+// These require external gems (listen, etc.) not available in WASM
+const T_RUBY_FILES = [
+  't_ruby/version.rb',
+  't_ruby/config.rb',
+  't_ruby/ir.rb',
+  't_ruby/parser_combinator.rb',
+  't_ruby/smt_solver.rb',
+  't_ruby/type_alias_registry.rb',
+  't_ruby/parser.rb',
+  't_ruby/union_type_parser.rb',
+  't_ruby/generic_type_parser.rb',
+  't_ruby/intersection_type_parser.rb',
+  't_ruby/type_erasure.rb',
+  't_ruby/error_handler.rb',
+  't_ruby/rbs_generator.rb',
+  't_ruby/declaration_generator.rb',
+  't_ruby/compiler.rb',
+  't_ruby/constraint_checker.rb',
+  't_ruby/type_inferencer.rb',
+  't_ruby/runtime_validator.rb',
+  't_ruby/type_checker.rb',
+];
+
 // Web Worker code as a string - runs in isolated thread
 const WORKER_CODE = `
 // Web Worker for T-Ruby WASM compilation
@@ -55,13 +80,23 @@ const RUBY_WASM_CDN = 'https://cdn.jsdelivr.net/npm/@ruby/wasm-wasi@2.7.1/dist/b
 // Use Ruby 3.4 WASM binary (more stable)
 const RUBY_WASM_BINARY = 'https://cdn.jsdelivr.net/npm/@ruby/3.4-wasm-wasi@2.7.1/dist/ruby+stdlib.wasm';
 
+// T-Ruby library base URL (will be set from main thread)
+let T_RUBY_LIB_BASE = '';
+
+// T-Ruby library files in dependency order
+const T_RUBY_FILES = ${JSON.stringify(T_RUBY_FILES)};
+
 const BOOTSTRAP_CODE = \`
 require "json"
+
+# Define TRuby module if not already defined
+module TRuby
+end unless defined?(TRuby)
 
 $trb_compiler = nil
 
 def get_compiler
-  $trb_compiler ||= TRuby::Compiler.new
+  $trb_compiler ||= TRuby::Compiler.new(nil, use_ir: true, optimize: false)
 end
 
 def __trb_compile__(code)
@@ -88,7 +123,7 @@ def __trb_compile__(code)
       success: false,
       ruby: "",
       rbs: "",
-      errors: ["Compilation error: " + e.message]
+      errors: ["Compilation error: " + e.message + " at " + e.backtrace.first.to_s]
     }.to_json
   end
 end
@@ -110,34 +145,72 @@ function sendToMain(type, data, requestId) {
   self.postMessage({ type, data, requestId });
 }
 
-// Initialize Ruby VM
+// Fetch T-Ruby library file
+async function fetchTRubyFile(filename) {
+  const url = T_RUBY_LIB_BASE + filename;
+  const response = await fetch(url);
+  if (!response.ok) {
+    throw new Error('Failed to fetch ' + filename + ': ' + response.status);
+  }
+  return await response.text();
+}
+
+// Initialize Ruby VM with T-Ruby library
 async function initialize() {
   try {
     console.log('[WASM Worker] Step 1: Loading Ruby WASM module...');
-    sendToMain('progress', { message: 'Loading Ruby runtime...', progress: 10 });
+    sendToMain('progress', { message: 'Loading Ruby runtime...', progress: 5 });
 
     const { DefaultRubyVM } = await import(RUBY_WASM_CDN);
     console.log('[WASM Worker] Step 1 complete');
 
     console.log('[WASM Worker] Step 2: Fetching WASM binary...');
-    sendToMain('progress', { message: 'Downloading Ruby WASM binary...', progress: 30 });
+    sendToMain('progress', { message: 'Downloading Ruby WASM binary...', progress: 15 });
 
     const response = await fetch(RUBY_WASM_BINARY);
     const wasmModule = await WebAssembly.compileStreaming(response);
     console.log('[WASM Worker] Step 2 complete');
 
     console.log('[WASM Worker] Step 3: Initializing Ruby VM...');
-    sendToMain('progress', { message: 'Initializing Ruby VM...', progress: 60 });
+    sendToMain('progress', { message: 'Initializing Ruby VM...', progress: 30 });
 
     const result = await DefaultRubyVM(wasmModule);
     vm = result.vm;
     console.log('[WASM Worker] Step 3 complete');
 
-    console.log('[WASM Worker] Step 4: Loading T-Ruby bootstrap...');
-    sendToMain('progress', { message: 'Loading T-Ruby compiler...', progress: 80 });
+    console.log('[WASM Worker] Step 4: Loading T-Ruby library files...');
+    sendToMain('progress', { message: 'Loading T-Ruby compiler...', progress: 40 });
+
+    // Load each T-Ruby library file
+    const totalFiles = T_RUBY_FILES.length;
+    for (let i = 0; i < totalFiles; i++) {
+      const filename = T_RUBY_FILES[i];
+      const progress = 40 + Math.floor((i / totalFiles) * 50);
+      sendToMain('progress', { message: 'Loading ' + filename + '...', progress });
+
+      try {
+        const code = await fetchTRubyFile(filename);
+        // Remove frozen_string_literal comment and require_relative statements
+        // since we're loading files directly
+        const processedCode = code
+          .replace(/# frozen_string_literal: true\\n?/g, '')
+          .replace(/require_relative\\s+["'][^"']+["']\\n?/g, '')
+          .replace(/require\\s+["']fileutils["']\\n?/g, '');
+
+        console.log('[WASM Worker] Loading:', filename);
+        vm.eval(processedCode);
+      } catch (err) {
+        console.error('[WASM Worker] Error loading ' + filename + ':', err);
+        throw err;
+      }
+    }
+    console.log('[WASM Worker] Step 4 complete');
+
+    console.log('[WASM Worker] Step 5: Running bootstrap code...');
+    sendToMain('progress', { message: 'Initializing compiler...', progress: 95 });
 
     vm.eval(BOOTSTRAP_CODE);
-    console.log('[WASM Worker] Step 4 complete');
+    console.log('[WASM Worker] Step 5 complete');
 
     // Health check
     const healthResult = vm.eval('__trb_health_check__');
@@ -166,7 +239,10 @@ function compile(code, requestId) {
 
   try {
     console.log('[WASM Worker] Compiling:', code.substring(0, 50) + '...');
-    const resultJson = vm.eval('__trb_compile__(' + JSON.stringify(code) + ')');
+    // Use Base64 encoding to safely pass code with any special characters
+    const base64Code = btoa(unescape(encodeURIComponent(code)));
+    const decodeAndCompile = 'require "base64"; __trb_compile__(Base64.decode64("' + base64Code + '").force_encoding("UTF-8"))';
+    const resultJson = vm.eval(decodeAndCompile);
     const result = JSON.parse(resultJson.toString());
     console.log('[WASM Worker] Compile result:', result);
     sendToMain('compile-result', result, requestId);
@@ -187,6 +263,8 @@ self.addEventListener('message', (event) => {
 
   switch (type) {
     case 'init':
+      // Set base URL from main thread
+      T_RUBY_LIB_BASE = data.origin + '/t-ruby-lib/';
       initialize();
       break;
     case 'compile':
@@ -237,7 +315,7 @@ async function doLoadCompiler(
     onProgress?.({
       state: 'loading',
       message: 'Initializing compiler worker...',
-      progress: 5
+      progress: 0
     });
 
     // Create Web Worker from blob URL
@@ -257,7 +335,7 @@ async function doLoadCompiler(
       switch (type) {
         case 'loaded':
           console.log('[T-Ruby] Worker loaded, sending init command...');
-          worker.postMessage({ type: 'init' });
+          worker.postMessage({ type: 'init', data: { origin: window.location.origin } });
           break;
 
         case 'progress':
@@ -351,7 +429,7 @@ async function doLoadCompiler(
         worker.terminate();
         reject(new Error('WASM worker initialization timeout'));
       }
-    }, 60000); // 60 second timeout for initial load
+    }, 120000); // 120 second timeout for initial load (loading many files)
 
     // Clear timeout when ready
     const originalResolve = resolve;
