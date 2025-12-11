@@ -283,6 +283,10 @@
     "message": "生成",
     "description": "Generated label"
   },
+  "homepage.codeShowcase.tryIt": {
+    "message": "プレイグラウンドで試す →",
+    "description": "Try it in Playground link"
+  },
   "homepage.quickStart.title": {
     "message": "クイックスタート",
     "description": "Quick start title"
