@@ -1,7 +1,7 @@
 /**
  * T-Ruby WASM Loader for Playground
  *
- * Uses a sandboxed iframe to isolate WASM execution from browser extensions
+ * Uses a sandboxed iframe with srcdoc to isolate WASM execution from browser extensions
  * that might interfere with FinalizationRegistry and other APIs.
  */
 
@@ -45,8 +45,188 @@ function generateRequestId(): string {
   return `req_${++requestIdCounter}_${Date.now()}`;
 }
 
+// Worker HTML content - embedded as string to use srcdoc
+// This creates an about:srcdoc origin iframe which most extensions don't target
+const WORKER_HTML = `<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self' 'unsafe-inline' 'unsafe-eval' blob: data: https://cdn.jsdelivr.net;">
+  <title>T-Ruby WASM Worker</title>
+</head>
+<body>
+<script>
+// Protect native APIs before any extension can modify them
+(function() {
+  const nativeFinalizationRegistry = window.FinalizationRegistry;
+  const nativeWeakRef = window.WeakRef;
+
+  // Ensure these are the native implementations
+  Object.defineProperty(window, 'FinalizationRegistry', {
+    value: nativeFinalizationRegistry,
+    writable: false,
+    configurable: false
+  });
+
+  Object.defineProperty(window, 'WeakRef', {
+    value: nativeWeakRef,
+    writable: false,
+    configurable: false
+  });
+})();
+<\/script>
+<script type="module">
+// CDN URLs
+const RUBY_WASM_CDN = 'https://cdn.jsdelivr.net/npm/@ruby/3.3-wasm-wasi@2.7.0/dist/browser/+esm';
+const RUBY_WASM_BINARY = 'https://cdn.jsdelivr.net/npm/@ruby/3.3-wasm-wasi@2.7.0/dist/ruby+stdlib.wasm';
+
+// Bootstrap code for T-Ruby compiler
+const BOOTSTRAP_CODE = \`
+require "json"
+
+$trb_compiler = nil
+
+def get_compiler
+  $trb_compiler ||= TRuby::Compiler.new
+end
+
+def __trb_compile__(code)
+  compiler = get_compiler
+
+  begin
+    result = compiler.compile_string(code)
+
+    {
+      success: result[:errors].empty?,
+      ruby: result[:ruby] || "",
+      rbs: result[:rbs] || "",
+      errors: result[:errors] || []
+    }.to_json
+  rescue TRuby::ParseError => e
+    {
+      success: false,
+      ruby: "",
+      rbs: "",
+      errors: [e.message]
+    }.to_json
+  rescue StandardError => e
+    {
+      success: false,
+      ruby: "",
+      rbs: "",
+      errors: ["Compilation error: " + e.message]
+    }.to_json
+  end
+end
+
+def __trb_health_check__
+  {
+    loaded: defined?(TRuby) == "constant",
+    version: defined?(TRuby::VERSION) ? TRuby::VERSION : "unknown",
+    ruby_version: RUBY_VERSION
+  }.to_json
+end
+\`;
+
+let vm = null;
+let isReady = false;
+
+// Send message to parent
+function sendToParent(type, data, requestId) {
+  parent.postMessage({ type, data, requestId }, '*');
+}
+
+// Initialize Ruby VM
+async function initialize() {
+  try {
+    console.log('[WASM Worker] Step 1: Loading Ruby WASM module...');
+    sendToParent('progress', { message: 'Loading Ruby runtime...', progress: 10 });
+
+    const { DefaultRubyVM } = await import(RUBY_WASM_CDN);
+    console.log('[WASM Worker] Step 1 complete');
+
+    console.log('[WASM Worker] Step 2: Fetching WASM binary...');
+    sendToParent('progress', { message: 'Downloading Ruby WASM binary...', progress: 30 });
+
+    const response = await fetch(RUBY_WASM_BINARY);
+    const wasmModule = await WebAssembly.compileStreaming(response);
+    console.log('[WASM Worker] Step 2 complete');
+
+    console.log('[WASM Worker] Step 3: Initializing Ruby VM...');
+    sendToParent('progress', { message: 'Initializing Ruby VM...', progress: 60 });
+
+    const result = await DefaultRubyVM(wasmModule);
+    vm = result.vm;
+    console.log('[WASM Worker] Step 3 complete');
+
+    console.log('[WASM Worker] Step 4: Loading T-Ruby bootstrap...');
+    sendToParent('progress', { message: 'Loading T-Ruby compiler...', progress: 80 });
+
+    vm.eval(BOOTSTRAP_CODE);
+    console.log('[WASM Worker] Step 4 complete');
+
+    // Health check
+    const healthResult = vm.eval('__trb_health_check__');
+    console.log('[WASM Worker] Health check:', healthResult.toString());
+
+    isReady = true;
+    sendToParent('ready', { health: JSON.parse(healthResult.toString()) });
+
+  } catch (error) {
+    console.error('[WASM Worker] Init error:', error);
+    sendToParent('error', { message: error.message });
+  }
+}
+
+// Compile code
+function compile(code, requestId) {
+  if (!isReady || !vm) {
+    sendToParent('compile-result', {
+      success: false,
+      errors: ['Compiler not ready']
+    }, requestId);
+    return;
+  }
+
+  try {
+    console.log('[WASM Worker] Compiling:', code.substring(0, 50) + '...');
+    const resultJson = vm.eval('__trb_compile__(' + JSON.stringify(code) + ')');
+    const result = JSON.parse(resultJson.toString());
+    console.log('[WASM Worker] Compile result:', result);
+    sendToParent('compile-result', result, requestId);
+  } catch (error) {
+    console.error('[WASM Worker] Compile error:', error);
+    sendToParent('compile-result', {
+      success: false,
+      ruby: '',
+      rbs: '',
+      errors: [error.message]
+    }, requestId);
+  }
+}
+
+// Listen for messages from parent
+window.addEventListener('message', (event) => {
+  const { type, data, requestId } = event.data || {};
+
+  switch (type) {
+    case 'init':
+      initialize();
+      break;
+    case 'compile':
+      compile(data.code, requestId);
+      break;
+  }
+});
+
+// Signal that worker is loaded
+sendToParent('loaded', {});
+<\/script>
+</body>
+</html>`;
+
 /**
- * Load the T-Ruby WASM compiler using sandboxed iframe
+ * Load the T-Ruby WASM compiler using sandboxed iframe with srcdoc
  * Returns cached instance if already loaded
  */
 export async function loadTRubyCompiler(
@@ -79,18 +259,21 @@ async function doLoadCompiler(
   onProgress?: (progress: LoadingProgress) => void
 ): Promise<TRubyCompiler> {
   return new Promise((resolve, reject) => {
-    console.log('[T-Ruby] Creating sandboxed iframe for WASM execution...');
+    console.log('[T-Ruby] Creating sandboxed srcdoc iframe for WASM execution...');
     onProgress?.({
       state: 'loading',
       message: 'Initializing compiler sandbox...',
       progress: 5
     });
 
-    // Create sandboxed iframe
+    // Create sandboxed iframe with srcdoc
+    // Using srcdoc creates an about:srcdoc origin which most extensions don't target
     const iframe = document.createElement('iframe');
     iframe.style.display = 'none';
+    // allow-scripts: needed to run JavaScript
+    // allow-same-origin: needed for postMessage to work properly
     iframe.sandbox.add('allow-scripts');
-    iframe.src = '/wasm-worker.html';
+    iframe.srcdoc = WORKER_HTML;
 
     // Message handler
     const messageHandler = (event: MessageEvent) => {
