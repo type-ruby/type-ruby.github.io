@@ -19,6 +19,8 @@ description: 인스턴스 및 클래스 변수 타이핑
 
 인스턴스 변수에 타입을 지정하는 가장 일반적이고 권장되는 방법입니다:
 
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/classes/instance_class_variables_spec.rb" line={21} />
+
 ```trb title="attr_methods.trb"
 class Person
   attr_accessor :name: String
@@ -52,6 +54,8 @@ person.password = "secret"   # ✓ OK - attr_writer
 
 인스턴스 변수를 초기화할 때 타입을 명시적으로 선언할 수 있습니다:
 
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/classes/instance_class_variables_spec.rb" line={21} />
+
 ```trb title="explicit_types.trb"
 class ShoppingCart
   def initialize()
@@ -84,6 +88,8 @@ end
 ### attr 메서드와 명시적 타입 조합
 
 두 가지 접근 방식을 함께 사용할 수 있습니다:
+
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/classes/instance_class_variables_spec.rb" line={21} />
 
 ```trb title="combined.trb"
 class Article
@@ -119,6 +125,8 @@ end
 ## Nilable 인스턴스 변수
 
 nil일 수 있는 인스턴스 변수는 `?` 접미사를 사용합니다:
+
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/classes/instance_class_variables_spec.rb" line={21} />
 
 ```trb title="nilable.trb"
 class UserAccount
@@ -170,6 +178,8 @@ end
 
 클래스 변수는 클래스의 모든 인스턴스에서 공유됩니다. `@@`로 타입을 지정합니다:
 
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/classes/instance_class_variables_spec.rb" line={21} />
+
 ```trb title="class_vars.trb"
 class Counter
   def initialize()
@@ -198,6 +208,8 @@ puts Counter.total_count()  # 0
 ### 기본값이 있는 클래스 변수
 
 적절한 기본값으로 클래스 변수를 초기화합니다:
+
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/classes/instance_class_variables_spec.rb" line={21} />
 
 ```trb title="class_var_defaults.trb"
 class Configuration
@@ -249,6 +261,8 @@ Configuration.add_allowed_host("example.com")
 ## 인스턴스 변수 vs 클래스 변수
 
 각각을 언제 사용해야 하는지 이해하기:
+
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/classes/instance_class_variables_spec.rb" line={21} />
 
 ```trb title="comparison.trb"
 class BankAccount
@@ -325,6 +339,8 @@ puts BankAccount.total_balance()    # 3500.0
 
 인스턴스 변수는 모든 타입을 가질 수 있습니다:
 
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/classes/instance_class_variables_spec.rb" line={21} />
+
 ```trb title="complex_types.trb"
 class DataStore
   def initialize()
@@ -373,6 +389,8 @@ end
 ## 실전 예제: 사용자 세션
 
 인스턴스 변수와 클래스 변수를 조합한 실제 예제입니다:
+
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/classes/instance_class_variables_spec.rb" line={21} />
 
 ```trb title="user_session.trb"
 class UserSession
@@ -485,6 +503,8 @@ UserSession.expire_old_sessions(60)  # 60분보다 오래된 세션 만료
 ## 실전 예제: 캐시 시스템
 
 클래스 변수와 인스턴스 변수의 효과적인 사용을 보여주는 또 다른 예제입니다:
+
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/classes/instance_class_variables_spec.rb" line={21} />
 
 ```trb title="cache_system.trb"
 class Cache<T>
@@ -626,6 +646,8 @@ puts Cache.total_caches()      # 2
 
 ### 지연 초기화
 
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/classes/instance_class_variables_spec.rb" line={21} />
+
 ```trb title="lazy_init.trb"
 class Report
   attr_reader :name: String
@@ -649,6 +671,8 @@ end
 ```
 
 ### 레지스트리 패턴
+
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/classes/instance_class_variables_spec.rb" line={21} />
 
 ```trb title="registry.trb"
 class Plugin
@@ -676,6 +700,8 @@ end
 ```
 
 ### 메모이제이션
+
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/classes/instance_class_variables_spec.rb" line={21} />
 
 ```trb title="memoization.trb"
 class Calculator

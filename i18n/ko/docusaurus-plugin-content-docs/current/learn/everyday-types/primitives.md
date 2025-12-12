@@ -30,6 +30,8 @@ T-Ruby의 원시 타입은 다음과 같습니다:
 
 ### String 생성과 조작
 
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/everyday_types/primitives_spec.rb" line={21} />
+
 ```trb title="string_basics.trb"
 # 문자열을 만드는 다양한 방법
 single_quoted: String = 'Hello'
@@ -44,6 +46,8 @@ TEXT
 ```
 
 ### 타입 안전성을 갖춘 String 메서드
+
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/everyday_types/primitives_spec.rb" line={21} />
 
 ```trb title="string_methods.trb"
 def process_text(input: String): String
@@ -69,6 +73,8 @@ formatted: String = format_username("  John Doe! ")
 
 ### String 비교
 
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/everyday_types/primitives_spec.rb" line={21} />
+
 ```trb title="string_compare.trb"
 def are_equal(a: String, b: String): Bool
   a == b
@@ -89,6 +95,8 @@ check3: Bool = contains_word("Ruby is great", "great")  # true
 
 ### String 길이와 인덱싱
 
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/everyday_types/primitives_spec.rb" line={21} />
+
 ```trb title="string_indexing.trb"
 def get_first_char(text: String): String
   text[0]
@@ -108,6 +116,8 @@ len: Integer = string_length("Hello")  # 5
 ```
 
 ### String 빌딩
+
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/everyday_types/primitives_spec.rb" line={21} />
 
 ```trb title="string_building.trb"
 def build_greeting(name: String, title: String): String
@@ -131,6 +141,8 @@ repeated: String = repeat_text("Ha", 3)
 Integer는 소수점 없는 정수를 나타냅니다.
 
 ### Integer 산술
+
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/everyday_types/primitives_spec.rb" line={21} />
 
 ```trb title="integer_ops.trb"
 def add(a: Integer, b: Integer): Integer
@@ -159,6 +171,8 @@ result: Integer = power(2, 8)  # 256
 
 Integer 산술의 중요한 측면은 나눗셈 동작입니다:
 
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/everyday_types/primitives_spec.rb" line={21} />
+
 ```trb title="integer_division.trb"
 def divide_truncate(a: Integer, b: Integer): Integer
   # 정수 나눗셈은 항상 0 방향으로 자릅니다
@@ -179,6 +193,8 @@ parts: Array<Integer> = divide_with_remainder(17, 5)
 ```
 
 ### Integer 비교
+
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/everyday_types/primitives_spec.rb" line={21} />
 
 ```trb title="integer_compare.trb"
 def is_positive(n: Integer): Bool
@@ -209,6 +225,8 @@ maximum: Integer = max(10, 20)  # 20
 
 ### Integer 메서드
 
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/everyday_types/primitives_spec.rb" line={21} />
+
 ```trb title="integer_methods.trb"
 def absolute(n: Integer): Integer
   n.abs
@@ -237,6 +255,8 @@ Float는 부동소수점 산술을 사용하여 소수점 숫자를 나타냅니
 
 ### Float 산술
 
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/everyday_types/primitives_spec.rb" line={21} />
+
 ```trb title="float_ops.trb"
 def divide_precise(a: Integer, b: Integer): Float
   # 정밀한 나눗셈을 위해 float로 변환
@@ -258,6 +278,8 @@ discount: Float = apply_percentage(100.0, 15.0)  # 15.0
 ```
 
 ### Float 정밀도와 반올림
+
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/everyday_types/primitives_spec.rb" line={21} />
 
 ```trb title="float_precision.trb"
 def round_to_places(value: Float, places: Integer): Float
@@ -287,6 +309,8 @@ ceiled: Integer = ceil_value(3.2)  # 4
 
 부동소수점 비교는 정밀도 문제로 인해 주의가 필요합니다:
 
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/everyday_types/primitives_spec.rb" line={21} />
+
 ```trb title="float_compare.trb"
 def approximately_equal(a: Float, b: Float, epsilon: Float = 0.0001): Bool
   (a - b).abs < epsilon
@@ -307,6 +331,8 @@ is_zero: Bool = is_close_to_zero(0.0000001)  # true
 ```
 
 ### Float 특수 값
+
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/everyday_types/primitives_spec.rb" line={21} />
 
 ```trb title="float_special.trb"
 def is_infinite(value: Float): Bool
@@ -337,6 +363,8 @@ Bool 타입은 엄격한 타입 검사를 갖춘 true/false 값을 나타냅니�
 
 ### Boolean 연산
 
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/everyday_types/primitives_spec.rb" line={21} />
+
 ```trb title="bool_ops.trb"
 def and_operation(a: Bool, b: Bool): Bool
   a && b
@@ -361,6 +389,8 @@ result4: Bool = xor_operation(true, false)  # true
 ```
 
 ### 비교에서의 Boolean
+
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/everyday_types/primitives_spec.rb" line={21} />
 
 ```trb title="bool_from_compare.trb"
 def is_valid_age(age: Integer): Bool
@@ -388,6 +418,8 @@ check2: Bool = any_even([1, 3, 5, 6])  # true
 ### Bool vs Truthy 값
 
 T-Ruby의 Bool 타입은 엄격합니다 - `true`와 `false`만 유효합니다:
+
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/everyday_types/primitives_spec.rb" line={21} />
 
 ```trb title="bool_strict.trb"
 # 이것은 Bool 값입니다
@@ -419,6 +451,8 @@ Symbol은 종종 상수나 키로 사용되는 불변의 고유 식별자입니�
 
 ### Symbol 사용법
 
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/everyday_types/primitives_spec.rb" line={21} />
+
 ```trb title="symbol_usage.trb"
 # 상수로서의 심볼
 STATUS_ACTIVE: Symbol = :active
@@ -446,6 +480,8 @@ message: String = get_status_message(:active)
 
 심볼은 반복 사용 시 문자열보다 메모리 효율적입니다:
 
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/everyday_types/primitives_spec.rb" line={21} />
+
 ```trb title="symbol_performance.trb"
 def categorize_with_symbols(items: Array<Integer>): Hash<Symbol, Array<Integer>>
   categories: Hash<Symbol, Array<Integer>> = {
@@ -472,6 +508,8 @@ result = categorize_with_symbols([5, 50, 500])
 ```
 
 ### Symbol과 String 간 변환
+
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/everyday_types/primitives_spec.rb" line={21} />
 
 ```trb title="symbol_conversion.trb"
 def symbol_to_string(sym: Symbol): String
@@ -501,6 +539,8 @@ normalized: Symbol = normalize_key("status")  # :status
 
 ### nil 검사
 
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/everyday_types/primitives_spec.rb" line={21} />
+
 ```trb title="nil_checks.trb"
 def is_nil(value: String | nil): Bool
   value.nil?
@@ -525,6 +565,8 @@ result: String = get_or_default(nil, "default")  # "default"
 
 ### 안전 내비게이션
 
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/everyday_types/primitives_spec.rb" line={21} />
+
 ```trb title="safe_navigation.trb"
 def get_length_safe(text: String | nil): Integer | nil
   text&.length
@@ -546,6 +588,8 @@ char2 = get_first_char_safe(nil)  # nil
 원시 타입 간 변환은 T-Ruby에서 명시적입니다:
 
 ### String으로 변환
+
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/everyday_types/primitives_spec.rb" line={21} />
 
 ```trb title="to_string_conversions.trb"
 def int_to_string(n: Integer): String
@@ -571,6 +615,8 @@ str4: String = symbol_to_string(:active)  # "active"
 ```
 
 ### 숫자로 변환
+
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/everyday_types/primitives_spec.rb" line={21} />
 
 ```trb title="to_number_conversions.trb"
 def string_to_int(s: String): Integer
@@ -598,6 +644,8 @@ num4: Float = int_to_float(42)  # 42.0
 ## 실용적 예제: 계산기
 
 모든 원시 타입을 사용하는 종합적인 예제입니다:
+
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/everyday_types/primitives_spec.rb" line={21} />
 
 ```trb title="calculator.trb"
 class Calculator

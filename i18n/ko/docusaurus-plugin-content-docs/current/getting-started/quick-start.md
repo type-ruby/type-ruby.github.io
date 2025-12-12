@@ -15,6 +15,8 @@ description: 첫 T-Ruby 프로그램 작성하기
 
 `hello.trb` 파일을 만들어 봅시다:
 
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/getting_started/quick_start_spec.rb" line={21} />
+
 ```trb
 # hello.trb
 
@@ -59,6 +61,8 @@ ruby hello.rb
 
 T-Ruby는 Ruby의 기본 타입을 모두 지원합니다:
 
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/getting_started/quick_start_spec.rb" line={21} />
+
 ```trb
 # 기본 타입
 name: String = "홍길동"
@@ -78,6 +82,8 @@ email: String? = nil
 ## 함수 타입
 
 함수의 매개변수와 반환 타입을 지정합니다:
+
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/getting_started/quick_start_spec.rb" line={21} />
 
 ```trb
 # 기본 함수
@@ -104,6 +110,8 @@ end
 ## 클래스 타입
 
 클래스에 타입을 적용합니다:
+
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/getting_started/quick_start_spec.rb" line={21} />
 
 ```trb
 class User

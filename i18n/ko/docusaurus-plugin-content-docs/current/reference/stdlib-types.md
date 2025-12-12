@@ -23,6 +23,8 @@ T-Ruby의 표준 라이브러리 타입 커버리지는 활발히 성장하고 �
 
 타입 안전성이 있는 파일 I/O 작업.
 
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/reference/stdlib_types_spec.rb" line={21} />
+
 ```trb
 # 파일 읽기
 def read_config(path: String): String | nil
@@ -58,6 +60,8 @@ end
 
 디렉토리 작업.
 
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/reference/stdlib_types_spec.rb" line={21} />
+
 ```trb
 # 디렉토리 내용 나열
 def list_files(dir: String): Array<String>
@@ -89,6 +93,8 @@ end
 
 고수준 파일 작업.
 
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/reference/stdlib_types_spec.rb" line={21} />
+
 ```trb
 require 'fileutils'
 
@@ -119,6 +125,8 @@ end
 ## JSON
 
 JSON 파싱과 생성.
+
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/reference/stdlib_types_spec.rb" line={21} />
 
 ```trb
 require 'json'
@@ -152,6 +160,8 @@ end
 
 타입 안전한 JSON 작업을 위해 명시적 타입을 정의하세요:
 
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/reference/stdlib_types_spec.rb" line={21} />
+
 ```trb
 type JSONPrimitive = String | Integer | Float | Bool | nil
 type JSONArray = Array<JSONValue>
@@ -171,6 +181,8 @@ end
 ## YAML
 
 YAML 파싱과 생성.
+
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/reference/stdlib_types_spec.rb" line={21} />
 
 ```trb
 require 'yaml'
@@ -200,6 +212,8 @@ end
 ## Net::HTTP
 
 HTTP 클라이언트 작업.
+
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/reference/stdlib_types_spec.rb" line={21} />
 
 ```trb
 require 'net/http'
@@ -239,6 +253,8 @@ end
 
 URI 파싱과 조작.
 
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/reference/stdlib_types_spec.rb" line={21} />
+
 ```trb
 require 'uri'
 
@@ -270,6 +286,8 @@ end
 ## CSV
 
 CSV 파일 처리.
+
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/reference/stdlib_types_spec.rb" line={21} />
 
 ```trb
 require 'csv'
@@ -309,6 +327,8 @@ end
 
 로깅 기능.
 
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/reference/stdlib_types_spec.rb" line={21} />
+
 ```trb
 require 'logger'
 
@@ -341,6 +361,8 @@ end
 ## Pathname
 
 객체 지향 경로 조작.
+
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/reference/stdlib_types_spec.rb" line={21} />
 
 ```trb
 require 'pathname'
@@ -376,6 +398,8 @@ end
 
 메모리 내 문자열 스트림.
 
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/reference/stdlib_types_spec.rb" line={21} />
+
 ```trb
 require 'stringio'
 
@@ -405,6 +429,8 @@ end
 ## Set
 
 고유한 요소의 컬렉션.
+
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/reference/stdlib_types_spec.rb" line={21} />
 
 ```trb
 require 'set'
@@ -444,6 +470,8 @@ end
 
 동적 속성 객체.
 
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/reference/stdlib_types_spec.rb" line={21} />
+
 ```trb
 require 'ostruct'
 
@@ -471,6 +499,8 @@ end
 ## Benchmark
 
 성능 측정.
+
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/reference/stdlib_types_spec.rb" line={21} />
 
 ```trb
 require 'benchmark'
@@ -502,6 +532,8 @@ end
 
 임베디드 Ruby 템플릿.
 
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/reference/stdlib_types_spec.rb" line={21} />
+
 ```trb
 require 'erb'
 
@@ -525,6 +557,8 @@ end
 ## Base64
 
 Base64 인코딩과 디코딩.
+
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/reference/stdlib_types_spec.rb" line={21} />
 
 ```trb
 require 'base64'
@@ -557,6 +591,8 @@ end
 
 해시 함수 (MD5, SHA 등).
 
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/reference/stdlib_types_spec.rb" line={21} />
+
 ```trb
 require 'digest'
 
@@ -587,6 +623,8 @@ end
 
 암호학적으로 안전한 랜덤 값.
 
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/reference/stdlib_types_spec.rb" line={21} />
+
 ```trb
 require 'securerandom'
 
@@ -615,6 +653,8 @@ end
 ## Timeout
 
 타임아웃으로 코드 실행.
+
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/reference/stdlib_types_spec.rb" line={21} />
 
 ```trb
 require 'timeout'
@@ -667,6 +707,8 @@ stdlib 모듈 지원의 빠른 참조 테이블:
 
 ### 가져오기와 사용
 
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/reference/stdlib_types_spec.rb" line={21} />
+
 ```trb
 # stdlib 모듈 가져오기
 require 'json'
@@ -685,6 +727,8 @@ end
 
 동적 stdlib 모듈에는 타입 캐스팅을 사용하세요:
 
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/reference/stdlib_types_spec.rb" line={21} />
+
 ```trb
 # 안전한 캐스팅
 def load_users(path: String): Array<Hash<String, String>>
@@ -701,6 +745,8 @@ end
 ### 커스텀 래퍼
 
 더 나은 안전성을 위해 타입이 지정된 래퍼를 생성하세요:
+
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/reference/stdlib_types_spec.rb" line={21} />
 
 ```trb
 class Config

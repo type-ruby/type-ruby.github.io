@@ -15,6 +15,8 @@ description: 리터럴 값을 타입으로 사용하기
 
 리터럴 타입은 단일의 특정 값을 나타내는 타입입니다. 모든 문자열을 받아들이는 대신 하나의 특정 문자열만 받아들입니다. 모든 정수 대신 하나의 특정 정수만 받아들입니다.
 
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/everyday_types/literal_types_spec.rb" line={21} />
+
 ```trb title="literal_basics.trb"
 # 넓은 타입 - 모든 문자열
 status: String = "active"
@@ -32,6 +34,8 @@ status: "active" = "active"
 
 ### 단일 문자열 리터럴
 
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/everyday_types/literal_types_spec.rb" line={21} />
+
 ```trb title="single_literal.trb"
 # "production"만 될 수 있는 변수
 environment: "production" = "production"
@@ -47,6 +51,8 @@ result: "success" = get_status()
 ### 문자열 리터럴의 Union
 
 더 일반적으로 문자열 리터럴의 union을 사용하여 제한된 유효 값 집합을 나타냅니다:
+
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/everyday_types/literal_types_spec.rb" line={21} />
 
 ```trb title="string_literal_union.trb"
 # 세 개의 특정 문자열 중 하나가 될 수 있음
@@ -64,6 +70,8 @@ set_mode("production")
 ```
 
 ### 실용적인 문자열 리터럴 예제
+
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/everyday_types/literal_types_spec.rb" line={21} />
 
 ```trb title="status_system.trb"
 # Status는 이 정확한 문자열 중 하나만 될 수 있음
@@ -102,6 +110,8 @@ account.set_status("active")  # 유효함
 
 ### 심볼 리터럴 Union
 
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/everyday_types/literal_types_spec.rb" line={21} />
+
 ```trb title="symbol_literals.trb"
 # 이 특정 심볼 중 하나가 될 수 있음
 def handle_event(event: :click | :hover | :focus)
@@ -124,6 +134,8 @@ handle_event(:hover)
 ```
 
 ### 상태 기계에 심볼 사용
+
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/everyday_types/literal_types_spec.rb" line={21} />
 
 ```trb title="state_machine.trb"
 type State = :idle | :loading | :success | :error
@@ -179,6 +191,8 @@ loader.complete_success("data")
 
 ### 단일 정수 리터럴
 
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/everyday_types/literal_types_spec.rb" line={21} />
+
 ```trb title="integer_literal.trb"
 # 숫자 200만 될 수 있음
 http_ok: 200 = 200
@@ -190,6 +204,8 @@ end
 ```
 
 ### 정수 리터럴 Union
+
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/everyday_types/literal_types_spec.rb" line={21} />
 
 ```trb title="http_status.trb"
 # HTTP 상태 코드
@@ -226,6 +242,8 @@ message: String = handle_response(200)  # "OK"
 
 ### True/False 리터럴
 
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/everyday_types/literal_types_spec.rb" line={21} />
+
 ```trb title="boolean_literals.trb"
 # true만 될 수 있는 변수
 always_true: true = true
@@ -240,6 +258,8 @@ end
 ```
 
 ### 부울 리터럴 vs Bool 타입
+
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/everyday_types/literal_types_spec.rb" line={21} />
 
 ```trb title="bool_vs_literal.trb"
 # Bool 타입 - true 또는 false가 될 수 있음
@@ -261,6 +281,8 @@ value: true | false = true  # Bool과 같음
 
 ### 혼합 리터럴 타입
 
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/everyday_types/literal_types_spec.rb" line={21} />
+
 ```trb title="mixed_literals.trb"
 # 문자열과 정수 리터럴의 혼합
 type ExitCode = "success" | "error" | 0 | 1
@@ -278,6 +300,8 @@ type Identifier = :id | :name | "index" | "key"
 ```
 
 ### 더 넓은 타입과의 리터럴
+
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/everyday_types/literal_types_spec.rb" line={21} />
 
 ```trb title="literals_with_types.trb"
 # 특정 값 또는 모든 문자열
@@ -301,6 +325,8 @@ set_config("custom-value")  # "사용자 지정 값: custom-value"
 ## 실용적 예제
 
 ### 예제 1: 로그 레벨
+
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/everyday_types/literal_types_spec.rb" line={21} />
 
 ```trb title="log_levels.trb"
 type LogLevel = "debug" | "info" | "warn" | "error"
@@ -380,6 +406,8 @@ logger.error("이것은 표시됨")   # 레벨이 충분히 높음
 
 ### 예제 2: 방향 시스템
 
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/everyday_types/literal_types_spec.rb" line={21} />
+
 ```trb title="directions.trb"
 type Direction = "north" | "south" | "east" | "west"
 
@@ -420,6 +448,8 @@ east = pos.move("east")    # (1, 0)
 ```
 
 ### 예제 3: API 응답 타입
+
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/everyday_types/literal_types_spec.rb" line={21} />
 
 ```trb title="api_response.trb"
 type HttpMethod = "GET" | "POST" | "PUT" | "DELETE" | "PATCH"
@@ -473,6 +503,8 @@ response = client.get("/users")
 ```
 
 ### 예제 4: 리터럴 타입을 사용한 설정
+
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/everyday_types/literal_types_spec.rb" line={21} />
 
 ```trb title="config_literals.trb"
 type Environment = "development" | "test" | "staging" | "production"
@@ -548,6 +580,8 @@ settings = config.get_config()
 
 리터럴 타입은 런타임 대신 트랜스파일 시간에 오류를 잡습니다:
 
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/everyday_types/literal_types_spec.rb" line={21} />
+
 ```trb title="compile_safety.trb"
 type Status = "active" | "inactive"
 
@@ -566,6 +600,8 @@ set_status("active")
 
 리터럴 타입은 인라인 문서화 역할을 합니다:
 
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/everyday_types/literal_types_spec.rb" line={21} />
+
 ```trb title="documentation.trb"
 # 명확함 - 어떤 값이 유효한지 알 수 있음
 def set_priority(priority: "low" | "medium" | "high")
@@ -581,6 +617,8 @@ end
 ### 3. 완전성 검사
 
 타입 검사기가 모든 케이스를 처리했는지 확인할 수 있습니다:
+
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/everyday_types/literal_types_spec.rb" line={21} />
 
 ```trb title="exhaustiveness.trb"
 type Color = "red" | "green" | "blue"
@@ -602,6 +640,8 @@ end
 
 ### 패턴 1: 명령 타입
 
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/everyday_types/literal_types_spec.rb" line={21} />
+
 ```trb title="commands.trb"
 type Command = "start" | "stop" | "restart" | "status"
 
@@ -621,6 +661,8 @@ end
 
 ### 패턴 2: 결과 타입
 
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/everyday_types/literal_types_spec.rb" line={21} />
+
 ```trb title="results.trb"
 type Result = "ok" | "error"
 
@@ -636,6 +678,8 @@ end
 ```
 
 ### 패턴 3: 열거형 같은 타입
+
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/everyday_types/literal_types_spec.rb" line={21} />
 
 ```trb title="enums.trb"
 type Weekday = "monday" | "tuesday" | "wednesday" | "thursday" | "friday"
@@ -655,6 +699,8 @@ end
 
 ### 1. 고정된 집합에 리터럴 사용
 
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/everyday_types/literal_types_spec.rb" line={21} />
+
 ```trb title="fixed_sets.trb"
 # 좋음 - 명확하고 고정된 값 집합
 type Size = "small" | "medium" | "large"
@@ -664,6 +710,8 @@ type Size = String
 ```
 
 ### 2. 타입 별칭과 결합
+
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/everyday_types/literal_types_spec.rb" line={21} />
 
 ```trb title="type_aliases.trb"
 # 한 번 정의하고 어디서나 사용
@@ -687,6 +735,8 @@ end
 ```
 
 ### 3. 집합을 관리 가능하게 유지
+
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/everyday_types/literal_types_spec.rb" line={21} />
 
 ```trb title="manageable_sets.trb"
 # 좋음 - 합리적인 옵션 수

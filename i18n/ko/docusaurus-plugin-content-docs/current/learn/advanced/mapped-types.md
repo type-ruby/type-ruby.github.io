@@ -19,6 +19,8 @@ description: 프로그래밍 방식으로 타입 변환
 
 매핑된 타입은 타입의 키를 반복하고 변환을 적용하여 새 타입을 만듭니다:
 
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/advanced/mapped_types_spec.rb" line={21} />
+
 ```trb
 type MappedType<T> = {
   [K in keyof T]: Transformation<T[K]>
@@ -26,6 +28,8 @@ type MappedType<T> = {
 ```
 
 ### 기본 문법
+
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/advanced/mapped_types_spec.rb" line={21} />
 
 ```trb
 # T의 키를 반복
@@ -48,6 +52,8 @@ type RequiredType<T> = {
 
 `keyof` 연산자는 타입의 모든 키를 유니온으로 가져옵니다:
 
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/advanced/mapped_types_spec.rb" line={21} />
+
 ```trb
 type User = {
   id: Integer,
@@ -66,6 +72,8 @@ type UserValues<T> = {
 ## 기본 매핑된 타입 패턴
 
 ### 속성을 읽기 전용으로 만들기
+
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/advanced/mapped_types_spec.rb" line={21} />
 
 ```trb
 # 모든 속성을 읽기 전용으로 만들기
@@ -93,6 +101,8 @@ user: ReadonlyUser = { id: 1, name: "Alice", email: "alice@example.com" }
 
 ### 속성을 선택적으로 만들기
 
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/advanced/mapped_types_spec.rb" line={21} />
+
 ```trb
 # 모든 속성을 선택적으로 만들기
 type Partial<T> = {
@@ -119,6 +129,8 @@ partial_user2: PartialUser = {}  # OK
 
 ### 속성을 필수로 만들기
 
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/advanced/mapped_types_spec.rb" line={21} />
+
 ```trb
 # 선택적 수정자 제거
 type Required<T> = {
@@ -142,6 +154,8 @@ type RequiredUserUpdate = Required<UserUpdate>
 ## 속성 변환
 
 ### 속성 타입 변환
+
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/advanced/mapped_types_spec.rb" line={21} />
 
 ```trb
 # 모든 속성을 배열로 변환
@@ -173,6 +187,8 @@ type Nullable<T> = {
 
 ### 수정자 추가 또는 제거
 
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/advanced/mapped_types_spec.rb" line={21} />
+
 ```trb
 # 읽기 전용 추가
 type AddReadonly<T> = {
@@ -199,6 +215,8 @@ type MakeRequired<T> = {
 
 ### 특정 속성 선택
 
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/advanced/mapped_types_spec.rb" line={21} />
+
 ```trb
 # 지정된 키만 선택
 type Pick<T, K extends keyof T> = {
@@ -223,6 +241,8 @@ public_user: PublicUser = { id: 1, name: "Alice" }
 ```
 
 ### 특정 속성 제외
+
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/advanced/mapped_types_spec.rb" line={21} />
 
 ```trb
 # 지정된 키 제외
@@ -256,6 +276,8 @@ type UserBasic = Omit<User, "password" | "email">
 
 매핑된 타입을 조건부 타입과 결합:
 
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/advanced/mapped_types_spec.rb" line={21} />
+
 ```trb
 # 조건에 따라 속성을 읽기 전용으로 만들기
 type ConditionalReadonly<T> = {
@@ -276,6 +298,8 @@ type RemoveFunctions<T> = {
 ## 키 리매핑
 
 매핑하는 동안 속성 키 변환:
+
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/advanced/mapped_types_spec.rb" line={21} />
 
 ```trb
 # 모든 키에 접두사 추가
@@ -316,6 +340,8 @@ type UserWithGetters = WithGetters<User>
 
 ### DTO 패턴
 
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/advanced/mapped_types_spec.rb" line={21} />
+
 ```trb
 # 데이터 전송 객체 - 모든 속성이 선택적이고 널러블이 됨
 type DTO<T> = {
@@ -349,6 +375,8 @@ type UserAPI = APIWrapper<User>
 ```
 
 ### 폼 핸들러
+
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/advanced/mapped_types_spec.rb" line={21} />
 
 ```trb
 # 속성을 폼 필드로 변환
@@ -389,6 +417,8 @@ type LoginHandlers = FormHandlers<LoginForm>
 ```
 
 ### 데이터베이스 모델
+
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/advanced/mapped_types_spec.rb" line={21} />
 
 ```trb
 # 모델에 타임스탬프 추가
@@ -433,6 +463,8 @@ type UserUpdate = UpdateModel<User>
 
 ### 이벤트 핸들러
 
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/advanced/mapped_types_spec.rb" line={21} />
+
 ```trb
 # 모든 속성에 대한 이벤트 핸들러 생성
 type EventHandlers<T> = {
@@ -474,6 +506,8 @@ type ProductValidators = Validators<Product>
 
 중첩된 객체에 재귀적으로 매핑 적용:
 
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/advanced/mapped_types_spec.rb" line={21} />
+
 ```trb
 # 깊은 읽기 전용
 type DeepReadonly<T> = {
@@ -514,6 +548,8 @@ type DeepReadonlyUser = DeepReadonly<NestedUser>
 
 여러 매핑 결합:
 
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/advanced/mapped_types_spec.rb" line={21} />
+
 ```trb
 # 읽기 전용과 부분
 type ReadonlyPartial<T> = Readonly<Partial<T>>
@@ -547,6 +583,8 @@ type SafeUserUpdate = ReadonlyPartial<Omit<User, "id">>
 ## 타입 안전 빌더
 
 매핑된 타입을 사용하여 타입 안전 빌더 생성:
+
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/advanced/mapped_types_spec.rb" line={21} />
 
 ```trb
 # 모든 속성이 설정되도록 보장하는 빌더
@@ -583,6 +621,8 @@ type UserBuilder = Builder<User>
 
 ### 1. 설명적인 이름 사용
 
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/advanced/mapped_types_spec.rb" line={21} />
+
 ```trb
 # 좋음: 명확한 목적
 type ReadonlyUser = Readonly<User>
@@ -596,6 +636,8 @@ type UserType2 = Partial<UserUpdate>
 
 ### 2. 재사용 가능한 매핑된 타입 생성
 
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/advanced/mapped_types_spec.rb" line={21} />
+
 ```trb
 # 좋음: 재사용 가능한 유틸리티
 type WithTimestamps<T> = T & { created_at: Time, updated_at: Time }
@@ -608,6 +650,8 @@ type FullModel<T> = WithTimestamps<WithSoftDelete<WithMetadata<T>>>
 
 ### 3. 복잡한 매핑 문서화
 
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/advanced/mapped_types_spec.rb" line={21} />
+
 ```trb
 # 좋음: 문서화됨
 # 모든 속성을 해당 getter 메서드로 변환
@@ -618,6 +662,8 @@ type ToGetters<T> = {
 ```
 
 ### 4. 조건부 타입과 결합
+
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/advanced/mapped_types_spec.rb" line={21} />
 
 ```trb
 # 좋음: 스마트 변환
@@ -631,6 +677,8 @@ type SmartNullable<T> = {
 ## 일반적인 패턴
 
 ### 레포지토리 패턴
+
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/advanced/mapped_types_spec.rb" line={21} />
 
 ```trb
 type Repository<T> = {
@@ -651,6 +699,8 @@ type CRUDHandlers<T> = {
 
 ### 상태 관리
 
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/advanced/mapped_types_spec.rb" line={21} />
+
 ```trb
 type State<T> = T
 
@@ -669,6 +719,8 @@ type Reducers<T> = {
 
 ### 새 속성을 추가할 수 없음
 
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/advanced/mapped_types_spec.rb" line={21} />
+
 ```trb
 # 원본 타입에 없는 속성을 추가할 수 없음
 type Extended<T> = {
@@ -681,6 +733,8 @@ type Extended<T> = T & { new_property: String }
 ```
 
 ### 키 타입 제한
+
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/advanced/mapped_types_spec.rb" line={21} />
 
 ```trb
 # 키는 String | Symbol | Integer여야 함

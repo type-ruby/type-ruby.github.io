@@ -46,6 +46,8 @@ T-Ruby에 기여하는 방법은 여러 가지가 있습니다:
 **Ruby 버전:** 3.2.0
 
 ### 재현 단계
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/project/contributing_spec.rb" line={21} />
+
 ```trb
 numbers: Array<Integer> = [1, 2, 3]
 strings = numbers.map { |n| n.to_s }
@@ -316,6 +318,8 @@ git push origin feature/my-awesome-feature
 
 일부 수정과 함께 [Ruby 스타일 가이드](https://rubystyle.guide/)를 따릅니다:
 
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/project/contributing_spec.rb" line={21} />
+
 ```trb
 # 좋음
 def type_check(node: AST::Node): Type
@@ -339,6 +343,8 @@ end
 
 ### T-Ruby 스타일 (예제용)
 
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/project/contributing_spec.rb" line={21} />
+
 ```trb
 # 예제에서 명확하고 명시적인 타입 사용
 def process_user(user: User): UserResponse
@@ -355,6 +361,8 @@ active_users: Array<User> = users.select { |u| u.active? }
 ```
 
 ### 문서 스타일
+
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/project/contributing_spec.rb" line={21} />
 
 ```trb
 # 좋은 문서
@@ -373,6 +381,8 @@ end
 ## 테스트 가이드라인
 
 ### 테스트 작성
+
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/project/contributing_spec.rb" line={21} />
 
 ```trb
 RSpec.describe TypeChecker do
@@ -425,6 +435,8 @@ spec/
 
 ### 1. 타입 정의 파일 생성
 
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/project/contributing_spec.rb" line={21} />
+
 ```trb
 # lib/t_ruby/stdlib/json.trb
 
@@ -442,6 +454,8 @@ end
 ```
 
 ### 2. 테스트 추가
+
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/project/contributing_spec.rb" line={21} />
 
 ```trb
 # spec/stdlib/json_spec.rb
@@ -466,6 +480,8 @@ end
 
 ```markdown
 ### JSON
+
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/project/contributing_spec.rb" line={21} />
 
 ```trb
 def parse_json(file: String): Hash<String, Any>

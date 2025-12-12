@@ -22,6 +22,8 @@ description: 커스텀 타입 이름 만들기
 
 ### 타입 별칭 없이
 
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/advanced/type_aliases_spec.rb" line={21} />
+
 ```trb
 # 복잡한 타입이 모든 곳에서 반복됨
 def find_user(id: Integer): Hash<Symbol, String | Integer | Bool> | nil
@@ -41,6 +43,8 @@ users: Array<Hash<Symbol, String | Integer | Bool>> = []
 ```
 
 ### 타입 별칭 사용
+
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/advanced/type_aliases_spec.rb" line={21} />
 
 ```trb
 # 한 번 정의
@@ -67,11 +71,15 @@ users: Array<UserData> = []
 
 타입 별칭을 만드는 문법은 간단합니다:
 
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/advanced/type_aliases_spec.rb" line={21} />
+
 ```trb
 type AliasName = ExistingType
 ```
 
 ### 간단한 별칭
+
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/advanced/type_aliases_spec.rb" line={21} />
 
 ```trb
 # 기본 타입에 대한 별칭
@@ -97,6 +105,8 @@ end
 ### 유니온 타입 별칭
 
 유니온 타입은 별칭에서 큰 이점을 얻습니다:
+
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/advanced/type_aliases_spec.rb" line={21} />
 
 ```trb
 # 이전: 반복되는 유니온 타입
@@ -128,6 +138,8 @@ type Result = :success | :error | :pending
 ### 컬렉션 별칭
 
 복잡한 컬렉션 타입을 더 읽기 쉽게 만듭니다:
+
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/advanced/type_aliases_spec.rb" line={21} />
 
 ```trb
 # 배열 별칭
@@ -165,6 +177,8 @@ tags: TagMap = {
 
 ### 기본 제네릭 별칭
 
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/advanced/type_aliases_spec.rb" line={21} />
+
 ```trb
 # 제네릭 Result 타입
 type Result<T> = T | nil
@@ -188,6 +202,8 @@ name_age: Pair<String, Integer> = ["Alice", 30]
 ```
 
 ### 복잡한 제네릭 별칭
+
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/advanced/type_aliases_spec.rb" line={21} />
 
 ```trb
 # 메타데이터가 있는 제네릭 컬렉션
@@ -218,6 +234,8 @@ email_validator: Validator<String> = ->(s: String): Bool { s.include?("@") }
 ### 부분 적용 제네릭 별칭
 
 일부 타입 매개변수를 고정하고 다른 것은 열어둔 별칭을 만들 수 있습니다:
+
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/advanced/type_aliases_spec.rb" line={21} />
 
 ```trb
 # 기본 제네릭 타입
@@ -251,6 +269,8 @@ string_to_user: StringMap<User> = { "admin" => User.new("Admin") }
 
 ### 도메인별 타입
 
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/advanced/type_aliases_spec.rb" line={21} />
+
 ```trb
 # 전자상거래 도메인
 type ProductId = Integer
@@ -279,6 +299,8 @@ end
 ```
 
 ### 상태 및 상태 타입
+
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/advanced/type_aliases_spec.rb" line={21} />
 
 ```trb
 # 애플리케이션 상태
@@ -317,6 +339,8 @@ end
 
 ### JSON 및 API 타입
 
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/advanced/type_aliases_spec.rb" line={21} />
+
 ```trb
 # JSON 타입
 type JSONPrimitive = String | Integer | Float | Bool | nil
@@ -346,6 +370,8 @@ end
 ```
 
 ### 함수 타입
+
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/advanced/type_aliases_spec.rb" line={21} />
 
 ```trb
 # 일반적인 함수 시그니처
@@ -383,6 +409,8 @@ for_each(numbers, print_it)
 ## 타입 별칭 구성
 
 더 간단한 별칭에서 복잡한 타입 별칭을 만들 수 있습니다:
+
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/advanced/type_aliases_spec.rb" line={21} />
 
 ```trb
 # 기본 타입
@@ -422,6 +450,8 @@ type Drawing = Hash<String, DrawingLayer>
 
 향후 T-Ruby는 트리 구조와 연결 리스트를 위한 재귀 타입 별칭을 지원할 예정입니다:
 
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/advanced/type_aliases_spec.rb" line={21} />
+
 ```trb
 # 트리 구조
 type TreeNode<T> = {
@@ -450,6 +480,8 @@ type JSONValue =
 
 ### 1. 설명적인 이름 사용
 
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/advanced/type_aliases_spec.rb" line={21} />
+
 ```trb
 # 좋음: 명확하고 설명적인 이름
 type EmailAddress = String
@@ -463,6 +495,8 @@ type UR = :admin | :editor | :viewer
 ```
 
 ### 2. 관련 별칭 그룹화
+
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/advanced/type_aliases_spec.rb" line={21} />
 
 ```trb
 # 좋음: 도메인별로 정리
@@ -480,6 +514,8 @@ type ProductData = Hash<Symbol, String | Integer | Float>
 ```
 
 ### 3. 복잡한 타입에 별칭 사용
+
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/advanced/type_aliases_spec.rb" line={21} />
 
 ```trb
 # 좋음: 여러 번 사용되는 복잡한 타입에 별칭
@@ -501,6 +537,8 @@ end
 
 ### 4. 간단한 타입에 과도한 별칭 금지
 
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/advanced/type_aliases_spec.rb" line={21} />
+
 ```trb
 # 불필요: String이 이미 명확함
 type S = String
@@ -514,6 +552,8 @@ type UserId = Integer       # 목적 명확화
 ## 타입 별칭 vs 클래스
 
 타입 별칭은 새로운 타입을 생성하지 않습니다—단지 대체 이름일 뿐입니다. 이것은 클래스와 다릅니다:
+
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/advanced/type_aliases_spec.rb" line={21} />
 
 ```trb
 # 타입 별칭 - 단지 이름
@@ -540,6 +580,8 @@ int_id: Integer = 456
 ```
 
 ### 각각 언제 사용할지
+
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/advanced/type_aliases_spec.rb" line={21} />
 
 ```trb
 # 타입 별칭 사용:
@@ -570,6 +612,8 @@ end
 
 ### 옵셔널 타입
 
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/advanced/type_aliases_spec.rb" line={21} />
+
 ```trb
 # 옵셔널/널러블 타입 별칭
 type Optional<T> = T | nil
@@ -581,6 +625,8 @@ name: Nullable<String> = user&.name
 ```
 
 ### 결과 타입
+
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/advanced/type_aliases_spec.rb" line={21} />
 
 ```trb
 # 실패할 수 있는 연산을 위한 결과 타입
@@ -598,6 +644,8 @@ end
 ```
 
 ### 빌더 타입
+
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/advanced/type_aliases_spec.rb" line={21} />
 
 ```trb
 # 설정 빌더
@@ -618,6 +666,8 @@ end
 ## 타입 별칭을 통한 문서화
 
 타입 별칭은 인라인 문서화 역할을 합니다:
+
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/advanced/type_aliases_spec.rb" line={21} />
 
 ```trb
 # 별칭 이름이 타입이 나타내는 것을 문서화

@@ -15,6 +15,8 @@ description: 추상 클래스와 메서드 정의하기
 
 서브클래스가 반드시 구현해야 하는 메서드에서 에러를 발생시켜 추상 클래스를 만듭니다:
 
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/classes/abstract_classes_spec.rb" line={21} />
+
 ```trb title="abstract_basic.trb"
 class Shape
   def initialize()
@@ -90,6 +92,8 @@ puts circle.describe()  # "Circle: area = 78.53975, perimeter = 31.4159"
 ## 타입 어노테이션이 있는 추상 클래스
 
 모든 추상 메서드는 완전한 타입 어노테이션을 가져야 합니다:
+
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/classes/abstract_classes_spec.rb" line={21} />
 
 ```trb title="typed_abstract.trb"
 abstract class DataSource
@@ -178,6 +182,8 @@ end
 
 추상 클래스는 종종 템플릿 메서드 패턴을 구현합니다:
 
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/classes/abstract_classes_spec.rb" line={21} />
+
 ```trb title="template_method.trb"
 abstract class Report
   def generate(): String
@@ -264,6 +270,8 @@ puts html.generate()
 ## 부분 구현이 있는 추상 클래스
 
 추상 클래스는 일부 구체적 기능을 제공할 수 있습니다:
+
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/classes/abstract_classes_spec.rb" line={21} />
 
 ```trb title="partial_implementation.trb"
 abstract class CacheStore<T>
@@ -398,6 +406,8 @@ puts memory_cache.hit_rate()
 
 추상 클래스를 사용하여 공통 패턴을 강제합니다:
 
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/classes/abstract_classes_spec.rb" line={21} />
+
 ```trb title="common_patterns.trb"
 abstract class Controller
   def initialize()
@@ -482,6 +492,8 @@ controller.execute("index")
 ## 실전 예제: 결제 프로세서
 
 추상 클래스를 사용하는 완전한 예제:
+
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/classes/abstract_classes_spec.rb" line={21} />
 
 ```trb title="payment_processor.trb"
 abstract class PaymentProcessor
@@ -662,6 +674,8 @@ processors.each { |p| process_payment(p) }
 
 ### 전략 패턴
 
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/classes/abstract_classes_spec.rb" line={21} />
+
 ```trb title="strategy.trb"
 abstract class SortStrategy
   def sort(array: Array<Integer>): Array<Integer>
@@ -698,6 +712,8 @@ sorted = sorter.sort([3, 1, 4, 1, 5, 9, 2, 6])
 ```
 
 ### 팩토리 패턴
+
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/classes/abstract_classes_spec.rb" line={21} />
 
 ```trb title="factory.trb"
 abstract class Document

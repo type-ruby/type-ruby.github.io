@@ -15,6 +15,8 @@ description: T-Ruby에서 인터페이스를 정의하는 방법
 
 `interface` 키워드를 사용하여 인터페이스를 정의합니다:
 
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/interfaces/defining_interfaces_spec.rb" line={21} />
+
 ```trb title="basic_interface.trb"
 interface Printable
   def print(): void
@@ -73,6 +75,8 @@ print_item(img)  # "Printing image from https://example.com/image.jpg"
 
 인터페이스는 매개변수가 있는 메서드를 정의할 수 있습니다:
 
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/interfaces/defining_interfaces_spec.rb" line={21} />
+
 ```trb title="interface_parameters.trb"
 interface Comparable<T>
   def compare_to(other: T): Integer
@@ -129,6 +133,8 @@ puts v1.equals?(v2)         # false
 ## 제네릭 인터페이스
 
 인터페이스는 모든 타입과 작동하도록 제네릭이 될 수 있습니다:
+
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/interfaces/defining_interfaces_spec.rb" line={21} />
 
 ```trb title="generic_interface.trb"
 interface Container<T>
@@ -197,6 +203,8 @@ puts string_stack.contains("Hello")  # true
 ## 다중 메서드 인터페이스
 
 인터페이스는 많은 메서드를 정의할 수 있습니다:
+
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/interfaces/defining_interfaces_spec.rb" line={21} />
 
 ```trb title="multiple_methods.trb"
 interface Repository<T>
@@ -276,6 +284,8 @@ end
 
 인터페이스는 다른 인터페이스를 확장할 수 있습니다:
 
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/interfaces/defining_interfaces_spec.rb" line={21} />
+
 ```trb title="interface_inheritance.trb"
 interface Readable
   def read(): String
@@ -328,6 +338,8 @@ puts file.read()  # ""
 
 인터페이스에서 필수 속성을 정의합니다:
 
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/interfaces/defining_interfaces_spec.rb" line={21} />
+
 ```trb title="interface_properties.trb"
 interface Identifiable
   def id(): Integer
@@ -377,6 +389,8 @@ end
 ## 실전 예제: 플러그인 시스템
 
 플러그인 아키텍처를 위해 인터페이스를 사용하는 완전한 예제:
+
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/interfaces/defining_interfaces_spec.rb" line={21} />
 
 ```trb title="plugin_system.trb"
 interface Plugin
@@ -527,6 +541,8 @@ manager.shutdown_all()
 
 다양한 직렬화 형식을 위한 인터페이스:
 
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/interfaces/defining_interfaces_spec.rb" line={21} />
+
 ```trb title="serialization.trb"
 interface Serializer
   def serialize(data: Hash<String, String | Integer | Boolean>): String
@@ -642,6 +658,8 @@ yaml_service.save(data, "user")
 
 ### 이터레이터 인터페이스
 
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/interfaces/defining_interfaces_spec.rb" line={21} />
+
 ```trb title="iterator.trb"
 interface Iterator<T>
   def has_next?(): Boolean
@@ -675,6 +693,8 @@ end
 
 ### 옵저버 인터페이스
 
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/interfaces/defining_interfaces_spec.rb" line={21} />
+
 ```trb title="observer.trb"
 interface Observer
   def update(event: String, data: Hash<String, String>): void
@@ -688,6 +708,8 @@ end
 ```
 
 ### 빌더 인터페이스
+
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/interfaces/defining_interfaces_spec.rb" line={21} />
 
 ```trb title="builder.trb"
 interface Builder<T>
