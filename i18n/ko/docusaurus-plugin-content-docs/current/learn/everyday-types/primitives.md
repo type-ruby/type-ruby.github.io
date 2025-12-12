@@ -4,6 +4,9 @@ title: 원시 타입
 description: T-Ruby의 원시 타입
 ---
 
+<DocsBadge />
+
+
 # 원시 타입
 
 원시 타입은 T-Ruby 타입 시스템의 기본 구성 요소입니다. 더 복잡한 타입의 기초가 되는 단순하고 분할할 수 없는 값을 나타냅니다. 이 장에서는 원시 타입의 동작, 엣지 케이스, 그리고 모범 사례를 깊이 있게 살펴봅니다.
@@ -27,7 +30,7 @@ T-Ruby의 원시 타입은 다음과 같습니다:
 
 ### String 생성과 조작
 
-```ruby title="string_basics.trb"
+```trb title="string_basics.trb"
 # 문자열을 만드는 다양한 방법
 single_quoted: String = 'Hello'
 double_quoted: String = "World"
@@ -42,7 +45,7 @@ TEXT
 
 ### 타입 안전성을 갖춘 String 메서드
 
-```ruby title="string_methods.trb"
+```trb title="string_methods.trb"
 def process_text(input: String): String
   # 이 모든 작업은 String 타입을 유지합니다
   trimmed = input.strip
@@ -66,7 +69,7 @@ formatted: String = format_username("  John Doe! ")
 
 ### String 비교
 
-```ruby title="string_compare.trb"
+```trb title="string_compare.trb"
 def are_equal(a: String, b: String): Bool
   a == b
 end
@@ -86,7 +89,7 @@ check3: Bool = contains_word("Ruby is great", "great")  # true
 
 ### String 길이와 인덱싱
 
-```ruby title="string_indexing.trb"
+```trb title="string_indexing.trb"
 def get_first_char(text: String): String
   text[0]
 end
@@ -106,7 +109,7 @@ len: Integer = string_length("Hello")  # 5
 
 ### String 빌딩
 
-```ruby title="string_building.trb"
+```trb title="string_building.trb"
 def build_greeting(name: String, title: String): String
   parts: Array<String> = ["Hello", title, name]
   parts.join(" ")
@@ -129,7 +132,7 @@ Integer는 소수점 없는 정수를 나타냅니다.
 
 ### Integer 산술
 
-```ruby title="integer_ops.trb"
+```trb title="integer_ops.trb"
 def add(a: Integer, b: Integer): Integer
   a + b
 end
@@ -156,7 +159,7 @@ result: Integer = power(2, 8)  # 256
 
 Integer 산술의 중요한 측면은 나눗셈 동작입니다:
 
-```ruby title="integer_division.trb"
+```trb title="integer_division.trb"
 def divide_truncate(a: Integer, b: Integer): Integer
   # 정수 나눗셈은 항상 0 방향으로 자릅니다
   a / b
@@ -177,7 +180,7 @@ parts: Array<Integer> = divide_with_remainder(17, 5)
 
 ### Integer 비교
 
-```ruby title="integer_compare.trb"
+```trb title="integer_compare.trb"
 def is_positive(n: Integer): Bool
   n > 0
 end
@@ -206,7 +209,7 @@ maximum: Integer = max(10, 20)  # 20
 
 ### Integer 메서드
 
-```ruby title="integer_methods.trb"
+```trb title="integer_methods.trb"
 def absolute(n: Integer): Integer
   n.abs
 end
@@ -234,7 +237,7 @@ Float는 부동소수점 산술을 사용하여 소수점 숫자를 나타냅니
 
 ### Float 산술
 
-```ruby title="float_ops.trb"
+```trb title="float_ops.trb"
 def divide_precise(a: Integer, b: Integer): Float
   # 정밀한 나눗셈을 위해 float로 변환
   a.to_f / b
@@ -256,7 +259,7 @@ discount: Float = apply_percentage(100.0, 15.0)  # 15.0
 
 ### Float 정밀도와 반올림
 
-```ruby title="float_precision.trb"
+```trb title="float_precision.trb"
 def round_to_places(value: Float, places: Integer): Float
   multiplier = 10 ** places
   (value * multiplier).round / multiplier.to_f
@@ -284,7 +287,7 @@ ceiled: Integer = ceil_value(3.2)  # 4
 
 부동소수점 비교는 정밀도 문제로 인해 주의가 필요합니다:
 
-```ruby title="float_compare.trb"
+```trb title="float_compare.trb"
 def approximately_equal(a: Float, b: Float, epsilon: Float = 0.0001): Bool
   (a - b).abs < epsilon
 end
@@ -305,7 +308,7 @@ is_zero: Bool = is_close_to_zero(0.0000001)  # true
 
 ### Float 특수 값
 
-```ruby title="float_special.trb"
+```trb title="float_special.trb"
 def is_infinite(value: Float): Bool
   value.infinite? != nil
 end
@@ -334,7 +337,7 @@ Bool 타입은 엄격한 타입 검사를 갖춘 true/false 값을 나타냅니�
 
 ### Boolean 연산
 
-```ruby title="bool_ops.trb"
+```trb title="bool_ops.trb"
 def and_operation(a: Bool, b: Bool): Bool
   a && b
 end
@@ -359,7 +362,7 @@ result4: Bool = xor_operation(true, false)  # true
 
 ### 비교에서의 Boolean
 
-```ruby title="bool_from_compare.trb"
+```trb title="bool_from_compare.trb"
 def is_valid_age(age: Integer): Bool
   age >= 0 && age <= 150
 end
@@ -386,7 +389,7 @@ check2: Bool = any_even([1, 3, 5, 6])  # true
 
 T-Ruby의 Bool 타입은 엄격합니다 - `true`와 `false`만 유효합니다:
 
-```ruby title="bool_strict.trb"
+```trb title="bool_strict.trb"
 # 이것은 Bool 값입니다
 flag1: Bool = true
 flag2: Bool = false
@@ -416,7 +419,7 @@ Symbol은 종종 상수나 키로 사용되는 불변의 고유 식별자입니�
 
 ### Symbol 사용법
 
-```ruby title="symbol_usage.trb"
+```trb title="symbol_usage.trb"
 # 상수로서의 심볼
 STATUS_ACTIVE: Symbol = :active
 STATUS_PENDING: Symbol = :pending
@@ -443,7 +446,7 @@ message: String = get_status_message(:active)
 
 심볼은 반복 사용 시 문자열보다 메모리 효율적입니다:
 
-```ruby title="symbol_performance.trb"
+```trb title="symbol_performance.trb"
 def categorize_with_symbols(items: Array<Integer>): Hash<Symbol, Array<Integer>>
   categories: Hash<Symbol, Array<Integer>> = {
     small: [],
@@ -470,7 +473,7 @@ result = categorize_with_symbols([5, 50, 500])
 
 ### Symbol과 String 간 변환
 
-```ruby title="symbol_conversion.trb"
+```trb title="symbol_conversion.trb"
 def symbol_to_string(sym: Symbol): String
   sym.to_s
 end
@@ -498,7 +501,7 @@ normalized: Symbol = normalize_key("status")  # :status
 
 ### nil 검사
 
-```ruby title="nil_checks.trb"
+```trb title="nil_checks.trb"
 def is_nil(value: String | nil): Bool
   value.nil?
 end
@@ -522,7 +525,7 @@ result: String = get_or_default(nil, "default")  # "default"
 
 ### 안전 내비게이션
 
-```ruby title="safe_navigation.trb"
+```trb title="safe_navigation.trb"
 def get_length_safe(text: String | nil): Integer | nil
   text&.length
 end
@@ -544,7 +547,7 @@ char2 = get_first_char_safe(nil)  # nil
 
 ### String으로 변환
 
-```ruby title="to_string_conversions.trb"
+```trb title="to_string_conversions.trb"
 def int_to_string(n: Integer): String
   n.to_s
 end
@@ -569,7 +572,7 @@ str4: String = symbol_to_string(:active)  # "active"
 
 ### 숫자로 변환
 
-```ruby title="to_number_conversions.trb"
+```trb title="to_number_conversions.trb"
 def string_to_int(s: String): Integer
   s.to_i
 end
@@ -596,7 +599,7 @@ num4: Float = int_to_float(42)  # 42.0
 
 모든 원시 타입을 사용하는 종합적인 예제입니다:
 
-```ruby title="calculator.trb"
+```trb title="calculator.trb"
 class Calculator
   def initialize()
     @history: Array<String> = []

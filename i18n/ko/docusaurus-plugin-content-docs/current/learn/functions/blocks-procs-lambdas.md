@@ -4,6 +4,9 @@ title: 블록, Proc & 람다
 description: 블록, proc, 람다 표현식의 타이핑
 ---
 
+<DocsBadge />
+
+
 # 블록, Proc & 람다
 
 블록, proc, 람다는 실행 가능한 코드를 전달할 수 있게 해주는 Ruby의 필수 기능입니다. T-Ruby는 Ruby의 유연성을 유지하면서 타입 안전성을 보장하는 강력한 타입 시스템을 이러한 구조에 제공합니다.
@@ -16,7 +19,7 @@ description: 블록, proc, 람다 표현식의 타이핑
 - **Proc**: 객체로 감싸진 블록
 - **람다**: 다른 인수 처리를 가진 더 엄격한 형태의 Proc
 
-```ruby title="basics.trb"
+```trb title="basics.trb"
 # 블록 - do...end 또는 {...}로 전달
 [1, 2, 3].each do |n|
   puts n
@@ -35,7 +38,7 @@ my_lambda.call(10)
 
 블록을 받는 메서드는 `&block` 매개변수를 사용합니다. `Proc`으로 타입을 지정합니다:
 
-```ruby title="block_params.trb"
+```trb title="block_params.trb"
 def each_number(&block: Proc<Integer, void>): void
   [1, 2, 3].each do |n|
     block.call(n)
@@ -63,7 +66,7 @@ result = transform_strings { |s| s.upcase }
 
 블록은 여러 매개변수를 받을 수 있습니다:
 
-```ruby title="multiple_params.trb"
+```trb title="multiple_params.trb"
 def each_pair(&block: Proc<[String, Integer], void>): void
   pairs = [["Alice", 30], ["Bob", 25], ["Charlie", 35]]
   pairs.each do |name, age|
@@ -92,7 +95,7 @@ results = transform_hash { |k, v| "#{k}=#{v}" }
 
 일부 메서드는 블록이 있거나 없이 작동할 수 있습니다:
 
-```ruby title="optional_blocks.trb"
+```trb title="optional_blocks.trb"
 def process_items(items: Array<Integer>, &block: Proc<Integer, Integer>?): Array<Integer>
   if block
     items.map { |item| block.call(item) }
@@ -116,7 +119,7 @@ unchanged = process_items([1, 2, 3])
 
 Proc은 저장하고 전달할 수 있는 일급 객체입니다:
 
-```ruby title="procs.trb"
+```trb title="procs.trb"
 # proc 타입 정의
 adder: Proc<Integer, Integer> = Proc.new { |n| n + 10 }
 greeter: Proc<String, String> = Proc.new { |name| "Hello, #{name}!" }
@@ -140,7 +143,7 @@ doubled = apply_to_all([1, 2, 3], Proc.new { |n| n * 2 })
 
 람다는 Proc과 동일한 타입 시그니처를 가집니다:
 
-```ruby title="lambdas.trb"
+```trb title="lambdas.trb"
 # 타입 어노테이션이 있는 람다
 add_ten: Proc<Integer, Integer> = ->(n: Integer) { n + 10 }
 multiply: Proc<[Integer, Integer], Integer> = ->(a: Integer, b: Integer) { a * b }
@@ -164,7 +167,7 @@ admins = filter_users(all_users, is_admin)
 
 proc이나 람다를 반환하는 함수:
 
-```ruby title="higher_order.trb"
+```trb title="higher_order.trb"
 def create_multiplier(factor: Integer): Proc<Integer, Integer>
   ->(n: Integer) { n * factor }
 end
@@ -193,7 +196,7 @@ password_validator.call("secret123") # true
 
 일부 블록은 매개변수를 받지 않습니다:
 
-```ruby title="no_params.trb"
+```trb title="no_params.trb"
 def execute(&block: Proc<[], void>): void
   puts "Before execution"
   block.call
@@ -224,7 +227,7 @@ end
 
 블록은 타입 정보를 보존하기 위해 제네릭이 될 수 있습니다:
 
-```ruby title="generic_blocks.trb"
+```trb title="generic_blocks.trb"
 def map<T, U>(array: Array<T>, &block: Proc<T, U>): Array<U>
   array.map { |item| block.call(item) }
 end
@@ -248,7 +251,7 @@ sum = reduce(numbers, 0) { |acc, n| acc + n }  # Integer
 
 이벤트 처리에 블록을 사용하는 실제 예제입니다:
 
-```ruby title="event_handler.trb"
+```trb title="event_handler.trb"
 class EventEmitter<T>
   def initialize()
     @listeners: Array<Proc<T, void>> = []
@@ -300,7 +303,7 @@ user_events.emit(UserEvent.new("logout", current_user))
 
 미들웨어 체인에 proc을 사용하는 예제:
 
-```ruby title="middleware.trb"
+```trb title="middleware.trb"
 class Request
   attr_accessor :path: String
   attr_accessor :params: Hash<String, String>
@@ -373,7 +376,7 @@ response = stack.execute(request, handler)
 
 함수형 유틸리티 라이브러리 구축:
 
-```ruby title="functional.trb"
+```trb title="functional.trb"
 module Functional
   def self.compose<A, B, C>(
     f: Proc<B, C>,
@@ -430,7 +433,7 @@ memoized.call(5)  # 즉시 25를 반환 (캐시됨)
 
 블록이 무엇을 반환하는지 구체적으로 지정하세요:
 
-```ruby title="block_returns.trb"
+```trb title="block_returns.trb"
 # 블록이 값을 반환
 def sum_transformed(numbers: Array<Integer>, &block: Proc<Integer, Integer>): Integer
   numbers.map { |n| block.call(n) }.sum
@@ -475,7 +478,7 @@ long_strings = custom_select(["hi", "hello", "hey"]) { |s| s.length > 2 }
 
 ### 콜백 패턴
 
-```ruby title="callbacks.trb"
+```trb title="callbacks.trb"
 def fetch_data(url: String, on_success: Proc<String, void>, on_error: Proc<String, void>): void
   begin
     data = HTTP.get(url)
@@ -494,7 +497,7 @@ fetch_data(
 
 ### 블록을 사용한 빌더 패턴
 
-```ruby title="builder_block.trb"
+```trb title="builder_block.trb"
 class QueryBuilder
   def initialize()
     @conditions: Array<String> = []
@@ -523,7 +526,7 @@ end.build()
 
 ### 반복자 패턴
 
-```ruby title="iterator.trb"
+```trb title="iterator.trb"
 def times(n: Integer, &block: Proc<Integer, void>): void
   (0...n).each { |i| block.call(i) }
 end

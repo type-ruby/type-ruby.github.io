@@ -4,6 +4,9 @@ title: RBS 통합
 description: T-Ruby가 RBS 파일을 생성하고 연동하는 방법
 ---
 
+<DocsBadge />
+
+
 # RBS 통합
 
 T-Ruby는 Ruby의 공식 타입 시그니처 형식인 RBS(Ruby Signature)와 원활하게 통합됩니다. T-Ruby 코드를 컴파일하면 컴파일러가 Ruby 출력과 함께 `.rbs` 파일을 자동으로 생성하여 더 넓은 Ruby 타이핑 생태계와의 통합을 가능하게 합니다.
@@ -25,7 +28,7 @@ T-Ruby 코드를 컴파일하면 컴파일러가 타입 정보를 추출하여 �
 
 **T-Ruby 입력** (`user.trb`):
 
-```ruby
+```trb
 class User
   @id: Integer
   @name: String
@@ -49,7 +52,7 @@ end
 
 **생성된 RBS** (`sig/user.rbs`):
 
-```ruby
+```rbs
 class User
   @id: Integer
   @name: String
@@ -121,7 +124,7 @@ trc compile --rbs-dir signatures/ src/
 
 T-Ruby는 파라미터와 반환 타입을 포함한 메서드 시그니처를 자동으로 생성합니다.
 
-```ruby title="calculator.trb"
+```trb title="calculator.trb"
 def add(a: Integer, b: Integer): Integer
   a + b
 end
@@ -132,14 +135,14 @@ def divide(a: Float, b: Float): Float | nil
 end
 ```
 
-```ruby title="sig/calculator.rbs"
+```rbs title="sig/calculator.rbs"
 def add: (Integer a, Integer b) -> Integer
 def divide: (Float a, Float b) -> (Float | nil)
 ```
 
 ### 선택적 파라미터와 키워드 파라미터
 
-```ruby title="formatter.trb"
+```trb title="formatter.trb"
 def format(
   text: String,
   uppercase: Bool = false,
@@ -150,7 +153,7 @@ def format(
 end
 ```
 
-```ruby title="sig/formatter.rbs"
+```rbs title="sig/formatter.rbs"
 def format: (
   String text,
   ?Bool uppercase,
@@ -160,13 +163,13 @@ def format: (
 
 ### 블록 시그니처
 
-```ruby title="iterator.trb"
+```trb title="iterator.trb"
 def each_item(items: Array<String>): void do |String| -> void end
   items.each { |item| yield item }
 end
 ```
 
-```ruby title="sig/iterator.rbs"
+```rbs title="sig/iterator.rbs"
 def each_item: (Array[String] items) { (String) -> void } -> void
 ```
 
@@ -174,7 +177,7 @@ def each_item: (Array[String] items) { (String) -> void } -> void
 
 T-Ruby의 제네릭 타입은 RBS 제네릭에 직접 매핑됩니다.
 
-```ruby title="container.trb"
+```trb title="container.trb"
 class Container<T>
   @value: T
 
@@ -192,7 +195,7 @@ class Container<T>
 end
 ```
 
-```ruby title="sig/container.rbs"
+```rbs title="sig/container.rbs"
 class Container[T]
   @value: T
 
@@ -204,7 +207,7 @@ end
 
 ### 유니온 타입
 
-```ruby title="parser.trb"
+```trb title="parser.trb"
 def parse(input: String): Integer | Float | nil
   return nil if input.empty?
 
@@ -216,13 +219,13 @@ def parse(input: String): Integer | Float | nil
 end
 ```
 
-```ruby title="sig/parser.rbs"
+```rbs title="sig/parser.rbs"
 def parse: (String input) -> (Integer | Float | nil)
 ```
 
 ### 모듈과 믹스인
 
-```ruby title="loggable.trb"
+```trb title="loggable.trb"
 module Loggable
   def log(message: String): void
     puts "[LOG] #{message}"
@@ -242,7 +245,7 @@ class Service
 end
 ```
 
-```ruby title="sig/loggable.rbs"
+```rbs title="sig/loggable.rbs"
 module Loggable
   def log: (String message) -> void
   def log_error: (String error) -> void
@@ -257,7 +260,7 @@ end
 
 ### 타입 별칭
 
-```ruby title="types.trb"
+```trb title="types.trb"
 type UserId = Integer
 type UserMap = Hash<UserId, User>
 
@@ -266,7 +269,7 @@ def find_users(ids: Array<UserId>): UserMap
 end
 ```
 
-```ruby title="sig/types.rbs"
+```rbs title="sig/types.rbs"
 type UserId = Integer
 type UserMap = Hash[UserId, User]
 
@@ -277,7 +280,7 @@ def find_users: (Array[UserId] ids) -> UserMap
 
 T-Ruby 인터페이스는 RBS 인터페이스 타입으로 변환됩니다.
 
-```ruby title="printable.trb"
+```trb title="printable.trb"
 interface Printable
   def to_s: String
   def print: void
@@ -296,7 +299,7 @@ class Document
 end
 ```
 
-```ruby title="sig/printable.rbs"
+```rbs title="sig/printable.rbs"
 interface _Printable
   def to_s: () -> String
   def print: () -> void
@@ -372,7 +375,7 @@ end
 
 주석에 RBS 전용 어노테이션 추가:
 
-```ruby title="service.trb"
+```trb title="service.trb"
 class Service
   # @rbs_skip
   def debug_method: void
@@ -480,7 +483,7 @@ T-Ruby의 RBS 통합이 타입 검사에 어떻게 적용되는지:
 
 RBS를 포함한 타입이 지정된 라이브러리 생성:
 
-```ruby title="lib/my_library.trb"
+```trb title="lib/my_library.trb"
 module MyLibrary
   class Client
     @api_key: String
@@ -532,7 +535,7 @@ client = MyLibrary::Client.new("key123")
 
 Rails 모델에서 RBS 사용:
 
-```ruby title="app/models/user.trb"
+```trb title="app/models/user.trb"
 class User < ApplicationRecord
   @name: String
   @email: String
@@ -669,7 +672,7 @@ RBS 파일은 소스 코드입니다 - Ruby 파일과 함께 커밋하세요.
 
 RBS 파일은 문서 역할을 합니다. 공개 API가 잘 타입 지정되어 있는지 확인하세요:
 
-```ruby
+```trb
 # 좋음 - 명확한 공개 API
 class Service
   def process(data: Array<String>): Hash<String, Integer>
@@ -686,7 +689,7 @@ end
 
 ### 4. 명확성을 위한 타입 별칭 사용
 
-```ruby
+```trb
 type UserId = Integer
 type ResponseData = Hash<String, Any>
 

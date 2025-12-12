@@ -4,6 +4,9 @@ title: Ruby LSPの使用
 description: Ruby LSPを使ったIDE機能
 ---
 
+<DocsBadge />
+
+
 # Ruby LSPの使用
 
 Ruby LSPはRubyコードにオートコンプリート、定義へ移動、インライン診断などのIDE機能を提供します。T-Rubyと組み合わせると、`.rbs`ファイルの型情報に基づいた豊富なIDEサポートを受けられます。
@@ -188,7 +191,7 @@ VS Codeが`.trb`ファイルをRubyとして扱うように設定：
 
 Ruby LSPはRBS型を使用してインテリジェントなオートコンプリートを提供：
 
-```ruby title="user.trb"
+```trb title="user.trb"
 class User
   @name: String
   @email: String
@@ -228,7 +231,7 @@ result = user.greet
 
 シンボル上にマウスを置くと型情報を表示：
 
-```ruby
+```rbs
 def process_user(user: User): String
   # 'user'にホバーすると：User
   # メソッドにホバーすると：(User) -> String
@@ -240,7 +243,7 @@ end
 
 コーディング中に型エラーをインラインで確認：
 
-```ruby
+```trb
 def greet(name: String): String
   name.upcase
 end
@@ -254,7 +257,7 @@ greet(123)  # Expected String, got Integer
 
 クイックフィックスとリファクタリング：
 
-```ruby
+```trb
 class User
   def initialize(name: String): void
     @name = name

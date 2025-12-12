@@ -4,6 +4,9 @@ title: 基本型
 description: String, Integer, Float, Boolean, Symbol, nil
 ---
 
+<DocsBadge />
+
+
 # 基本型
 
 T-RubyはRubyの基本データ型に対応する基本型のセットを提供します。これらの型を理解することは、型安全なT-Rubyコードを書くために不可欠です。この章では、実用的な例とともに各基本型を詳しく探ります。
@@ -27,7 +30,7 @@ T-Rubyには以下の基本型が含まれます：
 
 ### 基本的なString使用
 
-```ruby title="strings.trb"
+```trb title="strings.trb"
 # String変数
 name: String = "Alice"
 greeting: String = 'Hello, world!'
@@ -48,7 +51,7 @@ message: String = "#{name}は#{age}歳です"
 
 T-RubyのStringはすべての標準Rubyメソッドを持っています。型チェッカーはこれらのメソッドを理解します：
 
-```ruby title="string_methods.trb"
+```trb title="string_methods.trb"
 def format_name(name: String): String
   name.strip.downcase.capitalize
 end
@@ -66,7 +69,7 @@ initials: String = get_initials("Alice", "Smith")
 
 ### String連結
 
-```ruby title="string_concat.trb"
+```trb title="string_concat.trb"
 def build_url(protocol: String, domain: String, path: String): String
   protocol + "://" + domain + path
 end
@@ -86,7 +89,7 @@ end
 
 ### 基本的なInteger使用
 
-```ruby title="integers.trb"
+```trb title="integers.trb"
 # Integer変数
 count: Integer = 42
 negative: Integer = -10
@@ -98,7 +101,7 @@ population: Integer = 7_900_000_000  # 読みやすさのためのアンダー�
 
 ### Integer算術
 
-```ruby title="integer_math.trb"
+```trb title="integer_math.trb"
 def calculate_total(price: Integer, quantity: Integer): Integer
   price * quantity
 end
@@ -116,7 +119,7 @@ result: Integer = next_even_number(7)
 
 ### Integerメソッド
 
-```ruby title="integer_methods.trb"
+```trb title="integer_methods.trb"
 def absolute_value(n: Integer): Integer
   n.abs
 end
@@ -136,7 +139,7 @@ check: Bool = is_even(10)
 
 Rubyの整数除算は結果を切り捨てます：
 
-```ruby title="integer_division.trb"
+```trb title="integer_division.trb"
 def divide_integers(a: Integer, b: Integer): Integer
   a / b
 end
@@ -159,7 +162,7 @@ decimal_result: Float = divide_as_float(7, 2)
 
 ### 基本的なFloat使用
 
-```ruby title="floats.trb"
+```trb title="floats.trb"
 # Float変数
 price: Float = 19.99
 temperature: Float = -3.5
@@ -171,7 +174,7 @@ speed_of_light: Float = 2.998e8  # 299,800,000
 
 ### Float算術
 
-```ruby title="float_math.trb"
+```trb title="float_math.trb"
 def calculate_average(values: Array<Float>): Float
   sum = 0.0
   values.each do |v|
@@ -193,7 +196,7 @@ amount: Float = calculate_interest(1000.0, 0.05, 5)
 
 ### 丸めと精度
 
-```ruby title="float_rounding.trb"
+```trb title="float_rounding.trb"
 def round_to_cents(amount: Float): Float
   (amount * 100).round / 100.0
 end
@@ -213,7 +216,7 @@ formatted: String = format_currency(19.99)
 
 整数と浮動小数点を混ぜると、結果は通常浮動小数点になります：
 
-```ruby title="mixed_math.trb"
+```trb title="mixed_math.trb"
 # Integer + Float = Float
 def add_numbers(a: Integer, b: Float): Float
   a + b
@@ -229,7 +232,7 @@ sum: Float = add_numbers(5, 2.5)
 
 ### 基本的なBoolean使用
 
-```ruby title="booleans.trb"
+```trb title="booleans.trb"
 # Boolean変数
 is_active: Bool = true
 has_permission: Bool = false
@@ -241,7 +244,7 @@ is_valid: Bool = count > 0
 
 ### Boolean論理
 
-```ruby title="boolean_logic.trb"
+```trb title="boolean_logic.trb"
 def can_access(is_logged_in: Bool, has_permission: Bool): Bool
   is_logged_in && has_permission
 end
@@ -266,7 +269,7 @@ flipped: Bool = toggle(true)
 
 ### 条件文でのBooleans
 
-```ruby title="boolean_conditionals.trb"
+```trb title="boolean_conditionals.trb"
 def get_status(is_complete: Bool): String
   if is_complete
     "完了"
@@ -293,7 +296,7 @@ end
 
 Rubyでは多くの値が「truthy」または「falsy」ですが、`Bool`型は`true`または`false`のみを受け入れます：
 
-```ruby title="bool_strict.trb"
+```trb title="bool_strict.trb"
 # これは正しい
 flag: Bool = true
 
@@ -314,7 +317,7 @@ end
 
 ### 基本的なSymbol使用
 
-```ruby title="symbols.trb"
+```trb title="symbols.trb"
 # Symbol変数
 status: Symbol = :active
 direction: Symbol = :north
@@ -334,7 +337,7 @@ options = create_options(:production)
 
 シンボルは文字列に似ていますが、不変で識別子として使用するために最適化されています：
 
-```ruby title="symbol_vs_string.trb"
+```trb title="symbol_vs_string.trb"
 # 同じシンボルは常にメモリ内の同じオブジェクト
 def are_same_symbol(a: Symbol, b: Symbol): Bool
   a.object_id == b.object_id
@@ -365,7 +368,7 @@ symbol: Symbol = string_to_symbol("world")
 
 ### 基本的なnil使用
 
-```ruby title="nil_basics.trb"
+```trb title="nil_basics.trb"
 # nil変数（それ自体ではあまり有用ではない）
 nothing: nil = nil
 
@@ -381,7 +384,7 @@ user = find_user(-1)
 
 ### nilのチェック
 
-```ruby title="nil_checks.trb"
+```trb title="nil_checks.trb"
 def greet(name: String | nil): String
   if name.nil?
     "こんにちは、見知らぬ方！"
@@ -401,7 +404,7 @@ message2: String = greet(nil)
 
 Rubyの安全ナビゲーション演算子（`&.`）はnilと一緒に動作します：
 
-```ruby title="safe_navigation.trb"
+```trb title="safe_navigation.trb"
 def get_name_length(name: String | nil): Integer | nil
   name&.length
 end
@@ -415,7 +418,7 @@ len2 = get_name_length(nil)
 
 ### nilとデフォルト値
 
-```ruby title="nil_defaults.trb"
+```trb title="nil_defaults.trb"
 def get_greeting(custom: String | nil): String
   custom || "こんにちは！"
 end
@@ -433,7 +436,7 @@ greeting2: String = get_greeting(nil)
 
 ### Stringへの変換
 
-```ruby title="to_string.trb"
+```trb title="to_string.trb"
 def describe_number(num: Integer): String
   num.to_s
 end
@@ -458,7 +461,7 @@ text3: String = describe_bool(true)
 
 ### Integerへの変換
 
-```ruby title="to_integer.trb"
+```trb title="to_integer.trb"
 def parse_integer(text: String): Integer
   text.to_i
 end
@@ -481,7 +484,7 @@ truncated: Integer = float_to_int(3.7)
 
 複数の基本型を使用した完全な例：
 
-```ruby title="temperature.trb"
+```trb title="temperature.trb"
 def celsius_to_fahrenheit(celsius: Float): Float
   (celsius * 9.0 / 5.0) + 32.0
 end

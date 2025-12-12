@@ -4,6 +4,9 @@ title: 제네릭 함수와 클래스
 description: 제네릭으로 재사용 가능한 코드 만들기
 ---
 
+<DocsBadge />
+
+
 # 제네릭 함수와 클래스
 
 제네릭은 T-Ruby의 가장 강력한 기능 중 하나로, 타입 안전성을 유지하면서 여러 타입과 작동하는 코드를 작성할 수 있게 해줍니다. 제네릭을 "타입 변수"로 생각하세요—코드가 사용될 때 구체적인 타입으로 채워지는 플레이스홀더입니다.
@@ -14,7 +17,7 @@ description: 제네릭으로 재사용 가능한 코드 만들기
 
 ### 문제: 제네릭 없이
 
-```ruby
+```trb
 # 제네릭 없이는 각 타입에 대해 별도의 함수가 필요
 def first_string(arr: Array<String>): String | nil
   arr[0]
@@ -36,7 +39,7 @@ end
 
 ### 해결책: 제네릭으로
 
-```ruby
+```trb
 # 모든 타입에 작동하는 하나의 함수
 def first<T>(arr: Array<T>): T | nil
   arr[0]
@@ -56,7 +59,7 @@ value = first(numbers)  # value는 Integer | nil
 
 ### 기본 제네릭 함수
 
-```ruby
+```trb
 # 간단한 제네릭 함수
 def identity<T>(value: T): T
   value
@@ -72,7 +75,7 @@ arr = identity([1, 2, 3])    # Array<Integer>
 
 필요할 때 여러 타입 매개변수를 사용할 수 있습니다:
 
-```ruby
+```trb
 # 두 개의 타입 매개변수를 가진 함수
 def pair<K, V>(key: K, value: V): Hash<K, V>
   { key => value }
@@ -88,7 +91,7 @@ mixed = pair("count", 42)          # Hash<String, Integer>
 
 일반적인 사용 사례는 모든 타입의 배열과 작업하는 것입니다:
 
-```ruby
+```trb
 # 배열의 마지막 요소 가져오기
 def last<T>(arr: Array<T>): T | nil
   arr[-1]
@@ -116,7 +119,7 @@ long_words = filter(words) { |w| w.length > 3 }  # Array<String>
 
 때로는 반환 타입이 입력 타입과 다르지만 여전히 제네릭입니다:
 
-```ruby
+```trb
 # 타입 T를 타입 U로 변환하는 map 함수
 def map<T, U>(arr: Array<T>, &block: Proc<T, U>): Array<U>
   arr.map { |item| block.call(item) }
@@ -137,7 +140,7 @@ lengths = map(words) { |w| w.length }  # Array<Integer>
 
 ### 기본 제네릭 클래스
 
-```ruby
+```trb
 # 간단한 제네릭 컨테이너
 class Box<T>
   @value: T
@@ -171,7 +174,7 @@ string_box.set(123)      # 에러: 타입 불일치
 
 T-Ruby는 종종 생성자에서 타입 매개변수를 추론할 수 있습니다:
 
-```ruby
+```trb
 class Container<T>
   @item: T
 
@@ -200,7 +203,7 @@ container3 = Container<Bool>.new(true)
 
 제네릭 스택 데이터 구조의 실용적인 예제:
 
-```ruby
+```trb
 class Stack<T>
   @items: Array<T>
 
@@ -254,7 +257,7 @@ puts int_stack.size  # 3
 
 제네릭 클래스는 여러 타입 매개변수를 가질 수 있습니다:
 
-```ruby
+```trb
 class Pair<K, V>
   @key: K
   @value: V
@@ -294,7 +297,7 @@ swapped = name_age.swap              # Pair<Integer, String>
 
 커스텀 컬렉션을 보여주는 더 복잡한 예제:
 
-```ruby
+```trb
 class Collection<T>
   @items: Array<T>
 
@@ -366,7 +369,7 @@ numbers.each { |n| puts n }
 
 자체적으로 제네릭이 아닌 클래스에서도 제네릭 메서드를 가질 수 있습니다:
 
-```ruby
+```trb
 class Utils
   # 비제네릭 클래스의 제네릭 메서드
   def self.wrap<T>(value: T): Array<T>
@@ -392,7 +395,7 @@ zipped = Utils.zip([1, 2], ["a", "b"])      # Array<Pair<Integer, String>>
 
 제네릭을 중첩하여 복잡한 타입 구조를 만들 수 있습니다:
 
-```ruby
+```trb
 # 각 키에 대해 값 배열을 저장하는 캐시
 class Cache<K, V>
   @store: Hash<K, Array<V>>
@@ -428,7 +431,7 @@ tags = user_tags.get(1)  # Array<String> = ["ruby", "programming"]
 
 ### 1. 설명적인 타입 매개변수 이름 사용
 
-```ruby
+```trb
 # 좋음: 도메인별 타입에 설명적 이름
 class Repository<Entity, Id>
   def find(id: Id): Entity | nil
@@ -449,7 +452,7 @@ end
 
 ### 2. 제네릭 함수를 단순하게 유지
 
-```ruby
+```trb
 # 좋음: 간단하고 집중된 제네릭 함수
 def head<T>(arr: Array<T>): T | nil
   arr.first
@@ -463,7 +466,7 @@ end
 
 ### 3. 가능하면 타입 추론 사용
 
-```ruby
+```trb
 # T-Ruby가 인자에서 타입 추론하도록 함
 container = Container.new("hello")  # Container<String> 추론됨
 
@@ -475,7 +478,7 @@ container = Container<String | Integer>.new("hello")
 
 ### Option/Maybe 타입
 
-```ruby
+```trb
 class Option<T>
   @value: T | nil
 
@@ -521,7 +524,7 @@ result = some.map { |n| n * 2 }  # Option<Integer> 값 84
 
 ### Result 타입
 
-```ruby
+```trb
 class Result<T, E>
   @value: T | nil
   @error: E | nil

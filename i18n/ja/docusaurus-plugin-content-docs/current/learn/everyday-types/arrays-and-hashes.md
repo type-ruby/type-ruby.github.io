@@ -4,6 +4,9 @@ title: 配列とハッシュ
 description: ArrayとHash型の操作
 ---
 
+<DocsBadge />
+
+
 # 配列とハッシュ
 
 配列とハッシュはT-Rubyで最もよく使用されるコレクション型です。複数の値を構造化された方法で格納し、整理することができます。この章では、ジェネリック型パラメータを使用して型安全なコレクションを作成する方法を学びます。
@@ -14,7 +17,7 @@ T-Rubyの配列はジェネリック型構文を使用します：`Array<T>`、�
 
 ### 基本的なArray構文
 
-```ruby title="array_basics.trb"
+```trb title="array_basics.trb"
 # 整数の配列
 numbers: Array<Integer> = [1, 2, 3, 4, 5]
 
@@ -32,7 +35,7 @@ items: Array<String> = []
 
 値で初期化する場合、T-Rubyは配列の型を推論できます：
 
-```ruby title="array_inference.trb"
+```trb title="array_inference.trb"
 # Array<Integer>として推論される
 numbers = [1, 2, 3, 4, 5]
 
@@ -45,7 +48,7 @@ items: Array<String> = []
 
 ### 配列操作
 
-```ruby title="array_operations.trb"
+```trb title="array_operations.trb"
 def add_item(items: Array<String>, item: String): Array<String>
   items << item
   items
@@ -73,7 +76,7 @@ count: Integer = array_length(list)  # 3
 
 ### 配列要素へのアクセス
 
-```ruby title="array_access.trb"
+```trb title="array_access.trb"
 def get_at_index(items: Array<String>, index: Integer): String | nil
   items[index]
 end
@@ -95,7 +98,7 @@ subset: Array<String> = get_range(fruits, 1..2)  # ["banana", "cherry"]
 
 ### 配列の反復
 
-```ruby title="array_iteration.trb"
+```trb title="array_iteration.trb"
 def sum_numbers(numbers: Array<Integer>): Integer
   total = 0
   numbers.each do |n|
@@ -124,7 +127,7 @@ even: Integer | nil = find_first_even([1, 3, 4, 5])  # 4
 
 ### 配列変換メソッド
 
-```ruby title="array_transform.trb"
+```trb title="array_transform.trb"
 def join_strings(items: Array<String>, separator: String): String
   items.join(separator)
 end
@@ -151,7 +154,7 @@ unique: Array<String> = unique_items(["a", "b", "a", "c"])  # ["a", "b", "c"]
 
 配列は他の配列を含むことができます：
 
-```ruby title="nested_arrays.trb"
+```trb title="nested_arrays.trb"
 # 2D配列（配列の配列）
 def create_grid(rows: Integer, cols: Integer): Array<Array<Integer>>
   grid: Array<Array<Integer>> = []
@@ -184,7 +187,7 @@ T-Rubyのハッシュはジェネリック型構文を使用します：`Hash<K,
 
 ### 基本的なHash構文
 
-```ruby title="hash_basics.trb"
+```trb title="hash_basics.trb"
 # SymbolキーとString値を持つハッシュ
 user: Hash<Symbol, String> = {
   name: "Alice",
@@ -213,7 +216,7 @@ config: Hash<Symbol, String> = {}
 
 T-Rubyはハッシュの内容から型を推論できます：
 
-```ruby title="hash_inference.trb"
+```trb title="hash_inference.trb"
 # Hash<Symbol, String>として推論される
 user = {
   name: "Alice",
@@ -232,7 +235,7 @@ config: Hash<Symbol, String> = {}
 
 ### ハッシュ操作
 
-```ruby title="hash_operations.trb"
+```trb title="hash_operations.trb"
 def get_value(hash: Hash<Symbol, String>, key: Symbol): String | nil
   hash[key]
 end
@@ -259,7 +262,7 @@ count: Integer = hash_size(config)  # 2
 
 ### ハッシュの反復
 
-```ruby title="hash_iteration.trb"
+```trb title="hash_iteration.trb"
 def print_hash(hash: Hash<Symbol, String>)
   hash.each do |key, value|
     puts "#{key}: #{value}"
@@ -289,7 +292,7 @@ doubled: Hash<Symbol, Integer> = transform_values({ a: 5, b: 10 })
 
 ### ハッシュ変換メソッド
 
-```ruby title="hash_transform.trb"
+```trb title="hash_transform.trb"
 def merge_hashes(
   hash1: Hash<Symbol, String>,
   hash2: Hash<Symbol, String>
@@ -326,7 +329,7 @@ inverted: Hash<Integer, String> = invert_hash({ "a" => 1, "b" => 2 })
 
 ハッシュは他のハッシュを含むことができます：
 
-```ruby title="nested_hashes.trb"
+```trb title="nested_hashes.trb"
 # ハッシュを含むハッシュ
 def create_user(
   name: String,
@@ -370,7 +373,7 @@ user = create_user("Alice", 30, "alice@example.com")
 
 ### Union型を持つ配列
 
-```ruby title="array_unions.trb"
+```trb title="array_unions.trb"
 # 文字列または整数を含むことができる配列
 def create_mixed_array(): Array<String | Integer>
   ["alice", 42, "bob", 100]
@@ -394,7 +397,7 @@ sum: Integer = sum_numbers_from_mixed(mixed)  # 142
 
 ### Union型を持つハッシュ
 
-```ruby title="hash_unions.trb"
+```trb title="hash_unions.trb"
 # 混合値型を持つハッシュ
 def create_config(): Hash<Symbol, String | Integer | Bool>
   {
@@ -429,7 +432,7 @@ port: Integer | nil = get_port(config)  # 3000
 
 配列とハッシュを組み合わせた包括的な例です：
 
-```ruby title="data_processing.trb"
+```trb title="data_processing.trb"
 class DataProcessor
   def initialize()
     @records: Array<Hash<Symbol, String | Integer>> = []
@@ -552,7 +555,7 @@ stats: Hash<Symbol, Float | Integer> = processor.get_statistics()
 
 ### 動的に配列を構築
 
-```ruby title="array_building.trb"
+```trb title="array_building.trb"
 def build_range(start: Integer, stop: Integer): Array<Integer>
   result: Array<Integer> = []
 
@@ -587,7 +590,7 @@ filtered: Array<String> = filter_and_transform([10, 5, 20, 3], 8)
 
 ### 動的にハッシュを構築
 
-```ruby title="hash_building.trb"
+```trb title="hash_building.trb"
 def count_occurrences(words: Array<String>): Hash<String, Integer>
   counts: Hash<String, Integer> = {}
 
@@ -628,7 +631,7 @@ counts: Hash<String, Integer> = count_occurrences(words)
 
 ### 空のコレクションには型アノテーションが必要
 
-```ruby title="empty_collections.trb"
+```trb title="empty_collections.trb"
 # これは動作しない - 型を推論できない
 # items = []  # エラー！
 
@@ -639,7 +642,7 @@ config: Hash<Symbol, Integer> = {}
 
 ### コレクションの変更
 
-```ruby title="mutation.trb"
+```trb title="mutation.trb"
 def add_item_wrong(items: Array<String>): Array<String>
   # これは元の配列を変更する
   items << "new"
@@ -664,7 +667,7 @@ result2 = add_item_safe(original2)
 
 ### ハッシュキーの型に注意
 
-```ruby title="hash_keys.trb"
+```trb title="hash_keys.trb"
 # SymbolキーとStringキーは異なる！
 def demonstrate_key_types()
   hash: Hash<Symbol | String, Integer> = {}

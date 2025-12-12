@@ -4,6 +4,9 @@ title: T-Ruby vs Others
 description: Comparison of T-Ruby with TypeScript, RBS, and Sorbet
 ---
 
+<DocsBadge />
+
+
 # T-Ruby vs Others
 
 The Ruby ecosystem has several approaches to static typing. This page compares T-Ruby with other solutions to help you understand where T-Ruby fits in.
@@ -41,7 +44,7 @@ class User
 end
 ```
 
-```ruby title="sig/user.rbs"
+```rbs title="sig/user.rbs"
 class User
   @name: String
   @age: Integer
@@ -55,7 +58,7 @@ end
 
 Types are written inline:
 
-```ruby title="lib/user.trb"
+```trb title="lib/user.trb"
 class User
   @name: String
   @age: Integer
@@ -119,7 +122,7 @@ end
 
 ### T-Ruby Approach
 
-```ruby title="lib/calculator.trb"
+```trb title="lib/calculator.trb"
 class Calculator
   def add(a: Integer, b: Integer): Integer
     a + b
@@ -153,7 +156,7 @@ greet(123)  # Raises TypeError at runtime if runtime checks enabled
 ```
 
 **T-Ruby approach:**
-```ruby
+```trb
 # Types are compile-time only
 def greet(name: String): String
   "Hello, #{name}"
@@ -193,7 +196,7 @@ function processUser<T extends User>(user: T): string {
 }
 ```
 
-```ruby title="T-Ruby"
+```trb title="T-Ruby"
 def greet(name: String): String
   "Hello, #{name}!"
 end

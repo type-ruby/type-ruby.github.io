@@ -4,6 +4,9 @@ title: RBS統合
 description: T-RubyがRBSファイルを生成し連携する方法
 ---
 
+<DocsBadge />
+
+
 # RBS統合
 
 T-RubyはRubyの公式型シグネチャフォーマットであるRBS（Ruby Signature）とシームレスに統合されます。T-Rubyコードをコンパイルすると、コンパイラはRuby出力と一緒に`.rbs`ファイルを自動的に生成し、より広いRuby型付けエコシステムとの統合を可能にします。
@@ -25,7 +28,7 @@ T-Rubyコードをコンパイルすると、コンパイラが型情報を抽�
 
 **T-Ruby入力** (`user.trb`):
 
-```ruby
+```trb
 class User
   @id: Integer
   @name: String
@@ -49,7 +52,7 @@ end
 
 **生成されたRBS** (`sig/user.rbs`):
 
-```ruby
+```rbs
 class User
   @id: Integer
   @name: String
@@ -121,7 +124,7 @@ trc compile --rbs-dir signatures/ src/
 
 T-Rubyはパラメータと戻り値の型を含むメソッドシグネチャを自動的に生成します。
 
-```ruby title="calculator.trb"
+```trb title="calculator.trb"
 def add(a: Integer, b: Integer): Integer
   a + b
 end
@@ -132,14 +135,14 @@ def divide(a: Float, b: Float): Float | nil
 end
 ```
 
-```ruby title="sig/calculator.rbs"
+```rbs title="sig/calculator.rbs"
 def add: (Integer a, Integer b) -> Integer
 def divide: (Float a, Float b) -> (Float | nil)
 ```
 
 ### オプショナルパラメータとキーワードパラメータ
 
-```ruby title="formatter.trb"
+```trb title="formatter.trb"
 def format(
   text: String,
   uppercase: Bool = false,
@@ -150,7 +153,7 @@ def format(
 end
 ```
 
-```ruby title="sig/formatter.rbs"
+```rbs title="sig/formatter.rbs"
 def format: (
   String text,
   ?Bool uppercase,
@@ -160,13 +163,13 @@ def format: (
 
 ### ブロックシグネチャ
 
-```ruby title="iterator.trb"
+```trb title="iterator.trb"
 def each_item(items: Array<String>): void do |String| -> void end
   items.each { |item| yield item }
 end
 ```
 
-```ruby title="sig/iterator.rbs"
+```rbs title="sig/iterator.rbs"
 def each_item: (Array[String] items) { (String) -> void } -> void
 ```
 
@@ -174,7 +177,7 @@ def each_item: (Array[String] items) { (String) -> void } -> void
 
 T-Rubyのジェネリック型はRBSジェネリクスに直接マッピングされます。
 
-```ruby title="container.trb"
+```trb title="container.trb"
 class Container<T>
   @value: T
 
@@ -192,7 +195,7 @@ class Container<T>
 end
 ```
 
-```ruby title="sig/container.rbs"
+```rbs title="sig/container.rbs"
 class Container[T]
   @value: T
 
@@ -204,7 +207,7 @@ end
 
 ### ユニオン型
 
-```ruby title="parser.trb"
+```trb title="parser.trb"
 def parse(input: String): Integer | Float | nil
   return nil if input.empty?
 
@@ -216,13 +219,13 @@ def parse(input: String): Integer | Float | nil
 end
 ```
 
-```ruby title="sig/parser.rbs"
+```rbs title="sig/parser.rbs"
 def parse: (String input) -> (Integer | Float | nil)
 ```
 
 ### モジュールとミックスイン
 
-```ruby title="loggable.trb"
+```trb title="loggable.trb"
 module Loggable
   def log(message: String): void
     puts "[LOG] #{message}"
@@ -242,7 +245,7 @@ class Service
 end
 ```
 
-```ruby title="sig/loggable.rbs"
+```rbs title="sig/loggable.rbs"
 module Loggable
   def log: (String message) -> void
   def log_error: (String error) -> void
@@ -257,7 +260,7 @@ end
 
 ### 型エイリアス
 
-```ruby title="types.trb"
+```trb title="types.trb"
 type UserId = Integer
 type UserMap = Hash<UserId, User>
 
@@ -266,7 +269,7 @@ def find_users(ids: Array<UserId>): UserMap
 end
 ```
 
-```ruby title="sig/types.rbs"
+```rbs title="sig/types.rbs"
 type UserId = Integer
 type UserMap = Hash[UserId, User]
 
@@ -277,7 +280,7 @@ def find_users: (Array[UserId] ids) -> UserMap
 
 T-RubyインターフェースはRBSインターフェース型に変換されます。
 
-```ruby title="printable.trb"
+```trb title="printable.trb"
 interface Printable
   def to_s: String
   def print: void
@@ -296,7 +299,7 @@ class Document
 end
 ```
 
-```ruby title="sig/printable.rbs"
+```rbs title="sig/printable.rbs"
 interface _Printable
   def to_s: () -> String
   def print: () -> void
@@ -372,7 +375,7 @@ end
 
 コメントにRBS専用アノテーションを追加：
 
-```ruby title="service.trb"
+```rbs title="service.trb"
 class Service
   # @rbs_skip
   def debug_method: void
@@ -480,7 +483,7 @@ T-RubyのRBS統合が型チェックにどのように適用されるか：
 
 RBSを含む型付きライブラリを作成：
 
-```ruby title="lib/my_library.trb"
+```trb title="lib/my_library.trb"
 module MyLibrary
   class Client
     @api_key: String
@@ -532,7 +535,7 @@ client = MyLibrary::Client.new("key123")
 
 RailsモデルでRBSを使用：
 
-```ruby title="app/models/user.trb"
+```trb title="app/models/user.trb"
 class User < ApplicationRecord
   @name: String
   @email: String
@@ -669,7 +672,7 @@ RBSファイルはソースコードです - Rubyファイルと一緒にコミ�
 
 RBSファイルはドキュメントとしても機能します。パブリックAPIが適切に型付けされていることを確認：
 
-```ruby
+```trb
 # 良い例 - 明確なパブリックAPI
 class Service
   def process(data: Array<String>): Hash<String, Integer>
@@ -686,7 +689,7 @@ end
 
 ### 4. 明確さのための型エイリアス使用
 
-```ruby
+```trb
 type UserId = Integer
 type ResponseData = Hash<String, Any>
 

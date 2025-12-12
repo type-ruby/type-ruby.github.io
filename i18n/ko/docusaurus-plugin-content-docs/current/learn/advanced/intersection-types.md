@@ -4,6 +4,9 @@ title: 교차 타입
 description: 교차로 타입 결합하기
 ---
 
+<DocsBadge />
+
+
 # 교차 타입
 
 :::caution 준비 중
@@ -18,7 +21,7 @@ description: 교차로 타입 결합하기
 
 ### 유니온 vs 교차
 
-```ruby
+```trb
 # 유니온 타입: 값은 String 또는 Integer일 수 있음
 type StringOrInt = String | Integer
 value1: StringOrInt = "hello"  # OK
@@ -33,7 +36,7 @@ type NamedAndAged = Named & Aged
 
 교차 연산자는 `&`입니다:
 
-```ruby
+```trb
 type Combined = TypeA & TypeB & TypeC
 ```
 
@@ -41,7 +44,7 @@ type Combined = TypeA & TypeB & TypeC
 
 교차 타입의 가장 일반적인 사용법은 인터페이스를 결합하는 것입니다:
 
-```ruby
+```trb
 # 개별 인터페이스 정의
 interface Named
   def name: String
@@ -91,7 +94,7 @@ puts user.age   # OK: Aged 인터페이스
 
 인터페이스를 클래스 타입과 결합할 수 있습니다:
 
-```ruby
+```trb
 # 기본 클래스
 class Entity
   @id: Integer
@@ -150,7 +153,7 @@ puts user.created_at  # Timestamped 인터페이스에서
 
 교차 타입은 Ruby의 믹스인 개념과 잘 작동합니다:
 
-```ruby
+```trb
 # 기능 인터페이스 정의
 interface Serializable
   def to_json: String
@@ -225,7 +228,7 @@ article.save            # Persistable
 
 ### 레포지토리 패턴
 
-```ruby
+```trb
 interface Identifiable
   def id: Integer | String
 end
@@ -281,7 +284,7 @@ end
 
 ### 이벤트 시스템
 
-```ruby
+```trb
 interface Event
   def event_type: String
   def timestamp: Time
@@ -410,7 +413,7 @@ end
 
 교차 타입은 제네릭과 결합할 수 있습니다:
 
-```ruby
+```trb
 # 교차 제약이 있는 제네릭 타입
 def process<T: Serializable & Validatable>(item: T): Bool
   if item.valid?
@@ -458,7 +461,7 @@ end
 
 교차 타입은 타입 좁히기와 함께 작동합니다:
 
-```ruby
+```trb
 interface Animal
   def speak: String
 end
@@ -506,7 +509,7 @@ end
 
 교차 타입에 충돌하는 멤버가 있을 때, 더 구체적인 타입이 이깁니다:
 
-```ruby
+```trb
 interface HasName
   def name: String
 end
@@ -540,7 +543,7 @@ end
 
 ### 1. 작고 집중된 인터페이스 구성
 
-```ruby
+```trb
 # 좋음: 단일 책임을 가진 작은 인터페이스
 interface Identifiable
   def id: Integer
@@ -570,7 +573,7 @@ end
 
 ### 2. 의미 있는 이름 사용
 
-```ruby
+```trb
 # 좋음: 교차가 나타내는 것이 명확
 type AuditedEntity = Entity & Auditable
 type SerializableModel = Model & Serializable
@@ -582,7 +585,7 @@ type Combined = Foo & Bar
 
 ### 3. 과도하게 복잡하게 만들지 않기
 
-```ruby
+```trb
 # 좋음: 적절한 수의 교차
 type FullModel = Identifiable & Timestamped & Validatable
 
@@ -593,7 +596,7 @@ type SuperType = A & B & C & D & E & F & G & H
 
 ### 4. 의도 문서화
 
-```ruby
+```trb
 # 좋음: 왜 교차가 필요한지 설명하는 주석
 # 직렬화되고 캐시될 수 있는 엔티티를 나타냄
 type CacheableEntity = Serializable & Identifiable
@@ -616,7 +619,7 @@ end
 
 ### 빌더 패턴
 
-```ruby
+```trb
 interface Buildable
   def build: self
 end
@@ -666,7 +669,7 @@ end
 
 ### 상태 머신
 
-```ruby
+```trb
 interface State
   def name: String
 end
@@ -726,7 +729,7 @@ end
 
 ### 기본 타입은 교차할 수 없음
 
-```ruby
+```trb
 # 의미가 없음 - 값은 String이면서 동시에 Integer일 수 없음
 # type Impossible = String & Integer  # 빈 타입이 됨
 
@@ -736,7 +739,7 @@ type Valid = Interface1 & Interface2
 
 ### 구현 요구사항
 
-```ruby
+```trb
 # 교차를 사용할 때 구현은 모든 부분을 만족해야 함
 type Complete = Interface1 & Interface2 & Interface3
 

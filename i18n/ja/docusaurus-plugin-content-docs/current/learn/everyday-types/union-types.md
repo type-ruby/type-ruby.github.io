@@ -4,6 +4,9 @@ title: Union型
 description: unionで複数の型を組み合わせる
 ---
 
+<DocsBadge />
+
+
 # Union型
 
 Union型を使用すると、値が複数の異なる型のいずれかになることができます。正当に複数の形式を持つことができるデータをモデル化するために不可欠です。この章では、T-RubyでUnion型を効果的に使用する方法を学びます。
@@ -12,7 +15,7 @@ Union型を使用すると、値が複数の異なる型のいずれかになる
 
 Union型は、指定された複数の型のいずれかになりうる値を表します。T-Rubyでは、パイプ（`|`）演算子を使用してUnion型を作成します：
 
-```ruby title="union_basics.trb"
+```trb title="union_basics.trb"
 # この変数はStringまたはnilになりうる
 name: String | nil = "Alice"
 
@@ -31,7 +34,7 @@ Union型はいくつかのシナリオで役立ちます：
 
 最も一般的な使用法は、型と`nil`を組み合わせてオプショナル値を表すことです：
 
-```ruby title="optional_values.trb"
+```trb title="optional_values.trb"
 def find_user(id: Integer): String | nil
   return nil if id < 0
   "User #{id}"
@@ -46,7 +49,7 @@ no_user: String | nil = find_user(-1)  # nil
 
 関数が異なる型の入力を受け入れる場合：
 
-```ruby title="multiple_inputs.trb"
+```trb title="multiple_inputs.trb"
 def format_id(id: String | Integer): String
   if id.is_a?(Integer)
     "ID-#{id}"
@@ -63,7 +66,7 @@ formatted2: String = format_id("abc")  # "ABC"
 
 関数が条件に基づいて異なる型を返す可能性がある場合：
 
-```ruby title="different_returns.trb"
+```trb title="different_returns.trb"
 def parse_value(input: String): String | Integer | Bool
   if input == "true" || input == "false"
     input == "true"
@@ -85,7 +88,7 @@ result3 = parse_value("hello")  # "hello" (String)
 
 Union型を持つ値を安全に使用するには、実際の型を確認する必要があります：
 
-```ruby title="type_checking.trb"
+```trb title="type_checking.trb"
 def process_value(value: String | Integer): String
   if value.is_a?(String)
     # このブロック内では、T-RubyはvalueがStringであることを知っている
@@ -104,7 +107,7 @@ result2: String = process_value(42)  # "42"
 
 オプショナル値を扱う場合、常に`nil`をチェックしてください：
 
-```ruby title="nil_checking.trb"
+```trb title="nil_checking.trb"
 def get_length(text: String | nil): Integer
   if text.nil?
     0
@@ -127,7 +130,7 @@ end
 
 Unionに2つ以上の型がある場合：
 
-```ruby title="multiple_checks.trb"
+```trb title="multiple_checks.trb"
 def describe_value(value: String | Integer | Bool): String
   if value.is_a?(String)
     "テキスト: #{value}"
@@ -151,7 +154,7 @@ Union型は配列やハッシュとよく一緒に使用されます：
 
 ### Union要素型を持つ配列
 
-```ruby title="union_arrays.trb"
+```trb title="union_arrays.trb"
 # 文字列または整数を含むことができる配列
 def create_mixed_list(): Array<String | Integer>
   ["Alice", 1, "Bob", 2, "Charlie", 3]
@@ -188,7 +191,7 @@ strings: Array<String> = get_strings(mixed)  # ["Alice", "Bob", "Charlie"]
 
 ### Union値型を持つハッシュ
 
-```ruby title="union_hashes.trb"
+```trb title="union_hashes.trb"
 # 異なる値型を持つハッシュ
 def create_config(): Hash<Symbol, String | Integer | Bool>
   {
@@ -235,7 +238,7 @@ port: Integer | nil = get_integer_value(config, :port)  # 3000
 
 ### パターン1：成功またはエラー
 
-```ruby title="result_pattern.trb"
+```trb title="result_pattern.trb"
 def divide_safe(a: Float, b: Float): Float | String
   if b == 0.0
     "エラー: ゼロで除算できません"
@@ -262,7 +265,7 @@ message2: String = process_result(result2)  # "エラー: ゼロで除算でき�
 
 ### パターン2：デフォルト値
 
-```ruby title="default_pattern.trb"
+```trb title="default_pattern.trb"
 def get_value_or_default(
   value: String | nil,
   default: String
@@ -285,7 +288,7 @@ result2: String = get_value_or_default(nil, "default")  # "default"
 
 ### パターン3：型強制変換
 
-```ruby title="coercion_pattern.trb"
+```trb title="coercion_pattern.trb"
 def to_integer(value: String | Integer): Integer
   if value.is_a?(Integer)
     value
@@ -312,7 +315,7 @@ str3: String = to_string(true)  # "true"
 
 ### パターン4：多態関数
 
-```ruby title="polymorphic_pattern.trb"
+```trb title="polymorphic_pattern.trb"
 def repeat(value: String | Integer, times: Integer): String
   if value.is_a?(String)
     value * times
@@ -332,7 +335,7 @@ Union型は複雑な方法で組み合わせることができます：
 
 ### Union内のUnion
 
-```ruby title="nested_unions.trb"
+```trb title="nested_unions.trb"
 # 数値（IntegerまたはFloat）またはテキスト（StringまたはSymbol）になりうる値
 def process_input(value: Integer | Float | String | Symbol): String
   if value.is_a?(Integer) || value.is_a?(Float)
@@ -352,7 +355,7 @@ result4: String = process_input(:active)  # "シンボル: active"
 
 ### 複雑な型とのUnion
 
-```ruby title="complex_unions.trb"
+```trb title="complex_unions.trb"
 # 単一の値または値の配列になりうる
 def normalize_input(
   value: String | Array<String>
@@ -384,7 +387,7 @@ nums2: Array<Integer> = expand_range(1..5)  # [1, 2, 3, 4, 5]
 
 Union型を使用した包括的な例です：
 
-```ruby title="config_system.trb"
+```trb title="config_system.trb"
 class ConfigManager
   def initialize()
     @config: Hash<String, String | Integer | Bool | nil> = {}
@@ -501,7 +504,7 @@ config.parse_and_set("environment", "production")  # Stringとして保存
 
 多すぎる型を持つUnionを避けてください：
 
-```ruby title="simple_unions.trb"
+```trb title="simple_unions.trb"
 # 良い - 明確でシンプル
 def process(value: String | Integer): String
   # ...
@@ -517,7 +520,7 @@ end
 
 ### 2. オプショナル値にnil Unionを使用
 
-```ruby title="optional_best_practice.trb"
+```trb title="optional_best_practice.trb"
 # 良い - 明確にオプショナル
 def find_item(id: Integer): String | nil
   # ...
@@ -531,7 +534,7 @@ end
 
 ### 3. 一貫した順序で型をチェック
 
-```ruby title="consistent_checks.trb"
+```trb title="consistent_checks.trb"
 # 良い - 一貫したパターン
 def process(value: String | Integer): String
   if value.is_a?(String)
@@ -553,7 +556,7 @@ end
 
 ### 4. Union型の意味を文書化
 
-```ruby title="documentation.trb"
+```trb title="documentation.trb"
 # 良い - 各型が何を意味するか明確
 def get_status(id: Integer): String | Symbol | nil
   # 戻り値:
@@ -571,7 +574,7 @@ end
 
 ### 型チェックを忘れる
 
-```ruby title="missing_checks.trb"
+```trb title="missing_checks.trb"
 # 間違い - 型をチェックしていない
 def bad_example(value: String | Integer): Integer
   value.length  # エラー！Integerにはlengthがない
@@ -589,7 +592,7 @@ end
 
 ### 変更後の型の仮定
 
-```ruby title="type_mutation.trb"
+```trb title="type_mutation.trb"
 def risky_example(value: String | Integer)
   if value.is_a?(String)
     value = value.to_i  # これでIntegerに！

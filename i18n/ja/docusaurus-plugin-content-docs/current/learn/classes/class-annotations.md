@@ -4,6 +4,9 @@ title: クラスアノテーション
 description: クラスへの型アノテーションの追加
 ---
 
+<DocsBadge />
+
+
 # クラスアノテーション
 
 クラスはオブジェクト指向Rubyプログラミングの基盤です。T-Rubyは、メソッド、インスタンス変数、クラスレベルの構造へのアノテーションを通じて、クラスに型安全性を提供します。このガイドでは、完全に型付けされたクラスの書き方を説明します。
@@ -12,7 +15,7 @@ description: クラスへの型アノテーションの追加
 
 クラスのメソッドに型を付けることから始めます：
 
-```ruby title="basic_class.trb"
+```trb title="basic_class.trb"
 class User
   def initialize(name: String, email: String, age: Integer)
     @name = name
@@ -44,7 +47,7 @@ user.update_email("newemail@example.com")
 
 インスタンス変数は `attr_accessor`、`attr_reader`、または `attr_writer` で型を付けるべきです：
 
-```ruby title="instance_vars.trb"
+```trb title="instance_vars.trb"
 class Product
   attr_accessor :name: String
   attr_accessor :price: Float
@@ -79,7 +82,7 @@ product.stock = 10               # ✓ OK - attr_writer (getterはprivate)
 
 コンストラクタでインスタンス変数の型を明示的に宣言することもできます：
 
-```ruby title="explicit_ivars.trb"
+```trb title="explicit_ivars.trb"
 class BlogPost
   def initialize(title: String, content: String, published: Boolean = false)
     @title: String = title
@@ -111,7 +114,7 @@ end
 
 クラスメソッド（シングルトンメソッド）は、インスタンスメソッドと同じ方法で型付けします：
 
-```ruby title="class_methods.trb"
+```trb title="class_methods.trb"
 class User
   def self.from_hash(data: Hash<String, String | Integer>): User
     User.new(
@@ -154,7 +157,7 @@ total = User.count()
 
 Rubyは真のオーバーロードをサポートしていませんが、柔軟なコンストラクタのためにユニオン型を使用できます：
 
-```ruby title="flexible_constructor.trb"
+```trb title="flexible_constructor.trb"
 class Rectangle
   attr_reader :width: Float
   attr_reader :height: Float
@@ -179,7 +182,7 @@ rect3 = Rectangle.new(10, 20.5)     # 混合
 
 Privateメソッドもpublicメソッドと同様に型付けします：
 
-```ruby title="private_methods.trb"
+```trb title="private_methods.trb"
 class BankAccount
   attr_reader :balance: Float
 
@@ -225,7 +228,7 @@ account.withdraw(200.0)
 
 カスタムのgetter/setterロジックが必要な場合、明示的に型付けします：
 
-```ruby title="custom_accessors.trb"
+```trb title="custom_accessors.trb"
 class Temperature
   def initialize(celsius: Float)
     @celsius = celsius
@@ -266,7 +269,7 @@ puts temp.celsius      # 37.0
 
 nilになり得るインスタンス変数は `?` 接尾辞を使用します：
 
-```ruby title="nilable_ivars.trb"
+```trb title="nilable_ivars.trb"
 class UserProfile
   attr_accessor :name: String
   attr_accessor :bio: String?
@@ -309,7 +312,7 @@ end
 
 様々な型付けテクニックを示す完全な例です：
 
-```ruby title="product.trb"
+```trb title="product.trb"
 class Product
   attr_reader :id: Integer
   attr_accessor :name: String
@@ -435,7 +438,7 @@ puts laptop.same_category?(phone)  # true
 
 別のパターンを示す完全な例です：
 
-```ruby title="task_manager.trb"
+```trb title="task_manager.trb"
 class Task
   attr_reader :id: Integer
   attr_accessor :title: String
@@ -583,7 +586,7 @@ puts list.overdue_tasks().length       # 0
 
 ### ビルダーパターン
 
-```ruby title="builder.trb"
+```trb title="builder.trb"
 class EmailBuilder
   def initialize()
     @to = []
@@ -627,7 +630,7 @@ email = EmailBuilder.new
 
 ### 値オブジェクト
 
-```ruby title="value_object.trb"
+```trb title="value_object.trb"
 class Money
   attr_reader :amount: Float
   attr_reader :currency: String
@@ -654,7 +657,7 @@ end
 
 ### シングルトンパターン
 
-```ruby title="singleton.trb"
+```trb title="singleton.trb"
 class Configuration
   def self.instance(): Configuration
     @instance ||= Configuration.new

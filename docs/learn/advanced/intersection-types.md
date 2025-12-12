@@ -4,6 +4,9 @@ title: Intersection Types
 description: Combining types with intersection
 ---
 
+<DocsBadge />
+
+
 # Intersection Types
 
 :::caution Coming Soon
@@ -18,7 +21,7 @@ While union types represent "either-or" relationships (`A | B` means "A OR B"), 
 
 ### Union vs Intersection
 
-```ruby
+```trb
 # Union type: value can be String OR Integer
 type StringOrInt = String | Integer
 value1: StringOrInt = "hello"  # OK
@@ -33,7 +36,7 @@ type NamedAndAged = Named & Aged
 
 The intersection operator is `&`:
 
-```ruby
+```trb
 type Combined = TypeA & TypeB & TypeC
 ```
 
@@ -41,7 +44,7 @@ type Combined = TypeA & TypeB & TypeC
 
 The most common use of intersection types is combining interfaces:
 
-```ruby
+```trb
 # Define individual interfaces
 interface Named
   def name: String
@@ -91,7 +94,7 @@ puts user.age   # OK: Aged interface
 
 You can combine interfaces with class types:
 
-```ruby
+```trb
 # Base class
 class Entity
   @id: Integer
@@ -150,7 +153,7 @@ puts user.created_at  # From Timestamped interface
 
 Intersection types work well with Ruby's mixin concept:
 
-```ruby
+```trb
 # Define capability interfaces
 interface Serializable
   def to_json: String
@@ -225,7 +228,7 @@ article.save            # Persistable
 
 ### Repository Pattern
 
-```ruby
+```trb
 interface Identifiable
   def id: Integer | String
 end
@@ -281,7 +284,7 @@ end
 
 ### Event System
 
-```ruby
+```trb
 interface Event
   def event_type: String
   def timestamp: Time
@@ -410,7 +413,7 @@ end
 
 Intersection types can be combined with generics:
 
-```ruby
+```trb
 # Generic type with intersection constraint
 def process<T: Serializable & Validatable>(item: T): Bool
   if item.valid?
@@ -458,7 +461,7 @@ end
 
 Intersection types work with type narrowing:
 
-```ruby
+```trb
 interface Animal
   def speak: String
 end
@@ -506,7 +509,7 @@ end
 
 When intersection types have conflicting members, the more specific type wins:
 
-```ruby
+```trb
 interface HasName
   def name: String
 end
@@ -540,7 +543,7 @@ end
 
 ### 1. Compose Small, Focused Interfaces
 
-```ruby
+```trb
 # Good: Small, single-responsibility interfaces
 interface Identifiable
   def id: Integer
@@ -570,7 +573,7 @@ end
 
 ### 2. Use Meaningful Names
 
-```ruby
+```trb
 # Good: Clear what the intersection represents
 type AuditedEntity = Entity & Auditable
 type SerializableModel = Model & Serializable
@@ -582,7 +585,7 @@ type Combined = Foo & Bar
 
 ### 3. Don't Over-Complicate
 
-```ruby
+```trb
 # Good: Reasonable number of intersections
 type FullModel = Identifiable & Timestamped & Validatable
 
@@ -593,7 +596,7 @@ type SuperType = A & B & C & D & E & F & G & H
 
 ### 4. Document Intent
 
-```ruby
+```trb
 # Good: Comment explains why intersection is needed
 # Represents entities that can be both serialized and cached
 type CacheableEntity = Serializable & Identifiable
@@ -616,7 +619,7 @@ end
 
 ### Builder Pattern
 
-```ruby
+```trb
 interface Buildable
   def build: self
 end
@@ -666,7 +669,7 @@ end
 
 ### State Machine
 
-```ruby
+```trb
 interface State
   def name: String
 end
@@ -726,7 +729,7 @@ end
 
 ### Cannot Intersect Primitive Types
 
-```ruby
+```trb
 # This doesn't make sense - a value can't be both String AND Integer
 # type Impossible = String & Integer  # Would be empty type
 
@@ -736,7 +739,7 @@ type Valid = Interface1 & Interface2
 
 ### Implementation Requirements
 
-```ruby
+```trb
 # When using intersection, implementation must satisfy ALL parts
 type Complete = Interface1 & Interface2 & Interface3
 

@@ -4,6 +4,9 @@ title: 클래스 어노테이션
 description: 클래스에 타입 어노테이션 추가하기
 ---
 
+<DocsBadge />
+
+
 # 클래스 어노테이션
 
 클래스는 객체 지향 Ruby 프로그래밍의 기반입니다. T-Ruby는 메서드, 인스턴스 변수, 클래스 레벨 구조에 대한 어노테이션을 통해 클래스에 타입 안전성을 제공합니다. 이 가이드에서는 완전히 타입이 지정된 클래스를 작성하는 방법을 알려드립니다.
@@ -12,7 +15,7 @@ description: 클래스에 타입 어노테이션 추가하기
 
 클래스의 메서드에 타입을 지정하는 것부터 시작합니다:
 
-```ruby title="basic_class.trb"
+```trb title="basic_class.trb"
 class User
   def initialize(name: String, email: String, age: Integer)
     @name = name
@@ -44,7 +47,7 @@ user.update_email("newemail@example.com")
 
 인스턴스 변수는 `attr_accessor`, `attr_reader`, 또는 `attr_writer`로 타입을 지정해야 합니다:
 
-```ruby title="instance_vars.trb"
+```trb title="instance_vars.trb"
 class Product
   attr_accessor :name: String
   attr_accessor :price: Float
@@ -79,7 +82,7 @@ product.stock = 10               # ✓ OK - attr_writer (getter는 private)
 
 생성자에서 인스턴스 변수 타입을 명시적으로 선언할 수도 있습니다:
 
-```ruby title="explicit_ivars.trb"
+```trb title="explicit_ivars.trb"
 class BlogPost
   def initialize(title: String, content: String, published: Boolean = false)
     @title: String = title
@@ -111,7 +114,7 @@ end
 
 클래스 메서드(싱글톤 메서드)는 인스턴스 메서드와 동일한 방식으로 타입을 지정합니다:
 
-```ruby title="class_methods.trb"
+```trb title="class_methods.trb"
 class User
   def self.from_hash(data: Hash<String, String | Integer>): User
     User.new(
@@ -154,7 +157,7 @@ total = User.count()
 
 Ruby는 진정한 오버로딩을 지원하지 않지만, 유연한 생성자를 위해 유니온 타입을 사용할 수 있습니다:
 
-```ruby title="flexible_constructor.trb"
+```trb title="flexible_constructor.trb"
 class Rectangle
   attr_reader :width: Float
   attr_reader :height: Float
@@ -179,7 +182,7 @@ rect3 = Rectangle.new(10, 20.5)     # 혼합
 
 Private 메서드도 public 메서드와 동일하게 타입을 지정합니다:
 
-```ruby title="private_methods.trb"
+```trb title="private_methods.trb"
 class BankAccount
   attr_reader :balance: Float
 
@@ -225,7 +228,7 @@ account.withdraw(200.0)
 
 커스텀 getter/setter 로직이 필요할 때 명시적으로 타입을 지정합니다:
 
-```ruby title="custom_accessors.trb"
+```trb title="custom_accessors.trb"
 class Temperature
   def initialize(celsius: Float)
     @celsius = celsius
@@ -266,7 +269,7 @@ puts temp.celsius      # 37.0
 
 nil일 수 있는 인스턴스 변수는 `?` 접미사를 사용해야 합니다:
 
-```ruby title="nilable_ivars.trb"
+```trb title="nilable_ivars.trb"
 class UserProfile
   attr_accessor :name: String
   attr_accessor :bio: String?
@@ -309,7 +312,7 @@ end
 
 다양한 타이핑 기법을 보여주는 완전한 예제입니다:
 
-```ruby title="product.trb"
+```trb title="product.trb"
 class Product
   attr_reader :id: Integer
   attr_accessor :name: String
@@ -435,7 +438,7 @@ puts laptop.same_category?(phone)  # true
 
 다른 패턴을 보여주는 또 다른 완전한 예제입니다:
 
-```ruby title="task_manager.trb"
+```trb title="task_manager.trb"
 class Task
   attr_reader :id: Integer
   attr_accessor :title: String
@@ -583,7 +586,7 @@ puts list.overdue_tasks().length       # 0
 
 ### 빌더 패턴
 
-```ruby title="builder.trb"
+```trb title="builder.trb"
 class EmailBuilder
   def initialize()
     @to = []
@@ -627,7 +630,7 @@ email = EmailBuilder.new
 
 ### 값 객체
 
-```ruby title="value_object.trb"
+```trb title="value_object.trb"
 class Money
   attr_reader :amount: Float
   attr_reader :currency: String
@@ -654,7 +657,7 @@ end
 
 ### 싱글톤 패턴
 
-```ruby title="singleton.trb"
+```trb title="singleton.trb"
 class Configuration
   def self.instance(): Configuration
     @instance ||= Configuration.new

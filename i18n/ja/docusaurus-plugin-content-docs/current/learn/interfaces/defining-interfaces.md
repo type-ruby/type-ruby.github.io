@@ -4,6 +4,9 @@ title: インターフェースの定義
 description: T-Rubyでインターフェースを定義する方法
 ---
 
+<DocsBadge />
+
+
 # インターフェースの定義
 
 インターフェースはクラスが満たすべきコントラクトを定義します。T-Rubyでは、インターフェースは実装の詳細なしにクラスが実装すべきメソッドを指定します。これによりポリモーフィズムが可能になり、柔軟でメンテナンスしやすいコードを作成できます。
@@ -12,7 +15,7 @@ description: T-Rubyでインターフェースを定義する方法
 
 `interface`キーワードを使用してインターフェースを定義します：
 
-```ruby title="basic_interface.trb"
+```trb title="basic_interface.trb"
 interface Printable
   def print(): void
   def to_string(): String
@@ -70,7 +73,7 @@ print_item(img)  # "Printing image from https://example.com/image.jpg"
 
 インターフェースはパラメータを持つメソッドを定義できます：
 
-```ruby title="interface_parameters.trb"
+```trb title="interface_parameters.trb"
 interface Comparable<T>
   def compare_to(other: T): Integer
   def equals?(other: T): Boolean
@@ -127,7 +130,7 @@ puts v1.equals?(v2)         # false
 
 インターフェースは任意の型で動作するようにジェネリックにできます：
 
-```ruby title="generic_interface.trb"
+```trb title="generic_interface.trb"
 interface Container<T>
   def add(item: T): void
   def remove(item: T): Boolean
@@ -195,7 +198,7 @@ puts string_stack.contains("Hello")  # true
 
 インターフェースは多くのメソッドを定義できます：
 
-```ruby title="multiple_methods.trb"
+```trb title="multiple_methods.trb"
 interface Repository<T>
   def find(id: Integer): T?
   def find_all(): Array<T>
@@ -273,7 +276,7 @@ end
 
 インターフェースは他のインターフェースを拡張できます：
 
-```ruby title="interface_inheritance.trb"
+```trb title="interface_inheritance.trb"
 interface Readable
   def read(): String
 end
@@ -325,7 +328,7 @@ puts file.read()  # ""
 
 インターフェースで必須プロパティを定義します：
 
-```ruby title="interface_properties.trb"
+```trb title="interface_properties.trb"
 interface Identifiable
   def id(): Integer
   def name(): String
@@ -375,7 +378,7 @@ end
 
 プラグインアーキテクチャのためにインターフェースを使用した完全な例：
 
-```ruby title="plugin_system.trb"
+```trb title="plugin_system.trb"
 interface Plugin
   def name(): String
   def version(): String
@@ -524,7 +527,7 @@ manager.shutdown_all()
 
 様々なシリアライゼーション形式のためのインターフェース：
 
-```ruby title="serialization.trb"
+```trb title="serialization.trb"
 interface Serializer
   def serialize(data: Hash<String, String | Integer | Boolean>): String
   def deserialize(text: String): Hash<String, String | Integer | Boolean>
@@ -639,7 +642,7 @@ yaml_service.save(data, "user")
 
 ### イテレーターインターフェース
 
-```ruby title="iterator.trb"
+```trb title="iterator.trb"
 interface Iterator<T>
   def has_next?(): Boolean
   def next(): T
@@ -672,7 +675,7 @@ end
 
 ### オブザーバーインターフェース
 
-```ruby title="observer.trb"
+```trb title="observer.trb"
 interface Observer
   def update(event: String, data: Hash<String, String>): void
 end
@@ -686,7 +689,7 @@ end
 
 ### ビルダーインターフェース
 
-```ruby title="builder.trb"
+```trb title="builder.trb"
 interface Builder<T>
   def reset(): void
   def build(): T

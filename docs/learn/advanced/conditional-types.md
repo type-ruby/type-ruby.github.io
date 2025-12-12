@@ -4,6 +4,9 @@ title: Conditional Types
 description: Types that depend on conditions
 ---
 
+<DocsBadge />
+
+
 # Conditional Types
 
 :::caution Coming Soon
@@ -16,7 +19,7 @@ Conditional types allow you to create types that change based on conditions. Thi
 
 Conditional types use a ternary-like syntax to select between two types based on a type relationship:
 
-```ruby
+```trb
 type Result = Condition ? TrueType : FalseType
 ```
 
@@ -24,7 +27,7 @@ If `Condition` is true, the result is `TrueType`. Otherwise, it's `FalseType`.
 
 ### Basic Syntax
 
-```ruby
+```trb
 # Conditional type syntax
 type TypeName<T> = T extends SomeType ? TypeIfTrue : TypeIfFalse
 
@@ -40,7 +43,7 @@ type Test2 = IsString<Integer>  # false
 
 The `extends` keyword in conditional types checks if a type is assignable to another type:
 
-```ruby
+```trb
 # T extends U means "Can T be assigned to U?"
 
 type IsArray<T> = T extends Array<any> ? true : false
@@ -52,7 +55,7 @@ type Test3 = IsArray<Hash<String, Integer>>  # false
 
 ### Checking for Specific Types
 
-```ruby
+```trb
 # Check if type is a number
 type IsNumeric<T> = T extends Integer | Float ? true : false
 
@@ -72,7 +75,7 @@ type FnTest = IsFunction<Proc<String, Integer>>  # true
 
 ### Extract Non-Nil Types
 
-```ruby
+```trb
 # Remove nil from a union type
 type NonNil<T> = T extends nil ? never : T
 
@@ -86,7 +89,7 @@ type WithoutNil = NonNil<MixedTypes>  # String | Integer | Float
 
 ### Extract Function Return Types
 
-```ruby
+```trb
 # Get the return type of a function
 type ReturnType<T> = T extends Proc<any, infer R> ? R : never
 
@@ -100,7 +103,7 @@ type UserReturnType = ReturnType<GetUserFunction>  # User
 
 ### Extract Array Element Types
 
-```ruby
+```trb
 # Get the element type of an array
 type ElementType<T> = T extends Array<infer E> ? E : never
 
@@ -116,7 +119,7 @@ type NumberElement = ElementType<NumberArray>  # Integer
 
 The `infer` keyword allows you to capture and name a type within a conditional type:
 
-```ruby
+```trb
 # Infer the parameter type of a function
 type ParamType<T> = T extends Proc<infer P, any> ? P : never
 
@@ -137,7 +140,7 @@ type Value = ValueError<MyHash>  # User
 
 ### Multiple Infer Usage
 
-```ruby
+```trb
 # Extract both parts of a pair
 type Unpair<T> = T extends Hash<Symbol, { first: infer F, second: infer S }>
   ? [F, S]
@@ -156,7 +159,7 @@ type FunctionParts<T> =
 
 Remove wrapper types to get the inner type:
 
-```ruby
+```trb
 # Unwrap Array
 type Unwrap<T> = T extends Array<infer U> ? U : T
 
@@ -176,7 +179,7 @@ type Unwrapped = DeepUnwrap<NestedArray>  # Integer
 
 ### Flatten Union Types
 
-```ruby
+```trb
 # Flatten nested unions
 type Flatten<T> =
   T extends Array<infer U>
@@ -196,7 +199,7 @@ type Unique<T, U = T> =
 
 ### Promise-like Types
 
-```ruby
+```trb
 # Unwrap promise-like types
 type Awaited<T> =
   T extends Promise<infer U>
@@ -214,7 +217,7 @@ type AsyncReturnType<T> =
 
 When a conditional type acts on a union type, it distributes over the union:
 
-```ruby
+```trb
 # This conditional type is distributive
 type ToArray<T> = T extends any ? Array<T> : never
 
@@ -236,7 +239,7 @@ type Boxed = BoxedType<Mixed>
 
 To prevent distribution, wrap types in a tuple:
 
-```ruby
+```trb
 # Non-distributive version
 type ToArrayNonDist<T> = [T] extends [any] ? Array<T> : never
 
@@ -249,7 +252,7 @@ type Result = ToArrayNonDist<StringOrNumber>
 
 ### Type Narrowing
 
-```ruby
+```trb {skip-verify}
 # Narrow types based on properties
 type NarrowByProperty<T, K extends keyof T, V> =
   T extends { K: V } ? T : never
@@ -265,7 +268,7 @@ type FilterByProperty<T, K, V> =
 
 ### Recursive Conditional Types
 
-```ruby
+```trb
 # Deep readonly type
 type DeepReadonly<T> =
   T extends (Array<infer U> | Hash<any, infer U>)
@@ -285,7 +288,7 @@ type DeepPartial<T> =
 
 ### Type Guard Functions
 
-```ruby
+```trb
 # Create type predicates
 def is_string<T>(value: T): value is String
   value.is_a?(String)
@@ -304,7 +307,7 @@ type TypeGuardReturn<T, G> =
 
 Combine conditional types with generic constraints:
 
-```ruby
+```trb
 # Only allow certain types
 type Addable<T> =
   T extends Integer | Float | String
@@ -341,7 +344,7 @@ end
 
 ### API Response Types
 
-```ruby
+```trb
 # Conditionally add error field based on success status
 type APIResponse<T, Success extends Bool> =
   Success extends true
@@ -358,7 +361,7 @@ type ErrorResponse = APIResponse<User, false>
 
 ### Smart Defaults
 
-```ruby
+```trb
 # Provide default types conditionally
 type WithDefault<T, D> = T extends nil ? D : T
 
@@ -372,7 +375,7 @@ type IntegerWithDefault = WithDefault<DefiniteValue, Float>  # Integer
 
 ### Collection Element Access
 
-```ruby
+```trb
 # Get type based on collection type
 type CollectionElement<T> =
   T extends Array<infer E> ? E :
@@ -388,7 +391,7 @@ type SetElement = CollectionElement<Set<User>>  # User
 
 ### Function Composition
 
-```ruby
+```trb
 # Compose function types
 type Compose<F, G> =
   F extends Proc<infer A, infer B>
@@ -407,7 +410,7 @@ type Composed = Compose<F, G>   # String -> Bool
 
 ### 1. Keep Conditions Simple
 
-```ruby
+```trb
 # Good: Simple, clear condition
 type IsString<T> = T extends String ? true : false
 
@@ -424,7 +427,7 @@ type ComplexCheck<T> =
 
 ### 2. Use Descriptive Names
 
-```ruby
+```trb
 # Good: Clear names
 type NonNilable<T> = T extends nil ? never : T
 type Unwrap<T> = T extends Array<infer U> ? U : T
@@ -436,7 +439,7 @@ type UW<T> = T extends Array<infer U> ? U : T
 
 ### 3. Document Complex Types
 
-```ruby
+```trb
 # Good: Documented conditional type
 # Extracts the return type of a function type
 # @example ReturnType<Proc<String, Integer>> => Integer
@@ -452,7 +455,7 @@ type DeepPartial<T> =
 
 ### 4. Avoid Deep Nesting
 
-```ruby
+```trb
 # Good: Flat, manageable structure
 type FirstType<T> = T extends [infer F, ...any] ? F : never
 type RestTypes<T> = T extends [any, ...infer R] ? R : never
@@ -474,7 +477,7 @@ type Extract<T> =
 
 ### Recursion Depth
 
-```ruby
+```trb
 # Very deep recursion may hit limits
 type DeepNested<T, N> =
   N extends 0
@@ -484,7 +487,7 @@ type DeepNested<T, N> =
 
 ### Type Inference Complexity
 
-```ruby
+```trb
 # Complex inference may not always work as expected
 type ComplexInfer<T> =
   T extends {

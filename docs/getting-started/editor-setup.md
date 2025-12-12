@@ -4,6 +4,9 @@ title: Editor Setup
 description: Set up VS Code, Neovim, and other editors for T-Ruby
 ---
 
+<DocsBadge />
+
+
 # Editor Setup
 
 Get the best T-Ruby development experience by configuring your editor with syntax highlighting, type checking, and autocomplete.

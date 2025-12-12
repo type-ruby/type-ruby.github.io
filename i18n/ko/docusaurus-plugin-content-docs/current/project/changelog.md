@@ -4,6 +4,9 @@ title: 변경 로그
 description: T-Ruby 릴리스 히스토리
 ---
 
+<DocsBadge />
+
+
 # 변경 로그
 
 T-Ruby의 모든 주목할 만한 변경 사항은 이 파일에 문서화됩니다.
@@ -183,7 +186,7 @@ ruby hello.rb
 
 #### 예제 코드
 
-```ruby
+```trb
 # hello.trb - 타입 안전 Ruby
 class User
   @name: String

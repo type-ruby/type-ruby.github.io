@@ -4,6 +4,9 @@ title: 型エイリアス
 description: カスタム型名の作成
 ---
 
+<DocsBadge />
+
+
 # 型エイリアス
 
 型エイリアスを使用すると、型にカスタム名を作成でき、コードをより読みやすく保守しやすくします。型のニックネームと考えてください—新しい型を作成するのではなく、複雑な型をより扱いやすく理解しやすくします。
@@ -19,7 +22,7 @@ description: カスタム型名の作成
 
 ### 型エイリアスなしで
 
-```ruby
+```trb
 # 複雑な型がすべての場所で繰り返される
 def find_user(id: Integer): Hash<Symbol, String | Integer | Bool> | nil
   # ...
@@ -39,7 +42,7 @@ users: Array<Hash<Symbol, String | Integer | Bool>> = []
 
 ### 型エイリアス使用
 
-```ruby
+```trb
 # 一度定義
 type UserData = Hash<Symbol, String | Integer | Bool>
 
@@ -64,13 +67,13 @@ users: Array<UserData> = []
 
 型エイリアスを作成する構文はシンプルです：
 
-```ruby
+```trb
 type AliasName = ExistingType
 ```
 
 ### シンプルなエイリアス
 
-```ruby
+```trb
 # プリミティブ型のエイリアス
 type UserId = Integer
 type EmailAddress = String
@@ -95,7 +98,7 @@ end
 
 ユニオン型はエイリアスから大きな恩恵を受けます：
 
-```ruby
+```trb
 # 以前：繰り返されるユニオン型
 def process(value: String | Integer | Float): String
   # ...
@@ -126,7 +129,7 @@ type Result = :success | :error | :pending
 
 複雑なコレクション型をより読みやすくします：
 
-```ruby
+```trb
 # 配列エイリアス
 type StringList = Array<String>
 type NumberList = Array<Integer>
@@ -162,7 +165,7 @@ tags: TagMap = {
 
 ### 基本的なジェネリックエイリアス
 
-```ruby
+```trb
 # ジェネリックResult型
 type Result<T> = T | nil
 
@@ -186,7 +189,7 @@ name_age: Pair<String, Integer> = ["Alice", 30]
 
 ### 複雑なジェネリックエイリアス
 
-```ruby
+```trb
 # メタデータ付きジェネリックコレクション
 type Collection<T> = Hash<Symbol, T | Integer | String>
 
@@ -216,7 +219,7 @@ email_validator: Validator<String> = ->(s: String): Bool { s.include?("@") }
 
 一部の型パラメータを固定し、他を開いたままにしたエイリアスを作成できます：
 
-```ruby
+```trb
 # 基本ジェネリック型
 type Response<T, E> = { success: Bool, data: T | nil, error: E | nil }
 
@@ -248,7 +251,7 @@ string_to_user: StringMap<User> = { "admin" => User.new("Admin") }
 
 ### ドメイン固有の型
 
-```ruby
+```trb
 # Eコマースドメイン
 type ProductId = Integer
 type OrderId = String
@@ -277,7 +280,7 @@ end
 
 ### ステータスと状態型
 
-```ruby
+```trb
 # アプリケーションステータス
 type Status = :pending | :processing | :completed | :failed
 type UserRole = :admin | :editor | :viewer
@@ -314,7 +317,7 @@ end
 
 ### JSONとAPI型
 
-```ruby
+```trb
 # JSON型
 type JSONPrimitive = String | Integer | Float | Bool | nil
 type JSONArray = Array<JSONValue>
@@ -344,7 +347,7 @@ end
 
 ### 関数型
 
-```ruby
+```trb
 # 一般的な関数シグネチャ
 type Predicate<T> = Proc<T, Bool>
 type Mapper<T, U> = Proc<T, U>
@@ -381,7 +384,7 @@ for_each(numbers, print_it)
 
 より単純なエイリアスから複雑な型エイリアスを構築できます：
 
-```ruby
+```trb
 # 基本型
 type UserId = Integer
 type Username = String
@@ -419,7 +422,7 @@ type Drawing = Hash<String, DrawingLayer>
 
 将来、T-Rubyはツリー構造と連結リストのための再帰型エイリアスをサポートする予定です：
 
-```ruby
+```trb
 # ツリー構造
 type TreeNode<T> = {
   value: T,
@@ -447,7 +450,7 @@ type JSONValue =
 
 ### 1. 説明的な名前を使用
 
-```ruby
+```trb
 # 良い：明確で説明的な名前
 type EmailAddress = String
 type ProductPrice = Float
@@ -461,7 +464,7 @@ type UR = :admin | :editor | :viewer
 
 ### 2. 関連するエイリアスをグループ化
 
-```ruby
+```trb
 # 良い：ドメインごとに整理
 # ユーザー関連型
 type UserId = Integer
@@ -478,7 +481,7 @@ type ProductData = Hash<Symbol, String | Integer | Float>
 
 ### 3. 複雑な型にエイリアスを使用
 
-```ruby
+```trb
 # 良い：複数回使用される複雑な型にエイリアス
 type QueryResult = Hash<Symbol, Array<Hash<String, String | Integer>> | Integer>
 
@@ -498,7 +501,7 @@ end
 
 ### 4. シンプルな型に過度なエイリアスを使わない
 
-```ruby
+```trb
 # 不要：Stringはすでに明確
 type S = String
 type N = Integer
@@ -512,7 +515,7 @@ type UserId = Integer       # 目的を明確化
 
 型エイリアスは新しい型を作成しません—代替名にすぎません。これはクラスとは異なります：
 
-```ruby
+```trb
 # 型エイリアス - 単なる名前
 type UserId = Integer
 
@@ -538,7 +541,7 @@ int_id: Integer = 456
 
 ### それぞれをいつ使うか
 
-```ruby
+```trb
 # 型エイリアスを使用：
 # - 意味的な明確性が必要だが同じ基本的な動作を望む場合
 # - 複雑な型表現を簡略化したい場合
@@ -567,7 +570,7 @@ end
 
 ### オプショナル型
 
-```ruby
+```trb
 # オプショナル/ナラブル型エイリアス
 type Optional<T> = T | nil
 type Nullable<T> = T | nil
@@ -579,7 +582,7 @@ name: Nullable<String> = user&.name
 
 ### 結果型
 
-```ruby
+```trb
 # 失敗する可能性のある操作のための結果型
 type Result<T, E> = { success: Bool, value: T | nil, error: E | nil }
 type SimpleResult<T> = T | Error
@@ -596,7 +599,7 @@ end
 
 ### ビルダー型
 
-```ruby
+```trb
 # 設定ビルダー
 type Config = Hash<Symbol, String | Integer | Bool>
 type ConfigBuilder = Proc<Config, Config>
@@ -616,7 +619,7 @@ end
 
 型エイリアスはインライン文書化の役割を果たします：
 
-```ruby
+```trb
 # エイリアス名が型が表すものを文書化
 type PositiveInteger = Integer  # > 0であるべき
 type NonEmptyString = String    # 空であってはならない

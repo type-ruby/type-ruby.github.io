@@ -4,6 +4,9 @@ title: Parameter & Return Types
 description: Typing function parameters and return values
 ---
 
+<DocsBadge />
+
+
 # Parameter & Return Types
 
 Functions are the building blocks of any Ruby program. In T-Ruby, you can add type annotations to function parameters and return values to catch errors early and make your code more self-documenting.
@@ -12,7 +15,7 @@ Functions are the building blocks of any Ruby program. In T-Ruby, you can add ty
 
 The simplest way to add types to a function is to annotate its parameters and return value:
 
-```ruby title="greetings.trb"
+```trb title="greetings.trb"
 def greet(name: String): String
   "Hello, #{name}!"
 end
@@ -38,7 +41,7 @@ The syntax follows this pattern:
 
 T-Ruby can often infer the return type based on your function body, but it's good practice to be explicit:
 
-```ruby title="inference.trb"
+```trb title="inference.trb"
 # Return type explicitly annotated
 def double(n: Integer): Integer
   n * 2
@@ -59,7 +62,7 @@ end
 
 Sometimes a function can return different types depending on the situation. Use union types:
 
-```ruby title="unions.trb"
+```trb title="unions.trb"
 def find_user(id: Integer): User | nil
   # Returns a User if found, or nil if not found
   users = load_users()
@@ -90,7 +93,7 @@ value = parse_value("3.14")
 
 Functions that don't return a meaningful value use the `void` return type:
 
-```ruby title="void.trb"
+```trb title="void.trb"
 def log_message(message: String): void
   puts "[LOG] #{message}"
   # No explicit return needed
@@ -110,7 +113,7 @@ save_to_database(user_record)
 
 Parameters can have any type, including arrays, hashes, and custom classes:
 
-```ruby title="complex.trb"
+```trb title="complex.trb"
 def process_names(names: Array<String>): Integer
   names.map(&:capitalize).length
 end
@@ -136,7 +139,7 @@ config = merge_configs(
 
 Type each parameter individually:
 
-```ruby title="multiple_params.trb"
+```trb title="multiple_params.trb"
 def create_user(
   name: String,
   email: String,
@@ -168,7 +171,7 @@ price = calculate_price(100.0, 0.08, 0.10)
 
 Use the `?` shorthand for parameters that can be nil:
 
-```ruby title="nilable.trb"
+```trb title="nilable.trb"
 def format_name(first: String, middle: String?, last: String): String
   if middle
     "#{first} #{middle} #{last}"
@@ -199,7 +202,7 @@ Note: `String?` is shorthand for `String | nil`.
 
 Use `Boolean` for functions that return true/false:
 
-```ruby title="boolean.trb"
+```trb title="boolean.trb"
 def is_valid_email(email: String): Boolean
   email.include?("@") && email.include?(".")
 end
@@ -224,7 +227,7 @@ can_edit = has_permission(current_user, "posts:edit")
 
 Functions can return generic types that preserve type information:
 
-```ruby title="generics.trb"
+```trb title="generics.trb"
 def first_element<T>(array: Array<T>): T | nil
   array.first
 end
@@ -247,7 +250,7 @@ wrapped = wrap_in_array(42)  # Type: Array<Integer>
 
 Here's a complete example showing function typing in a real-world scenario:
 
-```ruby title="user_service.trb"
+```trb title="user_service.trb"
 class UserService
   def find_by_id(id: Integer): User | nil
     database.query("SELECT * FROM users WHERE id = ?", id).first
@@ -326,7 +329,7 @@ exists = service.is_email_taken("test@example.com")
 
 ### Factory Functions
 
-```ruby title="factory.trb"
+```trb title="factory.trb"
 def create_admin_user(name: String, email: String): User
   User.new(name: name, email: email, role: "admin", permissions: ["all"])
 end
@@ -338,7 +341,7 @@ end
 
 ### Converter Functions
 
-```ruby title="converters.trb"
+```trb title="converters.trb"
 def to_integer(value: String): Integer | nil
   Integer(value) rescue nil
 end
@@ -354,7 +357,7 @@ end
 
 ### Validator Functions
 
-```ruby title="validators.trb"
+```trb title="validators.trb"
 def validate_password(password: String): Boolean
   password.length >= 8 && password.match?(/[A-Z]/) && password.match?(/[0-9]/)
 end

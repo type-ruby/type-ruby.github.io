@@ -4,6 +4,9 @@ title: 組み込み型
 description: 組み込み型の完全なリスト
 ---
 
+<DocsBadge />
+
+
 # 組み込み型
 
 T-Rubyは、Rubyの基本データ型と一般的に使用されるパターンに対応する包括的な組み込み型セットを提供します。このリファレンスでは、T-Rubyで利用可能なすべての組み込み型を文書化します。
@@ -14,7 +17,7 @@ T-Rubyは、Rubyの基本データ型と一般的に使用されるパターン�
 
 テキストデータを表します。文字列は文字のシーケンスです。
 
-```ruby
+```trb
 name: String = "Alice"
 message: String = 'Hello, world!'
 text: String = <<~TEXT
@@ -36,7 +39,7 @@ TEXT
 
 整数（正、負、またはゼロ）を表します。
 
-```ruby
+```trb
 count: Integer = 42
 negative: Integer = -10
 zero: Integer = 0
@@ -55,7 +58,7 @@ large: Integer = 1_000_000
 
 小数（浮動小数点）を表します。
 
-```ruby
+```trb
 price: Float = 19.99
 pi: Float = 3.14159
 negative: Float = -273.15
@@ -75,7 +78,7 @@ scientific: Float = 2.998e8
 
 ブール値：`true`または`false`を表します。
 
-```ruby
+```trb
 active: Bool = true
 disabled: Bool = false
 is_valid: Bool = count > 0
@@ -87,7 +90,7 @@ is_valid: Bool = count > 0
 
 不変の識別子を表します。シンボルは定数やハッシュキーとして使用するために最適化されています。
 
-```ruby
+```trb
 status: Symbol = :active
 role: Symbol = :admin
 key: Symbol = :name
@@ -106,7 +109,7 @@ key: Symbol = :name
 
 値の不在を表します。
 
-```ruby
+```trb
 nothing: nil = nil
 
 # ユニオン型でより一般的に使用
@@ -123,7 +126,7 @@ result: User | nil = find_user(123)
 
 任意の型を表します。型チェックをバイパスするため、控えめに使用してください。
 
-```ruby
+```trb
 value: Any = "string"
 value = 123          # OK
 value = true         # OK
@@ -135,7 +138,7 @@ value = true         # OK
 
 戻り値がないことを表します。副作用を実行する関数に使用されます。
 
-```ruby
+```trb
 def log(message: String): void
   puts message
 end
@@ -151,7 +154,7 @@ end
 
 決して発生しない値を表します。決して戻らない関数に使用されます。
 
-```ruby
+```trb
 def raise_error(message: String): never
   raise StandardError, message
 end
@@ -165,7 +168,7 @@ end
 
 現在のインスタンスの型を表します。メソッドチェーンに便利です。
 
-```ruby
+```trb
 class Builder
   @value: String
 
@@ -193,7 +196,7 @@ result = Builder.new.append("Hello").append(" ").append("World").build
 
 型`T`の要素で構成される順序付きコレクションを表します。
 
-```ruby
+```trb
 # 文字列の配列
 names: Array<String> = ["Alice", "Bob", "Charlie"]
 
@@ -232,7 +235,7 @@ items: Array<String> = []
 
 型`K`のキーと型`V`の値を持つキーバリューペアのコレクションを表します。
 
-```ruby
+```trb
 # 文字列キー、整数値
 scores: Hash<String, Integer> = { "Alice" => 100, "Bob" => 95 }
 
@@ -268,7 +271,7 @@ cache: Hash<String, Any> = {}
 
 一意な要素の順序なしコレクションを表します。
 
-```ruby
+```trb
 # 文字列のセット
 tags: Set<String> = Set.new(["ruby", "rails", "web"])
 
@@ -288,7 +291,7 @@ unique_ids: Set<Integer> = Set.new([1, 2, 3, 2, 1])  # {1, 2, 3}
 
 値の範囲を表します。
 
-```ruby
+```trb
 # 整数の範囲
 numbers: Range = 1..10      # 包含: 1から10
 numbers: Range = 1...10     # 排他: 1から9
@@ -310,7 +313,7 @@ letters: Range = 'a'..'z'
 
 すべての数値型の親型です。
 
-```ruby
+```trb
 value: Numeric = 42
 value: Numeric = 3.14
 ```
@@ -325,7 +328,7 @@ value: Numeric = 3.14
 
 有理数（分数）を表します。*（計画中の機能）*
 
-```ruby
+```trb
 fraction: Rational = Rational(1, 2)  # 1/2
 ```
 
@@ -333,7 +336,7 @@ fraction: Rational = Rational(1, 2)  # 1/2
 
 複素数を表します。*（計画中の機能）*
 
-```ruby
+```trb
 complex: Complex = Complex(1, 2)  # 1+2i
 ```
 
@@ -343,7 +346,7 @@ complex: Complex = Complex(1, 2)  # 1+2i
 
 proc、ラムダ、またはブロックを表します。
 
-```ruby
+```trb
 # シンプルなproc
 callback: Proc<String, void> = ->(msg: String): void { puts msg }
 
@@ -361,13 +364,13 @@ supplier: Proc<String> = ->: String { "Hello" }
 
 `Proc`の型エイリアスです。T-Rubyでは、ラムダとprocは同じ型を使用します。
 
-```ruby
+```trb {skip-verify}
 type Lambda<Args..., Return> = Proc<Args..., Return>
 ```
 
 ### ブロックパラメータ
 
-```ruby
+```trb
 # ブロックを受け取るメソッド
 def each_item<T>(items: Array<T>, &block: Proc<T, void>): void
   items.each { |item| block.call(item) }
@@ -388,7 +391,7 @@ end
 
 すべてのオブジェクトの基本型です。
 
-```ruby
+```trb
 value: Object = "string"
 value: Object = 123
 value: Object = User.new
@@ -398,7 +401,7 @@ value: Object = User.new
 
 クラスオブジェクトを表します。
 
-```ruby
+```trb
 user_class: Class = User
 string_class: Class = String
 
@@ -410,7 +413,7 @@ instance = user_class.new
 
 モジュールを表します。
 
-```ruby
+```trb
 mod: Module = Enumerable
 ```
 
@@ -420,7 +423,7 @@ mod: Module = Enumerable
 
 入出力ストリームを表します。
 
-```ruby
+```trb
 file: IO = File.open("data.txt", "r")
 stdout: IO = $stdout
 
@@ -433,7 +436,7 @@ end
 
 ファイルオブジェクトを表します（IOのサブタイプ）。
 
-```ruby
+```trb
 file: File = File.open("data.txt", "r")
 
 def process_file(f: File): void
@@ -448,7 +451,7 @@ end
 
 時点を表します。
 
-```ruby
+```trb
 now: Time = Time.now
 past: Time = Time.new(2020, 1, 1)
 
@@ -461,7 +464,7 @@ end
 
 日付（時刻なし）を表します。
 
-```ruby
+```trb
 today: Date = Date.today
 birthday: Date = Date.new(1990, 5, 15)
 ```
@@ -470,7 +473,7 @@ birthday: Date = Date.new(1990, 5, 15)
 
 タイムゾーン付きの日付と時刻を表します。
 
-```ruby
+```trb
 moment: DateTime = DateTime.now
 ```
 
@@ -480,7 +483,7 @@ moment: DateTime = DateTime.now
 
 正規表現パターンを表します。
 
-```ruby
+```trb
 pattern: Regexp = /\d+/
 email_pattern: Regexp = /^[\w+\-.]+@[a-z\d\-]+(\.[a-z\d\-]+)*\.[a-z]+$/i
 
@@ -493,7 +496,7 @@ end
 
 正規表現マッチの結果を表します。
 
-```ruby
+```trb
 def extract_numbers(text: String): Array<String> | nil
   match: MatchData | nil = text.match(/\d+/)
   return nil if match.nil?
@@ -507,7 +510,7 @@ end
 
 すべての例外の基底クラスです。
 
-```ruby
+```trb
 def handle_error(error: Exception): String
   error.message
 end
@@ -517,7 +520,7 @@ end
 
 標準エラー型（最も一般的にrescueされる）。
 
-```ruby
+```trb
 def safe_divide(a: Integer, b: Integer): Float | StandardError
   begin
     a.to_f / b
@@ -544,7 +547,7 @@ IOError            # I/O操作の失敗
 
 列挙可能なオブジェクトを表します。
 
-```ruby
+```trb
 enum: Enumerator<Integer> = [1, 2, 3].each
 range_enum: Enumerator<Integer> = (1..10).each
 
@@ -559,7 +562,7 @@ end
 
 構造体クラスを表します。
 
-```ruby
+```trb
 Point = Struct.new(:x, :y)
 
 point: Point = Point.new(10, 20)
@@ -571,7 +574,7 @@ point: Point = Point.new(10, 20)
 
 実行スレッドを表します。
 
-```ruby
+```trb
 thread: Thread = Thread.new { puts "Hello from thread" }
 
 def run_async(&block: Proc<void>): Thread
@@ -641,7 +644,7 @@ true.to_i         # エラー: Boolにto_iはない
 
 すべての型は型チェックメソッドをサポートします：
 
-```ruby
+```trb
 value: String | Integer = get_value()
 
 # クラスチェック

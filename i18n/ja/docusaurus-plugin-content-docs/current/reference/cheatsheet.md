@@ -4,6 +4,9 @@ title: 型構文チートシート
 description: T-Ruby型構文クイックリファレンス
 ---
 
+<DocsBadge />
+
+
 # 型構文チートシート
 
 T-Ruby型構文の包括的なクイックリファレンスガイドです。すべての型アノテーションと構文パターンに簡単にアクセスできるよう、このページをブックマークしてください。
@@ -23,7 +26,7 @@ T-Ruby型構文の包括的なクイックリファレンスガイドです。�
 
 ## 変数アノテーション
 
-```ruby
+```trb
 # 型アノテーション付きの変数
 name: String = "Alice"
 age: Integer = 30
@@ -40,7 +43,7 @@ message = "Hello"  # Stringと推論
 
 ## 関数シグネチャ
 
-```ruby
+```trb
 # 基本的な関数
 def greet(name: String): String
   "Hello, #{name}!"
@@ -81,7 +84,7 @@ end
 | `T \| nil` | オプション型 | `String \| nil` |
 | `T?` | `T \| nil`の省略形 | `String?` |
 
-```ruby
+```trb
 # ユニオン型
 id: String | Integer = "user-123"
 id: String | Integer = 456
@@ -101,7 +104,7 @@ end
 
 ## 配列型
 
-```ruby
+```trb
 # 特定の型の配列
 names: Array<String> = ["Alice", "Bob"]
 numbers: Array<Integer> = [1, 2, 3]
@@ -118,7 +121,7 @@ items: Array<String> = []
 
 ## ハッシュ型
 
-```ruby
+```trb
 # 特定のキーと値の型を持つハッシュ
 scores: Hash<String, Integer> = { "Alice" => 100, "Bob" => 95 }
 
@@ -136,7 +139,7 @@ users: Hash<Integer, Hash<Symbol, String>> = {
 
 ## ジェネリック型
 
-```ruby
+```trb
 # ジェネリック関数
 def first<T>(arr: Array<T>): T | nil
   arr[0]
@@ -167,7 +170,7 @@ result = first([1, 2, 3])  # 型推論
 
 ## 型エイリアス
 
-```ruby
+```trb
 # シンプルなエイリアス
 type UserId = Integer
 type EmailAddress = String
@@ -191,7 +194,7 @@ email: EmailAddress = "alice@example.com"
 
 ## クラスアノテーション
 
-```ruby
+```trb
 # インスタンス変数
 class User
   @name: String
@@ -242,7 +245,7 @@ end
 
 ## インターフェース定義
 
-```ruby
+```trb
 # 基本的なインターフェース
 interface Printable
   def to_s: String
@@ -287,7 +290,7 @@ end
 | `<T>` | ジェネリック | 型パラメータ | `Array<T>` |
 | `=>` | ハッシュペア | キー値の型 | `Hash<String => Integer>` |
 
-```ruby
+```trb
 # ユニオン（OR）
 value: String | Integer
 
@@ -306,7 +309,7 @@ pairs: Hash<String, Integer>
 
 ## ブロック、Proc、ラムダ
 
-```ruby
+```trb
 # ブロックパラメータ
 def each_item<T>(items: Array<T>, &block: Proc<T, void>): void
   items.each { |item| block.call(item) }
@@ -327,7 +330,7 @@ end
 
 ## 型絞り込み
 
-```ruby
+```trb
 # is_a?で型チェック
 def process(value: String | Integer): String
   if value.is_a?(String)
@@ -360,7 +363,7 @@ end
 
 ## リテラル型
 
-```ruby
+```trb
 # 文字列リテラル
 type Status = "pending" | "active" | "completed"
 status: Status = "active"
@@ -380,7 +383,7 @@ type No = false
 
 ## 高度な型
 
-```ruby
+```trb
 # インターセクション型
 type Serializable = Printable & Comparable
 obj: Serializable  # 両方のインターフェースを実装する必要あり
@@ -400,7 +403,7 @@ type Omit<T, K>    # プロパティを除外
 
 ## 型アサーション
 
-```ruby
+```trb
 # 型キャスト（注意して使用）
 value = get_value() as String
 number = parse("42") as Integer
@@ -417,7 +420,7 @@ end
 
 ## モジュール型アノテーション
 
-```ruby
+```trb
 module Formatter
   # 型付きモジュールメソッド
   def self.format(value: String, width: Integer): String
@@ -444,7 +447,7 @@ end
 
 ### デフォルト値付きオプションパラメータ
 
-```ruby
+```trb
 def create_user(
   name: String,
   email: String,
@@ -457,7 +460,7 @@ end
 
 ### Result型パターン
 
-```ruby
+```trb
 type Result<T, E> = { success: Bool, value: T | nil, error: E | nil }
 
 def divide(a: Float, b: Float): Result<Float, String>
@@ -471,7 +474,7 @@ end
 
 ### ビルダーパターン
 
-```ruby
+```trb
 class QueryBuilder
   @conditions: Array<String>
 
@@ -492,7 +495,7 @@ end
 
 ### タイプガード
 
-```ruby
+```trb
 def is_string(value: Any): value is String
   value.is_a?(String)
 end
@@ -521,7 +524,7 @@ end
 
 ## 一般的な型エラー
 
-```ruby
+```trb
 # ❌ 間違い: 誤った型の代入
 name: String = 123  # エラー: IntegerはStringではない
 

@@ -4,6 +4,9 @@ title: クイックスタート
 description: 最初のT-Rubyプログラムを書く
 ---
 
+<DocsBadge />
+
+
 # クイックスタート
 
 5分でT-Rubyの基本を学びましょう！
@@ -12,7 +15,7 @@ description: 最初のT-Rubyプログラムを書く
 
 `hello.trb`ファイルを作成しましょう：
 
-```ruby
+```trb
 # hello.trb
 
 # 型付き関数
@@ -56,7 +59,7 @@ ruby hello.rb
 
 T-RubyはRubyの基本型をすべてサポートしています：
 
-```ruby
+```trb
 # 基本型
 name: String = "田中太郎"
 age: Integer = 25
@@ -76,7 +79,7 @@ email: String? = nil
 
 関数のパラメータと戻り値の型を指定します：
 
-```ruby
+```trb
 # 基本的な関数
 def add(a: Integer, b: Integer): Integer
   a + b
@@ -102,7 +105,7 @@ end
 
 クラスに型を適用します：
 
-```ruby
+```trb
 class User
   @name: String
   @email: String

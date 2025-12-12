@@ -4,6 +4,9 @@ title: 설정
 description: T-Ruby 설정 파일 레퍼런스
 ---
 
+<DocsBadge />
+
+
 # 설정
 
 T-Ruby는 `trc.yaml` 파일을 사용하여 컴파일러 동작, 소스 파일, 출력 위치, 타입 검사 규칙을 설정합니다. 이 레퍼런스는 사용 가능한 모든 설정 옵션을 다룹니다.
@@ -251,7 +254,7 @@ compiler:
 - 암시적 `any` 타입 불허
 - 엄격한 nil 검사 활성화
 
-```ruby
+```trb
 # 엄격 모드에서 필요
 def process(data: Array<String>): Hash<String, Integer>
   @count: Integer = 0
@@ -267,7 +270,7 @@ end
 - 지역 변수는 추론 가능
 - 암시적 `any`에 경고
 
-```ruby
+```trb
 # 표준 모드에서 OK
 def process(data: Array<String>): Hash<String, Integer>
   @count: Integer = 0
@@ -314,7 +317,7 @@ compiler:
 
 예시 - 패턴 매칭:
 
-```ruby
+```trb
 # 입력 (.trb)
 case value
 in { name: String => n }
@@ -369,7 +372,7 @@ compiler:
 
 **no_implicit_any**
 
-```ruby
+```trb
 # no_implicit_any: true일 때 오류
 def process(data)  # 오류: 암시적 'any' 타입
   # ...
@@ -383,7 +386,7 @@ end
 
 **no_unused_vars**
 
-```ruby
+```trb
 # no_unused_vars: true일 때 경고
 def calculate(x: Integer, y: Integer): Integer
   result = x * 2  # 경고: 'y'가 미사용
@@ -393,7 +396,7 @@ end
 
 **strict_nil**
 
-```ruby
+```trb
 # strict_nil: true일 때 오류
 def find_user(id: Integer): User  # 오류: nil을 반환할 수 있음
   users.find { |u| u.id == id }
@@ -407,7 +410,7 @@ end
 
 **no_unchecked_indexed_access**
 
-```ruby
+```trb
 # no_unchecked_indexed_access: true일 때 오류
 users: Array<User> = get_users()
 user = users[0]  # 오류: nil일 수 있음

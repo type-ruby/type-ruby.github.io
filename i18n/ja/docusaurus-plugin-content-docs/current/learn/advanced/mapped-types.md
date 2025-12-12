@@ -4,6 +4,9 @@ title: マップ型
 description: プログラム的に型を変換
 ---
 
+<DocsBadge />
+
+
 # マップ型
 
 :::caution 準備中
@@ -16,7 +19,7 @@ description: プログラム的に型を変換
 
 マップ型は型のキーを反復し、変換を適用して新しい型を作成します：
 
-```ruby
+```trb
 type MappedType<T> = {
   [K in keyof T]: Transformation<T[K]>
 }
@@ -24,7 +27,7 @@ type MappedType<T> = {
 
 ### 基本構文
 
-```ruby
+```trb
 # Tのキーを反復
 type ReadonlyType<T> = {
   readonly [K in keyof T]: T[K]
@@ -45,7 +48,7 @@ type RequiredType<T> = {
 
 `keyof`演算子は型のすべてのキーをユニオンとして取得します：
 
-```ruby
+```trb
 type User = {
   id: Integer,
   name: String,
@@ -64,7 +67,7 @@ type UserValues<T> = {
 
 ### プロパティを読み取り専用に
 
-```ruby
+```trb
 # すべてのプロパティを読み取り専用に
 type Readonly<T> = {
   readonly [K in keyof T]: T[K]
@@ -90,7 +93,7 @@ user: ReadonlyUser = { id: 1, name: "Alice", email: "alice@example.com" }
 
 ### プロパティをオプショナルに
 
-```ruby
+```trb
 # すべてのプロパティをオプショナルに
 type Partial<T> = {
   [K in keyof T]?: T[K]
@@ -116,7 +119,7 @@ partial_user2: PartialUser = {}  # OK
 
 ### プロパティを必須に
 
-```ruby
+```trb
 # オプショナル修飾子を削除
 type Required<T> = {
   [K in keyof T]-?: T[K]
@@ -140,7 +143,7 @@ type RequiredUserUpdate = Required<UserUpdate>
 
 ### プロパティの型を変換
 
-```ruby
+```trb
 # すべてのプロパティを配列に変換
 type Arrayify<T> = {
   [K in keyof T]: Array<T[K]>
@@ -170,7 +173,7 @@ type Nullable<T> = {
 
 ### 修飾子の追加または削除
 
-```ruby
+```trb
 # readonlyを追加
 type AddReadonly<T> = {
   +readonly [K in keyof T]: T[K]
@@ -196,7 +199,7 @@ type MakeRequired<T> = {
 
 ### 特定のプロパティを選択
 
-```ruby
+```trb
 # 指定されたキーのみを選択
 type Pick<T, K extends keyof T> = {
   [P in K]: T[P]
@@ -221,7 +224,7 @@ public_user: PublicUser = { id: 1, name: "Alice" }
 
 ### 特定のプロパティを除外
 
-```ruby
+```trb
 # 指定されたキーを除外
 type Omit<T, K extends keyof T> = {
   [P in Exclude<keyof T, K>]: T[P]
@@ -253,7 +256,7 @@ type UserBasic = Omit<User, "password" | "email">
 
 マップ型を条件型と組み合わせる：
 
-```ruby
+```trb
 # 条件に基づいてプロパティを読み取り専用に
 type ConditionalReadonly<T> = {
   readonly [K in keyof T]: T[K] extends Function ? T[K] : readonly T[K]
@@ -274,7 +277,7 @@ type RemoveFunctions<T> = {
 
 マッピング中にプロパティキーを変換：
 
-```ruby
+```trb
 # すべてのキーにプレフィックスを追加
 type Prefixed<T, Prefix extends String> = {
   [K in keyof T as `${Prefix}${K}`]: T[K]
@@ -313,7 +316,7 @@ type UserWithGetters = WithGetters<User>
 
 ### DTOパターン
 
-```ruby
+```trb
 # データ転送オブジェクト - すべてのプロパティがオプショナルでnullableに
 type DTO<T> = {
   [K in keyof T]?: T[K] | nil
@@ -347,7 +350,7 @@ type UserAPI = APIWrapper<User>
 
 ### フォームハンドラ
 
-```ruby
+```trb
 # プロパティをフォームフィールドに変換
 type FormFields<T> = {
   [K in keyof T]: {
@@ -387,7 +390,7 @@ type LoginHandlers = FormHandlers<LoginForm>
 
 ### データベースモデル
 
-```ruby
+```trb
 # モデルにタイムスタンプを追加
 type WithTimestamps<T> = T & {
   created_at: Time,
@@ -430,7 +433,7 @@ type UserUpdate = UpdateModel<User>
 
 ### イベントハンドラ
 
-```ruby
+```trb
 # すべてのプロパティのイベントハンドラを作成
 type EventHandlers<T> = {
   [K in keyof T as `on${Capitalize<K>}Updated`]: (value: T[K]) => void
@@ -471,7 +474,7 @@ type ProductValidators = Validators<Product>
 
 ネストされたオブジェクトに再帰的にマッピングを適用：
 
-```ruby
+```trb
 # 深い読み取り専用
 type DeepReadonly<T> = {
   readonly [K in keyof T]: T[K] extends Hash<any, any>
@@ -511,7 +514,7 @@ type DeepReadonlyUser = DeepReadonly<NestedUser>
 
 複数のマッピングを結合：
 
-```ruby
+```trb
 # 読み取り専用と部分
 type ReadonlyPartial<T> = Readonly<Partial<T>>
 
@@ -545,7 +548,7 @@ type SafeUserUpdate = ReadonlyPartial<Omit<User, "id">>
 
 マップ型を使用して型安全なビルダーを作成：
 
-```ruby
+```trb
 # すべてのプロパティが設定されることを保証するビルダー
 type Builder<T> = {
   [K in keyof T as `with${Capitalize<K>}`]: (value: T[K]) => Builder<T>
@@ -580,7 +583,7 @@ type UserBuilder = Builder<User>
 
 ### 1. 説明的な名前を使用
 
-```ruby
+```trb
 # 良い：明確な目的
 type ReadonlyUser = Readonly<User>
 type PartialUpdate = Partial<UserUpdate>
@@ -593,7 +596,7 @@ type UserType2 = Partial<UserUpdate>
 
 ### 2. 再利用可能なマップ型を作成
 
-```ruby
+```trb
 # 良い：再利用可能なユーティリティ
 type WithTimestamps<T> = T & { created_at: Time, updated_at: Time }
 type WithSoftDelete<T> = T & { deleted_at: Time | nil }
@@ -605,7 +608,7 @@ type FullModel<T> = WithTimestamps<WithSoftDelete<WithMetadata<T>>>
 
 ### 3. 複雑なマッピングを文書化
 
-```ruby
+```trb
 # 良い：文書化されている
 # すべてのプロパティを対応するgetterメソッドに変換
 # 例：{ name: String } => { getName: () => String }
@@ -616,7 +619,7 @@ type ToGetters<T> = {
 
 ### 4. 条件型と組み合わせる
 
-```ruby
+```trb
 # 良い：スマートな変換
 type SmartNullable<T> = {
   [K in keyof T]: T[K] extends String | Integer
@@ -629,7 +632,7 @@ type SmartNullable<T> = {
 
 ### リポジトリパターン
 
-```ruby
+```trb
 type Repository<T> = {
   find_by_id: (id: Integer) => T | nil,
   find_all: () => Array<T>,
@@ -648,7 +651,7 @@ type CRUDHandlers<T> = {
 
 ### 状態管理
 
-```ruby
+```trb
 type State<T> = T
 
 type Actions<T> = {
@@ -666,7 +669,7 @@ type Reducers<T> = {
 
 ### 新しいプロパティを追加できない
 
-```ruby
+```trb
 # 元の型にないプロパティを追加できない
 type Extended<T> = {
   [K in keyof T]: T[K]
@@ -679,7 +682,7 @@ type Extended<T> = T & { new_property: String }
 
 ### キー型の制限
 
-```ruby
+```trb
 # キーはString | Symbol | Integerでなければならない
 type ValidKeys = { [K in String]: any }     # OK
 type InvalidKeys = { [K in User]: any }     # エラー：Userは有効なキー型ではない

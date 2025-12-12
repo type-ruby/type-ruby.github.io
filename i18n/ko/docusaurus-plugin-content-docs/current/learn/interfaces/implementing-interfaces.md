@@ -4,6 +4,9 @@ title: 인터페이스 구현하기
 description: 클래스가 인터페이스를 구현하는 방법
 ---
 
+<DocsBadge />
+
+
 # 인터페이스 구현하기
 
 인터페이스를 정의한 후, 클래스는 `implements` 키워드를 사용하여 구현합니다. T-Ruby는 구현 클래스가 올바른 시그니처로 모든 필수 메서드를 제공하는지 확인합니다. 이 가이드는 인터페이스를 올바르고 효과적으로 구현하는 방법을 보여줍니다.
@@ -12,7 +15,7 @@ description: 클래스가 인터페이스를 구현하는 방법
 
 `implements`를 사용하여 클래스가 인터페이스 계약을 충족한다고 선언합니다:
 
-```ruby title="basic_implementation.trb"
+```trb title="basic_implementation.trb"
 interface Drawable
   def draw(): void
   def get_area(): Float
@@ -67,7 +70,7 @@ shapes.each { |shape| shape.draw() }
 
 클래스는 여러 인터페이스를 구현할 수 있습니다:
 
-```ruby title="multiple_interfaces.trb"
+```trb title="multiple_interfaces.trb"
 interface Serializable
   def to_json(): String
   def from_json(json: String): void
@@ -128,7 +131,7 @@ clone = user1.clone()
 
 특정 타입으로 제네릭 인터페이스를 구현합니다:
 
-```ruby title="generic_implementation.trb"
+```trb title="generic_implementation.trb"
 interface Storage<T>
   def save(item: T): void
   def load(id: String): T?
@@ -206,7 +209,7 @@ product_storage.save(Product.new("SKU-001", "Laptop", 999.99))
 
 상속을 통해 인터페이스를 부분적으로 구현할 때도 있습니다:
 
-```ruby title="partial_implementation.trb"
+```trb title="partial_implementation.trb"
 interface Validator
   def validate(): Boolean
   def errors(): Array<String>
@@ -297,7 +300,7 @@ end
 
 다른 객체에 위임하여 인터페이스를 구현합니다:
 
-```ruby title="delegation.trb"
+```trb title="delegation.trb"
 interface Logger
   def log(level: String, message: String): void
   def debug(message: String): void
@@ -351,7 +354,7 @@ app.run()
 
 결제 인터페이스를 구현하는 완전한 예제:
 
-```ruby title="payment_gateway.trb"
+```trb title="payment_gateway.trb"
 interface PaymentMethod
   def authorize(amount: Float): Boolean
   def capture(transaction_id: String): Boolean
@@ -522,7 +525,7 @@ end
 
 다중 인터페이스 구현이 있는 또 다른 완전한 예제:
 
-```ruby title="notification_system.trb"
+```trb title="notification_system.trb"
 interface NotificationChannel
   def send(recipient: String, message: String): Boolean
   def send_bulk(recipients: Array<String>, message: String): Array<Boolean>
@@ -689,7 +692,7 @@ service.notify_all(
 
 ### 어댑터 패턴
 
-```ruby title="adapter.trb"
+```trb title="adapter.trb"
 interface ModernAPI
   def get_data(id: String): Hash<String, String>
   def save_data(id: String, data: Hash<String, String>): Boolean
@@ -725,7 +728,7 @@ end
 
 ### 컴포지트 패턴
 
-```ruby title="composite.trb"
+```trb title="composite.trb"
 interface Component
   def render(): String
   def add(component: Component): void

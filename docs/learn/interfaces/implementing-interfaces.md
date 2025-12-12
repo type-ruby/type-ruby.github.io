@@ -4,6 +4,9 @@ title: Implementing Interfaces
 description: How classes implement interfaces
 ---
 
+<DocsBadge />
+
+
 # Implementing Interfaces
 
 Once you've defined interfaces, classes implement them using the `implements` keyword. T-Ruby ensures that implementing classes provide all required methods with the correct signatures. This guide shows you how to implement interfaces correctly and effectively.
@@ -12,7 +15,7 @@ Once you've defined interfaces, classes implement them using the `implements` ke
 
 Use `implements` to declare that a class fulfills an interface contract:
 
-```ruby title="basic_implementation.trb"
+```trb title="basic_implementation.trb"
 interface Drawable
   def draw(): void
   def get_area(): Float
@@ -67,7 +70,7 @@ shapes.each { |shape| shape.draw() }
 
 A class can implement multiple interfaces:
 
-```ruby title="multiple_interfaces.trb"
+```trb title="multiple_interfaces.trb"
 interface Serializable
   def to_json(): String
   def from_json(json: String): void
@@ -128,7 +131,7 @@ clone = user1.clone()
 
 Implement generic interfaces with specific types:
 
-```ruby title="generic_implementation.trb"
+```trb title="generic_implementation.trb"
 interface Storage<T>
   def save(item: T): void
   def load(id: String): T?
@@ -206,7 +209,7 @@ product_storage.save(Product.new("SKU-001", "Laptop", 999.99))
 
 Sometimes you'll implement interfaces partially through inheritance:
 
-```ruby title="partial_implementation.trb"
+```trb title="partial_implementation.trb"
 interface Validator
   def validate(): Boolean
   def errors(): Array<String>
@@ -297,7 +300,7 @@ end
 
 Implement interfaces by delegating to other objects:
 
-```ruby title="delegation.trb"
+```trb title="delegation.trb"
 interface Logger
   def log(level: String, message: String): void
   def debug(message: String): void
@@ -351,7 +354,7 @@ app.run()
 
 A complete example implementing payment interfaces:
 
-```ruby title="payment_gateway.trb"
+```trb title="payment_gateway.trb"
 interface PaymentMethod
   def authorize(amount: Float): Boolean
   def capture(transaction_id: String): Boolean
@@ -522,7 +525,7 @@ end
 
 Another complete example with multiple interface implementations:
 
-```ruby title="notification_system.trb"
+```trb title="notification_system.trb"
 interface NotificationChannel
   def send(recipient: String, message: String): Boolean
   def send_bulk(recipients: Array<String>, message: String): Array<Boolean>
@@ -689,7 +692,7 @@ service.notify_all(
 
 ### Adapter Pattern
 
-```ruby title="adapter.trb"
+```trb title="adapter.trb"
 interface ModernAPI
   def get_data(id: String): Hash<String, String>
   def save_data(id: String, data: Hash<String, String>): Boolean
@@ -725,7 +728,7 @@ end
 
 ### Composite Pattern
 
-```ruby title="composite.trb"
+```trb title="composite.trb"
 interface Component
   def render(): String
   def add(component: Component): void

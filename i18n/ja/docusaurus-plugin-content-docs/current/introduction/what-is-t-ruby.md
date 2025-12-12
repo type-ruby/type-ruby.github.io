@@ -4,6 +4,9 @@ title: T-Rubyとは？
 description: T-Rubyの紹介 - RubyのためのTypeScriptスタイル型システム
 ---
 
+<DocsBadge />
+
+
 # T-Rubyとは？
 
 T-RubyはRubyにTypeScriptスタイルの型構文を導入する新しいアプローチです。TypeScriptがJavaScriptに対して行うことを、Rubyにももたらします。
@@ -12,7 +15,7 @@ T-RubyはRubyにTypeScriptスタイルの型構文を導入する新しいアプ
 
 TypeScriptがJavaScriptに型安全性を追加するように、T-RubyはRubyに同じ機能を提供します。型アノテーション付きのRubyコードを`.trb`ファイルに書くと、T-Rubyがそれを純粋なRubyコードとRBS型定義にコンパイルします。
 
-```ruby
+```trb
 # 入力: hello.trb
 def greet(name: String): String
   "こんにちは、#{name}さん！"
@@ -30,7 +33,7 @@ end
 user = find_user(123)
 ```
 
-```ruby
+```rbs
 # 出力: hello.rbs（RBS型定義）
 def greet: (String) -> String
 ```
@@ -41,7 +44,7 @@ def greet: (String) -> String
 
 T-Rubyの型構文はTypeScriptから直接インスピレーションを受けています。TypeScriptを使ったことがあれば、T-Rubyもすぐに理解できます。
 
-```ruby
+```trb
 # Union型
 id: String | Integer = "user-123"
 

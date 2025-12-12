@@ -4,6 +4,9 @@ title: T-Ruby vs 他のツール
 description: T-RubyとTypeScript、RBS、Sorbetの比較
 ---
 
+<DocsBadge />
+
+
 # T-Ruby vs 他のツール
 
 Rubyエコシステムには静的型付けに対するいくつかのアプローチがあります。このページでは、T-Rubyがどこに位置するかを理解するために、他のソリューションと比較します。
@@ -41,7 +44,7 @@ class User
 end
 ```
 
-```ruby title="sig/user.rbs"
+```rbs title="sig/user.rbs"
 class User
   @name: String
   @age: Integer
@@ -55,7 +58,7 @@ end
 
 型はインラインで書かれます：
 
-```ruby title="lib/user.trb"
+```trb title="lib/user.trb"
 class User
   @name: String
   @age: Integer
@@ -119,7 +122,7 @@ end
 
 ### T-Rubyアプローチ
 
-```ruby title="lib/calculator.trb"
+```trb title="lib/calculator.trb"
 class Calculator
   def add(a: Integer, b: Integer): Integer
     a + b
@@ -153,7 +156,7 @@ greet(123)  # ランタイムチェックが有効ならTypeError発生
 ```
 
 **T-Rubyアプローチ：**
-```ruby
+```trb
 # 型はコンパイル時のみ
 def greet(name: String): String
   "Hello, #{name}"
@@ -193,7 +196,7 @@ function processUser<T extends User>(user: T): string {
 }
 ```
 
-```ruby title="T-Ruby"
+```trb title="T-Ruby"
 def greet(name: String): String
   "Hello, #{name}!"
 end

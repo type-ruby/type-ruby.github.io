@@ -4,6 +4,9 @@ title: Blocks, Procs & Lambdas
 description: Typing blocks, procs, and lambda expressions
 ---
 
+<DocsBadge />
+
+
 # Blocks, Procs & Lambdas
 
 Blocks, procs, and lambdas are essential features in Ruby that allow you to pass executable code around. T-Ruby provides a powerful type system for these constructs, ensuring type safety while preserving Ruby's flexibility.
@@ -16,7 +19,7 @@ Before diving into typing, let's clarify the three concepts:
 - **Proc**: A block wrapped in an object
 - **Lambda**: A stricter form of Proc with different argument handling
 
-```ruby title="basics.trb"
+```trb title="basics.trb"
 # Block - passed with do...end or {...}
 [1, 2, 3].each do |n|
   puts n
@@ -35,7 +38,7 @@ my_lambda.call(10)
 
 Methods that accept blocks use the `&block` parameter. Type it with `Proc`:
 
-```ruby title="block_params.trb"
+```trb title="block_params.trb"
 def each_number(&block: Proc<Integer, void>): void
   [1, 2, 3].each do |n|
     block.call(n)
@@ -63,7 +66,7 @@ The `Proc<Input, Output>` syntax specifies:
 
 Blocks can take multiple parameters:
 
-```ruby title="multiple_params.trb"
+```trb title="multiple_params.trb"
 def each_pair(&block: Proc<[String, Integer], void>): void
   pairs = [["Alice", 30], ["Bob", 25], ["Charlie", 35]]
   pairs.each do |name, age|
@@ -92,7 +95,7 @@ Use tuple syntax `[Type1, Type2]` for multiple block parameters.
 
 Some methods can work with or without a block:
 
-```ruby title="optional_blocks.trb"
+```trb title="optional_blocks.trb"
 def process_items(items: Array<Integer>, &block: Proc<Integer, Integer>?): Array<Integer>
   if block
     items.map { |item| block.call(item) }
@@ -116,7 +119,7 @@ The `?` makes the block optional (nilable).
 
 Procs are first-class objects that can be stored and passed around:
 
-```ruby title="procs.trb"
+```trb title="procs.trb"
 # Define proc types
 adder: Proc<Integer, Integer> = Proc.new { |n| n + 10 }
 greeter: Proc<String, String> = Proc.new { |name| "Hello, #{name}!" }
@@ -140,7 +143,7 @@ doubled = apply_to_all([1, 2, 3], Proc.new { |n| n * 2 })
 
 Lambdas have the same type signature as Procs:
 
-```ruby title="lambdas.trb"
+```trb title="lambdas.trb"
 # Lambdas with type annotations
 add_ten: Proc<Integer, Integer> = ->(n: Integer) { n + 10 }
 multiply: Proc<[Integer, Integer], Integer> = ->(a: Integer, b: Integer) { a * b }
@@ -164,7 +167,7 @@ admins = filter_users(all_users, is_admin)
 
 Functions that return procs or lambdas:
 
-```ruby title="higher_order.trb"
+```trb title="higher_order.trb"
 def create_multiplier(factor: Integer): Proc<Integer, Integer>
   ->(n: Integer) { n * factor }
 end
@@ -193,7 +196,7 @@ password_validator.call("secret123") # true
 
 Some blocks don't take parameters:
 
-```ruby title="no_params.trb"
+```trb title="no_params.trb"
 def execute(&block: Proc<[], void>): void
   puts "Before execution"
   block.call
@@ -224,7 +227,7 @@ Use `Proc<[], ReturnType>` for blocks that take no parameters.
 
 Blocks can be generic to preserve type information:
 
-```ruby title="generic_blocks.trb"
+```trb title="generic_blocks.trb"
 def map<T, U>(array: Array<T>, &block: Proc<T, U>): Array<U>
   array.map { |item| block.call(item) }
 end
@@ -248,7 +251,7 @@ sum = reduce(numbers, 0) { |acc, n| acc + n }  # Integer
 
 A real-world example using blocks for event handling:
 
-```ruby title="event_handler.trb"
+```trb title="event_handler.trb"
 class EventEmitter<T>
   def initialize()
     @listeners: Array<Proc<T, void>> = []
@@ -300,7 +303,7 @@ user_events.emit(UserEvent.new("logout", current_user))
 
 Using procs for middleware chains:
 
-```ruby title="middleware.trb"
+```trb title="middleware.trb"
 class Request
   attr_accessor :path: String
   attr_accessor :params: Hash<String, String>
@@ -373,7 +376,7 @@ response = stack.execute(request, handler)
 
 Building a functional utility library:
 
-```ruby title="functional.trb"
+```trb title="functional.trb"
 module Functional
   def self.compose<A, B, C>(
     f: Proc<B, C>,
@@ -430,7 +433,7 @@ memoized.call(5)  # Returns 25 immediately (cached)
 
 Be specific about what blocks return:
 
-```ruby title="block_returns.trb"
+```trb title="block_returns.trb"
 # Block returns a value
 def sum_transformed(numbers: Array<Integer>, &block: Proc<Integer, Integer>): Integer
   numbers.map { |n| block.call(n) }.sum
@@ -475,7 +478,7 @@ long_strings = custom_select(["hi", "hello", "hey"]) { |s| s.length > 2 }
 
 ### Callback Pattern
 
-```ruby title="callbacks.trb"
+```trb title="callbacks.trb"
 def fetch_data(url: String, on_success: Proc<String, void>, on_error: Proc<String, void>): void
   begin
     data = HTTP.get(url)
@@ -494,7 +497,7 @@ fetch_data(
 
 ### Builder Pattern with Blocks
 
-```ruby title="builder_block.trb"
+```trb title="builder_block.trb"
 class QueryBuilder
   def initialize()
     @conditions: Array<String> = []
@@ -523,7 +526,7 @@ end.build()
 
 ### Iterator Pattern
 
-```ruby title="iterator.trb"
+```trb title="iterator.trb"
 def times(n: Integer, &block: Proc<Integer, void>): void
   (0...n).each { |i| block.call(i) }
 end

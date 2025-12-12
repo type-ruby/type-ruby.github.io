@@ -4,6 +4,9 @@ title: Contributing
 description: How to contribute to T-Ruby
 ---
 
+<DocsBadge />
+
+
 # Contributing to T-Ruby
 
 Thank you for your interest in contributing to T-Ruby! This guide will help you get started with contributing code, documentation, types, and more.
@@ -43,7 +46,7 @@ Found a bug? Please open an issue on GitHub with:
 **Ruby Version:** 3.2.0
 
 ### Steps to Reproduce
-```ruby
+```trb
 numbers: Array<Integer> = [1, 2, 3]
 strings = numbers.map { |n| n.to_s }
 # Type of strings should be Array<String>
@@ -313,7 +316,7 @@ If applicable, add screenshots
 
 We follow the [Ruby Style Guide](https://rubystyle.guide/) with some modifications:
 
-```ruby
+```trb
 # Good
 def type_check(node: AST::Node): Type
   case node.type
@@ -336,7 +339,7 @@ end
 
 ### T-Ruby Style (for examples)
 
-```ruby
+```trb
 # Use clear, explicit types in examples
 def process_user(user: User): UserResponse
   UserResponse.new(
@@ -353,7 +356,7 @@ active_users: Array<User> = users.select { |u| u.active? }
 
 ### Documentation Style
 
-```ruby
+```trb
 # Good documentation
 # Infers the type of an array literal
 #
@@ -371,7 +374,7 @@ end
 
 ### Writing Tests
 
-```ruby
+```trb
 RSpec.describe TypeChecker do
   describe '#infer_type' do
     it 'infers Integer for integer literals' do
@@ -422,7 +425,7 @@ spec/
 
 ### 1. Create Type Definition File
 
-```ruby
+```trb
 # lib/t_ruby/stdlib/json.trb
 
 # Type definitions for JSON module
@@ -440,7 +443,7 @@ end
 
 ### 2. Add Tests
 
-```ruby
+```trb
 # spec/stdlib/json_spec.rb
 
 RSpec.describe 'JSON types' do
@@ -464,7 +467,7 @@ Add to `/docs/reference/stdlib-types.md`:
 ```markdown
 ### JSON
 
-```ruby
+```trb
 def parse_json(file: String): Hash<String, Any>
   JSON.parse(File.read(file))
 end

@@ -4,6 +4,9 @@ title: 組み込みジェネリクス
 description: Array、Hash、その他の組み込みジェネリック型
 ---
 
+<DocsBadge />
+
+
 # 組み込みジェネリクス
 
 T-Rubyには毎日使用するいくつかの組み込みジェネリック型があります。これらの型は型安全性を提供しながら任意の型で動作するようにパラメータ化されています。これらの組み込みジェネリクスの使い方を理解することは、型安全なT-Rubyコードを書くために不可欠です。
@@ -14,7 +17,7 @@ T-Rubyには毎日使用するいくつかの組み込みジェネリック型�
 
 ### 基本的な配列の使用法
 
-```ruby
+```trb
 # 明示的に型付けされた配列
 numbers: Array<Integer> = [1, 2, 3, 4, 5]
 names: Array<String> = ["Alice", "Bob", "Charlie"]
@@ -33,7 +36,7 @@ empty_users = Array<User>.new
 
 すべての標準配列操作は型安全性を維持します：
 
-```ruby
+```trb
 numbers: Array<Integer> = [1, 2, 3, 4, 5]
 
 # 要素へのアクセス
@@ -59,7 +62,7 @@ index: Integer | nil = numbers.index(3)     # 2
 
 マッピングは`Array<T>`を`Array<U>`に変換します：
 
-```ruby
+```trb
 # 整数を文字列にマップ
 numbers: Array<Integer> = [1, 2, 3, 4, 5]
 strings: Array<String> = numbers.map { |n| n.to_s }
@@ -93,7 +96,7 @@ people: Array<Person> = names.map { |name| Person.new(name, 25) }
 
 フィルタリングは同じ型を維持します：
 
-```ruby
+```trb
 numbers: Array<Integer> = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
 
 # 偶数をフィルタ
@@ -118,7 +121,7 @@ long_words: Array<String> = words.select { |w| w.length > 4 }
 
 reduceは配列を単一の値に畳み込みます：
 
-```ruby
+```trb
 numbers: Array<Integer> = [1, 2, 3, 4, 5]
 
 # すべての数字を合計
@@ -146,7 +149,7 @@ hash: Hash<String, String> = pairs.reduce({}) { |h, pair|
 
 配列は任意の深さでネストできます：
 
-```ruby
+```trb
 # 2次元配列（行列）
 matrix: Array<Array<Integer>> = [
   [1, 2, 3],
@@ -176,7 +179,7 @@ flat: Array<Integer> = nested.flatten
 
 ### 基本的なハッシュの使用法
 
-```ruby
+```trb
 # 明示的に型付けされたハッシュ
 ages: Hash<String, Integer> = {
   "Alice" => 30,
@@ -201,7 +204,7 @@ empty_map = Hash<Symbol, Array<String>>.new
 
 ### ハッシュ操作
 
-```ruby
+```trb
 ages: Hash<String, Integer> = {
   "Alice" => 30,
   "Bob" => 25
@@ -229,7 +232,7 @@ values: Array<Integer> = ages.values      # [31, 35]
 
 ### ハッシュの反復
 
-```ruby
+```trb
 scores: Hash<String, Integer> = {
   "Alice" => 95,
   "Bob" => 87,
@@ -257,7 +260,7 @@ doubled: Hash<String, Integer> = scores.transform_values { |score| score * 2 }
 
 ### 複雑なハッシュ型
 
-```ruby
+```trb
 # 配列値を持つハッシュ
 tags: Hash<String, Array<String>> = {
   "ruby" => ["programming", "language"],
@@ -298,7 +301,7 @@ user_map: Hash<Integer, User> = {
 
 `Set<T>`は型`T`のユニークな要素の順序なしコレクションを表します。
 
-```ruby
+```trb
 # セットの作成
 numbers: Set<Integer> = Set.new([1, 2, 3, 4, 5])
 unique_words: Set<String> = Set.new(["hello", "world", "hello"])
@@ -330,7 +333,7 @@ array: Array<Integer> = numbers.to_a
 
 `Range<T>`は開始から終了までの値の範囲を表します。
 
-```ruby
+```trb
 # 整数範囲
 one_to_ten: Range<Integer> = 1..10      # 包含: 1, 2, ..., 10
 one_to_nine: Range<Integer> = 1...10    # 排他: 1, 2, ..., 9
@@ -355,7 +358,7 @@ letters: Array<String> = ('a'..'e').to_a  # ["a", "b", "c", "d", "e"]
 
 `Proc<Args, Return>`は型付きパラメータと戻り値型を持つproc/lambdaを表します。
 
-```ruby
+```trb
 # シンプルなproc
 doubler: Proc<Integer, Integer> = ->(x: Integer): Integer { x * 2 }
 result = doubler.call(5)  # 10
@@ -390,7 +393,7 @@ result = operations.reduce(10) { |acc, op| op.call(acc) }
 
 厳密にはジェネリックではありませんが、`T | nil`は非常に頻繁に使用されるので言及する価値があります。T-Rubyは`T?`という省略形もサポートしています。
 
-```ruby
+```trb
 # 明示的なオプショナル型
 name: String | nil = "Alice"
 age: Integer | nil = nil
@@ -422,7 +425,7 @@ settings: Hash<String, String | nil> = {
 
 ジェネリック型は強力な方法で組み合わせることができます：
 
-```ruby
+```trb
 # ハッシュの配列
 users: Array<Hash<Symbol, String | Integer>> = [
   { name: "Alice", age: 30 },
@@ -458,7 +461,7 @@ data = nil
 
 複雑なジェネリック型のための読みやすいエイリアスを作成します：
 
-```ruby
+```trb
 # シンプルなエイリアス
 type StringArray = Array<String>
 type IntHash = Hash<String, Integer>
@@ -494,7 +497,7 @@ to_string: Transformer<Integer, String> = ->(n: Integer): String { n.to_s }
 
 ### 1. Anyより特定の型を優先
 
-```ruby
+```trb
 # 良い：特定の型
 users: Array<User> = []
 config: Hash<Symbol, String> = {}
@@ -505,7 +508,7 @@ data: Array<Any> = []  # 型チェックなし
 
 ### 2. 複雑な型には型エイリアスを使用
 
-```ruby
+```trb
 # 良い：明確で再利用可能なエイリアス
 type UserMap = Hash<Integer, User>
 type ErrorList = Array<String>
@@ -522,7 +525,7 @@ end
 
 ### 3. Nil値を明示的に処理
 
-```ruby
+```trb
 # 良い：明示的なnil処理
 users: Array<User> = []
 first_user: User | nil = users.first
@@ -539,7 +542,7 @@ end
 
 ### 4. 適切なコレクション型を使用
 
-```ruby
+```trb
 # 良い：ユニークなアイテムにSetを使用
 unique_tags: Set<String> = Set.new
 
@@ -552,7 +555,7 @@ unique_tags.push(tag) unless unique_tags.include?(tag)
 
 ### 安全な配列アクセス
 
-```ruby
+```trb
 def safe_get<T>(array: Array<T>, index: Integer, default: T): T
   array.fetch(index, default)
 end
@@ -563,7 +566,7 @@ value = safe_get(numbers, 10, 0)  # nilの代わりに0を返す
 
 ### ハッシュでグループ化
 
-```ruby
+```trb
 class Person
   @name: String
   @age: Integer
@@ -591,7 +594,7 @@ by_age: Hash<Integer, Array<Person>> = people.group_by { |p| p.age }
 
 ### ハッシュでメモ化
 
-```ruby
+```trb
 class Calculator
   @cache: Hash<Integer, Integer>
 

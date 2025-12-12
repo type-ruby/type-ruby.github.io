@@ -4,6 +4,9 @@ title: なぜT-Rubyなのか？
 description: T-Rubyの利点と開発動機
 ---
 
+<DocsBadge />
+
+
 # なぜT-Rubyなのか？
 
 Rubyは表現力と開発者の幸福で知られる美しい言語です。しかし、プロジェクトが大きくなるにつれて、静的型の欠如は見つけにくいバグにつながる可能性があります。T-RubyはRubyを素晴らしくするすべてを保持しながら、この問題に対処します。
@@ -24,7 +27,7 @@ user = fetch_user("123")  # バグ！Integerであるべき
 
 このバグは実行時まで—おそらく本番環境で—表面化しません。T-Rubyを使用すると：
 
-```ruby title="T-Ruby使用"
+```trb title="T-Ruby使用"
 def fetch_user(id: Integer): User
   User.find(id)
 end
@@ -44,7 +47,7 @@ user = fetch_user("123")  # コンパイルエラー！IntegerではなくString
 - より速いデバッグサイクル
 - リファクタリング時の自信
 
-```ruby
+```trb
 def process_payment(amount: Float, currency: String): PaymentResult
   # 型チェッカーが保証します：
   # - amountは常にFloat
@@ -62,7 +65,7 @@ process_payment(100.0, "USD").foo  # エラー: PaymentResultに'foo'メソッ�
 
 型は決して古くならないドキュメントとして機能します：
 
-```ruby
+```trb
 # 型なし - これは何を返す？何を渡すべき？
 def transform(data, options = {})
   # ...
@@ -84,7 +87,7 @@ IDEが提供できるもの：
 
 コードベース全体を書き直す必要はありません。T-Rubyは段階的な型付けをサポートします：
 
-```ruby
+```trb
 # 最も重要なコードから始めましょう
 def charge_customer(customer_id: Integer, amount: Float): ChargeResult
   # この関数は型安全になりました
@@ -101,7 +104,7 @@ end
 
 ランタイムチェックを追加する一部の型システムとは異なり、T-Rubyの型はコンパイル中に完全に消去されます：
 
-```ruby title="コンパイル前 (app.trb)"
+```trb title="コンパイル前 (app.trb)"
 def multiply(a: Integer, b: Integer): Integer
   a * b
 end
@@ -140,7 +143,7 @@ T-Rubyは特に以下の場合に価値があります：
 
 型は若干のオーバーヘッドを追加します。非常に小さなスクリプトや素早いプロトタイプの場合、型なしのRubyの方が適切かもしれません：
 
-```ruby
+```trb
 # クイックスクリプトの場合、これで十分
 puts "Hello, #{ARGV[0]}!"
 

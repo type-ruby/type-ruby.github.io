@@ -4,6 +4,9 @@ title: Generic Functions & Classes
 description: Creating reusable code with generics
 ---
 
+<DocsBadge />
+
+
 # Generic Functions & Classes
 
 Generics are one of the most powerful features in T-Ruby, allowing you to write code that works with multiple types while maintaining type safety. Think of generics as "type variables"—placeholders that get filled in with concrete types when your code is used.
@@ -14,7 +17,7 @@ Without generics, you'd need to write the same function multiple times for diffe
 
 ### The Problem: Without Generics
 
-```ruby
+```trb
 # Without generics, you need separate functions for each type
 def first_string(arr: Array<String>): String | nil
   arr[0]
@@ -36,7 +39,7 @@ end
 
 ### The Solution: With Generics
 
-```ruby
+```trb
 # One function that works for all types
 def first<T>(arr: Array<T>): T | nil
   arr[0]
@@ -56,7 +59,7 @@ Generic functions use type parameters in angle brackets (`<T>`) to represent typ
 
 ### Basic Generic Function
 
-```ruby
+```trb
 # A simple generic function
 def identity<T>(value: T): T
   value
@@ -72,7 +75,7 @@ arr = identity([1, 2, 3])    # Array<Integer>
 
 You can use multiple type parameters when needed:
 
-```ruby
+```trb
 # A function with two type parameters
 def pair<K, V>(key: K, value: V): Hash<K, V>
   { key => value }
@@ -88,7 +91,7 @@ mixed = pair("count", 42)          # Hash<String, Integer>
 
 A common use case is working with arrays of any type:
 
-```ruby
+```trb
 # Get the last element of an array
 def last<T>(arr: Array<T>): T | nil
   arr[-1]
@@ -116,7 +119,7 @@ long_words = filter(words) { |w| w.length > 3 }  # Array<String>
 
 Sometimes the return type differs from the input type, but is still generic:
 
-```ruby
+```trb
 # Map function that transforms type T to type U
 def map<T, U>(arr: Array<T>, &block: Proc<T, U>): Array<U>
   arr.map { |item| block.call(item) }
@@ -137,7 +140,7 @@ Generic classes allow you to create data structures that work with any type whil
 
 ### Basic Generic Class
 
-```ruby
+```trb
 # A simple generic container
 class Box<T>
   @value: T
@@ -171,7 +174,7 @@ string_box.set(123)      # Error: Type mismatch
 
 T-Ruby can often infer the type parameter from the constructor:
 
-```ruby
+```trb
 class Container<T>
   @item: T
 
@@ -200,7 +203,7 @@ container3 = Container<Bool>.new(true)
 
 Here's a practical example of a generic stack data structure:
 
-```ruby
+```trb
 class Stack<T>
   @items: Array<T>
 
@@ -254,7 +257,7 @@ puts int_stack.size  # 3
 
 Generic classes can have multiple type parameters:
 
-```ruby
+```trb
 class Pair<K, V>
   @key: K
   @value: V
@@ -294,7 +297,7 @@ swapped = name_age.swap              # Pair<Integer, String>
 
 A more complex example showing a custom collection:
 
-```ruby
+```trb
 class Collection<T>
   @items: Array<T>
 
@@ -366,7 +369,7 @@ numbers.each { |n| puts n }
 
 You can have generic methods in classes that aren't themselves generic:
 
-```ruby
+```trb
 class Utils
   # Generic method in a non-generic class
   def self.wrap<T>(value: T): Array<T>
@@ -392,7 +395,7 @@ zipped = Utils.zip([1, 2], ["a", "b"])      # Array<Pair<Integer, String>>
 
 Generics can be nested to create complex type structures:
 
-```ruby
+```trb
 # A cache that stores arrays of values for each key
 class Cache<K, V>
   @store: Hash<K, Array<V>>
@@ -428,7 +431,7 @@ tags = user_tags.get(1)  # Array<String> = ["ruby", "programming"]
 
 ### 1. Use Descriptive Type Parameter Names
 
-```ruby
+```trb
 # Good: Descriptive names for domain-specific types
 class Repository<Entity, Id>
   def find(id: Id): Entity | nil
@@ -449,7 +452,7 @@ end
 
 ### 2. Keep Generic Functions Simple
 
-```ruby
+```trb
 # Good: Simple, focused generic function
 def head<T>(arr: Array<T>): T | nil
   arr.first
@@ -463,7 +466,7 @@ end
 
 ### 3. Use Type Inference When Possible
 
-```ruby
+```trb
 # Let T-Ruby infer types from arguments
 container = Container.new("hello")  # Container<String> inferred
 
@@ -475,7 +478,7 @@ container = Container<String | Integer>.new("hello")
 
 ### Option/Maybe Type
 
-```ruby
+```trb
 class Option<T>
   @value: T | nil
 
@@ -521,7 +524,7 @@ result = some.map { |n| n * 2 }  # Option<Integer> with value 84
 
 ### Result Type
 
-```ruby
+```trb
 class Result<T, E>
   @value: T | nil
   @error: E | nil

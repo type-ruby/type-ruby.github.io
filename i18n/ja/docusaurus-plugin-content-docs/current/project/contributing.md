@@ -4,6 +4,9 @@ title: コントリビューション
 description: T-Rubyへの貢献方法
 ---
 
+<DocsBadge />
+
+
 # T-Rubyへのコントリビューション
 
 T-Rubyへの貢献に関心をお持ちいただきありがとうございます！このガイドは、コード、ドキュメント、型などへの貢献を始めるのに役立ちます。
@@ -43,7 +46,7 @@ T-Rubyに貢献する方法は多くあります：
 **Rubyバージョン：** 3.2.0
 
 ### 再現手順
-```ruby
+```trb
 numbers: Array<Integer> = [1, 2, 3]
 strings = numbers.map { |n| n.to_s }
 # stringsの型はArray<String>であるべき
@@ -313,7 +316,7 @@ git push origin feature/my-awesome-feature
 
 いくつかの修正を加えた[Rubyスタイルガイド](https://rubystyle.guide/)に従います：
 
-```ruby
+```trb
 # 良い例
 def type_check(node: AST::Node): Type
   case node.type
@@ -336,7 +339,7 @@ end
 
 ### T-Rubyスタイル（例用）
 
-```ruby
+```trb
 # 例では明確で明示的な型を使用
 def process_user(user: User): UserResponse
   UserResponse.new(
@@ -353,7 +356,7 @@ active_users: Array<User> = users.select { |u| u.active? }
 
 ### ドキュメントスタイル
 
-```ruby
+```trb
 # 良いドキュメント
 # 配列リテラルの型を推論します
 #
@@ -371,7 +374,7 @@ end
 
 ### テストの作成
 
-```ruby
+```trb
 RSpec.describe TypeChecker do
   describe '#infer_type' do
     it 'infers Integer for integer literals' do
@@ -422,7 +425,7 @@ spec/
 
 ### 1. 型定義ファイルの作成
 
-```ruby
+```trb
 # lib/t_ruby/stdlib/json.trb
 
 # JSONモジュールの型定義
@@ -440,7 +443,7 @@ end
 
 ### 2. テストの追加
 
-```ruby
+```trb
 # spec/stdlib/json_spec.rb
 
 RSpec.describe 'JSON types' do
@@ -464,7 +467,7 @@ end
 ```markdown
 ### JSON
 
-```ruby
+```trb
 def parse_json(file: String): Hash<String, Any>
   JSON.parse(File.read(file))
 end

@@ -4,6 +4,9 @@ title: 타입 좁히기
 description: 제어 흐름 분석으로 타입 좁히기
 ---
 
+<DocsBadge />
+
+
 # 타입 좁히기
 
 타입 좁히기는 T-Ruby가 제어 흐름 분석을 기반으로 변수의 타입을 자동으로 구체화하는 프로세스입니다. 변수의 타입이나 값을 검사할 때, T-Ruby는 해당 코드 경로 내에서 변수가 될 수 있는 타입을 좁힙니다. 이 장에서는 타입 좁히기가 어떻게 작동하는지, 그리고 타입 안전한 코드를 위해 이를 어떻게 활용하는지 배웁니다.
@@ -12,7 +15,7 @@ description: 제어 흐름 분석으로 타입 좁히기
 
 타입 좁히기는 T-Ruby가 코드를 분석하고 특정 범위 내에서 변수가 선언된 타입보다 더 구체적인 타입이어야 한다고 판단할 때 발생합니다.
 
-```ruby title="narrowing_basics.trb"
+```trb title="narrowing_basics.trb"
 def process(value: String | Integer): String
   if value.is_a?(String)
     # 이 블록 안에서 T-Ruby는 value가 String임을 알고 있음
@@ -36,7 +39,7 @@ end
 
 `is_a?` 메서드는 값이 특정 타입의 인스턴스인지 확인합니다:
 
-```ruby title="is_a_guard.trb"
+```trb title="is_a_guard.trb"
 def format_value(value: String | Integer | Bool): String
   if value.is_a?(String)
     # 여기서 value는 String
@@ -61,7 +64,7 @@ result3: String = format_value(true)  # "부울: true"
 
 `nil?` 메서드는 선택적 타입을 좁힙니다:
 
-```ruby title="nil_guard.trb"
+```trb title="nil_guard.trb"
 def get_length(text: String | nil): Integer
   if text.nil?
     # 여기서 text는 nil
@@ -91,7 +94,7 @@ len2: Integer = get_length(nil)  # 0
 
 `empty?` 메서드는 컬렉션의 타입을 좁힐 수 있습니다:
 
-```ruby title="empty_guard.trb"
+```trb title="empty_guard.trb"
 def process_array(items: Array<String> | nil): String
   if items.nil? || items.empty?
     "항목 없음"
@@ -112,7 +115,7 @@ result3: String = process_array(nil)  # "항목 없음"
 
 ### nil과 비교
 
-```ruby title="nil_comparison.trb"
+```trb title="nil_comparison.trb"
 def greet(name: String | nil): String
   if name == nil
     # 여기서 name은 nil
@@ -137,7 +140,7 @@ end
 
 ### 특정 값과 비교
 
-```ruby title="value_comparison.trb"
+```trb title="value_comparison.trb"
 def process_status(status: String): String
   if status == "active"
     # status는 여전히 String이지만 값을 알고 있음
@@ -154,7 +157,7 @@ end
 
 ### If/Elsif/Else 문
 
-```ruby title="if_narrowing.trb"
+```trb title="if_narrowing.trb"
 def categorize(value: String | Integer | nil): String
   if value.nil?
     # value는 nil
@@ -175,7 +178,7 @@ cat3: String = categorize(42)  # "숫자: 42"
 
 ### Unless 문
 
-```ruby title="unless_narrowing.trb"
+```trb title="unless_narrowing.trb"
 def process_unless(value: String | nil): String
   unless value.nil?
     # 여기서 value는 String
@@ -192,7 +195,7 @@ result2: String = process_unless(nil)  # "값 없음"
 
 ### Case/When 문
 
-```ruby title="case_narrowing.trb"
+```trb title="case_narrowing.trb"
 def describe(value: String | Integer | Symbol): String
   case value
   when String
@@ -216,7 +219,7 @@ desc3: String = describe(:active)  # "심볼: active"
 
 ### 삼항 연산자
 
-```ruby title="ternary_narrowing.trb"
+```trb title="ternary_narrowing.trb"
 def get_display_name(name: String | nil): String
   name.nil? ? "익명" : name.upcase
 end
@@ -229,7 +232,7 @@ display2: String = get_display_name(nil)  # "익명"
 
 ### AND 연산자 (`&&`)
 
-```ruby title="and_narrowing.trb"
+```trb title="and_narrowing.trb"
 def process_and(
   value: String | nil,
   flag: Bool
@@ -255,7 +258,7 @@ end
 
 ### OR 연산자 (`||`)
 
-```ruby title="or_narrowing.trb"
+```trb title="or_narrowing.trb"
 def process_or(value: String | nil): String
   if value.nil? || value.empty?
     "값 없음"
@@ -270,7 +273,7 @@ end
 
 조기 반환은 함수의 나머지 부분에서 타입을 좁힙니다:
 
-```ruby title="early_return.trb"
+```trb title="early_return.trb"
 def process_with_guard(value: String | nil): String
   # 가드 절
   return "값 없음" if value.nil?
@@ -303,7 +306,7 @@ end
 
 ### String 메서드
 
-```ruby title="string_method_narrowing.trb"
+```trb title="string_method_narrowing.trb"
 def process_string(value: String | nil): String
   return "비어있음" if value.nil? || value.empty?
 
@@ -315,7 +318,7 @@ end
 
 ### Array 메서드
 
-```ruby title="array_method_narrowing.trb"
+```trb title="array_method_narrowing.trb"
 def get_first_element(items: Array<String> | nil): String
   return "항목 없음" if items.nil? || items.empty?
 
@@ -329,7 +332,7 @@ end
 
 타입 좁히기는 블록 내에서도 작동합니다:
 
-```ruby title="block_narrowing.trb"
+```trb title="block_narrowing.trb"
 def process_items(items: Array<String | nil>): Array<String>
   result: Array<String> = []
 
@@ -361,7 +364,7 @@ end
 
 타입 좁히기를 사용하는 종합적인 예제입니다:
 
-```ruby title="form_validator.trb"
+```trb title="form_validator.trb"
 class FormValidator
   def validate_field(
     name: String,
@@ -478,7 +481,7 @@ errors2 = validator.validate_form(nil, "invalid-email", -5)
 
 ### 함수 호출 간에 좁히기가 유지되지 않음
 
-```ruby title="narrowing_limits.trb"
+```trb title="narrowing_limits.trb"
 def helper(value: String | Integer)
   # 호출자의 좁히기에 의존할 수 없음
   if value.is_a?(String)
@@ -498,7 +501,7 @@ end
 
 ### 변경 후에는 좁히기가 작동하지 않음
 
-```ruby title="mutation_limits.trb"
+```trb title="mutation_limits.trb"
 def example(value: String | Integer)
   if value.is_a?(String)
     # 여기서 value는 String
@@ -512,7 +515,7 @@ end
 
 ### 복잡한 조건은 좁히지 못할 수 있음
 
-```ruby title="complex_limits.trb"
+```trb title="complex_limits.trb"
 def complex(a: String | nil, b: String | nil): String
   # 이것은 작동함
   if !a.nil? && !b.nil?
@@ -540,7 +543,7 @@ end
 
 ### 1. 가드 절 사용
 
-```ruby title="guard_clauses.trb"
+```trb title="guard_clauses.trb"
 # 좋음 - 조기 반환으로 좁히기가 명확함
 def process(value: String | nil): String
   return "비어있음" if value.nil?
@@ -561,7 +564,7 @@ end
 
 ### 2. nil을 먼저 검사
 
-```ruby title="nil_first.trb"
+```trb title="nil_first.trb"
 # 좋음 - 다른 타입보다 nil을 먼저 검사
 def process(value: String | Integer | nil): String
   return "없음" if value.nil?
@@ -576,7 +579,7 @@ end
 
 ### 3. 구체적인 타입 검사 사용
 
-```ruby title="specific_checks.trb"
+```trb title="specific_checks.trb"
 # 좋음 - 구체적인 타입 검사
 def process(value: String | Integer): String
   if value.is_a?(String)

@@ -4,6 +4,9 @@ title: 내장 타입
 description: 내장 타입 전체 목록
 ---
 
+<DocsBadge />
+
+
 # 내장 타입
 
 T-Ruby는 Ruby의 기본 데이터 타입과 일반적으로 사용되는 패턴에 해당하는 포괄적인 내장 타입 세트를 제공합니다. 이 레퍼런스는 T-Ruby에서 사용 가능한 모든 내장 타입을 문서화합니다.
@@ -14,7 +17,7 @@ T-Ruby는 Ruby의 기본 데이터 타입과 일반적으로 사용되는 패턴
 
 텍스트 데이터를 나타냅니다. 문자열은 문자의 시퀀스입니다.
 
-```ruby
+```trb
 name: String = "Alice"
 message: String = 'Hello, world!'
 text: String = <<~TEXT
@@ -36,7 +39,7 @@ TEXT
 
 정수(양수, 음수 또는 0)를 나타냅니다.
 
-```ruby
+```trb
 count: Integer = 42
 negative: Integer = -10
 zero: Integer = 0
@@ -55,7 +58,7 @@ large: Integer = 1_000_000
 
 소수(부동 소수점)를 나타냅니다.
 
-```ruby
+```trb
 price: Float = 19.99
 pi: Float = 3.14159
 negative: Float = -273.15
@@ -75,7 +78,7 @@ scientific: Float = 2.998e8
 
 불리언 값: `true` 또는 `false`를 나타냅니다.
 
-```ruby
+```trb
 active: Bool = true
 disabled: Bool = false
 is_valid: Bool = count > 0
@@ -87,7 +90,7 @@ is_valid: Bool = count > 0
 
 불변 식별자를 나타냅니다. 심볼은 상수와 해시 키로 사용하기에 최적화되어 있습니다.
 
-```ruby
+```trb
 status: Symbol = :active
 role: Symbol = :admin
 key: Symbol = :name
@@ -106,7 +109,7 @@ key: Symbol = :name
 
 값의 부재를 나타냅니다.
 
-```ruby
+```trb
 nothing: nil = nil
 
 # 유니온 타입에서 더 일반적으로 사용
@@ -123,7 +126,7 @@ result: User | nil = find_user(123)
 
 모든 타입을 나타냅니다. 타입 검사를 우회하므로 신중하게 사용하세요.
 
-```ruby
+```trb
 value: Any = "string"
 value = 123          # OK
 value = true         # OK
@@ -135,7 +138,7 @@ value = true         # OK
 
 반환 값이 없음을 나타냅니다. 부작용을 수행하는 함수에 사용됩니다.
 
-```ruby
+```trb
 def log(message: String): void
   puts message
 end
@@ -151,7 +154,7 @@ end
 
 절대 발생하지 않는 값을 나타냅니다. 절대 반환하지 않는 함수에 사용됩니다.
 
-```ruby
+```trb
 def raise_error(message: String): never
   raise StandardError, message
 end
@@ -165,7 +168,7 @@ end
 
 현재 인스턴스의 타입을 나타냅니다. 메서드 체이닝에 유용합니다.
 
-```ruby
+```trb
 class Builder
   @value: String
 
@@ -193,7 +196,7 @@ result = Builder.new.append("Hello").append(" ").append("World").build
 
 타입 `T`의 요소로 이루어진 순서 있는 컬렉션을 나타냅니다.
 
-```ruby
+```trb
 # 문자열 배열
 names: Array<String> = ["Alice", "Bob", "Charlie"]
 
@@ -232,7 +235,7 @@ items: Array<String> = []
 
 타입 `K`의 키와 타입 `V`의 값으로 이루어진 키-값 쌍 컬렉션을 나타냅니다.
 
-```ruby
+```trb
 # 문자열 키, 정수 값
 scores: Hash<String, Integer> = { "Alice" => 100, "Bob" => 95 }
 
@@ -268,7 +271,7 @@ cache: Hash<String, Any> = {}
 
 고유한 요소의 순서 없는 컬렉션을 나타냅니다.
 
-```ruby
+```trb
 # 문자열 집합
 tags: Set<String> = Set.new(["ruby", "rails", "web"])
 
@@ -288,7 +291,7 @@ unique_ids: Set<Integer> = Set.new([1, 2, 3, 2, 1])  # {1, 2, 3}
 
 값의 범위를 나타냅니다.
 
-```ruby
+```trb
 # 정수 범위
 numbers: Range = 1..10      # 포함: 1에서 10
 numbers: Range = 1...10     # 제외: 1에서 9
@@ -310,7 +313,7 @@ letters: Range = 'a'..'z'
 
 모든 숫자 타입의 부모 타입입니다.
 
-```ruby
+```trb
 value: Numeric = 42
 value: Numeric = 3.14
 ```
@@ -325,7 +328,7 @@ value: Numeric = 3.14
 
 유리수(분수)를 나타냅니다. *(계획된 기능)*
 
-```ruby
+```trb
 fraction: Rational = Rational(1, 2)  # 1/2
 ```
 
@@ -333,7 +336,7 @@ fraction: Rational = Rational(1, 2)  # 1/2
 
 복소수를 나타냅니다. *(계획된 기능)*
 
-```ruby
+```trb
 complex: Complex = Complex(1, 2)  # 1+2i
 ```
 
@@ -343,7 +346,7 @@ complex: Complex = Complex(1, 2)  # 1+2i
 
 proc, 람다 또는 블록을 나타냅니다.
 
-```ruby
+```trb
 # 간단한 proc
 callback: Proc<String, void> = ->(msg: String): void { puts msg }
 
@@ -361,13 +364,13 @@ supplier: Proc<String> = ->: String { "Hello" }
 
 `Proc`의 타입 별칭입니다. T-Ruby에서 람다와 proc은 같은 타입을 사용합니다.
 
-```ruby
+```trb {skip-verify}
 type Lambda<Args..., Return> = Proc<Args..., Return>
 ```
 
 ### 블록 매개변수
 
-```ruby
+```trb
 # 블록을 받는 메서드
 def each_item<T>(items: Array<T>, &block: Proc<T, void>): void
   items.each { |item| block.call(item) }
@@ -388,7 +391,7 @@ end
 
 모든 객체의 기본 타입입니다.
 
-```ruby
+```trb
 value: Object = "string"
 value: Object = 123
 value: Object = User.new
@@ -398,7 +401,7 @@ value: Object = User.new
 
 클래스 객체를 나타냅니다.
 
-```ruby
+```trb
 user_class: Class = User
 string_class: Class = String
 
@@ -410,7 +413,7 @@ instance = user_class.new
 
 모듈을 나타냅니다.
 
-```ruby
+```trb
 mod: Module = Enumerable
 ```
 
@@ -420,7 +423,7 @@ mod: Module = Enumerable
 
 입력/출력 스트림을 나타냅니다.
 
-```ruby
+```trb
 file: IO = File.open("data.txt", "r")
 stdout: IO = $stdout
 
@@ -433,7 +436,7 @@ end
 
 파일 객체를 나타냅니다 (IO의 하위 타입).
 
-```ruby
+```trb
 file: File = File.open("data.txt", "r")
 
 def process_file(f: File): void
@@ -448,7 +451,7 @@ end
 
 시점을 나타냅니다.
 
-```ruby
+```trb
 now: Time = Time.now
 past: Time = Time.new(2020, 1, 1)
 
@@ -461,7 +464,7 @@ end
 
 날짜(시간 없음)를 나타냅니다.
 
-```ruby
+```trb
 today: Date = Date.today
 birthday: Date = Date.new(1990, 5, 15)
 ```
@@ -470,7 +473,7 @@ birthday: Date = Date.new(1990, 5, 15)
 
 시간대가 있는 날짜와 시간을 나타냅니다.
 
-```ruby
+```trb
 moment: DateTime = DateTime.now
 ```
 
@@ -480,7 +483,7 @@ moment: DateTime = DateTime.now
 
 정규 표현식 패턴을 나타냅니다.
 
-```ruby
+```trb
 pattern: Regexp = /\d+/
 email_pattern: Regexp = /^[\w+\-.]+@[a-z\d\-]+(\.[a-z\d\-]+)*\.[a-z]+$/i
 
@@ -493,7 +496,7 @@ end
 
 정규 표현식 매치의 결과를 나타냅니다.
 
-```ruby
+```trb
 def extract_numbers(text: String): Array<String> | nil
   match: MatchData | nil = text.match(/\d+/)
   return nil if match.nil?
@@ -507,7 +510,7 @@ end
 
 모든 예외의 기본 클래스입니다.
 
-```ruby
+```trb
 def handle_error(error: Exception): String
   error.message
 end
@@ -517,7 +520,7 @@ end
 
 표준 오류 타입 (가장 일반적으로 rescue됨).
 
-```ruby
+```trb
 def safe_divide(a: Integer, b: Integer): Float | StandardError
   begin
     a.to_f / b
@@ -544,7 +547,7 @@ IOError            # I/O 작업 실패
 
 열거 가능한 객체를 나타냅니다.
 
-```ruby
+```trb
 enum: Enumerator<Integer> = [1, 2, 3].each
 range_enum: Enumerator<Integer> = (1..10).each
 
@@ -559,7 +562,7 @@ end
 
 구조체 클래스를 나타냅니다.
 
-```ruby
+```trb
 Point = Struct.new(:x, :y)
 
 point: Point = Point.new(10, 20)
@@ -571,7 +574,7 @@ point: Point = Point.new(10, 20)
 
 실행 스레드를 나타냅니다.
 
-```ruby
+```trb
 thread: Thread = Thread.new { puts "Hello from thread" }
 
 def run_async(&block: Proc<void>): Thread
@@ -641,7 +644,7 @@ true.to_i         # 오류: Bool에는 to_i 없음
 
 모든 타입은 타입 검사 메서드를 지원합니다:
 
-```ruby
+```trb
 value: String | Integer = get_value()
 
 # 클래스 검사

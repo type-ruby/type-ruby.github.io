@@ -4,6 +4,9 @@ title: Type Syntax Cheatsheet
 description: Quick reference for T-Ruby type syntax
 ---
 
+<DocsBadge />
+
+
 # Type Syntax Cheatsheet
 
 A comprehensive quick reference guide for T-Ruby type syntax. Bookmark this page for easy access to all type annotations and syntax patterns.
@@ -23,7 +26,7 @@ A comprehensive quick reference guide for T-Ruby type syntax. Bookmark this page
 
 ## Variable Annotations
 
-```ruby
+```trb
 # Variable with type annotation
 name: String = "Alice"
 age: Integer = 30
@@ -40,7 +43,7 @@ message = "Hello"  # Inferred as String
 
 ## Function Signatures
 
-```ruby
+```trb
 # Basic function
 def greet(name: String): String
   "Hello, #{name}!"
@@ -81,7 +84,7 @@ end
 | `T \| nil` | Optional type | `String \| nil` |
 | `T?` | Shorthand for `T \| nil` | `String?` |
 
-```ruby
+```trb
 # Union types
 id: String | Integer = "user-123"
 id: String | Integer = 456
@@ -101,7 +104,7 @@ end
 
 ## Array Types
 
-```ruby
+```trb
 # Array of specific type
 names: Array<String> = ["Alice", "Bob"]
 numbers: Array<Integer> = [1, 2, 3]
@@ -118,7 +121,7 @@ items: Array<String> = []
 
 ## Hash Types
 
-```ruby
+```trb
 # Hash with specific key and value types
 scores: Hash<String, Integer> = { "Alice" => 100, "Bob" => 95 }
 
@@ -136,7 +139,7 @@ users: Hash<Integer, Hash<Symbol, String>> = {
 
 ## Generic Types
 
-```ruby
+```trb
 # Generic function
 def first<T>(arr: Array<T>): T | nil
   arr[0]
@@ -167,7 +170,7 @@ result = first([1, 2, 3])  # Type inferred
 
 ## Type Aliases
 
-```ruby
+```trb
 # Simple alias
 type UserId = Integer
 type EmailAddress = String
@@ -191,7 +194,7 @@ email: EmailAddress = "alice@example.com"
 
 ## Class Annotations
 
-```ruby
+```trb
 # Instance variables
 class User
   @name: String
@@ -242,7 +245,7 @@ end
 
 ## Interface Definitions
 
-```ruby
+```trb
 # Basic interface
 interface Printable
   def to_s: String
@@ -287,7 +290,7 @@ end
 | `<T>` | Generic | Type parameter | `Array<T>` |
 | `=>` | Hash pair | Key-value type | `Hash<String => Integer>` |
 
-```ruby
+```trb
 # Union (OR)
 value: String | Integer
 
@@ -306,7 +309,7 @@ pairs: Hash<String, Integer>
 
 ## Blocks, Procs, and Lambdas
 
-```ruby
+```trb
 # Block parameter
 def each_item<T>(items: Array<T>, &block: Proc<T, void>): void
   items.each { |item| block.call(item) }
@@ -327,7 +330,7 @@ end
 
 ## Type Narrowing
 
-```ruby
+```trb
 # Type checking with is_a?
 def process(value: String | Integer): String
   if value.is_a?(String)
@@ -360,7 +363,7 @@ end
 
 ## Literal Types
 
-```ruby
+```trb
 # String literals
 type Status = "pending" | "active" | "completed"
 status: Status = "active"
@@ -380,7 +383,7 @@ type No = false
 
 ## Advanced Types
 
-```ruby
+```trb
 # Intersection types
 type Serializable = Printable & Comparable
 obj: Serializable  # Must implement both interfaces
@@ -400,7 +403,7 @@ type Omit<T, K>    # Remove properties
 
 ## Type Assertions
 
-```ruby
+```trb
 # Type casting (use with caution)
 value = get_value() as String
 number = parse("42") as Integer
@@ -417,7 +420,7 @@ end
 
 ## Module Type Annotations
 
-```ruby
+```trb
 module Formatter
   # Module method with types
   def self.format(value: String, width: Integer): String
@@ -444,7 +447,7 @@ end
 
 ### Optional Parameters with Defaults
 
-```ruby
+```trb
 def create_user(
   name: String,
   email: String,
@@ -457,7 +460,7 @@ end
 
 ### Result Type Pattern
 
-```ruby
+```trb
 type Result<T, E> = { success: Bool, value: T | nil, error: E | nil }
 
 def divide(a: Float, b: Float): Result<Float, String>
@@ -471,7 +474,7 @@ end
 
 ### Builder Pattern
 
-```ruby
+```trb
 class QueryBuilder
   @conditions: Array<String>
 
@@ -492,7 +495,7 @@ end
 
 ### Type Guards
 
-```ruby
+```trb
 def is_string(value: Any): value is String
   value.is_a?(String)
 end
@@ -521,7 +524,7 @@ end
 
 ## Common Type Errors
 
-```ruby
+```trb
 # ❌ Wrong: Assigning wrong type
 name: String = 123  # Error: Integer is not String
 

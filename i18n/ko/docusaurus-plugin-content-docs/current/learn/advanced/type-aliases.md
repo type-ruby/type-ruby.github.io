@@ -4,6 +4,9 @@ title: 타입 별칭
 description: 커스텀 타입 이름 만들기
 ---
 
+<DocsBadge />
+
+
 # 타입 별칭
 
 타입 별칭을 사용하면 타입에 대한 커스텀 이름을 만들어 코드를 더 읽기 쉽고 유지보수하기 쉽게 만들 수 있습니다. 타입의 별명이라고 생각하세요—새로운 타입을 생성하는 것이 아니라 복잡한 타입을 더 쉽게 다루고 이해할 수 있게 해줍니다.
@@ -19,7 +22,7 @@ description: 커스텀 타입 이름 만들기
 
 ### 타입 별칭 없이
 
-```ruby
+```trb
 # 복잡한 타입이 모든 곳에서 반복됨
 def find_user(id: Integer): Hash<Symbol, String | Integer | Bool> | nil
   # ...
@@ -39,7 +42,7 @@ users: Array<Hash<Symbol, String | Integer | Bool>> = []
 
 ### 타입 별칭 사용
 
-```ruby
+```trb
 # 한 번 정의
 type UserData = Hash<Symbol, String | Integer | Bool>
 
@@ -64,13 +67,13 @@ users: Array<UserData> = []
 
 타입 별칭을 만드는 문법은 간단합니다:
 
-```ruby
+```trb
 type AliasName = ExistingType
 ```
 
 ### 간단한 별칭
 
-```ruby
+```trb
 # 기본 타입에 대한 별칭
 type UserId = Integer
 type EmailAddress = String
@@ -95,7 +98,7 @@ end
 
 유니온 타입은 별칭에서 큰 이점을 얻습니다:
 
-```ruby
+```trb
 # 이전: 반복되는 유니온 타입
 def process(value: String | Integer | Float): String
   # ...
@@ -126,7 +129,7 @@ type Result = :success | :error | :pending
 
 복잡한 컬렉션 타입을 더 읽기 쉽게 만듭니다:
 
-```ruby
+```trb
 # 배열 별칭
 type StringList = Array<String>
 type NumberList = Array<Integer>
@@ -162,7 +165,7 @@ tags: TagMap = {
 
 ### 기본 제네릭 별칭
 
-```ruby
+```trb
 # 제네릭 Result 타입
 type Result<T> = T | nil
 
@@ -186,7 +189,7 @@ name_age: Pair<String, Integer> = ["Alice", 30]
 
 ### 복잡한 제네릭 별칭
 
-```ruby
+```trb
 # 메타데이터가 있는 제네릭 컬렉션
 type Collection<T> = Hash<Symbol, T | Integer | String>
 
@@ -216,7 +219,7 @@ email_validator: Validator<String> = ->(s: String): Bool { s.include?("@") }
 
 일부 타입 매개변수를 고정하고 다른 것은 열어둔 별칭을 만들 수 있습니다:
 
-```ruby
+```trb
 # 기본 제네릭 타입
 type Response<T, E> = { success: Bool, data: T | nil, error: E | nil }
 
@@ -248,7 +251,7 @@ string_to_user: StringMap<User> = { "admin" => User.new("Admin") }
 
 ### 도메인별 타입
 
-```ruby
+```trb
 # 전자상거래 도메인
 type ProductId = Integer
 type OrderId = String
@@ -277,7 +280,7 @@ end
 
 ### 상태 및 상태 타입
 
-```ruby
+```trb
 # 애플리케이션 상태
 type Status = :pending | :processing | :completed | :failed
 type UserRole = :admin | :editor | :viewer
@@ -314,7 +317,7 @@ end
 
 ### JSON 및 API 타입
 
-```ruby
+```trb
 # JSON 타입
 type JSONPrimitive = String | Integer | Float | Bool | nil
 type JSONArray = Array<JSONValue>
@@ -344,7 +347,7 @@ end
 
 ### 함수 타입
 
-```ruby
+```trb
 # 일반적인 함수 시그니처
 type Predicate<T> = Proc<T, Bool>
 type Mapper<T, U> = Proc<T, U>
@@ -381,7 +384,7 @@ for_each(numbers, print_it)
 
 더 간단한 별칭에서 복잡한 타입 별칭을 만들 수 있습니다:
 
-```ruby
+```trb
 # 기본 타입
 type UserId = Integer
 type Username = String
@@ -419,7 +422,7 @@ type Drawing = Hash<String, DrawingLayer>
 
 향후 T-Ruby는 트리 구조와 연결 리스트를 위한 재귀 타입 별칭을 지원할 예정입니다:
 
-```ruby
+```trb
 # 트리 구조
 type TreeNode<T> = {
   value: T,
@@ -447,7 +450,7 @@ type JSONValue =
 
 ### 1. 설명적인 이름 사용
 
-```ruby
+```trb
 # 좋음: 명확하고 설명적인 이름
 type EmailAddress = String
 type ProductPrice = Float
@@ -461,7 +464,7 @@ type UR = :admin | :editor | :viewer
 
 ### 2. 관련 별칭 그룹화
 
-```ruby
+```trb
 # 좋음: 도메인별로 정리
 # 사용자 관련 타입
 type UserId = Integer
@@ -478,7 +481,7 @@ type ProductData = Hash<Symbol, String | Integer | Float>
 
 ### 3. 복잡한 타입에 별칭 사용
 
-```ruby
+```trb
 # 좋음: 여러 번 사용되는 복잡한 타입에 별칭
 type QueryResult = Hash<Symbol, Array<Hash<String, String | Integer>> | Integer>
 
@@ -498,7 +501,7 @@ end
 
 ### 4. 간단한 타입에 과도한 별칭 금지
 
-```ruby
+```trb
 # 불필요: String이 이미 명확함
 type S = String
 type N = Integer
@@ -512,7 +515,7 @@ type UserId = Integer       # 목적 명확화
 
 타입 별칭은 새로운 타입을 생성하지 않습니다—단지 대체 이름일 뿐입니다. 이것은 클래스와 다릅니다:
 
-```ruby
+```trb
 # 타입 별칭 - 단지 이름
 type UserId = Integer
 
@@ -538,7 +541,7 @@ int_id: Integer = 456
 
 ### 각각 언제 사용할지
 
-```ruby
+```trb
 # 타입 별칭 사용:
 # - 의미적 명확성이 필요하지만 동일한 기본 동작을 원할 때
 # - 복잡한 타입 표현식을 단순화하고 싶을 때
@@ -567,7 +570,7 @@ end
 
 ### 옵셔널 타입
 
-```ruby
+```trb
 # 옵셔널/널러블 타입 별칭
 type Optional<T> = T | nil
 type Nullable<T> = T | nil
@@ -579,7 +582,7 @@ name: Nullable<String> = user&.name
 
 ### 결과 타입
 
-```ruby
+```trb
 # 실패할 수 있는 연산을 위한 결과 타입
 type Result<T, E> = { success: Bool, value: T | nil, error: E | nil }
 type SimpleResult<T> = T | Error
@@ -596,7 +599,7 @@ end
 
 ### 빌더 타입
 
-```ruby
+```trb
 # 설정 빌더
 type Config = Hash<Symbol, String | Integer | Bool>
 type ConfigBuilder = Proc<Config, Config>
@@ -616,7 +619,7 @@ end
 
 타입 별칭은 인라인 문서화 역할을 합니다:
 
-```ruby
+```trb
 # 별칭 이름이 타입이 나타내는 것을 문서화
 type PositiveInteger = Integer  # > 0이어야 함
 type NonEmptyString = String    # 비어 있지 않아야 함

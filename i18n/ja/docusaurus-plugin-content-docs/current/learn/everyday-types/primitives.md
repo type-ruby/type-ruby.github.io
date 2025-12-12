@@ -4,6 +4,9 @@ title: プリミティブ型
 description: T-Rubyのプリミティブ型
 ---
 
+<DocsBadge />
+
+
 # プリミティブ型
 
 プリミティブ型はT-Rubyの型システムの基本的な構成要素です。より複雑な型の基礎となる、単純で分割不可能な値を表します。この章では、プリミティブ型の動作、エッジケース、ベストプラクティスを深く探ります。
@@ -27,7 +30,7 @@ T-Rubyのプリミティブ型は以下の通りです：
 
 ### Stringの作成と操作
 
-```ruby title="string_basics.trb"
+```trb title="string_basics.trb"
 # 文字列を作成するさまざまな方法
 single_quoted: String = 'Hello'
 double_quoted: String = "World"
@@ -42,7 +45,7 @@ TEXT
 
 ### 型安全性を持つStringメソッド
 
-```ruby title="string_methods.trb"
+```trb title="string_methods.trb"
 def process_text(input: String): String
   # これらの操作はすべてString型を保持します
   trimmed = input.strip
@@ -66,7 +69,7 @@ formatted: String = format_username("  John Doe! ")
 
 ### String比較
 
-```ruby title="string_compare.trb"
+```trb title="string_compare.trb"
 def are_equal(a: String, b: String): Bool
   a == b
 end
@@ -86,7 +89,7 @@ check3: Bool = contains_word("Ruby is great", "great")  # true
 
 ### Stringの長さとインデックス
 
-```ruby title="string_indexing.trb"
+```trb title="string_indexing.trb"
 def get_first_char(text: String): String
   text[0]
 end
@@ -106,7 +109,7 @@ len: Integer = string_length("Hello")  # 5
 
 ### String構築
 
-```ruby title="string_building.trb"
+```trb title="string_building.trb"
 def build_greeting(name: String, title: String): String
   parts: Array<String> = ["Hello", title, name]
   parts.join(" ")
@@ -129,7 +132,7 @@ Integerは小数点のない整数を表します。
 
 ### Integer算術
 
-```ruby title="integer_ops.trb"
+```trb title="integer_ops.trb"
 def add(a: Integer, b: Integer): Integer
   a + b
 end
@@ -156,7 +159,7 @@ result: Integer = power(2, 8)  # 256
 
 Integer算術の重要な側面は除算の動作です：
 
-```ruby title="integer_division.trb"
+```trb title="integer_division.trb"
 def divide_truncate(a: Integer, b: Integer): Integer
   # 整数除算は常にゼロ方向に切り捨て
   a / b
@@ -177,7 +180,7 @@ parts: Array<Integer> = divide_with_remainder(17, 5)
 
 ### Integer比較
 
-```ruby title="integer_compare.trb"
+```trb title="integer_compare.trb"
 def is_positive(n: Integer): Bool
   n > 0
 end
@@ -206,7 +209,7 @@ maximum: Integer = max(10, 20)  # 20
 
 ### Integerメソッド
 
-```ruby title="integer_methods.trb"
+```trb title="integer_methods.trb"
 def absolute(n: Integer): Integer
   n.abs
 end
@@ -234,7 +237,7 @@ Floatは浮動小数点算術を使用して小数を表します。
 
 ### Float算術
 
-```ruby title="float_ops.trb"
+```trb title="float_ops.trb"
 def divide_precise(a: Integer, b: Integer): Float
   # 精密な除算のためにfloatに変換
   a.to_f / b
@@ -256,7 +259,7 @@ discount: Float = apply_percentage(100.0, 15.0)  # 15.0
 
 ### Float精度と丸め
 
-```ruby title="float_precision.trb"
+```trb title="float_precision.trb"
 def round_to_places(value: Float, places: Integer): Float
   multiplier = 10 ** places
   (value * multiplier).round / multiplier.to_f
@@ -284,7 +287,7 @@ ceiled: Integer = ceil_value(3.2)  # 4
 
 浮動小数点比較は精度の問題により注意が必要です：
 
-```ruby title="float_compare.trb"
+```trb title="float_compare.trb"
 def approximately_equal(a: Float, b: Float, epsilon: Float = 0.0001): Bool
   (a - b).abs < epsilon
 end
@@ -305,7 +308,7 @@ is_zero: Bool = is_close_to_zero(0.0000001)  # true
 
 ### Float特殊値
 
-```ruby title="float_special.trb"
+```trb title="float_special.trb"
 def is_infinite(value: Float): Bool
   value.infinite? != nil
 end
@@ -334,7 +337,7 @@ Bool型は厳格な型チェックを持つtrue/false値を表します。
 
 ### Boolean演算
 
-```ruby title="bool_ops.trb"
+```trb title="bool_ops.trb"
 def and_operation(a: Bool, b: Bool): Bool
   a && b
 end
@@ -359,7 +362,7 @@ result4: Bool = xor_operation(true, false)  # true
 
 ### 比較からのBoolean
 
-```ruby title="bool_from_compare.trb"
+```trb title="bool_from_compare.trb"
 def is_valid_age(age: Integer): Bool
   age >= 0 && age <= 150
 end
@@ -386,7 +389,7 @@ check2: Bool = any_even([1, 3, 5, 6])  # true
 
 T-RubyのBool型は厳格です - `true`と`false`のみが有効です：
 
-```ruby title="bool_strict.trb"
+```trb title="bool_strict.trb"
 # これはBool値です
 flag1: Bool = true
 flag2: Bool = false
@@ -416,7 +419,7 @@ Symbolは定数やキーとしてよく使用される不変の一意の識別�
 
 ### Symbol使用法
 
-```ruby title="symbol_usage.trb"
+```trb title="symbol_usage.trb"
 # 定数としてのシンボル
 STATUS_ACTIVE: Symbol = :active
 STATUS_PENDING: Symbol = :pending
@@ -443,7 +446,7 @@ message: String = get_status_message(:active)
 
 シンボルは繰り返し使用する場合、文字列よりメモリ効率が良いです：
 
-```ruby title="symbol_performance.trb"
+```trb title="symbol_performance.trb"
 def categorize_with_symbols(items: Array<Integer>): Hash<Symbol, Array<Integer>>
   categories: Hash<Symbol, Array<Integer>> = {
     small: [],
@@ -470,7 +473,7 @@ result = categorize_with_symbols([5, 50, 500])
 
 ### SymbolとString間の変換
 
-```ruby title="symbol_conversion.trb"
+```trb title="symbol_conversion.trb"
 def symbol_to_string(sym: Symbol): String
   sym.to_s
 end
@@ -498,7 +501,7 @@ normalized: Symbol = normalize_key("status")  # :status
 
 ### nilチェック
 
-```ruby title="nil_checks.trb"
+```trb title="nil_checks.trb"
 def is_nil(value: String | nil): Bool
   value.nil?
 end
@@ -522,7 +525,7 @@ result: String = get_or_default(nil, "default")  # "default"
 
 ### 安全ナビゲーション
 
-```ruby title="safe_navigation.trb"
+```trb title="safe_navigation.trb"
 def get_length_safe(text: String | nil): Integer | nil
   text&.length
 end
@@ -544,7 +547,7 @@ char2 = get_first_char_safe(nil)  # nil
 
 ### Stringへの変換
 
-```ruby title="to_string_conversions.trb"
+```trb title="to_string_conversions.trb"
 def int_to_string(n: Integer): String
   n.to_s
 end
@@ -569,7 +572,7 @@ str4: String = symbol_to_string(:active)  # "active"
 
 ### 数値への変換
 
-```ruby title="to_number_conversions.trb"
+```trb title="to_number_conversions.trb"
 def string_to_int(s: String): Integer
   s.to_i
 end
@@ -596,7 +599,7 @@ num4: Float = int_to_float(42)  # 42.0
 
 すべてのプリミティブ型を使用した包括的な例です：
 
-```ruby title="calculator.trb"
+```trb title="calculator.trb"
 class Calculator
   def initialize()
     @history: Array<String> = []

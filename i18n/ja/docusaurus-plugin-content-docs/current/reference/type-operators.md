@@ -4,6 +4,9 @@ title: 型演算子
 description: 型演算子と修飾子
 ---
 
+<DocsBadge />
+
+
 # 型演算子
 
 型演算子を使用すると、T-Rubyで型を結合、修正、変換できます。このリファレンスでは、利用可能なすべての型演算子とその使用パターンについて説明します。
@@ -20,7 +23,7 @@ Type1 | Type2 | Type3
 
 ### 例
 
-```ruby
+```trb
 # 基本的なユニオン
 id: String | Integer = "user-123"
 id: String | Integer = 456
@@ -43,7 +46,7 @@ config: Hash<Symbol, String | Integer | Bool> = {
 
 ### 使用パターン
 
-```ruby
+```trb
 # 関数の戻り型
 def find_user(id: Integer): User | nil
   # UserまたはnilをBash
@@ -69,7 +72,7 @@ end
 
 型ガードを使用してユニオン型を絞り込みます：
 
-```ruby
+```trb
 def process(value: String | Integer): String
   if value.is_a?(String)
     # T-RubyはここでvalueがStringであることを知っている
@@ -87,14 +90,14 @@ end
 
 ### 構文
 
-```ruby
+```trb
 Type?
 # 同等: Type | nil
 ```
 
 ### 例
 
-```ruby
+```trb
 # これらは同等
 name1: String | nil = nil
 name2: String? = nil
@@ -128,7 +131,7 @@ cache: Hash<String, Integer?> = { "count" => 42, "missing" => nil }
 
 オプション型と一緒にセーフナビゲーション演算子（`&.`）を使用します：
 
-```ruby
+```trb
 def get_email_domain(user: User?): String?
   user&.email&.split("@")&.last
 end
@@ -146,7 +149,7 @@ Type1 & Type2 & Type3
 
 ### 例
 
-```ruby
+```trb
 # インターフェースのインターセクション
 interface Printable
   def to_s: String
@@ -187,7 +190,7 @@ end
 
 ### 複数の制約
 
-```ruby
+```trb
 # 複数の制約を持つジェネリック
 def sort_and_print<T>(items: Array<T>): void
   where T: Printable & Comparable
@@ -203,7 +206,7 @@ end
 
 ### 関数のジェネリック
 
-```ruby
+```trb
 # 単一の型パラメータ
 def first<T>(arr: Array<T>): T | nil
   arr[0]
@@ -222,7 +225,7 @@ end
 
 ### クラスのジェネリック
 
-```ruby
+```trb
 # ジェネリッククラス
 class Box<T>
   @value: T
@@ -262,7 +265,7 @@ end
 
 ### ネストされたジェネリック
 
-```ruby
+```trb
 # ネストされたジェネリック型
 cache: Hash<String, Array<Integer>> = {
   "fibonacci" => [1, 1, 2, 3, 5, 8]
@@ -285,13 +288,13 @@ data: NestedData = {
 
 ### 構文
 
-```ruby
+```trb
 Array<ElementType>
 ```
 
 ### 例
 
-```ruby
+```trb
 # 基本的な配列
 strings: Array<String> = ["a", "b", "c"]
 numbers: Array<Integer> = [1, 2, 3]
@@ -325,13 +328,13 @@ end
 
 ### 構文
 
-```ruby
+```trb
 Hash<KeyType, ValueType>
 ```
 
 ### 例
 
-```ruby
+```trb
 # 基本的なハッシュ
 scores: Hash<String, Integer> = { "Alice" => 100 }
 config: Hash<Symbol, String> = { host: "localhost" }
@@ -368,13 +371,13 @@ Proc型は型付きパラメータと戻り値を持つ呼び出し可能なオ�
 
 ### 構文
 
-```ruby
+```trb {skip-verify}
 Proc<Param1Type, Param2Type, ..., ReturnType>
 ```
 
 ### 例
 
-```ruby
+```trb
 # パラメータなし
 supplier: Proc<String> = ->: String { "Hello" }
 
@@ -412,7 +415,7 @@ value as TargetType
 
 ### 例
 
-```ruby
+```trb
 # 型アサーション
 value = get_unknown_value() as String
 
@@ -436,7 +439,7 @@ end
 
 型アサーションは型安全性をバイパスします。型ガードを優先してください：
 
-```ruby
+```trb
 # ❌ 危険: 型アサーションの使用
 def bad_example(value: Any): String
   (value as String).upcase
@@ -458,7 +461,7 @@ end
 
 ### 構文
 
-```ruby
+```trb
 def function_name(param: Type): param is NarrowedType
   # 型チェックロジック
 end
@@ -466,7 +469,7 @@ end
 
 ### 例
 
-```ruby
+```trb
 # 文字列ガード
 def is_string(value: Any): value is String
   value.is_a?(String)
@@ -496,7 +499,7 @@ end
 
 ### 文字列リテラル
 
-```ruby
+```trb
 type Status = "pending" | "active" | "completed" | "failed"
 
 status: Status = "active"  # OK
@@ -509,7 +512,7 @@ end
 
 ### 数値リテラル
 
-```ruby
+```trb
 type HTTPPort = 80 | 443 | 8080 | 3000
 
 port: HTTPPort = 443  # OK
@@ -520,7 +523,7 @@ type DiceRoll = 1 | 2 | 3 | 4 | 5 | 6
 
 ### シンボルリテラル
 
-```ruby
+```trb
 type Role = :admin | :editor | :viewer
 
 role: Role = :admin  # OK
@@ -531,7 +534,7 @@ type HTTPMethod = :get | :post | :put | :patch | :delete
 
 ### ブールリテラル
 
-```ruby
+```trb
 type AlwaysTrue = true
 type AlwaysFalse = false
 
@@ -543,7 +546,7 @@ flag: AlwaysTrue = true
 
 位置ごとに特定の型を持つ固定長配列です。
 
-```ruby
+```trb
 # タプル型（計画中）
 type Point = [Float, Float]
 type RGB = [Integer, Integer, Integer]
@@ -560,7 +563,7 @@ person: Person = ["Alice", 30]
 
 型を不変にします。
 
-```ruby
+```trb
 # Readonly型（計画中）
 type ReadonlyArray<T> = readonly Array<T>
 type ReadonlyHash<K, V> = readonly Hash<K, V>
@@ -574,7 +577,7 @@ nums: ReadonlyArray<Integer> = [1, 2, 3]
 
 オブジェクト型からキーを抽出します。
 
-```ruby
+```trb
 # Keyof演算子（計画中）
 interface User
   @name: String
@@ -589,7 +592,7 @@ type UserKey = keyof User  # :name | :email | :age
 
 値の型を取得します。
 
-```ruby
+```trb
 # Typeof演算子（計画中）
 config = { host: "localhost", port: 3000 }
 type Config = typeof config
@@ -608,7 +611,7 @@ type Config = typeof config
 
 ### 例
 
-```ruby
+```trb
 # インターセクションはユニオンより優先順位が高い
 type A = String | Integer & Float
 # 同等: String | (Integer & Float)
@@ -643,7 +646,7 @@ type D = String | (Integer?)
 
 ### 1. Anyよりユニオンを優先
 
-```ruby
+```trb
 # ❌ 過度に寛容
 data: Any = get_data()
 
@@ -653,7 +656,7 @@ data: String | Integer | Hash<String, String> = get_data()
 
 ### 2. 明確性のためにオプション演算子を使用
 
-```ruby
+```trb
 # ❌ 冗長
 name: String | nil = nil
 
@@ -663,7 +666,7 @@ name: String? = nil
 
 ### 3. ユニオンの複雑さを制限
 
-```ruby
+```trb
 # ❌ オプションが多すぎる
 value: String | Integer | Float | Bool | Symbol | nil | Array<String>
 
@@ -674,7 +677,7 @@ type OptionalPrimitive = PrimitiveValue?
 
 ### 4. 複数のインターフェースにインターセクションを使用
 
-```ruby
+```trb
 # ✅ 明確な要件
 def process<T>(item: T): void
   where T: Serializable & Comparable
@@ -684,7 +687,7 @@ end
 
 ### 5. 過度な型アサーションを避ける
 
-```ruby
+```trb
 # ❌ 型安全性をバイパス
 def risky(data: Any): String
   (data as Hash<String, String>)["key"] as String
@@ -702,7 +705,7 @@ end
 
 ### ユニオンを使用したResult型
 
-```ruby
+```trb
 type Result<T, E> = { success: true, value: T } | { success: false, error: E }
 
 def divide(a: Float, b: Float): Result<Float, String>
@@ -716,7 +719,7 @@ end
 
 ### オプショナルチェーン
 
-```ruby
+```trb
 class User
   @profile: Profile?
 
@@ -728,7 +731,7 @@ end
 
 ### ガードを使用した型絞り込み
 
-```ruby
+```trb
 def process_value(value: String | Integer | nil): String
   if value.nil?
     "No value"

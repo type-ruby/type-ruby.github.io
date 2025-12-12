@@ -4,6 +4,9 @@ title: Optional & Rest Parameters
 description: Optional parameters and rest arguments
 ---
 
+<DocsBadge />
+
+
 # Optional & Rest Parameters
 
 Ruby functions often need flexibility in their parameter lists. T-Ruby supports both optional parameters (with default values) and rest parameters (variable-length argument lists) while maintaining full type safety.
@@ -12,7 +15,7 @@ Ruby functions often need flexibility in their parameter lists. T-Ruby supports 
 
 Optional parameters have default values that are used when the argument is not provided:
 
-```ruby title="optional.trb"
+```trb title="optional.trb"
 def greet(name: String, greeting: String = "Hello"): String
   "#{greeting}, #{name}!"
 end
@@ -36,7 +39,7 @@ The type annotation applies to the parameter whether it's provided or uses the d
 
 Sometimes you want to distinguish between "not provided" and "explicitly nil". Use a nilable type:
 
-```ruby title="nilable_optional.trb"
+```trb title="nilable_optional.trb"
 def format_title(text: String, prefix: String? = nil): String
   if prefix
     "#{prefix}: #{text}"
@@ -64,7 +67,7 @@ send_email("bob@example.com", "Meeting", "team@example.com")
 
 Rest parameters collect multiple arguments into an array. Type the array's element type:
 
-```ruby title="rest.trb"
+```trb title="rest.trb"
 def sum(*numbers: Integer): Integer
   numbers.reduce(0, :+)
 end
@@ -99,7 +102,7 @@ The type annotation `*numbers: Integer` means "zero or more Integer arguments co
 
 You can combine optional and rest parameters, but rest parameters must come after optional ones:
 
-```ruby title="combined.trb"
+```trb title="combined.trb"
 def create_team(
   name: String,
   leader: String,
@@ -129,7 +132,7 @@ team3 = create_team("Gamma", "Charlie", true, "Dave", "Eve", "Frank")
 
 Ruby's keyword arguments can also be typed. These provide more clarity than positional arguments:
 
-```ruby title="keyword.trb"
+```trb title="keyword.trb"
 def create_post(
   title: String,
   content: String,
@@ -162,7 +165,7 @@ post2 = create_post(
 
 Use double splat `**` to collect keyword arguments into a hash:
 
-```ruby title="keyword_rest.trb"
+```trb title="keyword_rest.trb"
 def build_query(table: String, **conditions: String | Integer): String
   where_clause = conditions.map { |k, v| "#{k} = #{v}" }.join(" AND ")
   "SELECT * FROM #{table} WHERE #{where_clause}"
@@ -193,7 +196,7 @@ The type annotation `**conditions: String | Integer` means "zero or more keyword
 
 In Ruby, you can make keyword arguments required by omitting the default value:
 
-```ruby title="required_kwargs.trb"
+```trb title="required_kwargs.trb"
 def register_user(
   email: String,
   password: String,
@@ -231,7 +234,7 @@ You can combine all parameter types, but they must follow this order:
 5. Optional keyword arguments
 6. Keyword rest parameter (`**kwargs`)
 
-```ruby title="all_types.trb"
+```trb title="all_types.trb"
 def complex_function(
   required_pos: String,                    # 1. Required positional
   optional_pos: Integer = 0,               # 2. Optional positional
@@ -266,7 +269,7 @@ result = complex_function(
 
 Here's a real-world example showing different parameter types:
 
-```ruby title="http_builder.trb"
+```trb title="http_builder.trb"
 class HTTPRequestBuilder
   # Required parameters only
   def get(url: String): Response
@@ -362,7 +365,7 @@ response4 = builder.custom_request(
 
 Another example showing flexible parameter handling:
 
-```ruby title="logger.trb"
+```trb title="logger.trb"
 class Logger
   # Simple message with optional level
   def log(message: String, level: String = "INFO"): void
@@ -435,7 +438,7 @@ logger.debug(
 
 ### Builder Methods with Defaults
 
-```ruby title="builder_pattern.trb"
+```trb title="builder_pattern.trb"
 def build_email(
   to: String,
   subject: String,
@@ -450,7 +453,7 @@ end
 
 ### Variadic Factory Functions
 
-```ruby title="factory.trb"
+```trb title="factory.trb"
 def create_users(*names: String, role: String = "user"): Array<User>
   names.map { |name| User.new(name: name, role: role) }
 end
@@ -460,7 +463,7 @@ users = create_users("Alice", "Bob", "Charlie", role: "admin")
 
 ### Configuration Merging
 
-```ruby title="config.trb"
+```trb title="config.trb"
 def merge_config(base: Hash<String, String>, **overrides: String): Hash<String, String>
   base.merge(overrides)
 end

@@ -4,6 +4,9 @@ title: 선택적 & 나머지 매개변수
 description: 선택적 매개변수와 나머지 인수
 ---
 
+<DocsBadge />
+
+
 # 선택적 & 나머지 매개변수
 
 Ruby 함수는 종종 매개변수 목록에 유연성이 필요합니다. T-Ruby는 완전한 타입 안전성을 유지하면서 선택적 매개변수(기본값 포함)와 나머지 매개변수(가변 길이 인수 목록)를 모두 지원합니다.
@@ -12,7 +15,7 @@ Ruby 함수는 종종 매개변수 목록에 유연성이 필요합니다. T-Rub
 
 선택적 매개변수는 인수가 제공되지 않을 때 사용되는 기본값을 가집니다:
 
-```ruby title="optional.trb"
+```trb title="optional.trb"
 def greet(name: String, greeting: String = "Hello"): String
   "#{greeting}, #{name}!"
 end
@@ -36,7 +39,7 @@ user3 = create_user("Charlie", "moderator", false)     # 기본값 사용 안 �
 
 때로는 "제공되지 않음"과 "명시적으로 nil"을 구분하고 싶을 수 있습니다. nilable 타입을 사용하세요:
 
-```ruby title="nilable_optional.trb"
+```trb title="nilable_optional.trb"
 def format_title(text: String, prefix: String? = nil): String
   if prefix
     "#{prefix}: #{text}"
@@ -64,7 +67,7 @@ send_email("bob@example.com", "Meeting", "team@example.com")
 
 나머지 매개변수는 여러 인수를 배열로 수집합니다. 배열의 요소 타입을 지정합니다:
 
-```ruby title="rest.trb"
+```trb title="rest.trb"
 def sum(*numbers: Integer): Integer
   numbers.reduce(0, :+)
 end
@@ -99,7 +102,7 @@ log_messages("INFO", "App started", "Database connected", "Ready")
 
 선택적 매개변수와 나머지 매개변수를 조합할 수 있지만, 나머지 매개변수는 선택적 매개변수 뒤에 와야 합니다:
 
-```ruby title="combined.trb"
+```trb title="combined.trb"
 def create_team(
   name: String,
   leader: String,
@@ -129,7 +132,7 @@ team3 = create_team("Gamma", "Charlie", true, "Dave", "Eve", "Frank")
 
 Ruby의 키워드 인수도 타입을 지정할 수 있습니다. 위치 인수보다 더 명확성을 제공합니다:
 
-```ruby title="keyword.trb"
+```trb title="keyword.trb"
 def create_post(
   title: String,
   content: String,
@@ -162,7 +165,7 @@ post2 = create_post(
 
 이중 스플랫 `**`를 사용하여 키워드 인수를 해시로 수집합니다:
 
-```ruby title="keyword_rest.trb"
+```trb title="keyword_rest.trb"
 def build_query(table: String, **conditions: String | Integer): String
   where_clause = conditions.map { |k, v| "#{k} = #{v}" }.join(" AND ")
   "SELECT * FROM #{table} WHERE #{where_clause}"
@@ -193,7 +196,7 @@ config = create_config(
 
 Ruby에서는 기본값을 생략하여 키워드 인수를 필수로 만들 수 있습니다:
 
-```ruby title="required_kwargs.trb"
+```trb title="required_kwargs.trb"
 def register_user(
   email: String,
   password: String,
@@ -231,7 +234,7 @@ user2 = register_user(
 5. 선택적 키워드 인수
 6. 키워드 나머지 매개변수 (`**kwargs`)
 
-```ruby title="all_types.trb"
+```trb title="all_types.trb"
 def complex_function(
   required_pos: String,                    # 1. 필수 위치
   optional_pos: Integer = 0,               # 2. 선택적 위치
@@ -266,7 +269,7 @@ result = complex_function(
 
 다양한 매개변수 타입을 보여주는 실제 예제입니다:
 
-```ruby title="http_builder.trb"
+```trb title="http_builder.trb"
 class HTTPRequestBuilder
   # 필수 매개변수만
   def get(url: String): Response
@@ -362,7 +365,7 @@ response4 = builder.custom_request(
 
 유연한 매개변수 처리를 보여주는 또 다른 예제입니다:
 
-```ruby title="logger.trb"
+```trb title="logger.trb"
 class Logger
   # 선택적 레벨이 있는 간단한 메시지
   def log(message: String, level: String = "INFO"): void
@@ -435,7 +438,7 @@ logger.debug(
 
 ### 기본값이 있는 빌더 메서드
 
-```ruby title="builder_pattern.trb"
+```trb title="builder_pattern.trb"
 def build_email(
   to: String,
   subject: String,
@@ -450,7 +453,7 @@ end
 
 ### 가변 팩토리 함수
 
-```ruby title="factory.trb"
+```trb title="factory.trb"
 def create_users(*names: String, role: String = "user"): Array<User>
   names.map { |name| User.new(name: name, role: role) }
 end
@@ -460,7 +463,7 @@ users = create_users("Alice", "Bob", "Charlie", role: "admin")
 
 ### 설정 병합
 
-```ruby title="config.trb"
+```trb title="config.trb"
 def merge_config(base: Hash<String, String>, **overrides: String): Hash<String, String>
   base.merge(overrides)
 end

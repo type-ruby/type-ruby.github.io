@@ -4,6 +4,9 @@ title: Type Narrowing
 description: Narrowing types with control flow analysis
 ---
 
+<DocsBadge />
+
+
 # Type Narrowing
 
 Type narrowing is the process by which T-Ruby automatically refines the type of a variable based on control flow analysis. When you check the type or value of a variable, T-Ruby narrows down what that variable can be within that code path. This chapter will teach you how type narrowing works and how to leverage it for type-safe code.
@@ -12,7 +15,7 @@ Type narrowing is the process by which T-Ruby automatically refines the type of 
 
 Type narrowing occurs when T-Ruby analyzes your code and determines that within a certain scope, a variable must be a more specific type than its declared type.
 
-```ruby title="narrowing_basics.trb"
+```trb title="narrowing_basics.trb"
 def process(value: String | Integer): String
   if value.is_a?(String)
     # Inside this block, T-Ruby knows value is a String
@@ -36,7 +39,7 @@ Type guards are expressions that allow T-Ruby to narrow types. The most common t
 
 The `is_a?` method checks if a value is an instance of a particular type:
 
-```ruby title="is_a_guard.trb"
+```trb title="is_a_guard.trb"
 def format_value(value: String | Integer | Bool): String
   if value.is_a?(String)
     # value is String here
@@ -61,7 +64,7 @@ result3: String = format_value(true)  # "Boolean: true"
 
 The `nil?` method narrows optional types:
 
-```ruby title="nil_guard.trb"
+```trb title="nil_guard.trb"
 def get_length(text: String | nil): Integer
   if text.nil?
     # text is nil here
@@ -91,7 +94,7 @@ len2: Integer = get_length(nil)  # 0
 
 The `empty?` method can narrow types for collections:
 
-```ruby title="empty_guard.trb"
+```trb title="empty_guard.trb"
 def process_array(items: Array<String> | nil): String
   if items.nil? || items.empty?
     "No items"
@@ -112,7 +115,7 @@ Comparing a value to a specific constant narrows its type:
 
 ### Comparing to nil
 
-```ruby title="nil_comparison.trb"
+```trb title="nil_comparison.trb"
 def greet(name: String | nil): String
   if name == nil
     # name is nil here
@@ -137,7 +140,7 @@ end
 
 ### Comparing to Specific Values
 
-```ruby title="value_comparison.trb"
+```trb title="value_comparison.trb"
 def process_status(status: String): String
   if status == "active"
     # status is still String, but we know its value
@@ -154,7 +157,7 @@ end
 
 ### If/Elsif/Else Statements
 
-```ruby title="if_narrowing.trb"
+```trb title="if_narrowing.trb"
 def categorize(value: String | Integer | nil): String
   if value.nil?
     # value is nil
@@ -175,7 +178,7 @@ cat3: String = categorize(42)  # "Number: 42"
 
 ### Unless Statements
 
-```ruby title="unless_narrowing.trb"
+```trb title="unless_narrowing.trb"
 def process_unless(value: String | nil): String
   unless value.nil?
     # value is String here
@@ -192,7 +195,7 @@ result2: String = process_unless(nil)  # "NO VALUE"
 
 ### Case/When Statements
 
-```ruby title="case_narrowing.trb"
+```trb title="case_narrowing.trb"
 def describe(value: String | Integer | Symbol): String
   case value
   when String
@@ -216,7 +219,7 @@ desc3: String = describe(:active)  # "Symbol: active"
 
 ### Ternary Operator
 
-```ruby title="ternary_narrowing.trb"
+```trb title="ternary_narrowing.trb"
 def get_display_name(name: String | nil): String
   name.nil? ? "Anonymous" : name.upcase
 end
@@ -229,7 +232,7 @@ display2: String = get_display_name(nil)  # "Anonymous"
 
 ### AND Operator (`&&`)
 
-```ruby title="and_narrowing.trb"
+```trb title="and_narrowing.trb"
 def process_and(
   value: String | nil,
   flag: Bool
@@ -255,7 +258,7 @@ end
 
 ### OR Operator (`||`)
 
-```ruby title="or_narrowing.trb"
+```trb title="or_narrowing.trb"
 def process_or(value: String | nil): String
   if value.nil? || value.empty?
     "No value"
@@ -270,7 +273,7 @@ end
 
 Early returns narrow types for the remainder of the function:
 
-```ruby title="early_return.trb"
+```trb title="early_return.trb"
 def process_with_guard(value: String | nil): String
   # Guard clause
   return "No value" if value.nil?
@@ -303,7 +306,7 @@ Some method calls provide type narrowing:
 
 ### String Methods
 
-```ruby title="string_method_narrowing.trb"
+```trb title="string_method_narrowing.trb"
 def process_string(value: String | nil): String
   return "Empty" if value.nil? || value.empty?
 
@@ -315,7 +318,7 @@ end
 
 ### Array Methods
 
-```ruby title="array_method_narrowing.trb"
+```trb title="array_method_narrowing.trb"
 def get_first_element(items: Array<String> | nil): String
   return "No items" if items.nil? || items.empty?
 
@@ -329,7 +332,7 @@ end
 
 Type narrowing works within blocks:
 
-```ruby title="block_narrowing.trb"
+```trb title="block_narrowing.trb"
 def process_items(items: Array<String | nil>): Array<String>
   result: Array<String> = []
 
@@ -361,7 +364,7 @@ end
 
 Here's a comprehensive example using type narrowing:
 
-```ruby title="form_validator.trb"
+```trb title="form_validator.trb"
 class FormValidator
   def validate_field(
     name: String,
@@ -478,7 +481,7 @@ Type narrowing has some limitations to be aware of:
 
 ### Narrowing Doesn't Persist Across Function Calls
 
-```ruby title="narrowing_limits.trb"
+```trb title="narrowing_limits.trb"
 def helper(value: String | Integer)
   # Cannot rely on narrowing from caller
   if value.is_a?(String)
@@ -498,7 +501,7 @@ end
 
 ### Narrowing Doesn't Work After Mutation
 
-```ruby title="mutation_limits.trb"
+```trb title="mutation_limits.trb"
 def example(value: String | Integer)
   if value.is_a?(String)
     # value is String here
@@ -512,7 +515,7 @@ end
 
 ### Complex Conditions May Not Narrow
 
-```ruby title="complex_limits.trb"
+```trb title="complex_limits.trb"
 def complex(a: String | nil, b: String | nil): String
   # This works
   if !a.nil? && !b.nil?
@@ -540,7 +543,7 @@ end
 
 ### 1. Use Guard Clauses
 
-```ruby title="guard_clauses.trb"
+```trb title="guard_clauses.trb"
 # Good - early returns make narrowing clear
 def process(value: String | nil): String
   return "Empty" if value.nil?
@@ -561,7 +564,7 @@ end
 
 ### 2. Check nil First
 
-```ruby title="nil_first.trb"
+```trb title="nil_first.trb"
 # Good - check nil before other types
 def process(value: String | Integer | nil): String
   return "None" if value.nil?
@@ -576,7 +579,7 @@ end
 
 ### 3. Use Specific Type Checks
 
-```ruby title="specific_checks.trb"
+```trb title="specific_checks.trb"
 # Good - specific type checks
 def process(value: String | Integer): String
   if value.is_a?(String)

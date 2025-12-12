@@ -4,6 +4,9 @@ title: 제약 조건
 description: 제네릭 타입 매개변수 제약하기
 ---
 
+<DocsBadge />
+
+
 # 제약 조건
 
 제네릭은 모든 타입과 작동하는 코드를 작성할 수 있게 해주지만, 때로는 사용되는 타입이 특정 속성이나 기능을 가지도록 해야 합니다. 제약 조건을 사용하면 특정 요구사항을 충족하는 타입으로 제네릭 타입 매개변수를 제한할 수 있어, 타입 안전성을 유지하면서 해당 메서드와 속성에 접근할 수 있습니다.
@@ -19,7 +22,7 @@ description: 제네릭 타입 매개변수 제약하기
 
 ### 문제: 제약 없는 제네릭
 
-```ruby
+```trb
 # 제약 없이는 타입별 메서드를 사용할 수 없음
 def print_length<T>(value: T): void
   puts value.length  # 에러: T에 length 메서드가 없을 수 있음
@@ -33,7 +36,7 @@ end
 
 ### 해결책: 제약 조건으로
 
-```ruby
+```trb
 # T를 length 메서드가 있는 타입으로 제약
 def print_length<T: Lengthable>(value: T): void
   puts value.length  # OK: T는 length가 있음을 보장
@@ -49,7 +52,7 @@ end
 
 제약 조건은 타입 매개변수 뒤에 콜론(`:`)을 사용하여 지정합니다:
 
-```ruby
+```trb
 # 단일 제약 조건
 def process<T: Interface>(value: T): void
   # T는 Interface를 구현해야 함
@@ -67,7 +70,7 @@ end
 
 ### 제약 조건을 위한 인터페이스 정의
 
-```ruby
+```trb
 # 인터페이스 정의
 interface Printable
   def to_s: String
@@ -101,7 +104,7 @@ print_items(users)  # OK: User는 Printable을 구현
 
 ### 일반적인 인터페이스 제약 조건
 
-```ruby
+```trb
 # Comparable 인터페이스
 interface Comparable
   def <=>(other: self): Integer
@@ -141,7 +144,7 @@ end
 
 타입 매개변수를 특정 클래스 또는 그 서브클래스로 제약할 수 있습니다.
 
-```ruby
+```trb
 # 특정 클래스로 제약
 class Animal
   @name: String
@@ -183,7 +186,7 @@ make_speak("string")  # 에러: String은 Animal이 아님
 
 ### 클래스 계층 구조와 작업
 
-```ruby
+```trb
 class Vehicle
   @brand: String
 
@@ -246,7 +249,7 @@ found = car_repo.find_by_brand("Toyota")  # Car | nil
 
 향후 T-Ruby는 `&` 연산자를 사용한 다중 제약 조건을 지원할 예정입니다:
 
-```ruby
+```trb
 # 타입은 두 인터페이스를 모두 구현해야 함
 def process<T: Printable & Comparable>(value: T): void
   puts value.to_s
@@ -263,7 +266,7 @@ end
 
 유니온 타입을 사용하여 여러 특정 타입 중 하나로 제약할 수 있습니다:
 
-```ruby
+```trb
 # T는 String 또는 Integer여야 함
 def format<T: String | Integer>(value: T): String
   case value
@@ -281,7 +284,7 @@ format(3.14)     # 에러: Float는 String | Integer가 아님
 
 ### 실용적인 유니온 제약 조건 예제
 
-```ruby
+```trb
 # 유연한 ID 타입
 type StringOrInt = String | Integer
 
@@ -303,7 +306,7 @@ user2 = find_user("alice")    # 사용자명 문자열로 찾기
 
 제네릭 클래스는 제약된 타입 매개변수를 가질 수 있습니다:
 
-```ruby
+```trb
 # 비교 가능한 항목으로만 작동하는 큐
 class PriorityQueue<T: Comparable>
   @items: Array<T>
@@ -355,7 +358,7 @@ queue.enqueue(Task.new("Medium priority", 5))
 
 ### 정렬 가능한 컬렉션
 
-```ruby
+```trb
 interface Comparable
   def <=>(other: self): Integer
 end
@@ -405,7 +408,7 @@ puts numbers.to_a  # [1, 2, 5, 8] - 항상 정렬됨
 
 ### 제약 조건이 있는 Repository 패턴
 
-```ruby
+```trb
 # 기본 엔티티 클래스
 class Entity
   @id: Integer
@@ -491,7 +494,7 @@ all_products = product_repo.all  # Array<Product>
 
 ### 1. 가장 덜 제한적인 제약 조건 사용
 
-```ruby
+```trb
 # 좋음: 필요한 것만 요구
 def print_all<T: Printable>(items: Array<T>): void
   items.each { |item| puts item.to_s }
@@ -505,7 +508,7 @@ end
 
 ### 2. 제약 조건을 위한 작고 집중된 인터페이스 생성
 
-```ruby
+```trb
 # 좋음: 작고 집중된 인터페이스
 interface Identifiable
   def id: Integer
@@ -533,7 +536,7 @@ end
 
 ### 3. 제약 조건 요구사항 문서화
 
-```ruby
+```trb
 # 좋음: 명확한 문서화
 # 문자열로 변환할 수 있는 항목을 처리
 # @param items [Array<T>] 출력 가능한 항목의 배열
@@ -547,7 +550,7 @@ end
 
 ### 식별 제약 조건
 
-```ruby
+```trb
 interface Identifiable
   def id: Integer | String
 end
@@ -570,7 +573,7 @@ end
 
 ### 검증 제약 조건
 
-```ruby
+```trb
 interface Validatable
   def valid?: Bool
   def errors: Array<String>
@@ -589,7 +592,7 @@ end
 
 ### 변환 제약 조건
 
-```ruby
+```trb
 interface Convertible<T>
   def convert: T
 end

@@ -4,6 +4,9 @@ title: 첫 번째 .trb 파일
 description: 첫 번째 T-Ruby 파일 생성 및 컴파일
 ---
 
+<DocsBadge />
+
+
 # 첫 번째 .trb 파일
 
 이 가이드는 T-Ruby 파일을 단계별로 생성하면서 각 개념을 설명합니다.
@@ -19,7 +22,7 @@ description: 첫 번째 T-Ruby 파일 생성 및 컴파일
 
 간단한 계산기를 구현하는 `calculator.trb` 파일을 만들어봅시다:
 
-```ruby title="calculator.trb"
+```trb title="calculator.trb"
 # calculator.trb - 간단한 타입 계산기
 
 # 타입 어노테이션이 있는 기본 산술 연산
@@ -44,7 +47,7 @@ end
 
 문법을 분석해봅시다:
 
-```ruby
+```trb
 def add(a: Integer, b: Integer): Integer
 #   ^^^  ^  ^^^^^^^  ^  ^^^^^^^   ^^^^^^^
 #   |    |    |      |    |         |
@@ -60,7 +63,7 @@ def add(a: Integer, b: Integer): Integer
 
 계산기를 더 고급 기능으로 확장해봅시다:
 
-```ruby title="calculator.trb"
+```trb title="calculator.trb"
 # 더 깔끔한 코드를 위한 타입 별칭
 type Number = Integer | Float
 
@@ -97,7 +100,7 @@ end
 
 `|` 연산자는 union 타입을 생성합니다:
 
-```ruby
+```trb
 type Number = Integer | Float  # Integer 또는 Float일 수 있음
 
 def safe_divide(a: Number, b: Number): Float | nil
@@ -111,7 +114,7 @@ end
 
 `<T>` 문법은 제네릭 타입 매개변수를 정의합니다:
 
-```ruby
+```trb
 def max<T: Comparable>(a: T, b: T): T
 #     ^^  ^^^^^^^^^^
 #     |       |
@@ -128,7 +131,7 @@ max("a", "b")   # T는 String
 
 Calculator 클래스를 만들어봅시다:
 
-```ruby title="calculator.trb"
+```trb title="calculator.trb"
 class Calculator
   # 타입 어노테이션이 있는 인스턴스 변수
   @history: Array<String>
@@ -229,7 +232,7 @@ class Calculator
 end
 ```
 
-```ruby title="build/calculator.rbs"
+```rbs title="build/calculator.rbs"
 type Number = Integer | Float
 
 class Calculator
@@ -249,7 +252,7 @@ end
 
 ### 옵셔널 매개변수
 
-```ruby
+```trb
 def greet(name: String, greeting: String = "Hello"): String
   "#{greeting}, #{name}!"
 end
@@ -260,7 +263,7 @@ greet("Alice", "Hi")     # "Hi, Alice!"
 
 ### Nullable 타입 (옵셔널 축약형)
 
-```ruby
+```trb
 # 다음은 동일합니다:
 def find(id: Integer): User | nil
 def find(id: Integer): User?  # 축약형
@@ -268,7 +271,7 @@ def find(id: Integer): User?  # 축약형
 
 ### 블록 매개변수
 
-```ruby
+```trb
 def each_item(items: Array<String>, &block: (String) -> void): void
   items.each(&block)
 end

@@ -4,6 +4,9 @@ title: Built-in Generics
 description: Array, Hash, and other built-in generic types
 ---
 
+<DocsBadge />
+
+
 # Built-in Generics
 
 T-Ruby comes with several built-in generic types that you'll use every day. These types are parameterized to work with any type while providing type safety. Understanding how to use these built-in generics is essential for writing type-safe T-Ruby code.
@@ -14,7 +17,7 @@ The most commonly used generic type is `Array<T>`, representing an array of elem
 
 ### Basic Array Usage
 
-```ruby
+```trb
 # Explicitly typed arrays
 numbers: Array<Integer> = [1, 2, 3, 4, 5]
 names: Array<String> = ["Alice", "Bob", "Charlie"]
@@ -33,7 +36,7 @@ empty_users = Array<User>.new
 
 All standard array operations preserve type safety:
 
-```ruby
+```trb
 numbers: Array<Integer> = [1, 2, 3, 4, 5]
 
 # Accessing elements
@@ -59,7 +62,7 @@ index: Integer | nil = numbers.index(3)     # 2
 
 Mapping transforms an `Array<T>` into an `Array<U>`:
 
-```ruby
+```trb
 # Map integers to strings
 numbers: Array<Integer> = [1, 2, 3, 4, 5]
 strings: Array<String> = numbers.map { |n| n.to_s }
@@ -93,7 +96,7 @@ people: Array<Person> = names.map { |name| Person.new(name, 25) }
 
 Filtering maintains the same type:
 
-```ruby
+```trb
 numbers: Array<Integer> = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
 
 # Filter for even numbers
@@ -118,7 +121,7 @@ long_words: Array<String> = words.select { |w| w.length > 4 }
 
 Reduce collapses an array into a single value:
 
-```ruby
+```trb
 numbers: Array<Integer> = [1, 2, 3, 4, 5]
 
 # Sum all numbers
@@ -146,7 +149,7 @@ hash: Hash<String, String> = pairs.reduce({}) { |h, pair|
 
 Arrays can be nested to any depth:
 
-```ruby
+```trb
 # Two-dimensional array (matrix)
 matrix: Array<Array<Integer>> = [
   [1, 2, 3],
@@ -176,7 +179,7 @@ flat: Array<Integer> = nested.flatten
 
 ### Basic Hash Usage
 
-```ruby
+```trb
 # Explicitly typed hashes
 ages: Hash<String, Integer> = {
   "Alice" => 30,
@@ -201,7 +204,7 @@ empty_map = Hash<Symbol, Array<String>>.new
 
 ### Hash Operations
 
-```ruby
+```trb
 ages: Hash<String, Integer> = {
   "Alice" => 30,
   "Bob" => 25
@@ -229,7 +232,7 @@ values: Array<Integer> = ages.values      # [31, 35]
 
 ### Hash Iteration
 
-```ruby
+```trb
 scores: Hash<String, Integer> = {
   "Alice" => 95,
   "Bob" => 87,
@@ -257,7 +260,7 @@ doubled: Hash<String, Integer> = scores.transform_values { |score| score * 2 }
 
 ### Complex Hash Types
 
-```ruby
+```trb
 # Hash with array values
 tags: Hash<String, Array<String>> = {
   "ruby" => ["programming", "language"],
@@ -298,7 +301,7 @@ user_map: Hash<Integer, User> = {
 
 `Set<T>` represents an unordered collection of unique elements of type `T`.
 
-```ruby
+```trb
 # Creating sets
 numbers: Set<Integer> = Set.new([1, 2, 3, 4, 5])
 unique_words: Set<String> = Set.new(["hello", "world", "hello"])
@@ -330,7 +333,7 @@ array: Array<Integer> = numbers.to_a
 
 `Range<T>` represents a range of values from a start to an end.
 
-```ruby
+```trb
 # Integer ranges
 one_to_ten: Range<Integer> = 1..10      # Inclusive: 1, 2, ..., 10
 one_to_nine: Range<Integer> = 1...10    # Exclusive: 1, 2, ..., 9
@@ -355,7 +358,7 @@ letters: Array<String> = ('a'..'e').to_a  # ["a", "b", "c", "d", "e"]
 
 `Enumerator<T>` represents a lazy enumeration of type `T`.
 
-```ruby
+```trb
 # Create an enumerator
 numbers: Array<Integer> = [1, 2, 3, 4, 5]
 enum: Enumerator<Integer> = numbers.each
@@ -379,7 +382,7 @@ result = (1..Float::INFINITY)
 
 `Proc<Args, Return>` represents a proc/lambda with typed parameters and return type.
 
-```ruby
+```trb
 # Simple proc
 doubler: Proc<Integer, Integer> = ->(x: Integer): Integer { x * 2 }
 result = doubler.call(5)  # 10
@@ -414,7 +417,7 @@ result = operations.reduce(10) { |acc, op| op.call(acc) }
 
 While not strictly a generic, `T | nil` is used so frequently it deserves mention. T-Ruby also supports the shorthand `T?`.
 
-```ruby
+```trb
 # Explicit optional type
 name: String | nil = "Alice"
 age: Integer | nil = nil
@@ -446,7 +449,7 @@ settings: Hash<String, String | nil> = {
 
 Generic types can be combined in powerful ways:
 
-```ruby
+```trb
 # Array of hashes
 users: Array<Hash<Symbol, String | Integer>> = [
   { name: "Alice", age: 30 },
@@ -482,7 +485,7 @@ data = nil
 
 Create readable aliases for complex generic types:
 
-```ruby
+```trb
 # Simple aliases
 type StringArray = Array<String>
 type IntHash = Hash<String, Integer>
@@ -518,7 +521,7 @@ to_string: Transformer<Integer, String> = ->(n: Integer): String { n.to_s }
 
 T-Ruby's type system understands Ruby's built-in array and hash methods:
 
-```ruby
+```trb
 # Array methods preserve types
 numbers: Array<Integer> = [1, 2, 3, 4, 5]
 
@@ -542,7 +545,7 @@ inverted: Hash<Integer, String> = hash.invert       # { 1 => "a", 2 => "b" }
 
 ## Default Values and Safety
 
-```ruby
+```trb
 # Hash with default value
 counts: Hash<String, Integer> = Hash.new(0)
 counts["a"] += 1  # Safe: default is 0
@@ -564,7 +567,7 @@ port: String = config.fetch("port", "3000")  # Returns "3000" if key missing
 
 ### 1. Prefer Specific Types Over Any
 
-```ruby
+```trb
 # Good: Specific types
 users: Array<User> = []
 config: Hash<Symbol, String> = {}
@@ -575,7 +578,7 @@ data: Array<Any> = []  # No type checking
 
 ### 2. Use Type Aliases for Complex Types
 
-```ruby
+```trb
 # Good: Clear, reusable alias
 type UserMap = Hash<Integer, User>
 type ErrorList = Array<String>
@@ -592,7 +595,7 @@ end
 
 ### 3. Handle Nil Values Explicitly
 
-```ruby
+```trb
 # Good: Explicit nil handling
 users: Array<User> = []
 first_user: User | nil = users.first
@@ -609,7 +612,7 @@ end
 
 ### 4. Use Appropriate Collection Types
 
-```ruby
+```trb
 # Good: Use Set for unique items
 unique_tags: Set<String> = Set.new
 
@@ -622,7 +625,7 @@ unique_tags.push(tag) unless unique_tags.include?(tag)
 
 ### Safe Array Access
 
-```ruby
+```trb
 def safe_get<T>(array: Array<T>, index: Integer, default: T): T
   array.fetch(index, default)
 end
@@ -633,7 +636,7 @@ value = safe_get(numbers, 10, 0)  # Returns 0 instead of nil
 
 ### Grouping with Hashes
 
-```ruby
+```trb
 class Person
   @name: String
   @age: Integer
@@ -661,7 +664,7 @@ by_age: Hash<Integer, Array<Person>> = people.group_by { |p| p.age }
 
 ### Memoization with Hashes
 
-```ruby
+```trb
 class Calculator
   @cache: Hash<Integer, Integer>
 

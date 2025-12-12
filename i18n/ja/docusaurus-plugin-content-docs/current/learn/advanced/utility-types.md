@@ -4,6 +4,9 @@ title: ユーティリティ型
 description: 一般的な変換のための組み込みユーティリティ型
 ---
 
+<DocsBadge />
+
+
 # ユーティリティ型
 
 :::caution 準備中
@@ -18,7 +21,7 @@ description: 一般的な変換のための組み込みユーティリティ型
 
 型のすべてのプロパティをオプショナルにします：
 
-```ruby
+```trb
 type Partial<T> = {
   [K in keyof T]?: T[K]
 }
@@ -58,7 +61,7 @@ update_user(1, {})  # 有効、更新なし
 
 すべてのプロパティを必須にします（オプショナル性を削除）：
 
-```ruby
+```trb
 type Required<T> = {
   [K in keyof T]-?: T[K]
 }
@@ -87,7 +90,7 @@ end
 
 すべてのプロパティを読み取り専用にします：
 
-```ruby
+```trb
 type Readonly<T> = {
   readonly [K in keyof T]: T[K]
 }
@@ -126,7 +129,7 @@ config: Config = {
 
 別の型から特定のプロパティを選んで型を作成：
 
-```ruby
+```trb
 type Pick<T, K extends keyof T> = {
   [P in K]: T[P]
 }
@@ -170,7 +173,7 @@ end
 
 別の型から特定のプロパティを除外して型を作成：
 
-```ruby
+```trb
 type Omit<T, K extends keyof T> = {
   [P in Exclude<keyof T, K>]: T[P]
 }
@@ -221,7 +224,7 @@ end
 
 ユニオンから型を除外：
 
-```ruby
+```trb
 type Exclude<T, U> = T extends U ? never : T
 
 type AllTypes = String | Integer | Float | Bool
@@ -250,7 +253,7 @@ end
 
 ユニオンから型を抽出：
 
-```ruby
+```trb
 type Extract<T, U> = T extends U ? T : never
 
 type AllTypes = String | Integer | Float | Bool
@@ -272,7 +275,7 @@ end
 
 型から`nil`を削除：
 
-```ruby
+```trb
 type NonNullable<T> = T extends nil ? never : T
 
 type MaybeString = String | nil
@@ -296,7 +299,7 @@ end
 
 関数型の戻り値の型を抽出：
 
-```ruby
+```trb
 type ReturnType<T> = T extends Proc<any, infer R> ? R : never
 
 type GetUserFn = Proc<Integer, User>
@@ -321,7 +324,7 @@ end
 
 関数型からパラメータ型を抽出：
 
-```ruby
+```trb
 type Parameters<T> = T extends Proc<infer P, any> ? P : never
 
 type GetUserFn = Proc<Integer, User>
@@ -347,7 +350,7 @@ end
 
 キー型がKで値型がVの型を作成：
 
-```ruby
+```trb
 type Record<K extends String | Symbol | Integer, V> = {
   [P in K]: V
 }
@@ -391,7 +394,7 @@ configs: Record<"development" | "staging" | "production", Config> = {
 
 配列から要素型を抽出：
 
-```ruby
+```trb
 type ArrayElement<T> = T extends Array<infer E> ? E : never
 
 type StringArray = Array<String>
@@ -412,7 +415,7 @@ end
 
 要素を変更できない配列：
 
-```ruby
+```trb
 type ReadonlyArray<T> = readonly Array<T>
 
 # 使用法
@@ -432,7 +435,7 @@ ALLOWED_STATUSES: ReadonlyArray<String> = ["pending", "approved", "rejected"]
 
 すべてのプロパティとネストされたプロパティをオプショナルに：
 
-```ruby
+```trb
 type DeepPartial<T> = {
   [K in keyof T]?: T[K] extends Hash<any, any>
     ? DeepPartial<T[K]>
@@ -468,7 +471,7 @@ end
 
 すべてのプロパティとネストされたプロパティを読み取り専用に：
 
-```ruby
+```trb
 type DeepReadonly<T> = {
   readonly [K in keyof T]: T[K] extends Hash<any, any>
     ? DeepReadonly<T[K]>
@@ -498,7 +501,7 @@ config: ImmutableConfig = load_config()
 
 読み取り専用修飾子を削除：
 
-```ruby
+```trb
 type Mutable<T> = {
   -readonly [K in keyof T]: T[K]
 }
@@ -529,7 +532,7 @@ end
 
 2つの型をマージし、UのプロパティがTのプロパティを上書き：
 
-```ruby
+```trb
 type Merge<T, U> = Omit<T, keyof U> & U
 
 type User = {
@@ -556,7 +559,7 @@ type MergedUser = Merge<User, UserUpdate>
 
 両方の型に存在するプロパティを取得：
 
-```ruby
+```trb
 type Intersection<T, U> = Pick<T, Extract<keyof T, keyof U>>
 
 type User = {
@@ -582,7 +585,7 @@ type Common = Intersection<User, Person>
 
 Tにあるがにないプロパティを取得：
 
-```ruby
+```trb
 type Difference<T, U> = Omit<T, keyof U>
 
 type User = {
@@ -610,7 +613,7 @@ type PrivateFields = Difference<User, PublicFields>
 
 型レベルのif-else：
 
-```ruby
+```trb
 type If<Condition extends Bool, Then, Else> =
   Condition extends true ? Then : Else
 
@@ -632,7 +635,7 @@ type DevConfig = IsProduction<"development">
 
 型をnullableに：
 
-```ruby
+```trb
 type Nullable<T> = T | nil
 
 type User = { id: Integer, name: String }
@@ -649,7 +652,7 @@ end
 
 戻り値の型をPromiseでラップ（非同期操作用）：
 
-```ruby
+```trb
 type Promisify<T> = {
   [K in keyof T]: T[K] extends Proc<infer Args, infer R>
     ? Proc<Args, Promise<R>>
@@ -674,7 +677,7 @@ type AsyncUserService = Promisify<UserService>
 
 ### APIレスポンス型
 
-```ruby
+```trb
 type APIResponse<T> = {
   success: true,
   data: T
@@ -707,7 +710,7 @@ end
 
 ### フォーム状態管理
 
-```ruby
+```trb
 type FormState<T> = {
   values: T,
   errors: Partial<Record<keyof T, String>>,
@@ -733,7 +736,7 @@ type LoginFormState = FormState<LoginForm>
 
 ### リポジトリパターン
 
-```ruby
+```trb
 type Repository<T> = {
   find: Proc<Integer, Nullable<T>>,
   find_all: Proc<Array<T>>,
@@ -760,7 +763,7 @@ updated = user_repository.update(1, { name: "Alice Smith" })
 
 ### 1. ユーティリティを構成
 
-```ruby
+```trb
 # 良い：ユーティリティから複雑な型を構築
 type SafeUserUpdate = Partial<Omit<Required<User>, "id" | "created_at">>
 
@@ -772,7 +775,7 @@ type SafeUserUpdate = {
 
 ### 2. ドメイン固有のユーティリティを作成
 
-```ruby
+```trb
 # 良い：ドメイン用のカスタムユーティリティ
 type Entity<T> = T & { id: Integer }
 type Timestamped<T> = T & { created_at: Time, updated_at: Time }
@@ -786,7 +789,7 @@ type User = FullEntity<{ name: String, email: String }>
 
 ### 3. 複雑なユーティリティを文書化
 
-```ruby
+```trb
 # 良い：明確な文書化
 # 任意のモデルのための型安全なフォーム状態を作成
 # 検証エラーとtouched状態の追跡を含む

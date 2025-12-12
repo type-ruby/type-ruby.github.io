@@ -4,6 +4,9 @@ title: Type Annotations
 description: Learn the basics of type annotations in T-Ruby
 ---
 
+<DocsBadge />
+
+
 # Type Annotations
 
 Type annotations are the foundation of T-Ruby's type system. They allow you to explicitly declare the types of variables, method parameters, and return values. This chapter will teach you the syntax and best practices for adding type information to your Ruby code.
@@ -14,7 +17,7 @@ Type annotations are special syntax that tells T-Ruby what type of data a variab
 
 In T-Ruby, type annotations use a colon (`:`) followed by the type name:
 
-```ruby title="hello.trb"
+```trb title="hello.trb"
 # Variable with type annotation
 name: String = "Alice"
 
@@ -50,13 +53,13 @@ end
 
 You can annotate variables when you declare them. The syntax is:
 
-```ruby
+```trb
 variable_name: Type = value
 ```
 
 ### Basic Examples
 
-```ruby title="variables.trb"
+```trb title="variables.trb"
 # String variable
 message: String = "Hello, world!"
 
@@ -78,7 +81,7 @@ Type annotations on variables serve several purposes:
 2. **Error Detection**: T-Ruby will catch type mismatches at transpile time
 3. **IDE Support**: Editors can provide better autocomplete and hints
 
-```ruby title="error_example.trb"
+```trb title="error_example.trb"
 # This will cause a type error
 age: Integer = "twenty-five"  # Error: String assigned to Integer variable
 
@@ -90,7 +93,7 @@ age: Integer = 25
 
 Method parameters should be annotated to specify what types of arguments the method accepts:
 
-```ruby title="parameters.trb"
+```trb title="parameters.trb"
 def calculate_total(price: Float, quantity: Integer): Float
   price * quantity
 end
@@ -103,7 +106,7 @@ total = calculate_total(9.99, 3)  # Returns 29.97
 
 When a method has multiple parameters, annotate each one:
 
-```ruby title="multiple_params.trb"
+```trb title="multiple_params.trb"
 def create_user(name: String, age: Integer, email: String)
   {
     name: name,
@@ -119,7 +122,7 @@ user = create_user("Alice", 30, "alice@example.com")
 
 You can combine type annotations with default values:
 
-```ruby title="defaults.trb"
+```trb title="defaults.trb"
 def greet(name: String, greeting: String = "Hello")
   "#{greeting}, #{name}!"
 end
@@ -132,7 +135,7 @@ puts greet("Bob", "Hi")          # "Hi, Bob!"
 
 Return type annotations specify what type a method will return. They come after the parameter list, before the method body:
 
-```ruby title="return_types.trb"
+```trb title="return_types.trb"
 # Returns a String
 def get_name(): String
   "Alice"
@@ -159,7 +162,7 @@ end
 
 Return type annotations help prevent errors by ensuring methods always return the expected type:
 
-```ruby title="return_safety.trb"
+```trb title="return_safety.trb"
 def divide(a: Integer, b: Integer): Float
   return 0.0 if b == 0  # Safe default
   a.to_f / b
@@ -173,7 +176,7 @@ result: Float = divide(10, 3)
 
 Here's a comprehensive example showing all annotation types together:
 
-```ruby title="complete_example.trb"
+```trb title="complete_example.trb"
 # A method with parameter and return type annotations
 def calculate_discount(
   original_price: Float,
@@ -223,7 +226,7 @@ member_price = calculate_discount(100.0, 10, true)
 
 You can also annotate block parameters:
 
-```ruby title="blocks.trb"
+```trb title="blocks.trb"
 def process_numbers(numbers: Array<Integer>)
   numbers.map do |n: Integer|
     n * 2
@@ -238,7 +241,7 @@ result = process_numbers([1, 2, 3])
 
 Instance variables in classes can be annotated as well:
 
-```ruby title="instance_vars.trb"
+```trb title="instance_vars.trb"
 class Person
   def initialize(name: String, age: Integer)
     @name: String = name
@@ -261,7 +264,7 @@ puts person.introduce()
 
 You don't need to annotate every single variable. T-Ruby has type inference (covered in the next chapter). Annotate when it adds clarity:
 
-```ruby title="over_annotation.trb"
+```trb title="over_annotation.trb"
 # Too much annotation
 x: Integer = 5
 y: Integer = 10
@@ -277,7 +280,7 @@ sum: Integer = x + y  # Only annotate the result if needed
 
 If a method can return different types based on conditions, use a union type (covered later):
 
-```ruby title="inconsistent_return.trb"
+```trb title="inconsistent_return.trb"
 # This will cause an error - inconsistent returns
 def get_value(flag: Bool): String
   if flag
@@ -292,7 +295,7 @@ end
 
 If a method might return `nil`, include it in the return type:
 
-```ruby title="nil_returns.trb"
+```trb title="nil_returns.trb"
 # Correct - includes nil possibility
 def find_user(id: Integer): String | nil
   return nil if id < 0

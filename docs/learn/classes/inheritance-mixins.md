@@ -4,6 +4,9 @@ title: Inheritance & Mixins
 description: Type-safe inheritance and module mixins
 ---
 
+<DocsBadge />
+
+
 # Inheritance & Mixins
 
 Inheritance and mixins are powerful features of Ruby's object-oriented programming. T-Ruby extends these concepts with type safety, allowing you to build complex class hierarchies and share functionality through modules while maintaining strong type guarantees.
@@ -12,7 +15,7 @@ Inheritance and mixins are powerful features of Ruby's object-oriented programmi
 
 Classes can inherit from parent classes, gaining access to their methods and instance variables:
 
-```ruby title="basic_inheritance.trb"
+```trb title="basic_inheritance.trb"
 class Animal
   attr_accessor :name: String
   attr_accessor :age: Integer
@@ -73,7 +76,7 @@ cat.scratch()
 
 Child classes can override parent methods with the same signature:
 
-```ruby title="override.trb"
+```trb title="override.trb"
 class Shape
   def initialize()
     @sides: Integer = 0
@@ -152,7 +155,7 @@ puts circle.area()     # 78.53975
 
 Use `super` to call parent class methods:
 
-```ruby title="super.trb"
+```trb title="super.trb"
 class Employee
   attr_accessor :name: String
   attr_accessor :salary: Float
@@ -208,7 +211,7 @@ puts manager.total_compensation()   # 80000.0 + 13000.0 + 2500.0 = 95500.0
 
 Modules allow you to share functionality across multiple classes:
 
-```ruby title="modules.trb"
+```trb title="modules.trb"
 module Timestampable
   def created_at(): Time?
     @created_at
@@ -302,7 +305,7 @@ puts product.search("Gaming")  # true
 
 Modules can define methods that work with instance variables:
 
-```ruby title="module_methods.trb"
+```trb title="module_methods.trb"
 module Validatable
   def valid?(): Boolean
     errors().empty?
@@ -362,7 +365,7 @@ end
 
 Classes can include multiple modules:
 
-```ruby title="multiple_mixins.trb"
+```trb title="multiple_mixins.trb"
 module Comparable
   def ==(other: self): Boolean
     compare_fields() == other.compare_fields()
@@ -441,7 +444,7 @@ puts clone.name  # "Alice"
 
 T-Ruby ensures type safety across inheritance hierarchies:
 
-```ruby title="type_safety.trb"
+```trb title="type_safety.trb"
 class Vehicle
   attr_accessor :make: String
   attr_accessor :model: String
@@ -502,7 +505,7 @@ vehicles.each { |v| v.start() }
 
 A complete example showing inheritance and mixins:
 
-```ruby title="cms.trb"
+```trb title="cms.trb"
 module Publishable
   def publish(): void
     @published = true
@@ -676,7 +679,7 @@ puts page.url()  # "/pages/about"
 
 ### Template Method Pattern
 
-```ruby title="template_method.trb"
+```trb title="template_method.trb"
 class DataImporter
   def import(file_path: String): void
     data = read_file(file_path)
@@ -718,7 +721,7 @@ end
 
 ### Decorator Pattern with Modules
 
-```ruby title="decorator.trb"
+```trb title="decorator.trb"
 module Logging
   def log(message: String): void
     puts "[#{Time.now}] #{message}"

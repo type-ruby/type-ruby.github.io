@@ -4,6 +4,9 @@ title: インスタンス & クラス変数
 description: インスタンス変数とクラス変数の型付け
 ---
 
+<DocsBadge />
+
+
 # インスタンス & クラス変数
 
 インスタンス変数とクラス変数は、Rubyのオブジェクト指向プログラミングの基本です。T-Rubyは両方に対して包括的な型安全性を提供し、データ構造が予測可能でエラーのないことを保証します。このガイドでは、インスタンスレベルとクラスレベルの両方で変数に型を付ける方法を説明します。
@@ -16,7 +19,7 @@ description: インスタンス変数とクラス変数の型付け
 
 インスタンス変数に型を付ける最も一般的で推奨される方法です：
 
-```ruby title="attr_methods.trb"
+```trb title="attr_methods.trb"
 class Person
   attr_accessor :name: String
   attr_accessor :age: Integer
@@ -49,7 +52,7 @@ person.password = "secret"   # ✓ OK - attr_writer
 
 インスタンス変数を初期化するときに型を明示的に宣言できます：
 
-```ruby title="explicit_types.trb"
+```trb title="explicit_types.trb"
 class ShoppingCart
   def initialize()
     @items: Array<String> = []
@@ -82,7 +85,7 @@ end
 
 両方のアプローチを一緒に使用できます：
 
-```ruby title="combined.trb"
+```trb title="combined.trb"
 class Article
   attr_reader :title: String
   attr_accessor :published: Boolean
@@ -117,7 +120,7 @@ end
 
 nilになり得るインスタンス変数は `?` 接尾辞を使用します：
 
-```ruby title="nilable.trb"
+```trb title="nilable.trb"
 class UserAccount
   attr_accessor :username: String
   attr_accessor :email: String?
@@ -167,7 +170,7 @@ end
 
 クラス変数はクラスのすべてのインスタンスで共有されます。`@@` で型を付けます：
 
-```ruby title="class_vars.trb"
+```trb title="class_vars.trb"
 class Counter
   def initialize()
     @@count: Integer ||= 0
@@ -196,7 +199,7 @@ puts Counter.total_count()  # 0
 
 適切なデフォルト値でクラス変数を初期化します：
 
-```ruby title="class_var_defaults.trb"
+```trb title="class_var_defaults.trb"
 class Configuration
   @@database_url: String = "localhost"
   @@max_connections: Integer = 10
@@ -247,7 +250,7 @@ Configuration.add_allowed_host("example.com")
 
 それぞれをいつ使用するかを理解する：
 
-```ruby title="comparison.trb"
+```trb title="comparison.trb"
 class BankAccount
   # クラス変数 - すべてのインスタンスで共有
   @@total_accounts: Integer = 0
@@ -322,7 +325,7 @@ puts BankAccount.total_balance()    # 3500.0
 
 インスタンス変数は任意の型を持つことができます：
 
-```ruby title="complex_types.trb"
+```trb title="complex_types.trb"
 class DataStore
   def initialize()
     @strings: Array<String> = []
@@ -371,7 +374,7 @@ end
 
 インスタンス変数とクラス変数を組み合わせた実際の例です：
 
-```ruby title="user_session.trb"
+```trb title="user_session.trb"
 class UserSession
   # クラス変数 - すべてのセッションを追跡
   @@active_sessions: Hash<String, UserSession> = {}
@@ -483,7 +486,7 @@ UserSession.expire_old_sessions(60)  # 60分より古いセッションを期限
 
 クラス変数とインスタンス変数の効果的な使用を示す別の例です：
 
-```ruby title="cache_system.trb"
+```trb title="cache_system.trb"
 class Cache<T>
   # クラス変数 - 共有統計
   @@total_hits: Integer = 0
@@ -623,7 +626,7 @@ puts Cache.total_caches()      # 2
 
 ### 遅延初期化
 
-```ruby title="lazy_init.trb"
+```trb title="lazy_init.trb"
 class Report
   attr_reader :name: String
 
@@ -647,7 +650,7 @@ end
 
 ### レジストリパターン
 
-```ruby title="registry.trb"
+```trb title="registry.trb"
 class Plugin
   @@plugins: Hash<String, Plugin> = {}
 
@@ -674,7 +677,7 @@ end
 
 ### メモ化
 
-```ruby title="memoization.trb"
+```trb title="memoization.trb"
 class Calculator
   def initialize()
     @cache: Hash<String, Integer> = {}

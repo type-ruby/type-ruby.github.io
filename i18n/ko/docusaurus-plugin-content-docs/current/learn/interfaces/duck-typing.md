@@ -4,6 +4,9 @@ title: 덕 타이핑
 description: T-Ruby의 구조적 타이핑과 덕 타이핑
 ---
 
+<DocsBadge />
+
+
 # 덕 타이핑
 
 "오리처럼 걷고 오리처럼 꽥꽥거린다면, 그것은 오리임이 틀림없다." 덕 타이핑은 명시적 인터페이스 구현이 아닌 메서드와 속성의 존재에 의해 타입 호환성이 결정되는 구조적 타이핑의 한 형태입니다. T-Ruby는 타입 안전성을 유지하면서 덕 타이핑을 지원합니다.
@@ -12,7 +15,7 @@ description: T-Ruby의 구조적 타이핑과 덕 타이핑
 
 덕 타이핑에서는 인터페이스를 명시적으로 구현할 필요가 없습니다—필요한 메서드만 가지고 있으면 됩니다:
 
-```ruby title="duck_typing_basic.trb"
+```trb title="duck_typing_basic.trb"
 # 인터페이스 필요 없음
 def print_object(obj: { def to_string(): String }): void
   puts obj.to_string()
@@ -50,7 +53,7 @@ print_object(product)  # "Product: Laptop"
 
 객체 리터럴 문법을 사용하여 인라인으로 구조적 타입을 정의합니다:
 
-```ruby title="structural_types.trb"
+```trb title="structural_types.trb"
 # 구조적 타입 정의
 type Printable = {
   def print(): void
@@ -102,7 +105,7 @@ print_item(report)
 
 이름을 붙이지 않고 구조적 타입을 직접 사용합니다:
 
-```ruby title="anonymous_types.trb"
+```trb title="anonymous_types.trb"
 def process_data(
   source: { def read(): String },
   destination: { def write(content: String): void }
@@ -146,7 +149,7 @@ process_data(reader, console_writer)
 
 구조적 타입은 여러 메서드와 속성 시그니처를 정의할 수 있습니다:
 
-```ruby title="complex_structural.trb"
+```trb title="complex_structural.trb"
 type Repository = {
   def find(id: Integer): Hash<String, String>?
   def save(data: Hash<String, String>): Boolean
@@ -225,7 +228,7 @@ use_repository(file_repo)
 
 명시적 인터페이스와 덕 타이핑 비교:
 
-```ruby title="comparison.trb"
+```trb title="comparison.trb"
 # 명시적 인터페이스 접근법
 interface Logger
   def log(message: String): void
@@ -272,7 +275,7 @@ use_logger(file)     # 동작 - log 메서드 있음 (덕 타이핑)
 
 필요한 것보다 더 많은 메서드를 가진 객체도 구조적 타입을 만족합니다:
 
-```ruby title="subtyping.trb"
+```trb title="subtyping.trb"
 type BasicLogger = {
   def log(message: String): void
 }
@@ -309,7 +312,7 @@ simple_logging(advanced)  # 동작 - 구조적 서브타이핑
 
 제네릭과 구조적 타이핑 결합:
 
-```ruby title="generic_structural.trb"
+```trb title="generic_structural.trb"
 def transform<T, U>(
   items: Array<T>,
   transformer: { def transform(item: T): U }
@@ -352,7 +355,7 @@ doubled = transform(numbers, doubler)  # [2, 4, 6]
 
 유연한 플러그인 아키텍처를 위한 덕 타이핑 사용:
 
-```ruby title="plugin_duck_typing.trb"
+```trb title="plugin_duck_typing.trb"
 type Plugin = {
   def name(): String
   def execute(): void
@@ -418,7 +421,7 @@ runner.run_configurable(advanced, { "level" => "high" })
 
 유연한 데이터 처리를 위한 덕 타이핑:
 
-```ruby title="data_pipeline.trb"
+```trb title="data_pipeline.trb"
 type DataSource = {
   def read(): Array<Hash<String, String>>
 }
@@ -535,7 +538,7 @@ pipeline2.execute()
 
 덕 타이핑을 사용한 유연한 이벤트 처리:
 
-```ruby title="event_system.trb"
+```trb title="event_system.trb"
 type EventHandler = {
   def handle(event: Hash<String, String>): void
 }

@@ -4,6 +4,9 @@ title: Project Configuration
 description: Configure T-Ruby for your project
 ---
 
+<DocsBadge />
+
+
 # Project Configuration
 
 For larger projects, T-Ruby uses a configuration file to manage compiler options, paths, and behavior.

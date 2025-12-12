@@ -4,6 +4,9 @@ title: 型アノテーション
 description: T-Rubyにおける型アノテーションの基本を学ぶ
 ---
 
+<DocsBadge />
+
+
 # 型アノテーション
 
 型アノテーションはT-Rubyの型システムの基盤です。変数、メソッドパラメータ、戻り値の型を明示的に宣言できます。この章では、Rubyコードに型情報を追加する構文とベストプラクティスを学びます。
@@ -14,7 +17,7 @@ description: T-Rubyにおける型アノテーションの基本を学ぶ
 
 T-Rubyでは、型アノテーションはコロン（`:`）の後に型名を使用します：
 
-```ruby title="hello.trb"
+```trb title="hello.trb"
 # 型アノテーション付き変数
 name: String = "Alice"
 
@@ -50,13 +53,13 @@ end
 
 変数を宣言するときにアノテーションを追加できます。構文は：
 
-```ruby
+```trb
 variable_name: Type = value
 ```
 
 ### 基本例
 
-```ruby title="variables.trb"
+```trb title="variables.trb"
 # String変数
 message: String = "Hello, world!"
 
@@ -78,7 +81,7 @@ is_active: Bool = true
 2. **エラー検出**：T-Rubyがトランスパイル時に型の不一致を検出
 3. **IDEサポート**：エディタがより良い自動補完とヒントを提供
 
-```ruby title="error_example.trb"
+```trb title="error_example.trb"
 # これは型エラーを引き起こす
 age: Integer = "twenty-five"  # エラー: Integer変数にStringを代入
 
@@ -90,7 +93,7 @@ age: Integer = 25
 
 メソッドが受け入れる引数の型を指定するために、パラメータにアノテーションを付ける必要があります：
 
-```ruby title="parameters.trb"
+```trb title="parameters.trb"
 def calculate_total(price: Float, quantity: Integer): Float
   price * quantity
 end
@@ -103,7 +106,7 @@ total = calculate_total(9.99, 3)  # 29.97を返す
 
 メソッドに複数のパラメータがある場合、それぞれにアノテーションを付けます：
 
-```ruby title="multiple_params.trb"
+```trb title="multiple_params.trb"
 def create_user(name: String, age: Integer, email: String)
   {
     name: name,
@@ -119,7 +122,7 @@ user = create_user("Alice", 30, "alice@example.com")
 
 型アノテーションをデフォルト値と組み合わせることができます：
 
-```ruby title="defaults.trb"
+```trb title="defaults.trb"
 def greet(name: String, greeting: String = "Hello")
   "#{greeting}, #{name}!"
 end
@@ -132,7 +135,7 @@ puts greet("Bob", "Hi")          # "Hi, Bob!"
 
 戻り値型アノテーションは、メソッドが返す型を指定します。パラメータリストの後、メソッド本体の前に来ます：
 
-```ruby title="return_types.trb"
+```trb title="return_types.trb"
 # Stringを返す
 def get_name(): String
   "Alice"
@@ -159,7 +162,7 @@ end
 
 戻り値型アノテーションは、メソッドが常に期待される型を返すことを保証してエラーを防ぎます：
 
-```ruby title="return_safety.trb"
+```trb title="return_safety.trb"
 def divide(a: Integer, b: Integer): Float
   return 0.0 if b == 0  # 安全なデフォルト
   a.to_f / b
@@ -173,7 +176,7 @@ result: Float = divide(10, 3)
 
 すべてのアノテーションタイプを一緒に示す包括的な例：
 
-```ruby title="complete_example.trb"
+```trb title="complete_example.trb"
 # パラメータと戻り値型アノテーション付きメソッド
 def calculate_discount(
   original_price: Float,
@@ -223,7 +226,7 @@ member_price = calculate_discount(100.0, 10, true)
 
 ブロックパラメータにもアノテーションを付けることができます：
 
-```ruby title="blocks.trb"
+```trb title="blocks.trb"
 def process_numbers(numbers: Array<Integer>)
   numbers.map do |n: Integer|
     n * 2
@@ -238,7 +241,7 @@ result = process_numbers([1, 2, 3])
 
 クラスのインスタンス変数にもアノテーションを付けることができます：
 
-```ruby title="instance_vars.trb"
+```trb title="instance_vars.trb"
 class Person
   def initialize(name: String, age: Integer)
     @name: String = name
@@ -261,7 +264,7 @@ puts person.introduce()
 
 すべての変数にアノテーションを付ける必要はありません。T-Rubyには型推論があります（次の章で説明）。明確さを追加する場合にのみアノテーションを付けてください：
 
-```ruby title="over_annotation.trb"
+```trb title="over_annotation.trb"
 # 過剰なアノテーション
 x: Integer = 5
 y: Integer = 10
@@ -277,7 +280,7 @@ sum: Integer = x + y  # 必要な場合のみ結果にアノテーション
 
 メソッドが条件に基づいて異なる型を返す可能性がある場合、union型を使用してください（後で説明）：
 
-```ruby title="inconsistent_return.trb"
+```trb title="inconsistent_return.trb"
 # これはエラーを引き起こす - 一貫性のない戻り値
 def get_value(flag: Bool): String
   if flag
@@ -292,7 +295,7 @@ end
 
 メソッドが`nil`を返す可能性がある場合、戻り値型に含めてください：
 
-```ruby title="nil_returns.trb"
+```trb title="nil_returns.trb"
 # 正しい - nil可能性を含む
 def find_user(id: Integer): String | nil
   return nil if id < 0

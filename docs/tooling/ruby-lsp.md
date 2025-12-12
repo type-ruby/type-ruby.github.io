@@ -4,6 +4,9 @@ title: Using with Ruby LSP
 description: IDE features with Ruby LSP
 ---
 
+<DocsBadge />
+
+
 # Using with Ruby LSP
 
 Ruby LSP provides IDE features like autocomplete, go-to-definition, and inline diagnostics for Ruby code. When combined with T-Ruby, you get rich IDE support powered by type information from your `.rbs` files.
@@ -188,7 +191,7 @@ For project-specific configuration:
 
 Ruby LSP provides intelligent autocomplete using RBS types:
 
-```ruby title="user.trb"
+```trb title="user.trb"
 class User
   @name: String
   @email: String
@@ -228,7 +231,7 @@ result = user.greet
 
 Hover over symbols to see type information:
 
-```ruby
+```rbs
 def process_user(user: User): String
   # Hover over 'user' shows: User
   # Hover over method shows: (User) -> String
@@ -240,7 +243,7 @@ end
 
 See type errors inline as you code:
 
-```ruby
+```trb
 def greet(name: String): String
   name.upcase
 end
@@ -254,7 +257,7 @@ greet(123)  # Expected String, got Integer
 
 Quick fixes and refactorings:
 
-```ruby
+```trb
 class User
   def initialize(name: String): void
     @name = name

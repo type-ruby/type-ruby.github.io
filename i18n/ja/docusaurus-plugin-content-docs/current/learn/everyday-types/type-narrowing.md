@@ -4,6 +4,9 @@ title: 型ナローイング
 description: 制御フロー分析による型のナローイング
 ---
 
+<DocsBadge />
+
+
 # 型ナローイング
 
 型ナローイングは、T-Rubyが制御フロー分析に基づいて変数の型を自動的に具体化するプロセスです。変数の型や値をチェックすると、T-Rubyはそのコードパス内で変数がとりうる型を絞り込みます。この章では、型ナローイングがどのように機能し、型安全なコードのためにどのように活用するかを学びます。
@@ -12,7 +15,7 @@ description: 制御フロー分析による型のナローイング
 
 型ナローイングは、T-Rubyがコードを分析し、特定のスコープ内で変数が宣言された型よりも具体的な型でなければならないと判断したときに発生します。
 
-```ruby title="narrowing_basics.trb"
+```trb title="narrowing_basics.trb"
 def process(value: String | Integer): String
   if value.is_a?(String)
     # このブロック内では、T-RubyはvalueがStringであることを知っている
@@ -36,7 +39,7 @@ end
 
 `is_a?`メソッドは、値が特定の型のインスタンスかどうかをチェックします：
 
-```ruby title="is_a_guard.trb"
+```trb title="is_a_guard.trb"
 def format_value(value: String | Integer | Bool): String
   if value.is_a?(String)
     # ここでvalueはString
@@ -61,7 +64,7 @@ result3: String = format_value(true)  # "ブール: true"
 
 `nil?`メソッドはオプショナル型を絞り込みます：
 
-```ruby title="nil_guard.trb"
+```trb title="nil_guard.trb"
 def get_length(text: String | nil): Integer
   if text.nil?
     # ここでtextはnil
@@ -91,7 +94,7 @@ len2: Integer = get_length(nil)  # 0
 
 `empty?`メソッドはコレクションの型を絞り込むことができます：
 
-```ruby title="empty_guard.trb"
+```trb title="empty_guard.trb"
 def process_array(items: Array<String> | nil): String
   if items.nil? || items.empty?
     "アイテムなし"
@@ -112,7 +115,7 @@ result3: String = process_array(nil)  # "アイテムなし"
 
 ### nilとの比較
 
-```ruby title="nil_comparison.trb"
+```trb title="nil_comparison.trb"
 def greet(name: String | nil): String
   if name == nil
     # ここでnameはnil
@@ -137,7 +140,7 @@ end
 
 ### 特定の値との比較
 
-```ruby title="value_comparison.trb"
+```trb title="value_comparison.trb"
 def process_status(status: String): String
   if status == "active"
     # statusはまだStringだが、値を知っている
@@ -154,7 +157,7 @@ end
 
 ### If/Elsif/Else文
 
-```ruby title="if_narrowing.trb"
+```trb title="if_narrowing.trb"
 def categorize(value: String | Integer | nil): String
   if value.nil?
     # valueはnil
@@ -175,7 +178,7 @@ cat3: String = categorize(42)  # "数値: 42"
 
 ### Unless文
 
-```ruby title="unless_narrowing.trb"
+```trb title="unless_narrowing.trb"
 def process_unless(value: String | nil): String
   unless value.nil?
     # ここでvalueはString
@@ -192,7 +195,7 @@ result2: String = process_unless(nil)  # "値なし"
 
 ### Case/When文
 
-```ruby title="case_narrowing.trb"
+```trb title="case_narrowing.trb"
 def describe(value: String | Integer | Symbol): String
   case value
   when String
@@ -216,7 +219,7 @@ desc3: String = describe(:active)  # "シンボル: active"
 
 ### 三項演算子
 
-```ruby title="ternary_narrowing.trb"
+```trb title="ternary_narrowing.trb"
 def get_display_name(name: String | nil): String
   name.nil? ? "匿名" : name.upcase
 end
@@ -229,7 +232,7 @@ display2: String = get_display_name(nil)  # "匿名"
 
 ### AND演算子（`&&`）
 
-```ruby title="and_narrowing.trb"
+```trb title="and_narrowing.trb"
 def process_and(
   value: String | nil,
   flag: Bool
@@ -255,7 +258,7 @@ end
 
 ### OR演算子（`||`）
 
-```ruby title="or_narrowing.trb"
+```trb title="or_narrowing.trb"
 def process_or(value: String | nil): String
   if value.nil? || value.empty?
     "値なし"
@@ -270,7 +273,7 @@ end
 
 早期リターンは関数の残りの部分で型を絞り込みます：
 
-```ruby title="early_return.trb"
+```trb title="early_return.trb"
 def process_with_guard(value: String | nil): String
   # ガード節
   return "値なし" if value.nil?
@@ -303,7 +306,7 @@ end
 
 ### Stringメソッド
 
-```ruby title="string_method_narrowing.trb"
+```trb title="string_method_narrowing.trb"
 def process_string(value: String | nil): String
   return "空" if value.nil? || value.empty?
 
@@ -315,7 +318,7 @@ end
 
 ### Arrayメソッド
 
-```ruby title="array_method_narrowing.trb"
+```trb title="array_method_narrowing.trb"
 def get_first_element(items: Array<String> | nil): String
   return "アイテムなし" if items.nil? || items.empty?
 
@@ -329,7 +332,7 @@ end
 
 型ナローイングはブロック内でも機能します：
 
-```ruby title="block_narrowing.trb"
+```trb title="block_narrowing.trb"
 def process_items(items: Array<String | nil>): Array<String>
   result: Array<String> = []
 
@@ -361,7 +364,7 @@ end
 
 型ナローイングを使用した包括的な例です：
 
-```ruby title="form_validator.trb"
+```trb title="form_validator.trb"
 class FormValidator
   def validate_field(
     name: String,
@@ -478,7 +481,7 @@ errors2 = validator.validate_form(nil, "invalid-email", -5)
 
 ### 関数呼び出し間でナローイングが維持されない
 
-```ruby title="narrowing_limits.trb"
+```trb title="narrowing_limits.trb"
 def helper(value: String | Integer)
   # 呼び出し元のナローイングに依存できない
   if value.is_a?(String)
@@ -498,7 +501,7 @@ end
 
 ### 変更後はナローイングが機能しない
 
-```ruby title="mutation_limits.trb"
+```trb title="mutation_limits.trb"
 def example(value: String | Integer)
   if value.is_a?(String)
     # ここでvalueはString
@@ -512,7 +515,7 @@ end
 
 ### 複雑な条件はナローイングできないことがある
 
-```ruby title="complex_limits.trb"
+```trb title="complex_limits.trb"
 def complex(a: String | nil, b: String | nil): String
   # これは機能する
   if !a.nil? && !b.nil?
@@ -540,7 +543,7 @@ end
 
 ### 1. ガード節を使用
 
-```ruby title="guard_clauses.trb"
+```trb title="guard_clauses.trb"
 # 良い - 早期リターンでナローイングが明確
 def process(value: String | nil): String
   return "空" if value.nil?
@@ -561,7 +564,7 @@ end
 
 ### 2. nilを最初にチェック
 
-```ruby title="nil_first.trb"
+```trb title="nil_first.trb"
 # 良い - 他の型の前にnilをチェック
 def process(value: String | Integer | nil): String
   return "なし" if value.nil?
@@ -576,7 +579,7 @@ end
 
 ### 3. 具体的な型チェックを使用
 
-```ruby title="specific_checks.trb"
+```trb title="specific_checks.trb"
 # 良い - 具体的な型チェック
 def process(value: String | Integer): String
   if value.is_a?(String)

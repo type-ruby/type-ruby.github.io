@@ -4,6 +4,9 @@ title: パラメータ & 戻り値の型
 description: 関数パラメータと戻り値の型付け
 ---
 
+<DocsBadge />
+
+
 # パラメータ & 戻り値の型
 
 関数はすべてのRubyプログラムの構成要素です。T-Rubyでは、関数パラメータと戻り値に型アノテーションを追加することで、エラーを早期に発見し、コードをより自己文書化されたものにできます。
@@ -12,7 +15,7 @@ description: 関数パラメータと戻り値の型付け
 
 関数に型を追加する最も簡単な方法は、パラメータと戻り値にアノテーションを付けることです：
 
-```ruby title="greetings.trb"
+```trb title="greetings.trb"
 def greet(name: String): String
   "Hello, #{name}!"
 end
@@ -38,7 +41,7 @@ add("5", "3")        # ✗ エラー: Integerを期待したがStringを受け�
 
 T-Rubyは関数本体に基づいて戻り値の型を推論できることが多いですが、明示的に書くことが良い慣行です：
 
-```ruby title="inference.trb"
+```trb title="inference.trb"
 # 戻り値の型を明示的にアノテーション
 def double(n: Integer): Integer
   n * 2
@@ -59,7 +62,7 @@ end
 
 状況に応じて関数が異なる型を返すことがあります。ユニオン型を使用します：
 
-```ruby title="unions.trb"
+```trb title="unions.trb"
 def find_user(id: Integer): User | nil
   # 見つかればUserを返し、見つからなければnilを返す
   users = load_users()
@@ -90,7 +93,7 @@ value = parse_value("3.14")
 
 意味のある値を返さない関数は `void` 戻り値の型を使用します：
 
-```ruby title="void.trb"
+```trb title="void.trb"
 def log_message(message: String): void
   puts "[LOG] #{message}"
   # 明示的なreturnは不要
@@ -110,7 +113,7 @@ save_to_database(user_record)
 
 パラメータは配列、ハッシュ、カスタムクラスを含む任意の型を持つことができます：
 
-```ruby title="complex.trb"
+```trb title="complex.trb"
 def process_names(names: Array<String>): Integer
   names.map(&:capitalize).length
 end
@@ -136,7 +139,7 @@ config = merge_configs(
 
 各パラメータに個別に型を指定します：
 
-```ruby title="multiple_params.trb"
+```trb title="multiple_params.trb"
 def create_user(
   name: String,
   email: String,
@@ -168,7 +171,7 @@ price = calculate_price(100.0, 0.08, 0.10)
 
 nilになり得るパラメータには `?` 省略形を使用します：
 
-```ruby title="nilable.trb"
+```trb title="nilable.trb"
 def format_name(first: String, middle: String?, last: String): String
   if middle
     "#{first} #{middle} #{last}"
@@ -199,7 +202,7 @@ greeting2 = greet_with_title("Jones", nil)
 
 true/falseを返す関数には `Boolean` を使用します：
 
-```ruby title="boolean.trb"
+```trb title="boolean.trb"
 def is_valid_email(email: String): Boolean
   email.include?("@") && email.include?(".")
 end
@@ -224,7 +227,7 @@ can_edit = has_permission(current_user, "posts:edit")
 
 関数は型情報を保持するジェネリック型を返すことができます：
 
-```ruby title="generics.trb"
+```trb title="generics.trb"
 def first_element<T>(array: Array<T>): T | nil
   array.first
 end
@@ -247,7 +250,7 @@ wrapped = wrap_in_array(42)  # 型: Array<Integer>
 
 実際のシナリオで関数の型付けを示す完全な例です：
 
-```ruby title="user_service.trb"
+```trb title="user_service.trb"
 class UserService
   def find_by_id(id: Integer): User | nil
     database.query("SELECT * FROM users WHERE id = ?", id).first
@@ -326,7 +329,7 @@ exists = service.is_email_taken("test@example.com")
 
 ### ファクトリ関数
 
-```ruby title="factory.trb"
+```trb title="factory.trb"
 def create_admin_user(name: String, email: String): User
   User.new(name: name, email: email, role: "admin", permissions: ["all"])
 end
@@ -338,7 +341,7 @@ end
 
 ### 変換関数
 
-```ruby title="converters.trb"
+```trb title="converters.trb"
 def to_integer(value: String): Integer | nil
   Integer(value) rescue nil
 end
@@ -354,7 +357,7 @@ end
 
 ### バリデーション関数
 
-```ruby title="validators.trb"
+```trb title="validators.trb"
 def validate_password(password: String): Boolean
   password.length >= 8 && password.match?(/[A-Z]/) && password.match?(/[0-9]/)
 end

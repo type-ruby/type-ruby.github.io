@@ -4,6 +4,9 @@ title: Literal Types
 description: Using literal values as types
 ---
 
+<DocsBadge />
+
+
 # Literal Types
 
 Literal types allow you to specify exact values as types, not just broad categories. Instead of saying a variable is a `String`, you can say it must be the specific string `"active"`. This chapter will teach you how to use literal types to create more precise type definitions.
@@ -12,7 +15,7 @@ Literal types allow you to specify exact values as types, not just broad categor
 
 A literal type is a type that represents a single, specific value. Instead of accepting any string, it accepts only one particular string. Instead of any integer, only one particular integer.
 
-```ruby title="literal_basics.trb"
+```trb title="literal_basics.trb"
 # Broad type - any string
 status: String = "active"
 
@@ -29,7 +32,7 @@ String literals are the most common literal types:
 
 ### Single String Literal
 
-```ruby title="single_literal.trb"
+```trb title="single_literal.trb"
 # Variable that can only be "production"
 environment: "production" = "production"
 
@@ -45,7 +48,7 @@ result: "success" = get_status()
 
 More commonly, you'll use unions of string literals to represent a limited set of valid values:
 
-```ruby title="string_literal_union.trb"
+```trb title="string_literal_union.trb"
 # Can be one of three specific strings
 def set_mode(mode: "development" | "staging" | "production")
   puts "Mode set to: #{mode}"
@@ -62,7 +65,7 @@ set_mode("production")
 
 ### Practical String Literal Example
 
-```ruby title="status_system.trb"
+```trb title="status_system.trb"
 # Status can only be one of these exact strings
 type Status = "pending" | "active" | "suspended" | "cancelled"
 
@@ -99,7 +102,7 @@ Symbols can also be used as literal types:
 
 ### Symbol Literal Union
 
-```ruby title="symbol_literals.trb"
+```trb title="symbol_literals.trb"
 # Can be one of these specific symbols
 def handle_event(event: :click | :hover | :focus)
   case event
@@ -122,7 +125,7 @@ handle_event(:hover)
 
 ### Using Symbols for State Machines
 
-```ruby title="state_machine.trb"
+```trb title="state_machine.trb"
 type State = :idle | :loading | :success | :error
 
 class DataLoader
@@ -176,7 +179,7 @@ Integer literals represent specific numbers:
 
 ### Single Integer Literal
 
-```ruby title="integer_literal.trb"
+```trb title="integer_literal.trb"
 # This can only be the number 200
 http_ok: 200 = 200
 
@@ -188,7 +191,7 @@ end
 
 ### Integer Literal Unions
 
-```ruby title="http_status.trb"
+```trb title="http_status.trb"
 # HTTP status codes
 type HttpStatus = 200 | 201 | 400 | 401 | 403 | 404 | 500
 
@@ -223,7 +226,7 @@ Boolean literals are simply `true` and `false`:
 
 ### True/False Literals
 
-```ruby title="boolean_literals.trb"
+```trb title="boolean_literals.trb"
 # Variable that can only be true
 always_true: true = true
 
@@ -238,7 +241,7 @@ end
 
 ### Boolean Literals vs Bool Type
 
-```ruby title="bool_vs_literal.trb"
+```trb title="bool_vs_literal.trb"
 # Bool type - can be true or false
 flag: Bool = true  # Can also be false
 
@@ -258,7 +261,7 @@ You can mix different kinds of literals in unions:
 
 ### Mixed Literal Types
 
-```ruby title="mixed_literals.trb"
+```trb title="mixed_literals.trb"
 # Mix of string and integer literals
 type ExitCode = "success" | "error" | 0 | 1
 
@@ -276,7 +279,7 @@ type Identifier = :id | :name | "index" | "key"
 
 ### Literals with Broader Types
 
-```ruby title="literals_with_types.trb"
+```trb title="literals_with_types.trb"
 # Specific values OR any string
 type ConfigValue = "auto" | "manual" | String
 
@@ -299,7 +302,7 @@ set_config("custom-value")  # "Custom value: custom-value"
 
 ### Example 1: Log Levels
 
-```ruby title="log_levels.trb"
+```trb title="log_levels.trb"
 type LogLevel = "debug" | "info" | "warn" | "error"
 
 class Logger
@@ -377,7 +380,7 @@ logger.error("This will show")   # Level high enough
 
 ### Example 2: Direction System
 
-```ruby title="directions.trb"
+```trb title="directions.trb"
 type Direction = "north" | "south" | "east" | "west"
 
 class Position
@@ -418,7 +421,7 @@ east = pos.move("east")    # (1, 0)
 
 ### Example 3: API Response Types
 
-```ruby title="api_response.trb"
+```trb title="api_response.trb"
 type HttpMethod = "GET" | "POST" | "PUT" | "DELETE" | "PATCH"
 type ResponseStatus = "success" | "error" | "loading"
 
@@ -471,7 +474,7 @@ response = client.get("/users")
 
 ### Example 4: Configuration with Literal Types
 
-```ruby title="config_literals.trb"
+```trb title="config_literals.trb"
 type Environment = "development" | "test" | "staging" | "production"
 type LogFormat = "json" | "text" | "colored"
 type CacheStrategy = "memory" | "redis" | "none"
@@ -545,7 +548,7 @@ settings = config.get_config()
 
 Literal types catch errors at transpile time instead of runtime:
 
-```ruby title="compile_safety.trb"
+```trb title="compile_safety.trb"
 type Status = "active" | "inactive"
 
 def set_status(status: Status)
@@ -563,7 +566,7 @@ set_status("active")
 
 Literal types serve as inline documentation:
 
-```ruby title="documentation.trb"
+```trb title="documentation.trb"
 # Clear what values are valid
 def set_priority(priority: "low" | "medium" | "high")
   # ...
@@ -579,7 +582,7 @@ end
 
 Type checkers can ensure you handle all cases:
 
-```ruby title="exhaustiveness.trb"
+```trb title="exhaustiveness.trb"
 type Color = "red" | "green" | "blue"
 
 def describe_color(color: Color): String
@@ -599,7 +602,7 @@ end
 
 ### Pattern 1: Command Types
 
-```ruby title="commands.trb"
+```trb title="commands.trb"
 type Command = "start" | "stop" | "restart" | "status"
 
 def execute_command(cmd: Command): String
@@ -618,7 +621,7 @@ end
 
 ### Pattern 2: Result Types
 
-```ruby title="results.trb"
+```trb title="results.trb"
 type Result = "ok" | "error"
 
 def process(): Hash<Symbol, Result | String>
@@ -634,7 +637,7 @@ end
 
 ### Pattern 3: Enum-like Types
 
-```ruby title="enums.trb"
+```trb title="enums.trb"
 type Weekday = "monday" | "tuesday" | "wednesday" | "thursday" | "friday"
 type Weekend = "saturday" | "sunday"
 type Day = Weekday | Weekend
@@ -652,7 +655,7 @@ end
 
 ### 1. Use Literals for Fixed Sets
 
-```ruby title="fixed_sets.trb"
+```trb title="fixed_sets.trb"
 # Good - clear, fixed set of values
 type Size = "small" | "medium" | "large"
 
@@ -662,7 +665,7 @@ type Size = String
 
 ### 2. Combine with Type Aliases
 
-```ruby title="type_aliases.trb"
+```trb title="type_aliases.trb"
 # Define once, use everywhere
 type Status = "pending" | "approved" | "rejected"
 type Priority = "low" | "medium" | "high"
@@ -685,7 +688,7 @@ end
 
 ### 3. Keep Sets Manageable
 
-```ruby title="manageable_sets.trb"
+```trb title="manageable_sets.trb"
 # Good - reasonable number of options
 type Theme = "light" | "dark" | "auto"
 

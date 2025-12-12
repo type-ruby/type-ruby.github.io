@@ -4,6 +4,9 @@ title: 기여하기
 description: T-Ruby에 기여하는 방법
 ---
 
+<DocsBadge />
+
+
 # T-Ruby에 기여하기
 
 T-Ruby에 기여하는 데 관심을 가져주셔서 감사합니다! 이 가이드는 코드, 문서, 타입 등에 기여하는 것을 시작하는 데 도움이 됩니다.
@@ -43,7 +46,7 @@ T-Ruby에 기여하는 방법은 여러 가지가 있습니다:
 **Ruby 버전:** 3.2.0
 
 ### 재현 단계
-```ruby
+```trb
 numbers: Array<Integer> = [1, 2, 3]
 strings = numbers.map { |n| n.to_s }
 # strings의 타입은 Array<String>이어야 함
@@ -313,7 +316,7 @@ git push origin feature/my-awesome-feature
 
 일부 수정과 함께 [Ruby 스타일 가이드](https://rubystyle.guide/)를 따릅니다:
 
-```ruby
+```trb
 # 좋음
 def type_check(node: AST::Node): Type
   case node.type
@@ -336,7 +339,7 @@ end
 
 ### T-Ruby 스타일 (예제용)
 
-```ruby
+```trb
 # 예제에서 명확하고 명시적인 타입 사용
 def process_user(user: User): UserResponse
   UserResponse.new(
@@ -353,7 +356,7 @@ active_users: Array<User> = users.select { |u| u.active? }
 
 ### 문서 스타일
 
-```ruby
+```trb
 # 좋은 문서
 # 배열 리터럴의 타입을 추론합니다
 #
@@ -371,7 +374,7 @@ end
 
 ### 테스트 작성
 
-```ruby
+```trb
 RSpec.describe TypeChecker do
   describe '#infer_type' do
     it 'infers Integer for integer literals' do
@@ -422,7 +425,7 @@ spec/
 
 ### 1. 타입 정의 파일 생성
 
-```ruby
+```trb
 # lib/t_ruby/stdlib/json.trb
 
 # JSON 모듈에 대한 타입 정의
@@ -440,7 +443,7 @@ end
 
 ### 2. 테스트 추가
 
-```ruby
+```trb
 # spec/stdlib/json_spec.rb
 
 RSpec.describe 'JSON types' do
@@ -464,7 +467,7 @@ end
 ```markdown
 ### JSON
 
-```ruby
+```trb
 def parse_json(file: String): Hash<String, Any>
   JSON.parse(File.read(file))
 end

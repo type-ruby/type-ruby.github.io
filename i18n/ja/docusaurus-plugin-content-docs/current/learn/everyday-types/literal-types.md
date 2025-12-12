@@ -4,6 +4,9 @@ title: リテラル型
 description: リテラル値を型として使用する
 ---
 
+<DocsBadge />
+
+
 # リテラル型
 
 リテラル型を使用すると、広いカテゴリーではなく、正確な値を型として指定できます。変数が`String`であると言う代わりに、特定の文字列`"active"`でなければならないと指定できます。この章では、リテラル型を使用してより精密な型定義を作成する方法を学びます。
@@ -12,7 +15,7 @@ description: リテラル値を型として使用する
 
 リテラル型は、単一の特定の値を表す型です。任意の文字列を受け入れるのではなく、1つの特定の文字列のみを受け入れます。任意の整数ではなく、1つの特定の整数のみです。
 
-```ruby title="literal_basics.trb"
+```trb title="literal_basics.trb"
 # 広い型 - 任意の文字列
 status: String = "active"
 
@@ -29,7 +32,7 @@ status: "active" = "active"
 
 ### 単一の文字列リテラル
 
-```ruby title="single_literal.trb"
+```trb title="single_literal.trb"
 # "production"のみを取れる変数
 environment: "production" = "production"
 
@@ -45,7 +48,7 @@ result: "success" = get_status()
 
 より一般的には、有効な値の限定されたセットを表すために文字列リテラルのユニオンを使用します：
 
-```ruby title="string_literal_union.trb"
+```trb title="string_literal_union.trb"
 # 3つの特定の文字列のいずれか
 def set_mode(mode: "development" | "staging" | "production")
   puts "Mode set to: #{mode}"
@@ -62,7 +65,7 @@ set_mode("production")
 
 ### 実践的な文字列リテラルの例
 
-```ruby title="status_system.trb"
+```trb title="status_system.trb"
 # Statusはこれらの正確な文字列のいずれかのみ
 type Status = "pending" | "active" | "suspended" | "cancelled"
 
@@ -99,7 +102,7 @@ account.set_status("active")  # 有効
 
 ### シンボルリテラルのユニオン
 
-```ruby title="symbol_literals.trb"
+```trb title="symbol_literals.trb"
 # これらの特定のシンボルのいずれか
 def handle_event(event: :click | :hover | :focus)
   case event
@@ -122,7 +125,7 @@ handle_event(:hover)
 
 ### ステートマシンでのシンボル使用
 
-```ruby title="state_machine.trb"
+```trb title="state_machine.trb"
 type State = :idle | :loading | :success | :error
 
 class DataLoader
@@ -176,7 +179,7 @@ loader.complete_success("data")
 
 ### 単一の整数リテラル
 
-```ruby title="integer_literal.trb"
+```trb title="integer_literal.trb"
 # これは数値200のみ
 http_ok: 200 = 200
 
@@ -188,7 +191,7 @@ end
 
 ### 整数リテラルのユニオン
 
-```ruby title="http_status.trb"
+```trb title="http_status.trb"
 # HTTPステータスコード
 type HttpStatus = 200 | 201 | 400 | 401 | 403 | 404 | 500
 
@@ -223,7 +226,7 @@ message: String = handle_response(200)  # "OK"
 
 ### True/Falseリテラル
 
-```ruby title="boolean_literals.trb"
+```trb title="boolean_literals.trb"
 # trueのみを取れる変数
 always_true: true = true
 
@@ -238,7 +241,7 @@ end
 
 ### ブーリアンリテラル vs Bool型
 
-```ruby title="bool_vs_literal.trb"
+```trb title="bool_vs_literal.trb"
 # Bool型 - trueまたはfalseになれる
 flag: Bool = true  # falseにもなれる
 
@@ -258,7 +261,7 @@ value: true | false = true  # Boolと同じ
 
 ### 混合リテラル型
 
-```ruby title="mixed_literals.trb"
+```trb title="mixed_literals.trb"
 # 文字列と整数リテラルの混合
 type ExitCode = "success" | "error" | 0 | 1
 
@@ -276,7 +279,7 @@ type Identifier = :id | :name | "index" | "key"
 
 ### リテラルと広い型の組み合わせ
 
-```ruby title="literals_with_types.trb"
+```trb title="literals_with_types.trb"
 # 特定の値または任意の文字列
 type ConfigValue = "auto" | "manual" | String
 
@@ -299,7 +302,7 @@ set_config("custom-value")  # "Custom value: custom-value"
 
 ### 例1: ログレベル
 
-```ruby title="log_levels.trb"
+```trb title="log_levels.trb"
 type LogLevel = "debug" | "info" | "warn" | "error"
 
 class Logger
@@ -377,7 +380,7 @@ logger.error("This will show")   # レベルが十分高い
 
 ### 例2: 方向システム
 
-```ruby title="directions.trb"
+```trb title="directions.trb"
 type Direction = "north" | "south" | "east" | "west"
 
 class Position
@@ -418,7 +421,7 @@ east = pos.move("east")    # (1, 0)
 
 ### 例3: APIレスポンス型
 
-```ruby title="api_response.trb"
+```trb title="api_response.trb"
 type HttpMethod = "GET" | "POST" | "PUT" | "DELETE" | "PATCH"
 type ResponseStatus = "success" | "error" | "loading"
 
@@ -471,7 +474,7 @@ response = client.get("/users")
 
 ### 例4: リテラル型を使った設定
 
-```ruby title="config_literals.trb"
+```trb title="config_literals.trb"
 type Environment = "development" | "test" | "staging" | "production"
 type LogFormat = "json" | "text" | "colored"
 type CacheStrategy = "memory" | "redis" | "none"
@@ -545,7 +548,7 @@ settings = config.get_config()
 
 リテラル型は実行時ではなくトランスパイル時にエラーを検出します：
 
-```ruby title="compile_safety.trb"
+```trb title="compile_safety.trb"
 type Status = "active" | "inactive"
 
 def set_status(status: Status)
@@ -563,7 +566,7 @@ set_status("active")
 
 リテラル型はインラインドキュメントとして機能します：
 
-```ruby title="documentation.trb"
+```trb title="documentation.trb"
 # 有効な値が明確
 def set_priority(priority: "low" | "medium" | "high")
   # ...
@@ -579,7 +582,7 @@ end
 
 型チェッカーはすべてのケースを処理していることを確認できます：
 
-```ruby title="exhaustiveness.trb"
+```trb title="exhaustiveness.trb"
 type Color = "red" | "green" | "blue"
 
 def describe_color(color: Color): String
@@ -599,7 +602,7 @@ end
 
 ### パターン1: コマンド型
 
-```ruby title="commands.trb"
+```trb title="commands.trb"
 type Command = "start" | "stop" | "restart" | "status"
 
 def execute_command(cmd: Command): String
@@ -618,7 +621,7 @@ end
 
 ### パターン2: 結果型
 
-```ruby title="results.trb"
+```trb title="results.trb"
 type Result = "ok" | "error"
 
 def process(): Hash<Symbol, Result | String>
@@ -634,7 +637,7 @@ end
 
 ### パターン3: Enum風の型
 
-```ruby title="enums.trb"
+```trb title="enums.trb"
 type Weekday = "monday" | "tuesday" | "wednesday" | "thursday" | "friday"
 type Weekend = "saturday" | "sunday"
 type Day = Weekday | Weekend
@@ -652,7 +655,7 @@ end
 
 ### 1. 固定セットにはリテラルを使用
 
-```ruby title="fixed_sets.trb"
+```trb title="fixed_sets.trb"
 # 良い - 明確で固定された値のセット
 type Size = "small" | "medium" | "large"
 
@@ -662,7 +665,7 @@ type Size = String
 
 ### 2. 型エイリアスと組み合わせる
 
-```ruby title="type_aliases.trb"
+```trb title="type_aliases.trb"
 # 一度定義して、どこでも使用
 type Status = "pending" | "approved" | "rejected"
 type Priority = "low" | "medium" | "high"
@@ -685,7 +688,7 @@ end
 
 ### 3. セットを管理可能な大きさに保つ
 
-```ruby title="manageable_sets.trb"
+```trb title="manageable_sets.trb"
 # 良い - 妥当な数のオプション
 type Theme = "light" | "dark" | "auto"
 

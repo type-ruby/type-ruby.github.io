@@ -4,6 +4,9 @@ title: 매개변수 & 반환 타입
 description: 함수 매개변수와 반환 값의 타입 지정
 ---
 
+<DocsBadge />
+
+
 # 매개변수 & 반환 타입
 
 함수는 모든 Ruby 프로그램의 구성 요소입니다. T-Ruby에서는 함수 매개변수와 반환 값에 타입 어노테이션을 추가하여 오류를 조기에 발견하고 코드를 더 자체 문서화되게 만들 수 있습니다.
@@ -12,7 +15,7 @@ description: 함수 매개변수와 반환 값의 타입 지정
 
 함수에 타입을 추가하는 가장 간단한 방법은 매개변수와 반환 값에 어노테이션을 다는 것입니다:
 
-```ruby title="greetings.trb"
+```trb title="greetings.trb"
 def greet(name: String): String
   "Hello, #{name}!"
 end
@@ -38,7 +41,7 @@ add("5", "3")        # ✗ 오류: Integer를 기대했는데 String을 받음
 
 T-Ruby는 종종 함수 본문을 기반으로 반환 타입을 추론할 수 있지만, 명시적으로 작성하는 것이 좋은 관행입니다:
 
-```ruby title="inference.trb"
+```trb title="inference.trb"
 # 반환 타입 명시적으로 어노테이션
 def double(n: Integer): Integer
   n * 2
@@ -59,7 +62,7 @@ end
 
 상황에 따라 함수가 다른 타입을 반환할 수 있습니다. 유니온 타입을 사용하세요:
 
-```ruby title="unions.trb"
+```trb title="unions.trb"
 def find_user(id: Integer): User | nil
   # 찾으면 User를 반환하고, 찾지 못하면 nil을 반환
   users = load_users()
@@ -90,7 +93,7 @@ value = parse_value("3.14")
 
 의미 있는 값을 반환하지 않는 함수는 `void` 반환 타입을 사용합니다:
 
-```ruby title="void.trb"
+```trb title="void.trb"
 def log_message(message: String): void
   puts "[LOG] #{message}"
   # 명시적인 return이 필요 없음
@@ -110,7 +113,7 @@ save_to_database(user_record)
 
 매개변수는 배열, 해시, 커스텀 클래스를 포함한 모든 타입을 가질 수 있습니다:
 
-```ruby title="complex.trb"
+```trb title="complex.trb"
 def process_names(names: Array<String>): Integer
   names.map(&:capitalize).length
 end
@@ -136,7 +139,7 @@ config = merge_configs(
 
 각 매개변수에 개별적으로 타입을 지정합니다:
 
-```ruby title="multiple_params.trb"
+```trb title="multiple_params.trb"
 def create_user(
   name: String,
   email: String,
@@ -168,7 +171,7 @@ price = calculate_price(100.0, 0.08, 0.10)
 
 nil일 수 있는 매개변수에는 `?` 축약형을 사용합니다:
 
-```ruby title="nilable.trb"
+```trb title="nilable.trb"
 def format_name(first: String, middle: String?, last: String): String
   if middle
     "#{first} #{middle} #{last}"
@@ -199,7 +202,7 @@ greeting2 = greet_with_title("Jones", nil)
 
 true/false를 반환하는 함수에는 `Boolean`을 사용합니다:
 
-```ruby title="boolean.trb"
+```trb title="boolean.trb"
 def is_valid_email(email: String): Boolean
   email.include?("@") && email.include?(".")
 end
@@ -224,7 +227,7 @@ can_edit = has_permission(current_user, "posts:edit")
 
 함수는 타입 정보를 보존하는 제네릭 타입을 반환할 수 있습니다:
 
-```ruby title="generics.trb"
+```trb title="generics.trb"
 def first_element<T>(array: Array<T>): T | nil
   array.first
 end
@@ -247,7 +250,7 @@ wrapped = wrap_in_array(42)  # 타입: Array<Integer>
 
 실제 시나리오에서 함수 타이핑을 보여주는 완전한 예제입니다:
 
-```ruby title="user_service.trb"
+```trb title="user_service.trb"
 class UserService
   def find_by_id(id: Integer): User | nil
     database.query("SELECT * FROM users WHERE id = ?", id).first
@@ -326,7 +329,7 @@ exists = service.is_email_taken("test@example.com")
 
 ### 팩토리 함수
 
-```ruby title="factory.trb"
+```trb title="factory.trb"
 def create_admin_user(name: String, email: String): User
   User.new(name: name, email: email, role: "admin", permissions: ["all"])
 end
@@ -338,7 +341,7 @@ end
 
 ### 변환 함수
 
-```ruby title="converters.trb"
+```trb title="converters.trb"
 def to_integer(value: String): Integer | nil
   Integer(value) rescue nil
 end
@@ -354,7 +357,7 @@ end
 
 ### 검증 함수
 
-```ruby title="validators.trb"
+```trb title="validators.trb"
 def validate_password(password: String): Boolean
   password.length >= 8 && password.match?(/[A-Z]/) && password.match?(/[0-9]/)
 end
