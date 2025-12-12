@@ -4,6 +4,9 @@ title: ロードマップ
 description: T-Ruby開発ロードマップ
 ---
 
+<DocsBadge />
+
+
 # ロードマップ
 
 T-Rubyは活発に開発中です。このロードマップでは、プロジェクトの現在の状態、今後の機能、長期的なビジョンを概説します。
@@ -201,28 +204,28 @@ T-Rubyは現在**実験的/アルファ**状態です。コア機能は動作し
 
 ### 1. エフェクト型
 型システムで副作用を追跡：
-```ruby
+```trb
 def read_file(path: String): String throws IOError
 def calculate(x: Integer): Integer pure
 ```
 
 ### 2. 依存型
 値に依存する型：
-```ruby
+```trb
 def create_array<N: Integer>(size: N): Array<T>[N]
 # 正確にN個の要素を持つ配列を返す
 ```
 
 ### 3. 線形型
 リソースが正確に一度だけ使用されることを保証：
-```ruby
+```trb
 def process_file(handle: File) consume: String
 # この呼び出し後はhandleを使用できない
 ```
 
 ### 4. 行多相性
 柔軟なレコード型：
-```ruby
+```trb
 def add_id<T: { ... }>(obj: T): T & { id: Integer }
 ```
 

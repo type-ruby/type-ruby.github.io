@@ -4,6 +4,9 @@ title: Abstract Classes
 description: Defining abstract classes and methods
 ---
 
+<DocsBadge />
+
+
 # Abstract Classes
 
 Abstract classes define a template for subclasses, containing both implemented methods and abstract methods that must be overridden. While Ruby doesn't have built-in abstract class syntax, T-Ruby provides conventions and patterns to create type-safe abstract classes.
@@ -12,7 +15,7 @@ Abstract classes define a template for subclasses, containing both implemented m
 
 Create abstract classes by raising errors in methods that subclasses must implement:
 
-```ruby title="abstract_basic.trb"
+```trb title="abstract_basic.trb"
 class Shape
   def initialize()
     @name: String = "Shape"
@@ -88,7 +91,7 @@ puts circle.describe()  # "Circle: area = 78.53975, perimeter = 31.4159"
 
 All abstract methods should have full type annotations:
 
-```ruby title="typed_abstract.trb"
+```trb title="typed_abstract.trb"
 abstract class DataSource
   def connect(): Boolean
     raise NotImplementedError, "Must implement connect()"
@@ -175,7 +178,7 @@ end
 
 Abstract classes often implement the template method pattern:
 
-```ruby title="template_method.trb"
+```trb title="template_method.trb"
 abstract class Report
   def generate(): String
     validate()
@@ -262,7 +265,7 @@ puts html.generate()
 
 Abstract classes can provide some concrete functionality:
 
-```ruby title="partial_implementation.trb"
+```trb title="partial_implementation.trb"
 abstract class CacheStore<T>
   def initialize()
     @stats: Hash<String, Integer> = { "hits" => 0, "misses" => 0 }
@@ -395,7 +398,7 @@ puts memory_cache.hit_rate()
 
 Use abstract classes to enforce common patterns:
 
-```ruby title="common_patterns.trb"
+```trb title="common_patterns.trb"
 abstract class Controller
   def initialize()
     @before_filters: Array<Proc<[], void>> = []
@@ -480,7 +483,7 @@ controller.execute("index")
 
 A complete example using abstract classes:
 
-```ruby title="payment_processor.trb"
+```trb title="payment_processor.trb"
 abstract class PaymentProcessor
   attr_reader :transaction_id: String?
   attr_reader :amount: Float
@@ -659,7 +662,7 @@ processors.each { |p| process_payment(p) }
 
 ### Strategy Pattern
 
-```ruby title="strategy.trb"
+```trb title="strategy.trb"
 abstract class SortStrategy
   def sort(array: Array<Integer>): Array<Integer>
     raise NotImplementedError, "Must implement sort()"
@@ -696,7 +699,7 @@ sorted = sorter.sort([3, 1, 4, 1, 5, 9, 2, 6])
 
 ### Factory Pattern
 
-```ruby title="factory.trb"
+```trb title="factory.trb"
 abstract class Document
   def initialize(title: String)
     @title = title

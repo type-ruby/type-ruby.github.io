@@ -4,6 +4,9 @@ title: Primitives
 description: Primitive types in T-Ruby
 ---
 
+<DocsBadge />
+
+
 # Primitives
 
 Primitive types are the fundamental building blocks of T-Ruby's type system. They represent simple, indivisible values that form the basis of more complex types. This chapter explores primitive types in depth, covering their behaviors, edge cases, and best practices.
@@ -27,7 +30,7 @@ Strings are immutable sequences of characters in Ruby. T-Ruby's String type prov
 
 ### String Creation and Manipulation
 
-```ruby title="string_basics.trb"
+```trb title="string_basics.trb"
 # Different ways to create strings
 single_quoted: String = 'Hello'
 double_quoted: String = "World"
@@ -42,7 +45,7 @@ TEXT
 
 ### String Methods with Type Safety
 
-```ruby title="string_methods.trb"
+```trb title="string_methods.trb"
 def process_text(input: String): String
   # All these operations preserve the String type
   trimmed = input.strip
@@ -66,7 +69,7 @@ formatted: String = format_username("  John Doe! ")
 
 ### String Comparison
 
-```ruby title="string_compare.trb"
+```trb title="string_compare.trb"
 def are_equal(a: String, b: String): Bool
   a == b
 end
@@ -86,7 +89,7 @@ check3: Bool = contains_word("Ruby is great", "great")  # true
 
 ### String Length and Indexing
 
-```ruby title="string_indexing.trb"
+```trb title="string_indexing.trb"
 def get_first_char(text: String): String
   text[0]
 end
@@ -106,7 +109,7 @@ len: Integer = string_length("Hello")  # 5
 
 ### String Building
 
-```ruby title="string_building.trb"
+```trb title="string_building.trb"
 def build_greeting(name: String, title: String): String
   parts: Array<String> = ["Hello", title, name]
   parts.join(" ")
@@ -129,7 +132,7 @@ Integers represent whole numbers without decimal points.
 
 ### Integer Arithmetic
 
-```ruby title="integer_ops.trb"
+```trb title="integer_ops.trb"
 def add(a: Integer, b: Integer): Integer
   a + b
 end
@@ -156,7 +159,7 @@ result: Integer = power(2, 8)  # 256
 
 A critical aspect of Integer arithmetic is division behavior:
 
-```ruby title="integer_division.trb"
+```trb title="integer_division.trb"
 def divide_truncate(a: Integer, b: Integer): Integer
   # Integer division always truncates toward zero
   a / b
@@ -177,7 +180,7 @@ parts: Array<Integer> = divide_with_remainder(17, 5)
 
 ### Integer Comparison
 
-```ruby title="integer_compare.trb"
+```trb title="integer_compare.trb"
 def is_positive(n: Integer): Bool
   n > 0
 end
@@ -206,7 +209,7 @@ maximum: Integer = max(10, 20)  # 20
 
 ### Integer Methods
 
-```ruby title="integer_methods.trb"
+```trb title="integer_methods.trb"
 def absolute(n: Integer): Integer
   n.abs
 end
@@ -234,7 +237,7 @@ Floats represent decimal numbers using floating-point arithmetic.
 
 ### Float Arithmetic
 
-```ruby title="float_ops.trb"
+```trb title="float_ops.trb"
 def divide_precise(a: Integer, b: Integer): Float
   # Convert to float for precise division
   a.to_f / b
@@ -256,7 +259,7 @@ discount: Float = apply_percentage(100.0, 15.0)  # 15.0
 
 ### Float Precision and Rounding
 
-```ruby title="float_precision.trb"
+```trb title="float_precision.trb"
 def round_to_places(value: Float, places: Integer): Float
   multiplier = 10 ** places
   (value * multiplier).round / multiplier.to_f
@@ -284,7 +287,7 @@ ceiled: Integer = ceil_value(3.2)  # 4
 
 Floating-point comparison requires care due to precision issues:
 
-```ruby title="float_compare.trb"
+```trb title="float_compare.trb"
 def approximately_equal(a: Float, b: Float, epsilon: Float = 0.0001): Bool
   (a - b).abs < epsilon
 end
@@ -305,7 +308,7 @@ is_zero: Bool = is_close_to_zero(0.0000001)  # true
 
 ### Float Special Values
 
-```ruby title="float_special.trb"
+```trb title="float_special.trb"
 def is_infinite(value: Float): Bool
   value.infinite? != nil
 end
@@ -334,7 +337,7 @@ The Bool type represents true/false values with strict type checking.
 
 ### Boolean Operations
 
-```ruby title="bool_ops.trb"
+```trb title="bool_ops.trb"
 def and_operation(a: Bool, b: Bool): Bool
   a && b
 end
@@ -359,7 +362,7 @@ result4: Bool = xor_operation(true, false)  # true
 
 ### Boolean from Comparisons
 
-```ruby title="bool_from_compare.trb"
+```trb title="bool_from_compare.trb"
 def is_valid_age(age: Integer): Bool
   age >= 0 && age <= 150
 end
@@ -386,7 +389,7 @@ check2: Bool = any_even([1, 3, 5, 6])  # true
 
 T-Ruby's Bool type is strict - only `true` and `false` are valid:
 
-```ruby title="bool_strict.trb"
+```trb title="bool_strict.trb"
 # These are Bool values
 flag1: Bool = true
 flag2: Bool = false
@@ -416,7 +419,7 @@ Symbols are immutable, unique identifiers often used as constants or keys.
 
 ### Symbol Usage
 
-```ruby title="symbol_usage.trb"
+```trb title="symbol_usage.trb"
 # Symbols as constants
 STATUS_ACTIVE: Symbol = :active
 STATUS_PENDING: Symbol = :pending
@@ -443,7 +446,7 @@ message: String = get_status_message(:active)
 
 Symbols are more memory-efficient than strings for repeated use:
 
-```ruby title="symbol_performance.trb"
+```trb title="symbol_performance.trb"
 def categorize_with_symbols(items: Array<Integer>): Hash<Symbol, Array<Integer>>
   categories: Hash<Symbol, Array<Integer>> = {
     small: [],
@@ -470,7 +473,7 @@ result = categorize_with_symbols([5, 50, 500])
 
 ### Converting Between Symbol and String
 
-```ruby title="symbol_conversion.trb"
+```trb title="symbol_conversion.trb"
 def symbol_to_string(sym: Symbol): String
   sym.to_s
 end
@@ -498,7 +501,7 @@ The `nil` type represents the absence of a value.
 
 ### nil Checks
 
-```ruby title="nil_checks.trb"
+```trb title="nil_checks.trb"
 def is_nil(value: String | nil): Bool
   value.nil?
 end
@@ -522,7 +525,7 @@ result: String = get_or_default(nil, "default")  # "default"
 
 ### Safe Navigation
 
-```ruby title="safe_navigation.trb"
+```trb title="safe_navigation.trb"
 def get_length_safe(text: String | nil): Integer | nil
   text&.length
 end
@@ -544,7 +547,7 @@ Converting between primitive types is explicit in T-Ruby:
 
 ### To String Conversions
 
-```ruby title="to_string_conversions.trb"
+```trb title="to_string_conversions.trb"
 def int_to_string(n: Integer): String
   n.to_s
 end
@@ -569,7 +572,7 @@ str4: String = symbol_to_string(:active)  # "active"
 
 ### To Number Conversions
 
-```ruby title="to_number_conversions.trb"
+```trb title="to_number_conversions.trb"
 def string_to_int(s: String): Integer
   s.to_i
 end
@@ -596,7 +599,7 @@ num4: Float = int_to_float(42)  # 42.0
 
 Here's a comprehensive example using all primitive types:
 
-```ruby title="calculator.trb"
+```trb title="calculator.trb"
 class Calculator
   def initialize()
     @history: Array<String> = []

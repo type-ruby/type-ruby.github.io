@@ -4,6 +4,9 @@ title: 인스턴스 & 클래스 변수
 description: 인스턴스 및 클래스 변수 타이핑
 ---
 
+<DocsBadge />
+
+
 # 인스턴스 & 클래스 변수
 
 인스턴스 변수와 클래스 변수는 Ruby의 객체 지향 프로그래밍의 기본입니다. T-Ruby는 둘 다에 대해 포괄적인 타입 안전성을 제공하여 데이터 구조가 예측 가능하고 오류가 없도록 합니다. 이 가이드에서는 인스턴스 및 클래스 레벨에서 변수에 타입을 지정하는 방법을 다룹니다.
@@ -16,7 +19,7 @@ description: 인스턴스 및 클래스 변수 타이핑
 
 인스턴스 변수에 타입을 지정하는 가장 일반적이고 권장되는 방법입니다:
 
-```ruby title="attr_methods.trb"
+```trb title="attr_methods.trb"
 class Person
   attr_accessor :name: String
   attr_accessor :age: Integer
@@ -49,7 +52,7 @@ person.password = "secret"   # ✓ OK - attr_writer
 
 인스턴스 변수를 초기화할 때 타입을 명시적으로 선언할 수 있습니다:
 
-```ruby title="explicit_types.trb"
+```trb title="explicit_types.trb"
 class ShoppingCart
   def initialize()
     @items: Array<String> = []
@@ -82,7 +85,7 @@ end
 
 두 가지 접근 방식을 함께 사용할 수 있습니다:
 
-```ruby title="combined.trb"
+```trb title="combined.trb"
 class Article
   attr_reader :title: String
   attr_accessor :published: Boolean
@@ -117,7 +120,7 @@ end
 
 nil일 수 있는 인스턴스 변수는 `?` 접미사를 사용합니다:
 
-```ruby title="nilable.trb"
+```trb title="nilable.trb"
 class UserAccount
   attr_accessor :username: String
   attr_accessor :email: String?
@@ -167,7 +170,7 @@ end
 
 클래스 변수는 클래스의 모든 인스턴스에서 공유됩니다. `@@`로 타입을 지정합니다:
 
-```ruby title="class_vars.trb"
+```trb title="class_vars.trb"
 class Counter
   def initialize()
     @@count: Integer ||= 0
@@ -196,7 +199,7 @@ puts Counter.total_count()  # 0
 
 적절한 기본값으로 클래스 변수를 초기화합니다:
 
-```ruby title="class_var_defaults.trb"
+```trb title="class_var_defaults.trb"
 class Configuration
   @@database_url: String = "localhost"
   @@max_connections: Integer = 10
@@ -247,7 +250,7 @@ Configuration.add_allowed_host("example.com")
 
 각각을 언제 사용해야 하는지 이해하기:
 
-```ruby title="comparison.trb"
+```trb title="comparison.trb"
 class BankAccount
   # 클래스 변수 - 모든 인스턴스에서 공유
   @@total_accounts: Integer = 0
@@ -322,7 +325,7 @@ puts BankAccount.total_balance()    # 3500.0
 
 인스턴스 변수는 모든 타입을 가질 수 있습니다:
 
-```ruby title="complex_types.trb"
+```trb title="complex_types.trb"
 class DataStore
   def initialize()
     @strings: Array<String> = []
@@ -371,7 +374,7 @@ end
 
 인스턴스 변수와 클래스 변수를 조합한 실제 예제입니다:
 
-```ruby title="user_session.trb"
+```trb title="user_session.trb"
 class UserSession
   # 클래스 변수 - 모든 세션 추적
   @@active_sessions: Hash<String, UserSession> = {}
@@ -483,7 +486,7 @@ UserSession.expire_old_sessions(60)  # 60분보다 오래된 세션 만료
 
 클래스 변수와 인스턴스 변수의 효과적인 사용을 보여주는 또 다른 예제입니다:
 
-```ruby title="cache_system.trb"
+```trb title="cache_system.trb"
 class Cache<T>
   # 클래스 변수 - 공유 통계
   @@total_hits: Integer = 0
@@ -623,7 +626,7 @@ puts Cache.total_caches()      # 2
 
 ### 지연 초기화
 
-```ruby title="lazy_init.trb"
+```trb title="lazy_init.trb"
 class Report
   attr_reader :name: String
 
@@ -647,7 +650,7 @@ end
 
 ### 레지스트리 패턴
 
-```ruby title="registry.trb"
+```trb title="registry.trb"
 class Plugin
   @@plugins: Hash<String, Plugin> = {}
 
@@ -674,7 +677,7 @@ end
 
 ### 메모이제이션
 
-```ruby title="memoization.trb"
+```trb title="memoization.trb"
 class Calculator
   def initialize()
     @cache: Hash<String, Integer> = {}

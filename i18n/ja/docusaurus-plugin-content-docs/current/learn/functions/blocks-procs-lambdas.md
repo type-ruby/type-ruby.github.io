@@ -4,6 +4,9 @@ title: ブロック、Proc & ラムダ
 description: ブロック、proc、ラムダ式の型付け
 ---
 
+<DocsBadge />
+
+
 # ブロック、Proc & ラムダ
 
 ブロック、proc、ラムダは、実行可能なコードを渡すことができるRubyの重要な機能です。T-Rubyは、Rubyの柔軟性を保ちながら型安全性を保証する強力な型システムをこれらの構造に提供します。
@@ -16,7 +19,7 @@ description: ブロック、proc、ラムダ式の型付け
 - **Proc**: オブジェクトでラップされたブロック
 - **ラムダ**: 異なる引数処理を持つより厳密な形式のProc
 
-```ruby title="basics.trb"
+```trb title="basics.trb"
 # ブロック - do...end または {...} で渡す
 [1, 2, 3].each do |n|
   puts n
@@ -35,7 +38,7 @@ my_lambda.call(10)
 
 ブロックを受け取るメソッドは `&block` パラメータを使用します。`Proc` で型を指定します：
 
-```ruby title="block_params.trb"
+```trb title="block_params.trb"
 def each_number(&block: Proc<Integer, void>): void
   [1, 2, 3].each do |n|
     block.call(n)
@@ -63,7 +66,7 @@ result = transform_strings { |s| s.upcase }
 
 ブロックは複数のパラメータを取ることができます：
 
-```ruby title="multiple_params.trb"
+```trb title="multiple_params.trb"
 def each_pair(&block: Proc<[String, Integer], void>): void
   pairs = [["Alice", 30], ["Bob", 25], ["Charlie", 35]]
   pairs.each do |name, age|
@@ -92,7 +95,7 @@ results = transform_hash { |k, v| "#{k}=#{v}" }
 
 一部のメソッドはブロックの有無にかかわらず動作できます：
 
-```ruby title="optional_blocks.trb"
+```trb title="optional_blocks.trb"
 def process_items(items: Array<Integer>, &block: Proc<Integer, Integer>?): Array<Integer>
   if block
     items.map { |item| block.call(item) }
@@ -116,7 +119,7 @@ unchanged = process_items([1, 2, 3])
 
 Procは保存して渡すことができるファーストクラスオブジェクトです：
 
-```ruby title="procs.trb"
+```trb title="procs.trb"
 # proc型の定義
 adder: Proc<Integer, Integer> = Proc.new { |n| n + 10 }
 greeter: Proc<String, String> = Proc.new { |name| "Hello, #{name}!" }
@@ -140,7 +143,7 @@ doubled = apply_to_all([1, 2, 3], Proc.new { |n| n * 2 })
 
 ラムダはProcと同じ型シグネチャを持ちます：
 
-```ruby title="lambdas.trb"
+```trb title="lambdas.trb"
 # 型アノテーション付きラムダ
 add_ten: Proc<Integer, Integer> = ->(n: Integer) { n + 10 }
 multiply: Proc<[Integer, Integer], Integer> = ->(a: Integer, b: Integer) { a * b }
@@ -164,7 +167,7 @@ admins = filter_users(all_users, is_admin)
 
 procやラムダを返す関数：
 
-```ruby title="higher_order.trb"
+```trb title="higher_order.trb"
 def create_multiplier(factor: Integer): Proc<Integer, Integer>
   ->(n: Integer) { n * factor }
 end
@@ -193,7 +196,7 @@ password_validator.call("secret123") # true
 
 一部のブロックはパラメータを取りません：
 
-```ruby title="no_params.trb"
+```trb title="no_params.trb"
 def execute(&block: Proc<[], void>): void
   puts "Before execution"
   block.call
@@ -224,7 +227,7 @@ end
 
 ブロックは型情報を保持するためにジェネリックにできます：
 
-```ruby title="generic_blocks.trb"
+```trb title="generic_blocks.trb"
 def map<T, U>(array: Array<T>, &block: Proc<T, U>): Array<U>
   array.map { |item| block.call(item) }
 end
@@ -248,7 +251,7 @@ sum = reduce(numbers, 0) { |acc, n| acc + n }  # Integer
 
 イベント処理にブロックを使用する実際の例です：
 
-```ruby title="event_handler.trb"
+```trb title="event_handler.trb"
 class EventEmitter<T>
   def initialize()
     @listeners: Array<Proc<T, void>> = []
@@ -300,7 +303,7 @@ user_events.emit(UserEvent.new("logout", current_user))
 
 ミドルウェアチェーンにprocを使用する例：
 
-```ruby title="middleware.trb"
+```trb title="middleware.trb"
 class Request
   attr_accessor :path: String
   attr_accessor :params: Hash<String, String>
@@ -373,7 +376,7 @@ response = stack.execute(request, handler)
 
 関数型ユーティリティライブラリの構築：
 
-```ruby title="functional.trb"
+```trb title="functional.trb"
 module Functional
   def self.compose<A, B, C>(
     f: Proc<B, C>,
@@ -430,7 +433,7 @@ memoized.call(5)  # 即座に25を返す（キャッシュ済み）
 
 ブロックが何を返すかを具体的に指定します：
 
-```ruby title="block_returns.trb"
+```trb title="block_returns.trb"
 # ブロックが値を返す
 def sum_transformed(numbers: Array<Integer>, &block: Proc<Integer, Integer>): Integer
   numbers.map { |n| block.call(n) }.sum
@@ -475,7 +478,7 @@ long_strings = custom_select(["hi", "hello", "hey"]) { |s| s.length > 2 }
 
 ### コールバックパターン
 
-```ruby title="callbacks.trb"
+```trb title="callbacks.trb"
 def fetch_data(url: String, on_success: Proc<String, void>, on_error: Proc<String, void>): void
   begin
     data = HTTP.get(url)
@@ -494,7 +497,7 @@ fetch_data(
 
 ### ブロックを使用したビルダーパターン
 
-```ruby title="builder_block.trb"
+```trb title="builder_block.trb"
 class QueryBuilder
   def initialize()
     @conditions: Array<String> = []
@@ -523,7 +526,7 @@ end.build()
 
 ### イテレータパターン
 
-```ruby title="iterator.trb"
+```trb title="iterator.trb"
 def times(n: Integer, &block: Proc<Integer, void>): void
   (0...n).each { |i| block.call(i) }
 end

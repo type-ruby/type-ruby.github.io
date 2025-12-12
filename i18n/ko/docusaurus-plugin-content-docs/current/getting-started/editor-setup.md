@@ -4,6 +4,9 @@ title: 에디터 설정
 description: VS Code, Neovim 및 기타 에디터에서 T-Ruby 설정
 ---
 
+<DocsBadge />
+
+
 # 에디터 설정
 
 구문 강조, 타입 검사, 자동완성을 갖춘 에디터를 구성하여 최고의 T-Ruby 개발 경험을 얻으세요.

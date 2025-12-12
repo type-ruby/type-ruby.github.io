@@ -4,6 +4,9 @@ title: Duck Typing
 description: Structural typing and duck typing in T-Ruby
 ---
 
+<DocsBadge />
+
+
 # Duck Typing
 
 "If it walks like a duck and quacks like a duck, then it must be a duck." Duck typing is a form of structural typing where type compatibility is determined by the presence of methods and properties, not by explicit interface implementation. T-Ruby supports duck typing while maintaining type safety.
@@ -12,7 +15,7 @@ description: Structural typing and duck typing in T-Ruby
 
 In duck typing, you don't need to explicitly implement an interface—you just need to have the required methods:
 
-```ruby title="duck_typing_basic.trb"
+```trb title="duck_typing_basic.trb"
 # No interface needed
 def print_object(obj: { def to_string(): String }): void
   puts obj.to_string()
@@ -50,7 +53,7 @@ print_object(product)  # "Product: Laptop"
 
 Define structural types inline using object literal syntax:
 
-```ruby title="structural_types.trb"
+```trb title="structural_types.trb"
 # Structural type definition
 type Printable = {
   def print(): void
@@ -102,7 +105,7 @@ print_item(report)
 
 Use structural types directly without naming them:
 
-```ruby title="anonymous_types.trb"
+```trb title="anonymous_types.trb"
 def process_data(
   source: { def read(): String },
   destination: { def write(content: String): void }
@@ -146,7 +149,7 @@ process_data(reader, console_writer)
 
 Structural types can define multiple methods and property signatures:
 
-```ruby title="complex_structural.trb"
+```trb title="complex_structural.trb"
 type Repository = {
   def find(id: Integer): Hash<String, String>?
   def save(data: Hash<String, String>): Boolean
@@ -225,7 +228,7 @@ use_repository(file_repo)
 
 Compare explicit interfaces with duck typing:
 
-```ruby title="comparison.trb"
+```trb title="comparison.trb"
 # Explicit interface approach
 interface Logger
   def log(message: String): void
@@ -272,7 +275,7 @@ use_logger(file)     # Works - has log method (duck typing)
 
 Objects with more methods than required still satisfy structural types:
 
-```ruby title="subtyping.trb"
+```trb title="subtyping.trb"
 type BasicLogger = {
   def log(message: String): void
 }
@@ -309,7 +312,7 @@ simple_logging(advanced)  # Works - structural subtyping
 
 Combine generics with structural typing:
 
-```ruby title="generic_structural.trb"
+```trb title="generic_structural.trb"
 def transform<T, U>(
   items: Array<T>,
   transformer: { def transform(item: T): U }
@@ -352,7 +355,7 @@ doubled = transform(numbers, doubler)  # [2, 4, 6]
 
 Using duck typing for a flexible plugin architecture:
 
-```ruby title="plugin_duck_typing.trb"
+```trb title="plugin_duck_typing.trb"
 type Plugin = {
   def name(): String
   def execute(): void
@@ -418,7 +421,7 @@ runner.run_configurable(advanced, { "level" => "high" })
 
 Duck typing for flexible data processing:
 
-```ruby title="data_pipeline.trb"
+```trb title="data_pipeline.trb"
 type DataSource = {
   def read(): Array<Hash<String, String>>
 }
@@ -535,7 +538,7 @@ pipeline2.execute()
 
 Flexible event handling with duck typing:
 
-```ruby title="event_system.trb"
+```trb title="event_system.trb"
 type EventHandler = {
   def handle(event: Hash<String, String>): void
 }

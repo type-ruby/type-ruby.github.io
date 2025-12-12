@@ -4,6 +4,9 @@ title: 명령어
 description: trc CLI 명령어 레퍼런스
 ---
 
+<DocsBadge />
+
+
 # 명령어
 
 `trc` 명령줄 인터페이스는 T-Ruby로 작업하기 위한 주요 도구입니다. `.trb` 파일을 Ruby로 컴파일하고, 코드를 타입 체크하며, RBS 시그니처를 생성합니다.

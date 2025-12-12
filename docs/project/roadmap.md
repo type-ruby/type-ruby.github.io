@@ -4,6 +4,9 @@ title: Roadmap
 description: T-Ruby development roadmap
 ---
 
+<DocsBadge />
+
+
 # Roadmap
 
 T-Ruby is under active development. This roadmap outlines the current status, upcoming features, and long-term vision for the project.
@@ -201,28 +204,28 @@ We're actively researching these advanced features:
 
 ### 1. Effect Types
 Track side effects in the type system:
-```ruby
+```trb
 def read_file(path: String): String throws IOError
 def calculate(x: Integer): Integer pure
 ```
 
 ### 2. Dependent Types
 Types that depend on values:
-```ruby
+```trb
 def create_array<N: Integer>(size: N): Array<T>[N]
 # Returns array of exactly N elements
 ```
 
 ### 3. Linear Types
 Ensure resources are used exactly once:
-```ruby
+```trb
 def process_file(handle: File) consume: String
 # handle can't be used after this call
 ```
 
 ### 4. Row Polymorphism
 Flexible record types:
-```ruby
+```trb
 def add_id<T: { ... }>(obj: T): T & { id: Integer }
 ```
 

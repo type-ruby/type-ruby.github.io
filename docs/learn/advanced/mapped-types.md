@@ -4,6 +4,9 @@ title: Mapped Types
 description: Transforming types programmatically
 ---
 
+<DocsBadge />
+
+
 # Mapped Types
 
 :::caution Coming Soon
@@ -16,7 +19,7 @@ Mapped types allow you to transform one type into another by iterating over its 
 
 Mapped types iterate over the keys of a type and apply a transformation to create a new type:
 
-```ruby
+```trb
 type MappedType<T> = {
   [K in keyof T]: Transformation<T[K]>
 }
@@ -24,7 +27,7 @@ type MappedType<T> = {
 
 ### Basic Syntax
 
-```ruby
+```trb
 # Iterate over keys of T
 type ReadonlyType<T> = {
   readonly [K in keyof T]: T[K]
@@ -45,7 +48,7 @@ type RequiredType<T> = {
 
 The `keyof` operator gets all keys of a type as a union:
 
-```ruby
+```trb
 type User = {
   id: Integer,
   name: String,
@@ -64,7 +67,7 @@ type UserValues<T> = {
 
 ### Make Properties Readonly
 
-```ruby
+```trb
 # Make all properties readonly
 type Readonly<T> = {
   readonly [K in keyof T]: T[K]
@@ -90,7 +93,7 @@ user: ReadonlyUser = { id: 1, name: "Alice", email: "alice@example.com" }
 
 ### Make Properties Optional
 
-```ruby
+```trb
 # Make all properties optional
 type Partial<T> = {
   [K in keyof T]?: T[K]
@@ -116,7 +119,7 @@ partial_user2: PartialUser = {}  # OK
 
 ### Make Properties Required
 
-```ruby
+```trb
 # Remove optional modifiers
 type Required<T> = {
   [K in keyof T]-?: T[K]
@@ -140,7 +143,7 @@ type RequiredUserUpdate = Required<UserUpdate>
 
 ### Transform Property Types
 
-```ruby
+```trb
 # Convert all properties to arrays
 type Arrayify<T> = {
   [K in keyof T]: Array<T[K]>
@@ -170,7 +173,7 @@ type Nullable<T> = {
 
 ### Add or Remove Modifiers
 
-```ruby
+```trb
 # Add readonly
 type AddReadonly<T> = {
   +readonly [K in keyof T]: T[K]
@@ -196,7 +199,7 @@ type MakeRequired<T> = {
 
 ### Pick Specific Properties
 
-```ruby
+```trb
 # Pick only specified keys
 type Pick<T, K extends keyof T> = {
   [P in K]: T[P]
@@ -221,7 +224,7 @@ public_user: PublicUser = { id: 1, name: "Alice" }
 
 ### Omit Specific Properties
 
-```ruby
+```trb
 # Omit specified keys
 type Omit<T, K extends keyof T> = {
   [P in Exclude<keyof T, K>]: T[P]
@@ -253,7 +256,7 @@ type UserBasic = Omit<User, "password" | "email">
 
 Combine mapped types with conditional types:
 
-```ruby
+```trb
 # Make properties readonly based on condition
 type ConditionalReadonly<T> = {
   readonly [K in keyof T]: T[K] extends Function ? T[K] : readonly T[K]
@@ -274,7 +277,7 @@ type RemoveFunctions<T> = {
 
 Transform property keys while mapping:
 
-```ruby
+```trb
 # Add prefix to all keys
 type Prefixed<T, Prefix extends String> = {
   [K in keyof T as `${Prefix}${K}`]: T[K]
@@ -313,7 +316,7 @@ type UserWithGetters = WithGetters<User>
 
 ### DTO Pattern
 
-```ruby
+```trb
 # Data Transfer Object - all properties become optional and nullable
 type DTO<T> = {
   [K in keyof T]?: T[K] | nil
@@ -347,7 +350,7 @@ type UserAPI = APIWrapper<User>
 
 ### Form Handlers
 
-```ruby
+```trb
 # Convert properties to form fields
 type FormFields<T> = {
   [K in keyof T]: {
@@ -387,7 +390,7 @@ type LoginHandlers = FormHandlers<LoginForm>
 
 ### Database Models
 
-```ruby
+```trb
 # Add timestamps to model
 type WithTimestamps<T> = T & {
   created_at: Time,
@@ -430,7 +433,7 @@ type UserUpdate = UpdateModel<User>
 
 ### Event Handlers
 
-```ruby
+```trb
 # Create event handlers for all properties
 type EventHandlers<T> = {
   [K in keyof T as `on${Capitalize<K>}Updated`]: (value: T[K]) => void
@@ -471,7 +474,7 @@ type ProductValidators = Validators<Product>
 
 Apply mappings recursively to nested objects:
 
-```ruby
+```trb
 # Deep readonly
 type DeepReadonly<T> = {
   readonly [K in keyof T]: T[K] extends Hash<any, any>
@@ -511,7 +514,7 @@ type DeepReadonlyUser = DeepReadonly<NestedUser>
 
 Combine multiple mappings:
 
-```ruby
+```trb
 # Readonly and Partial
 type ReadonlyPartial<T> = Readonly<Partial<T>>
 
@@ -545,7 +548,7 @@ type SafeUserUpdate = ReadonlyPartial<Omit<User, "id">>
 
 Use mapped types to create type-safe builders:
 
-```ruby
+```trb
 # Builder that ensures all properties are set
 type Builder<T> = {
   [K in keyof T as `with${Capitalize<K>}`]: (value: T[K]) => Builder<T>
@@ -580,7 +583,7 @@ type UserBuilder = Builder<User>
 
 ### 1. Use Descriptive Names
 
-```ruby
+```trb
 # Good: Clear purpose
 type ReadonlyUser = Readonly<User>
 type PartialUpdate = Partial<UserUpdate>
@@ -593,7 +596,7 @@ type UserType2 = Partial<UserUpdate>
 
 ### 2. Create Reusable Mapped Types
 
-```ruby
+```trb
 # Good: Reusable utilities
 type WithTimestamps<T> = T & { created_at: Time, updated_at: Time }
 type WithSoftDelete<T> = T & { deleted_at: Time | nil }
@@ -605,7 +608,7 @@ type FullModel<T> = WithTimestamps<WithSoftDelete<WithMetadata<T>>>
 
 ### 3. Document Complex Mappings
 
-```ruby
+```trb
 # Good: Documented
 # Converts all properties to their corresponding getter methods
 # Example: { name: String } => { getName: () => String }
@@ -616,7 +619,7 @@ type ToGetters<T> = {
 
 ### 4. Combine with Conditional Types
 
-```ruby
+```trb
 # Good: Smart transformations
 type SmartNullable<T> = {
   [K in keyof T]: T[K] extends String | Integer
@@ -629,7 +632,7 @@ type SmartNullable<T> = {
 
 ### Repository Pattern
 
-```ruby
+```trb
 type Repository<T> = {
   find_by_id: (id: Integer) => T | nil,
   find_all: () => Array<T>,
@@ -648,7 +651,7 @@ type CRUDHandlers<T> = {
 
 ### State Management
 
-```ruby
+```trb
 type State<T> = T
 
 type Actions<T> = {
@@ -666,7 +669,7 @@ type Reducers<T> = {
 
 ### Cannot Add New Properties
 
-```ruby
+```trb
 # Cannot add properties not in the original type
 type Extended<T> = {
   [K in keyof T]: T[K]
@@ -679,7 +682,7 @@ type Extended<T> = T & { new_property: String }
 
 ### Key Type Restrictions
 
-```ruby
+```trb
 # Keys must be String | Symbol | Integer
 type ValidKeys = { [K in String]: any }     # OK
 type InvalidKeys = { [K in User]: any }     # Error: User is not a valid key type

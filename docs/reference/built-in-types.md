@@ -4,6 +4,9 @@ title: Built-in Types
 description: Complete list of built-in types
 ---
 
+<DocsBadge />
+
+
 # Built-in Types
 
 T-Ruby provides a comprehensive set of built-in types that correspond to Ruby's fundamental data types and commonly-used patterns. This reference documents all built-in types available in T-Ruby.
@@ -14,7 +17,7 @@ T-Ruby provides a comprehensive set of built-in types that correspond to Ruby's 
 
 Represents text data. Strings are sequences of characters.
 
-```ruby
+```trb
 name: String = "Alice"
 message: String = 'Hello, world!'
 text: String = <<~TEXT
@@ -36,7 +39,7 @@ TEXT
 
 Represents whole numbers (positive, negative, or zero).
 
-```ruby
+```trb
 count: Integer = 42
 negative: Integer = -10
 zero: Integer = 0
@@ -55,7 +58,7 @@ large: Integer = 1_000_000
 
 Represents decimal numbers (floating-point).
 
-```ruby
+```trb
 price: Float = 19.99
 pi: Float = 3.14159
 negative: Float = -273.15
@@ -75,7 +78,7 @@ scientific: Float = 2.998e8
 
 Represents boolean values: `true` or `false`.
 
-```ruby
+```trb
 active: Bool = true
 disabled: Bool = false
 is_valid: Bool = count > 0
@@ -87,7 +90,7 @@ is_valid: Bool = count > 0
 
 Represents immutable identifiers. Symbols are optimized for use as constants and hash keys.
 
-```ruby
+```trb
 status: Symbol = :active
 role: Symbol = :admin
 key: Symbol = :name
@@ -106,7 +109,7 @@ key: Symbol = :name
 
 Represents the absence of a value.
 
-```ruby
+```trb
 nothing: nil = nil
 
 # More commonly used in union types
@@ -123,7 +126,7 @@ result: User | nil = find_user(123)
 
 Represents any type. Use sparingly as it bypasses type checking.
 
-```ruby
+```trb
 value: Any = "string"
 value = 123          # OK
 value = true         # OK
@@ -135,7 +138,7 @@ value = true         # OK
 
 Represents no return value. Used for functions that perform side effects.
 
-```ruby
+```trb
 def log(message: String): void
   puts message
 end
@@ -151,7 +154,7 @@ end
 
 Represents values that never occur. Used for functions that never return.
 
-```ruby
+```trb
 def raise_error(message: String): never
   raise StandardError, message
 end
@@ -165,7 +168,7 @@ end
 
 Represents the type of the current instance. Useful for method chaining.
 
-```ruby
+```trb
 class Builder
   @value: String
 
@@ -193,7 +196,7 @@ result = Builder.new.append("Hello").append(" ").append("World").build
 
 Represents an ordered collection of elements of type `T`.
 
-```ruby
+```trb
 # Array of strings
 names: Array<String> = ["Alice", "Bob", "Charlie"]
 
@@ -232,7 +235,7 @@ items: Array<String> = []
 
 Represents a collection of key-value pairs with keys of type `K` and values of type `V`.
 
-```ruby
+```trb
 # String keys, Integer values
 scores: Hash<String, Integer> = { "Alice" => 100, "Bob" => 95 }
 
@@ -268,7 +271,7 @@ cache: Hash<String, Any> = {}
 
 Represents an unordered collection of unique elements.
 
-```ruby
+```trb
 # Set of strings
 tags: Set<String> = Set.new(["ruby", "rails", "web"])
 
@@ -288,7 +291,7 @@ unique_ids: Set<Integer> = Set.new([1, 2, 3, 2, 1])  # {1, 2, 3}
 
 Represents a range of values.
 
-```ruby
+```trb
 # Integer range
 numbers: Range = 1..10      # Inclusive: 1 to 10
 numbers: Range = 1...10     # Exclusive: 1 to 9
@@ -310,7 +313,7 @@ letters: Range = 'a'..'z'
 
 Parent type for all numeric types.
 
-```ruby
+```trb
 value: Numeric = 42
 value: Numeric = 3.14
 ```
@@ -325,7 +328,7 @@ value: Numeric = 3.14
 
 Represents rational numbers (fractions). *(Planned feature)*
 
-```ruby
+```trb
 fraction: Rational = Rational(1, 2)  # 1/2
 ```
 
@@ -333,7 +336,7 @@ fraction: Rational = Rational(1, 2)  # 1/2
 
 Represents complex numbers. *(Planned feature)*
 
-```ruby
+```trb
 complex: Complex = Complex(1, 2)  # 1+2i
 ```
 
@@ -343,7 +346,7 @@ complex: Complex = Complex(1, 2)  # 1+2i
 
 Represents a proc, lambda, or block.
 
-```ruby
+```trb
 # Simple proc
 callback: Proc<String, void> = ->(msg: String): void { puts msg }
 
@@ -361,13 +364,13 @@ supplier: Proc<String> = ->: String { "Hello" }
 
 Type alias for `Proc`. In T-Ruby, lambdas and procs use the same type.
 
-```ruby
+```trb {skip-verify}
 type Lambda<Args..., Return> = Proc<Args..., Return>
 ```
 
 ### Block Parameters
 
-```ruby
+```trb
 # Method accepting a block
 def each_item<T>(items: Array<T>, &block: Proc<T, void>): void
   items.each { |item| block.call(item) }
@@ -388,7 +391,7 @@ end
 
 The base type for all objects.
 
-```ruby
+```trb
 value: Object = "string"
 value: Object = 123
 value: Object = User.new
@@ -398,7 +401,7 @@ value: Object = User.new
 
 Represents a class object.
 
-```ruby
+```trb
 user_class: Class = User
 string_class: Class = String
 
@@ -410,7 +413,7 @@ instance = user_class.new
 
 Represents a module.
 
-```ruby
+```trb
 mod: Module = Enumerable
 ```
 
@@ -420,7 +423,7 @@ mod: Module = Enumerable
 
 Represents input/output streams.
 
-```ruby
+```trb
 file: IO = File.open("data.txt", "r")
 stdout: IO = $stdout
 
@@ -433,7 +436,7 @@ end
 
 Represents file objects (subtype of IO).
 
-```ruby
+```trb
 file: File = File.open("data.txt", "r")
 
 def process_file(f: File): void
@@ -448,7 +451,7 @@ end
 
 Represents a point in time.
 
-```ruby
+```trb
 now: Time = Time.now
 past: Time = Time.new(2020, 1, 1)
 
@@ -461,7 +464,7 @@ end
 
 Represents a date (without time).
 
-```ruby
+```trb
 today: Date = Date.today
 birthday: Date = Date.new(1990, 5, 15)
 ```
@@ -470,7 +473,7 @@ birthday: Date = Date.new(1990, 5, 15)
 
 Represents a date and time with timezone.
 
-```ruby
+```trb
 moment: DateTime = DateTime.now
 ```
 
@@ -480,7 +483,7 @@ moment: DateTime = DateTime.now
 
 Represents a regular expression pattern.
 
-```ruby
+```trb
 pattern: Regexp = /\d+/
 email_pattern: Regexp = /^[\w+\-.]+@[a-z\d\-]+(\.[a-z\d\-]+)*\.[a-z]+$/i
 
@@ -493,7 +496,7 @@ end
 
 Represents the result of a regular expression match.
 
-```ruby
+```trb
 def extract_numbers(text: String): Array<String> | nil
   match: MatchData | nil = text.match(/\d+/)
   return nil if match.nil?
@@ -507,7 +510,7 @@ end
 
 Base class for all exceptions.
 
-```ruby
+```trb
 def handle_error(error: Exception): String
   error.message
 end
@@ -517,7 +520,7 @@ end
 
 Standard error type (most commonly rescued).
 
-```ruby
+```trb
 def safe_divide(a: Integer, b: Integer): Float | StandardError
   begin
     a.to_f / b
@@ -544,7 +547,7 @@ IOError            # I/O operation failed
 
 Represents an enumerable object.
 
-```ruby
+```trb
 enum: Enumerator<Integer> = [1, 2, 3].each
 range_enum: Enumerator<Integer> = (1..10).each
 
@@ -559,7 +562,7 @@ end
 
 Represents a struct class.
 
-```ruby
+```trb
 Point = Struct.new(:x, :y)
 
 point: Point = Point.new(10, 20)
@@ -571,7 +574,7 @@ point: Point = Point.new(10, 20)
 
 Represents a thread of execution.
 
-```ruby
+```trb
 thread: Thread = Thread.new { puts "Hello from thread" }
 
 def run_async(&block: Proc<void>): Thread
@@ -641,7 +644,7 @@ true.to_i         # Error: Bool has no to_i
 
 All types support type checking methods:
 
-```ruby
+```trb
 value: String | Integer = get_value()
 
 # Class checking

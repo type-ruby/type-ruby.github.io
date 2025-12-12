@@ -4,6 +4,9 @@ title: ジェネリック関数とクラス
 description: ジェネリクスで再利用可能なコードを作成
 ---
 
+<DocsBadge />
+
+
 # ジェネリック関数とクラス
 
 ジェネリクスはT-Rubyの最も強力な機能の一つで、型安全性を維持しながら複数の型で動作するコードを書くことができます。ジェネリクスを「型変数」と考えてください—コードが使用されるときに具体的な型で埋められるプレースホルダーです。
@@ -14,7 +17,7 @@ description: ジェネリクスで再利用可能なコードを作成
 
 ### 問題：ジェネリクスなし
 
-```ruby
+```trb
 # ジェネリクスなしでは各型に別々の関数が必要
 def first_string(arr: Array<String>): String | nil
   arr[0]
@@ -36,7 +39,7 @@ end
 
 ### 解決策：ジェネリクスで
 
-```ruby
+```trb
 # すべての型で動作する1つの関数
 def first<T>(arr: Array<T>): T | nil
   arr[0]
@@ -56,7 +59,7 @@ value = first(numbers)  # valueはInteger | nil
 
 ### 基本的なジェネリック関数
 
-```ruby
+```trb
 # シンプルなジェネリック関数
 def identity<T>(value: T): T
   value
@@ -72,7 +75,7 @@ arr = identity([1, 2, 3])    # Array<Integer>
 
 必要に応じて複数の型パラメータを使用できます：
 
-```ruby
+```trb
 # 2つの型パラメータを持つ関数
 def pair<K, V>(key: K, value: V): Hash<K, V>
   { key => value }
@@ -88,7 +91,7 @@ mixed = pair("count", 42)          # Hash<String, Integer>
 
 一般的なユースケースは任意の型の配列を扱うことです：
 
-```ruby
+```trb
 # 配列の最後の要素を取得
 def last<T>(arr: Array<T>): T | nil
   arr[-1]
@@ -116,7 +119,7 @@ long_words = filter(words) { |w| w.length > 3 }  # Array<String>
 
 戻り値の型が入力型と異なるが、それでもジェネリックな場合もあります：
 
-```ruby
+```trb
 # 型TをUに変換するmap関数
 def map<T, U>(arr: Array<T>, &block: Proc<T, U>): Array<U>
   arr.map { |item| block.call(item) }
@@ -137,7 +140,7 @@ lengths = map(words) { |w| w.length }  # Array<Integer>
 
 ### 基本的なジェネリッククラス
 
-```ruby
+```trb
 # シンプルなジェネリックコンテナ
 class Box<T>
   @value: T
@@ -171,7 +174,7 @@ string_box.set(123)      # エラー：型の不一致
 
 T-Rubyはしばしばコンストラクタから型パラメータを推論できます：
 
-```ruby
+```trb
 class Container<T>
   @item: T
 
@@ -200,7 +203,7 @@ container3 = Container<Bool>.new(true)
 
 ジェネリックスタックデータ構造の実用的な例：
 
-```ruby
+```trb
 class Stack<T>
   @items: Array<T>
 
@@ -254,7 +257,7 @@ puts int_stack.size  # 3
 
 ジェネリッククラスは複数の型パラメータを持つことができます：
 
-```ruby
+```trb
 class Pair<K, V>
   @key: K
   @value: V
@@ -294,7 +297,7 @@ swapped = name_age.swap              # Pair<Integer, String>
 
 カスタムコレクションを示すより複雑な例：
 
-```ruby
+```trb
 class Collection<T>
   @items: Array<T>
 
@@ -366,7 +369,7 @@ numbers.each { |n| puts n }
 
 自身がジェネリックでないクラスでもジェネリックメソッドを持つことができます：
 
-```ruby
+```trb
 class Utils
   # 非ジェネリッククラスのジェネリックメソッド
   def self.wrap<T>(value: T): Array<T>
@@ -392,7 +395,7 @@ zipped = Utils.zip([1, 2], ["a", "b"])      # Array<Pair<Integer, String>>
 
 ジェネリクスをネストして複雑な型構造を作成できます：
 
-```ruby
+```trb
 # 各キーに対して値の配列を格納するキャッシュ
 class Cache<K, V>
   @store: Hash<K, Array<V>>
@@ -428,7 +431,7 @@ tags = user_tags.get(1)  # Array<String> = ["ruby", "programming"]
 
 ### 1. 説明的な型パラメータ名を使用
 
-```ruby
+```trb
 # 良い：ドメイン固有の型に説明的な名前
 class Repository<Entity, Id>
   def find(id: Id): Entity | nil
@@ -449,7 +452,7 @@ end
 
 ### 2. ジェネリック関数をシンプルに保つ
 
-```ruby
+```trb
 # 良い：シンプルでフォーカスされたジェネリック関数
 def head<T>(arr: Array<T>): T | nil
   arr.first
@@ -463,7 +466,7 @@ end
 
 ### 3. 可能な場合は型推論を使用
 
-```ruby
+```trb
 # T-Rubyに引数から型を推論させる
 container = Container.new("hello")  # Container<String>が推論される
 
@@ -475,7 +478,7 @@ container = Container<String | Integer>.new("hello")
 
 ### Option/Maybe型
 
-```ruby
+```trb
 class Option<T>
   @value: T | nil
 
@@ -521,7 +524,7 @@ result = some.map { |n| n * 2 }  # Option<Integer>、値84
 
 ### Result型
 
-```ruby
+```trb
 class Result<T, E>
   @value: T | nil
   @error: E | nil

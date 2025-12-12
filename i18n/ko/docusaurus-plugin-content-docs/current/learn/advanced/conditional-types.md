@@ -4,6 +4,9 @@ title: 조건부 타입
 description: 조건에 따라 달라지는 타입
 ---
 
+<DocsBadge />
+
+
 # 조건부 타입
 
 :::caution 준비 중
@@ -16,7 +19,7 @@ description: 조건에 따라 달라지는 타입
 
 조건부 타입은 타입 관계에 기반하여 두 타입 중 하나를 선택하는 삼항 연산자 같은 구문을 사용합니다:
 
-```ruby
+```trb
 type Result = Condition ? TrueType : FalseType
 ```
 
@@ -24,7 +27,7 @@ type Result = Condition ? TrueType : FalseType
 
 ### 기본 문법
 
-```ruby
+```trb
 # 조건부 타입 문법
 type TypeName<T> = T extends SomeType ? TypeIfTrue : TypeIfFalse
 
@@ -40,7 +43,7 @@ type Test2 = IsString<Integer>  # false
 
 조건부 타입의 `extends` 키워드는 타입이 다른 타입에 할당 가능한지 확인합니다:
 
-```ruby
+```trb
 # T extends U는 "T를 U에 할당할 수 있는가?"를 의미
 
 type IsArray<T> = T extends Array<any> ? true : false
@@ -52,7 +55,7 @@ type Test3 = IsArray<Hash<String, Integer>>  # false
 
 ### 특정 타입 확인
 
-```ruby
+```trb
 # 타입이 숫자인지 확인
 type IsNumeric<T> = T extends Integer | Float ? true : false
 
@@ -72,7 +75,7 @@ type FnTest = IsFunction<Proc<String, Integer>>  # true
 
 ### nil이 아닌 타입 추출
 
-```ruby
+```trb
 # 유니온 타입에서 nil 제거
 type NonNil<T> = T extends nil ? never : T
 
@@ -86,7 +89,7 @@ type WithoutNil = NonNil<MixedTypes>  # String | Integer | Float
 
 ### 함수 반환 타입 추출
 
-```ruby
+```trb
 # 함수의 반환 타입 가져오기
 type ReturnType<T> = T extends Proc<any, infer R> ? R : never
 
@@ -100,7 +103,7 @@ type UserReturnType = ReturnType<GetUserFunction>  # User
 
 ### 배열 요소 타입 추출
 
-```ruby
+```trb
 # 배열의 요소 타입 가져오기
 type ElementType<T> = T extends Array<infer E> ? E : never
 
@@ -116,7 +119,7 @@ type NumberElement = ElementType<NumberArray>  # Integer
 
 `infer` 키워드를 사용하면 조건부 타입 내에서 타입을 캡처하고 이름을 지정할 수 있습니다:
 
-```ruby
+```trb
 # 함수의 매개변수 타입 추론
 type ParamType<T> = T extends Proc<infer P, any> ? P : never
 
@@ -137,7 +140,7 @@ type Value = ValueError<MyHash>  # User
 
 ### 여러 개의 infer 사용
 
-```ruby
+```trb
 # 쌍의 두 부분 추출
 type Unpair<T> = T extends Hash<Symbol, { first: infer F, second: infer S }>
   ? [F, S]
@@ -156,7 +159,7 @@ type FunctionParts<T> =
 
 래퍼 타입을 제거하여 내부 타입을 가져옵니다:
 
-```ruby
+```trb
 # 배열 언래핑
 type Unwrap<T> = T extends Array<infer U> ? U : T
 
@@ -176,7 +179,7 @@ type Unwrapped = DeepUnwrap<NestedArray>  # Integer
 
 ### 유니온 타입 평탄화
 
-```ruby
+```trb
 # 중첩된 유니온 평탄화
 type Flatten<T> =
   T extends Array<infer U>
@@ -196,7 +199,7 @@ type Unique<T, U = T> =
 
 ### Promise 같은 타입
 
-```ruby
+```trb
 # Promise 같은 타입 언래핑
 type Awaited<T> =
   T extends Promise<infer U>
@@ -214,7 +217,7 @@ type AsyncReturnType<T> =
 
 조건부 타입이 유니온 타입에 작용할 때, 유니온에 대해 분배됩니다:
 
-```ruby
+```trb
 # 이 조건부 타입은 분배적
 type ToArray<T> = T extends any ? Array<T> : never
 
@@ -236,7 +239,7 @@ type Boxed = BoxedType<Mixed>
 
 분배를 방지하려면 타입을 튜플로 감쌉니다:
 
-```ruby
+```trb
 # 비분배 버전
 type ToArrayNonDist<T> = [T] extends [any] ? Array<T> : never
 
@@ -249,7 +252,7 @@ type Result = ToArrayNonDist<StringOrNumber>
 
 ### 타입 좁히기
 
-```ruby
+```trb {skip-verify}
 # 속성에 따른 타입 좁히기
 type NarrowByProperty<T, K extends keyof T, V> =
   T extends { K: V } ? T : never
@@ -265,7 +268,7 @@ type FilterByProperty<T, K, V> =
 
 ### 재귀 조건부 타입
 
-```ruby
+```trb
 # 깊은 읽기 전용 타입
 type DeepReadonly<T> =
   T extends (Array<infer U> | Hash<any, infer U>)
@@ -285,7 +288,7 @@ type DeepPartial<T> =
 
 ### 타입 가드 함수
 
-```ruby
+```trb
 # 타입 술어 생성
 def is_string<T>(value: T): value is String
   value.is_a?(String)
@@ -304,7 +307,7 @@ type TypeGuardReturn<T, G> =
 
 조건부 타입을 제네릭 제약과 결합합니다:
 
-```ruby
+```trb
 # 특정 타입만 허용
 type Addable<T> =
   T extends Integer | Float | String
@@ -341,7 +344,7 @@ end
 
 ### API 응답 타입
 
-```ruby
+```trb
 # 성공 상태에 따라 조건부로 오류 필드 추가
 type APIResponse<T, Success extends Bool> =
   Success extends true
@@ -358,7 +361,7 @@ type ErrorResponse = APIResponse<User, false>
 
 ### 스마트 기본값
 
-```ruby
+```trb
 # 조건부로 기본 타입 제공
 type WithDefault<T, D> = T extends nil ? D : T
 
@@ -372,7 +375,7 @@ type IntegerWithDefault = WithDefault<DefiniteValue, Float>  # Integer
 
 ### 컬렉션 요소 접근
 
-```ruby
+```trb
 # 컬렉션 타입에 따른 타입 가져오기
 type CollectionElement<T> =
   T extends Array<infer E> ? E :
@@ -388,7 +391,7 @@ type SetElement = CollectionElement<Set<User>>  # User
 
 ### 함수 합성
 
-```ruby
+```trb
 # 함수 타입 합성
 type Compose<F, G> =
   F extends Proc<infer A, infer B>
@@ -407,7 +410,7 @@ type Composed = Compose<F, G>   # String -> Bool
 
 ### 1. 조건을 간단하게 유지
 
-```ruby
+```trb
 # 좋음: 간단하고 명확한 조건
 type IsString<T> = T extends String ? true : false
 
@@ -424,7 +427,7 @@ type ComplexCheck<T> =
 
 ### 2. 설명적인 이름 사용
 
-```ruby
+```trb
 # 좋음: 명확한 이름
 type NonNilable<T> = T extends nil ? never : T
 type Unwrap<T> = T extends Array<infer U> ? U : T
@@ -436,7 +439,7 @@ type UW<T> = T extends Array<infer U> ? U : T
 
 ### 3. 복잡한 타입 문서화
 
-```ruby
+```trb
 # 좋음: 문서화된 조건부 타입
 # 함수 타입의 반환 타입 추출
 # @example ReturnType<Proc<String, Integer>> => Integer
@@ -452,7 +455,7 @@ type DeepPartial<T> =
 
 ### 4. 깊은 중첩 피하기
 
-```ruby
+```trb
 # 좋음: 평평하고 관리 가능한 구조
 type FirstType<T> = T extends [infer F, ...any] ? F : never
 type RestTypes<T> = T extends [any, ...infer R] ? R : never
@@ -474,7 +477,7 @@ type Extract<T> =
 
 ### 재귀 깊이
 
-```ruby
+```trb
 # 매우 깊은 재귀는 한계에 도달할 수 있음
 type DeepNested<T, N> =
   N extends 0
@@ -484,7 +487,7 @@ type DeepNested<T, N> =
 
 ### 타입 추론 복잡성
 
-```ruby
+```trb
 # 복잡한 추론이 항상 예상대로 작동하지 않을 수 있음
 type ComplexInfer<T> =
   T extends {

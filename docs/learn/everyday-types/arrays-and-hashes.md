@@ -4,6 +4,9 @@ title: Arrays and Hashes
 description: Working with Array and Hash types
 ---
 
+<DocsBadge />
+
+
 # Arrays and Hashes
 
 Arrays and hashes are the most commonly used collection types in T-Ruby. They allow you to store and organize multiple values in a structured way. This chapter will teach you how to use generic type parameters to create type-safe collections.
@@ -14,7 +17,7 @@ Arrays in T-Ruby use generic type syntax: `Array<T>`, where `T` is the type of e
 
 ### Basic Array Syntax
 
-```ruby title="array_basics.trb"
+```trb title="array_basics.trb"
 # Array of integers
 numbers: Array<Integer> = [1, 2, 3, 4, 5]
 
@@ -32,7 +35,7 @@ items: Array<String> = []
 
 When initializing with values, T-Ruby can infer the array type:
 
-```ruby title="array_inference.trb"
+```trb title="array_inference.trb"
 # Type is inferred as Array<Integer>
 numbers = [1, 2, 3, 4, 5]
 
@@ -45,7 +48,7 @@ items: Array<String> = []
 
 ### Array Operations
 
-```ruby title="array_operations.trb"
+```trb title="array_operations.trb"
 def add_item(items: Array<String>, item: String): Array<String>
   items << item
   items
@@ -73,7 +76,7 @@ count: Integer = array_length(list)  # 3
 
 ### Accessing Array Elements
 
-```ruby title="array_access.trb"
+```trb title="array_access.trb"
 def get_at_index(items: Array<String>, index: Integer): String | nil
   items[index]
 end
@@ -95,7 +98,7 @@ subset: Array<String> = get_range(fruits, 1..2)  # ["banana", "cherry"]
 
 ### Iterating Over Arrays
 
-```ruby title="array_iteration.trb"
+```trb title="array_iteration.trb"
 def sum_numbers(numbers: Array<Integer>): Integer
   total = 0
   numbers.each do |n|
@@ -124,7 +127,7 @@ even: Integer | nil = find_first_even([1, 3, 4, 5])  # 4
 
 ### Array Transformation Methods
 
-```ruby title="array_transform.trb"
+```trb title="array_transform.trb"
 def join_strings(items: Array<String>, separator: String): String
   items.join(separator)
 end
@@ -151,7 +154,7 @@ unique: Array<String> = unique_items(["a", "b", "a", "c"])  # ["a", "b", "c"]
 
 Arrays can contain other arrays:
 
-```ruby title="nested_arrays.trb"
+```trb title="nested_arrays.trb"
 # 2D array (array of arrays)
 def create_grid(rows: Integer, cols: Integer): Array<Array<Integer>>
   grid: Array<Array<Integer>> = []
@@ -184,7 +187,7 @@ Hashes in T-Ruby use generic type syntax: `Hash<K, V>`, where `K` is the key typ
 
 ### Basic Hash Syntax
 
-```ruby title="hash_basics.trb"
+```trb title="hash_basics.trb"
 # Hash with Symbol keys and String values
 user: Hash<Symbol, String> = {
   name: "Alice",
@@ -213,7 +216,7 @@ config: Hash<Symbol, String> = {}
 
 T-Ruby can infer hash types from their contents:
 
-```ruby title="hash_inference.trb"
+```trb title="hash_inference.trb"
 # Inferred as Hash<Symbol, String>
 user = {
   name: "Alice",
@@ -232,7 +235,7 @@ config: Hash<Symbol, String> = {}
 
 ### Hash Operations
 
-```ruby title="hash_operations.trb"
+```trb title="hash_operations.trb"
 def get_value(hash: Hash<Symbol, String>, key: Symbol): String | nil
   hash[key]
 end
@@ -259,7 +262,7 @@ count: Integer = hash_size(config)  # 2
 
 ### Iterating Over Hashes
 
-```ruby title="hash_iteration.trb"
+```trb title="hash_iteration.trb"
 def print_hash(hash: Hash<Symbol, String>)
   hash.each do |key, value|
     puts "#{key}: #{value}"
@@ -289,7 +292,7 @@ doubled: Hash<Symbol, Integer> = transform_values({ a: 5, b: 10 })
 
 ### Hash Transformation Methods
 
-```ruby title="hash_transform.trb"
+```trb title="hash_transform.trb"
 def merge_hashes(
   hash1: Hash<Symbol, String>,
   hash2: Hash<Symbol, String>
@@ -326,7 +329,7 @@ inverted: Hash<Integer, String> = invert_hash({ "a" => 1, "b" => 2 })
 
 Hashes can contain other hashes:
 
-```ruby title="nested_hashes.trb"
+```trb title="nested_hashes.trb"
 # Hash containing hashes
 def create_user(
   name: String,
@@ -370,7 +373,7 @@ Collections can hold multiple types using union types:
 
 ### Arrays with Union Types
 
-```ruby title="array_unions.trb"
+```trb title="array_unions.trb"
 # Array that can contain strings or integers
 def create_mixed_array(): Array<String | Integer>
   ["alice", 42, "bob", 100]
@@ -394,7 +397,7 @@ sum: Integer = sum_numbers_from_mixed(mixed)  # 142
 
 ### Hashes with Union Types
 
-```ruby title="hash_unions.trb"
+```trb title="hash_unions.trb"
 # Hash with mixed value types
 def create_config(): Hash<Symbol, String | Integer | Bool>
   {
@@ -429,7 +432,7 @@ port: Integer | nil = get_port(config)  # 3000
 
 Here's a comprehensive example combining arrays and hashes:
 
-```ruby title="data_processing.trb"
+```trb title="data_processing.trb"
 class DataProcessor
   def initialize()
     @records: Array<Hash<Symbol, String | Integer>> = []
@@ -552,7 +555,7 @@ stats: Hash<Symbol, Float | Integer> = processor.get_statistics()
 
 ### Building Arrays Dynamically
 
-```ruby title="array_building.trb"
+```trb title="array_building.trb"
 def build_range(start: Integer, stop: Integer): Array<Integer>
   result: Array<Integer> = []
 
@@ -587,7 +590,7 @@ filtered: Array<String> = filter_and_transform([10, 5, 20, 3], 8)
 
 ### Building Hashes Dynamically
 
-```ruby title="hash_building.trb"
+```trb title="hash_building.trb"
 def count_occurrences(words: Array<String>): Hash<String, Integer>
   counts: Hash<String, Integer> = {}
 
@@ -628,7 +631,7 @@ counts: Hash<String, Integer> = count_occurrences(words)
 
 ### Empty Collections Need Type Annotations
 
-```ruby title="empty_collections.trb"
+```trb title="empty_collections.trb"
 # This won't work - type cannot be inferred
 # items = []  # Error!
 
@@ -639,7 +642,7 @@ config: Hash<Symbol, Integer> = {}
 
 ### Mutating Collections
 
-```ruby title="mutation.trb"
+```trb title="mutation.trb"
 def add_item_wrong(items: Array<String>): Array<String>
   # This mutates the original array
   items << "new"
@@ -664,7 +667,7 @@ result2 = add_item_safe(original2)
 
 ### Hash Key Types Matter
 
-```ruby title="hash_keys.trb"
+```trb title="hash_keys.trb"
 # Symbol keys and String keys are different!
 def demonstrate_key_types()
   hash: Hash<Symbol | String, Integer> = {}

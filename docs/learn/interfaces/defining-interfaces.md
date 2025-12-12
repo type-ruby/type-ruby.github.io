@@ -4,6 +4,9 @@ title: Defining Interfaces
 description: How to define interfaces in T-Ruby
 ---
 
+<DocsBadge />
+
+
 # Defining Interfaces
 
 Interfaces define contracts that classes must fulfill. In T-Ruby, interfaces specify what methods a class must implement without providing the implementation details. This enables polymorphism and helps create flexible, maintainable code.
@@ -12,7 +15,7 @@ Interfaces define contracts that classes must fulfill. In T-Ruby, interfaces spe
 
 Define interfaces using the `interface` keyword:
 
-```ruby title="basic_interface.trb"
+```trb title="basic_interface.trb"
 interface Printable
   def print(): void
   def to_string(): String
@@ -70,7 +73,7 @@ print_item(img)  # "Printing image from https://example.com/image.jpg"
 
 Interfaces can define methods with parameters:
 
-```ruby title="interface_parameters.trb"
+```trb title="interface_parameters.trb"
 interface Comparable<T>
   def compare_to(other: T): Integer
   def equals?(other: T): Boolean
@@ -127,7 +130,7 @@ puts v1.equals?(v2)         # false
 
 Interfaces can be generic to work with any type:
 
-```ruby title="generic_interface.trb"
+```trb title="generic_interface.trb"
 interface Container<T>
   def add(item: T): void
   def remove(item: T): Boolean
@@ -195,7 +198,7 @@ puts string_stack.contains("Hello")  # true
 
 Interfaces can define many methods:
 
-```ruby title="multiple_methods.trb"
+```trb title="multiple_methods.trb"
 interface Repository<T>
   def find(id: Integer): T?
   def find_all(): Array<T>
@@ -273,7 +276,7 @@ end
 
 Interfaces can extend other interfaces:
 
-```ruby title="interface_inheritance.trb"
+```trb title="interface_inheritance.trb"
 interface Readable
   def read(): String
 end
@@ -325,7 +328,7 @@ puts file.read()  # ""
 
 Define required properties in interfaces:
 
-```ruby title="interface_properties.trb"
+```trb title="interface_properties.trb"
 interface Identifiable
   def id(): Integer
   def name(): String
@@ -375,7 +378,7 @@ end
 
 A complete example using interfaces for a plugin architecture:
 
-```ruby title="plugin_system.trb"
+```trb title="plugin_system.trb"
 interface Plugin
   def name(): String
   def version(): String
@@ -524,7 +527,7 @@ manager.shutdown_all()
 
 Interfaces for various serialization formats:
 
-```ruby title="serialization.trb"
+```trb title="serialization.trb"
 interface Serializer
   def serialize(data: Hash<String, String | Integer | Boolean>): String
   def deserialize(text: String): Hash<String, String | Integer | Boolean>
@@ -639,7 +642,7 @@ yaml_service.save(data, "user")
 
 ### Iterator Interface
 
-```ruby title="iterator.trb"
+```trb title="iterator.trb"
 interface Iterator<T>
   def has_next?(): Boolean
   def next(): T
@@ -672,7 +675,7 @@ end
 
 ### Observer Interface
 
-```ruby title="observer.trb"
+```trb title="observer.trb"
 interface Observer
   def update(event: String, data: Hash<String, String>): void
 end
@@ -686,7 +689,7 @@ end
 
 ### Builder Interface
 
-```ruby title="builder.trb"
+```trb title="builder.trb"
 interface Builder<T>
   def reset(): void
   def build(): T

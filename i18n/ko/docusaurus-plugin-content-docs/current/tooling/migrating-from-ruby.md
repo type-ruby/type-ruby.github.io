@@ -4,6 +4,9 @@ title: Ruby에서 마이그레이션
 description: 기존 Ruby 프로젝트를 T-Ruby로 마이그레이션하는 가이드
 ---
 
+<DocsBadge />
+
+
 # Ruby에서 마이그레이션
 
 기존 Ruby 코드베이스를 T-Ruby로 마이그레이션하는 것은 점진적인 과정입니다. T-Ruby의 선택적 타입 시스템 덕분에 모든 것을 한 번에 다시 작성하지 않고 점진적으로 타입을 도입할 수 있습니다.
@@ -106,7 +109,7 @@ mv user.rb user.trb
 
 간단한 타입 어노테이션으로 시작:
 
-```ruby title="user.trb"
+```trb title="user.trb"
 class User
   @id: Integer
   @name: String
@@ -146,7 +149,7 @@ Hint: Did you mean: String | nil ?
 
 수정:
 
-```ruby
+```trb
 def initialize(id: Integer, name: String, email: String | nil): void
   @id = id
   @name = name
@@ -195,7 +198,7 @@ end
 
 **이후** (T-Ruby):
 
-```ruby
+```trb
 class Product
   @id: Integer
   @name: String
@@ -245,7 +248,7 @@ end
 
 **이후** (T-Ruby):
 
-```ruby
+```trb
 class UserService
   def find_user(id: Integer): User | nil
     User.find(id)
@@ -287,7 +290,7 @@ end
 
 **이후** (T-Ruby):
 
-```ruby
+```trb
 module Timestampable
   @created_at: Time
   @updated_at: Time
@@ -342,7 +345,7 @@ end
 
 명확성을 위해 타입 별칭 정의:
 
-```ruby
+```trb
 type OrderData = Hash<Symbol, Any>
 type OrderItem = Hash<Symbol, Any>
 type OrderResult = Hash<Symbol, String | Integer>
@@ -362,7 +365,7 @@ end
 
 또는 구조화된 타입 사용:
 
-```ruby
+```trb
 class OrderItem
   @price: Integer
   @quantity: Integer
@@ -407,7 +410,7 @@ end
 
 명시적 메서드를 사용하거나 타입 정의:
 
-```ruby
+```trb
 class DynamicModel
   # 타입 안전성을 위한 명시적 메서드
   def find_by_name(name: String): DynamicModel | nil
@@ -428,7 +431,7 @@ end
 
 또는 유연한 타이핑을 위해 제네릭 사용:
 
-```ruby
+```trb
 class DynamicModel
   def find_by<T>(attribute: String, value: T): DynamicModel | nil
     # 데이터베이스 쿼리
@@ -453,7 +456,7 @@ user.name  # nil이면 크래시!
 ```
 
 **이후**:
-```ruby
+```trb
 def find_user(id: Integer): User | nil
   users.find { |u| u.id == id }
 end
@@ -485,7 +488,7 @@ config = {
 
 **이후** - 구조화된 클래스 사용:
 
-```ruby
+```trb
 class Credentials
   @username: String
   @password: String
@@ -545,7 +548,7 @@ end
 
 **이후** - 인터페이스 사용:
 
-```ruby
+```trb
 interface Stringable
   def to_s: String
 end
@@ -580,7 +583,7 @@ end
 
 **이후** - 명시적 메서드:
 
-```ruby
+```trb
 class DynamicClass
   @foo: Any
   @bar: Any
@@ -781,7 +784,7 @@ bundle exec rake test
 
 복잡한 타입을 읽기 쉽게:
 
-```ruby
+```trb
 type UserId = Integer
 type UserAttributes = Hash<String, String | Integer | Bool>
 type UserList = Array<User>
@@ -890,7 +893,7 @@ end
 
 **이후** (`app/models/article.trb`):
 
-```ruby
+```trb
 class Article < ApplicationRecord
   @id: Integer
   @title: String

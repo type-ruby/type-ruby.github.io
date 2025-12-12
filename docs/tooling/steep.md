@@ -4,6 +4,9 @@ title: Using with Steep
 description: Type checking with Steep
 ---
 
+<DocsBadge />
+
+
 # Using with Steep
 
 Steep is a static type checker for Ruby that uses RBS for type signatures. T-Ruby integrates seamlessly with Steep, allowing you to leverage additional type checking beyond what T-Ruby's compiler provides.
@@ -88,7 +91,7 @@ Let's walk through a complete example.
 
 **T-Ruby source** (`src/user.trb`):
 
-```ruby
+```trb
 class User
   @id: Integer
   @name: String
@@ -402,7 +405,7 @@ end
 
 Multiple method overloads, Steep can't determine which one:
 
-```ruby
+```rbs
 # In RBS
 def process: (String) -> Integer
            | (Integer) -> String
@@ -427,7 +430,7 @@ result = some_method()  # Type unknown, falls back to Any
 
 Type mismatch in assignment:
 
-```ruby
+```trb
 x: Integer = "string"  # Error: incompatible types
 ```
 

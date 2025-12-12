@@ -4,6 +4,9 @@ title: 交差型
 description: 交差で型を結合
 ---
 
+<DocsBadge />
+
+
 # 交差型
 
 :::caution 準備中
@@ -18,7 +21,7 @@ description: 交差で型を結合
 
 ### ユニオン vs 交差
 
-```ruby
+```trb
 # ユニオン型: 値はStringまたはIntegerのどちらか
 type StringOrInt = String | Integer
 value1: StringOrInt = "hello"  # OK
@@ -33,7 +36,7 @@ type NamedAndAged = Named & Aged
 
 交差演算子は`&`です：
 
-```ruby
+```trb
 type Combined = TypeA & TypeB & TypeC
 ```
 
@@ -41,7 +44,7 @@ type Combined = TypeA & TypeB & TypeC
 
 交差型の最も一般的な使用法はインターフェースの結合です：
 
-```ruby
+```trb
 # 個別のインターフェースを定義
 interface Named
   def name: String
@@ -91,7 +94,7 @@ puts user.age   # OK: Agedインターフェース
 
 インターフェースをクラス型と結合できます：
 
-```ruby
+```trb
 # 基本クラス
 class Entity
   @id: Integer
@@ -150,7 +153,7 @@ puts user.created_at  # Timestampedインターフェースから
 
 交差型はRubyのミックスイン概念とうまく機能します：
 
-```ruby
+```trb
 # 機能インターフェースを定義
 interface Serializable
   def to_json: String
@@ -225,7 +228,7 @@ article.save            # Persistable
 
 ### リポジトリパターン
 
-```ruby
+```trb
 interface Identifiable
   def id: Integer | String
 end
@@ -281,7 +284,7 @@ end
 
 ### イベントシステム
 
-```ruby
+```trb
 interface Event
   def event_type: String
   def timestamp: Time
@@ -410,7 +413,7 @@ end
 
 交差型はジェネリクスと組み合わせることができます：
 
-```ruby
+```trb
 # 交差制約を持つジェネリック型
 def process<T: Serializable & Validatable>(item: T): Bool
   if item.valid?
@@ -458,7 +461,7 @@ end
 
 交差型は型ナローイングと連携します：
 
-```ruby
+```trb
 interface Animal
   def speak: String
 end
@@ -506,7 +509,7 @@ end
 
 交差型に競合するメンバーがある場合、より具体的な型が勝ちます：
 
-```ruby
+```trb
 interface HasName
   def name: String
 end
@@ -540,7 +543,7 @@ end
 
 ### 1. 小さく焦点を絞ったインターフェースを構成
 
-```ruby
+```trb
 # 良い：単一責任の小さなインターフェース
 interface Identifiable
   def id: Integer
@@ -570,7 +573,7 @@ end
 
 ### 2. 意味のある名前を使用
 
-```ruby
+```trb
 # 良い：交差が何を表すか明確
 type AuditedEntity = Entity & Auditable
 type SerializableModel = Model & Serializable
@@ -582,7 +585,7 @@ type Combined = Foo & Bar
 
 ### 3. 過度に複雑にしない
 
-```ruby
+```trb
 # 良い：適切な数の交差
 type FullModel = Identifiable & Timestamped & Validatable
 
@@ -593,7 +596,7 @@ type SuperType = A & B & C & D & E & F & G & H
 
 ### 4. 意図を文書化
 
-```ruby
+```trb
 # 良い：なぜ交差が必要かを説明するコメント
 # シリアライズ可能でキャッシュ可能なエンティティを表す
 type CacheableEntity = Serializable & Identifiable
@@ -616,7 +619,7 @@ end
 
 ### ビルダーパターン
 
-```ruby
+```trb
 interface Buildable
   def build: self
 end
@@ -666,7 +669,7 @@ end
 
 ### ステートマシン
 
-```ruby
+```trb
 interface State
   def name: String
 end
@@ -726,7 +729,7 @@ end
 
 ### プリミティブ型は交差できない
 
-```ruby
+```trb
 # 意味がない - 値はStringでありながら同時にIntegerではありえない
 # type Impossible = String & Integer  # 空の型になる
 
@@ -736,7 +739,7 @@ type Valid = Interface1 & Interface2
 
 ### 実装要件
 
-```ruby
+```trb
 # 交差を使用する場合、実装はすべての部分を満たす必要がある
 type Complete = Interface1 & Interface2 & Interface3
 

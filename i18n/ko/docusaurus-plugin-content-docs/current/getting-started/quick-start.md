@@ -4,6 +4,9 @@ title: 빠른 시작
 description: 첫 T-Ruby 프로그램 작성하기
 ---
 
+<DocsBadge />
+
+
 # 빠른 시작
 
 5분 만에 T-Ruby의 기본을 배워봅시다!
@@ -12,7 +15,7 @@ description: 첫 T-Ruby 프로그램 작성하기
 
 `hello.trb` 파일을 만들어 봅시다:
 
-```ruby
+```trb
 # hello.trb
 
 # 타입이 지정된 함수
@@ -56,7 +59,7 @@ ruby hello.rb
 
 T-Ruby는 Ruby의 기본 타입을 모두 지원합니다:
 
-```ruby
+```trb
 # 기본 타입
 name: String = "홍길동"
 age: Integer = 25
@@ -76,7 +79,7 @@ email: String? = nil
 
 함수의 매개변수와 반환 타입을 지정합니다:
 
-```ruby
+```trb
 # 기본 함수
 def add(a: Integer, b: Integer): Integer
   a + b
@@ -102,7 +105,7 @@ end
 
 클래스에 타입을 적용합니다:
 
-```ruby
+```trb
 class User
   @name: String
   @email: String

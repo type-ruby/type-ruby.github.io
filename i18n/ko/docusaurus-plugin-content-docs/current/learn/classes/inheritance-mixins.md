@@ -4,6 +4,9 @@ title: 상속 & 믹스인
 description: 타입 안전한 상속과 모듈 믹스인
 ---
 
+<DocsBadge />
+
+
 # 상속 & 믹스인
 
 상속과 믹스인은 Ruby의 객체 지향 프로그래밍의 강력한 기능입니다. T-Ruby는 이러한 개념을 타입 안전성으로 확장하여, 강력한 타입 보장을 유지하면서 복잡한 클래스 계층을 구축하고 모듈을 통해 기능을 공유할 수 있게 합니다.
@@ -12,7 +15,7 @@ description: 타입 안전한 상속과 모듈 믹스인
 
 클래스는 부모 클래스로부터 상속받아 메서드와 인스턴스 변수에 접근할 수 있습니다:
 
-```ruby title="basic_inheritance.trb"
+```trb title="basic_inheritance.trb"
 class Animal
   attr_accessor :name: String
   attr_accessor :age: Integer
@@ -73,7 +76,7 @@ cat.scratch()
 
 자식 클래스는 동일한 시그니처로 부모 메서드를 오버라이드할 수 있습니다:
 
-```ruby title="override.trb"
+```trb title="override.trb"
 class Shape
   def initialize()
     @sides: Integer = 0
@@ -152,7 +155,7 @@ puts circle.area()     # 78.53975
 
 부모 클래스 메서드를 호출하려면 `super`를 사용합니다:
 
-```ruby title="super.trb"
+```trb title="super.trb"
 class Employee
   attr_accessor :name: String
   attr_accessor :salary: Float
@@ -208,7 +211,7 @@ puts manager.total_compensation()   # 80000.0 + 13000.0 + 2500.0 = 95500.0
 
 모듈을 사용하면 여러 클래스에서 기능을 공유할 수 있습니다:
 
-```ruby title="modules.trb"
+```trb title="modules.trb"
 module Timestampable
   def created_at(): Time?
     @created_at
@@ -302,7 +305,7 @@ puts product.search("Gaming")  # true
 
 모듈은 인스턴스 변수와 함께 작동하는 메서드를 정의할 수 있습니다:
 
-```ruby title="module_methods.trb"
+```trb title="module_methods.trb"
 module Validatable
   def valid?(): Boolean
     errors().empty?
@@ -362,7 +365,7 @@ end
 
 클래스는 여러 모듈을 포함할 수 있습니다:
 
-```ruby title="multiple_mixins.trb"
+```trb title="multiple_mixins.trb"
 module Comparable
   def ==(other: self): Boolean
     compare_fields() == other.compare_fields()
@@ -441,7 +444,7 @@ puts clone.name  # "Alice"
 
 T-Ruby는 상속 계층 전체에서 타입 안전성을 보장합니다:
 
-```ruby title="type_safety.trb"
+```trb title="type_safety.trb"
 class Vehicle
   attr_accessor :make: String
   attr_accessor :model: String
@@ -502,7 +505,7 @@ vehicles.each { |v| v.start() }
 
 상속과 믹스인을 보여주는 완전한 예제입니다:
 
-```ruby title="cms.trb"
+```trb title="cms.trb"
 module Publishable
   def publish(): void
     @published = true
@@ -676,7 +679,7 @@ puts page.url()  # "/pages/about"
 
 ### 템플릿 메서드 패턴
 
-```ruby title="template_method.trb"
+```trb title="template_method.trb"
 class DataImporter
   def import(file_path: String): void
     data = read_file(file_path)
@@ -718,7 +721,7 @@ end
 
 ### 모듈을 사용한 데코레이터 패턴
 
-```ruby title="decorator.trb"
+```trb title="decorator.trb"
 module Logging
   def log(message: String): void
     puts "[#{Time.now}] #{message}"

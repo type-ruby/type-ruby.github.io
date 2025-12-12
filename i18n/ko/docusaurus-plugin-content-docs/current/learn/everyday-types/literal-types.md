@@ -4,6 +4,9 @@ title: 리터럴 타입
 description: 리터럴 값을 타입으로 사용하기
 ---
 
+<DocsBadge />
+
+
 # 리터럴 타입
 
 리터럴 타입을 사용하면 넓은 범주가 아닌 정확한 값을 타입으로 지정할 수 있습니다. 변수가 `String`이라고 말하는 대신 특정 문자열 `"active"`여야 한다고 말할 수 있습니다. 이 장에서는 리터럴 타입을 사용하여 더 정밀한 타입 정의를 만드는 방법을 배웁니다.
@@ -12,7 +15,7 @@ description: 리터럴 값을 타입으로 사용하기
 
 리터럴 타입은 단일의 특정 값을 나타내는 타입입니다. 모든 문자열을 받아들이는 대신 하나의 특정 문자열만 받아들입니다. 모든 정수 대신 하나의 특정 정수만 받아들입니다.
 
-```ruby title="literal_basics.trb"
+```trb title="literal_basics.trb"
 # 넓은 타입 - 모든 문자열
 status: String = "active"
 
@@ -29,7 +32,7 @@ status: "active" = "active"
 
 ### 단일 문자열 리터럴
 
-```ruby title="single_literal.trb"
+```trb title="single_literal.trb"
 # "production"만 될 수 있는 변수
 environment: "production" = "production"
 
@@ -45,7 +48,7 @@ result: "success" = get_status()
 
 더 일반적으로 문자열 리터럴의 union을 사용하여 제한된 유효 값 집합을 나타냅니다:
 
-```ruby title="string_literal_union.trb"
+```trb title="string_literal_union.trb"
 # 세 개의 특정 문자열 중 하나가 될 수 있음
 def set_mode(mode: "development" | "staging" | "production")
   puts "모드 설정: #{mode}"
@@ -62,7 +65,7 @@ set_mode("production")
 
 ### 실용적인 문자열 리터럴 예제
 
-```ruby title="status_system.trb"
+```trb title="status_system.trb"
 # Status는 이 정확한 문자열 중 하나만 될 수 있음
 type Status = "pending" | "active" | "suspended" | "cancelled"
 
@@ -99,7 +102,7 @@ account.set_status("active")  # 유효함
 
 ### 심볼 리터럴 Union
 
-```ruby title="symbol_literals.trb"
+```trb title="symbol_literals.trb"
 # 이 특정 심볼 중 하나가 될 수 있음
 def handle_event(event: :click | :hover | :focus)
   case event
@@ -122,7 +125,7 @@ handle_event(:hover)
 
 ### 상태 기계에 심볼 사용
 
-```ruby title="state_machine.trb"
+```trb title="state_machine.trb"
 type State = :idle | :loading | :success | :error
 
 class DataLoader
@@ -176,7 +179,7 @@ loader.complete_success("data")
 
 ### 단일 정수 리터럴
 
-```ruby title="integer_literal.trb"
+```trb title="integer_literal.trb"
 # 숫자 200만 될 수 있음
 http_ok: 200 = 200
 
@@ -188,7 +191,7 @@ end
 
 ### 정수 리터럴 Union
 
-```ruby title="http_status.trb"
+```trb title="http_status.trb"
 # HTTP 상태 코드
 type HttpStatus = 200 | 201 | 400 | 401 | 403 | 404 | 500
 
@@ -223,7 +226,7 @@ message: String = handle_response(200)  # "OK"
 
 ### True/False 리터럴
 
-```ruby title="boolean_literals.trb"
+```trb title="boolean_literals.trb"
 # true만 될 수 있는 변수
 always_true: true = true
 
@@ -238,7 +241,7 @@ end
 
 ### 부울 리터럴 vs Bool 타입
 
-```ruby title="bool_vs_literal.trb"
+```trb title="bool_vs_literal.trb"
 # Bool 타입 - true 또는 false가 될 수 있음
 flag: Bool = true  # false도 가능
 
@@ -258,7 +261,7 @@ value: true | false = true  # Bool과 같음
 
 ### 혼합 리터럴 타입
 
-```ruby title="mixed_literals.trb"
+```trb title="mixed_literals.trb"
 # 문자열과 정수 리터럴의 혼합
 type ExitCode = "success" | "error" | 0 | 1
 
@@ -276,7 +279,7 @@ type Identifier = :id | :name | "index" | "key"
 
 ### 더 넓은 타입과의 리터럴
 
-```ruby title="literals_with_types.trb"
+```trb title="literals_with_types.trb"
 # 특정 값 또는 모든 문자열
 type ConfigValue = "auto" | "manual" | String
 
@@ -299,7 +302,7 @@ set_config("custom-value")  # "사용자 지정 값: custom-value"
 
 ### 예제 1: 로그 레벨
 
-```ruby title="log_levels.trb"
+```trb title="log_levels.trb"
 type LogLevel = "debug" | "info" | "warn" | "error"
 
 class Logger
@@ -377,7 +380,7 @@ logger.error("이것은 표시됨")   # 레벨이 충분히 높음
 
 ### 예제 2: 방향 시스템
 
-```ruby title="directions.trb"
+```trb title="directions.trb"
 type Direction = "north" | "south" | "east" | "west"
 
 class Position
@@ -418,7 +421,7 @@ east = pos.move("east")    # (1, 0)
 
 ### 예제 3: API 응답 타입
 
-```ruby title="api_response.trb"
+```trb title="api_response.trb"
 type HttpMethod = "GET" | "POST" | "PUT" | "DELETE" | "PATCH"
 type ResponseStatus = "success" | "error" | "loading"
 
@@ -471,7 +474,7 @@ response = client.get("/users")
 
 ### 예제 4: 리터럴 타입을 사용한 설정
 
-```ruby title="config_literals.trb"
+```trb title="config_literals.trb"
 type Environment = "development" | "test" | "staging" | "production"
 type LogFormat = "json" | "text" | "colored"
 type CacheStrategy = "memory" | "redis" | "none"
@@ -545,7 +548,7 @@ settings = config.get_config()
 
 리터럴 타입은 런타임 대신 트랜스파일 시간에 오류를 잡습니다:
 
-```ruby title="compile_safety.trb"
+```trb title="compile_safety.trb"
 type Status = "active" | "inactive"
 
 def set_status(status: Status)
@@ -563,7 +566,7 @@ set_status("active")
 
 리터럴 타입은 인라인 문서화 역할을 합니다:
 
-```ruby title="documentation.trb"
+```trb title="documentation.trb"
 # 명확함 - 어떤 값이 유효한지 알 수 있음
 def set_priority(priority: "low" | "medium" | "high")
   # ...
@@ -579,7 +582,7 @@ end
 
 타입 검사기가 모든 케이스를 처리했는지 확인할 수 있습니다:
 
-```ruby title="exhaustiveness.trb"
+```trb title="exhaustiveness.trb"
 type Color = "red" | "green" | "blue"
 
 def describe_color(color: Color): String
@@ -599,7 +602,7 @@ end
 
 ### 패턴 1: 명령 타입
 
-```ruby title="commands.trb"
+```trb title="commands.trb"
 type Command = "start" | "stop" | "restart" | "status"
 
 def execute_command(cmd: Command): String
@@ -618,7 +621,7 @@ end
 
 ### 패턴 2: 결과 타입
 
-```ruby title="results.trb"
+```trb title="results.trb"
 type Result = "ok" | "error"
 
 def process(): Hash<Symbol, Result | String>
@@ -634,7 +637,7 @@ end
 
 ### 패턴 3: 열거형 같은 타입
 
-```ruby title="enums.trb"
+```trb title="enums.trb"
 type Weekday = "monday" | "tuesday" | "wednesday" | "thursday" | "friday"
 type Weekend = "saturday" | "sunday"
 type Day = Weekday | Weekend
@@ -652,7 +655,7 @@ end
 
 ### 1. 고정된 집합에 리터럴 사용
 
-```ruby title="fixed_sets.trb"
+```trb title="fixed_sets.trb"
 # 좋음 - 명확하고 고정된 값 집합
 type Size = "small" | "medium" | "large"
 
@@ -662,7 +665,7 @@ type Size = String
 
 ### 2. 타입 별칭과 결합
 
-```ruby title="type_aliases.trb"
+```trb title="type_aliases.trb"
 # 한 번 정의하고 어디서나 사용
 type Status = "pending" | "approved" | "rejected"
 type Priority = "low" | "medium" | "high"
@@ -685,7 +688,7 @@ end
 
 ### 3. 집합을 관리 가능하게 유지
 
-```ruby title="manageable_sets.trb"
+```trb title="manageable_sets.trb"
 # 좋음 - 합리적인 옵션 수
 type Theme = "light" | "dark" | "auto"
 

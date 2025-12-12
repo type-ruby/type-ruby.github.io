@@ -4,6 +4,9 @@ title: Configuration
 description: T-Ruby configuration file reference
 ---
 
+<DocsBadge />
+
+
 # Configuration
 
 T-Ruby uses a `trc.yaml` file to configure compiler behavior, source files, output locations, and type checking rules. This reference covers all available configuration options.
@@ -251,7 +254,7 @@ compiler:
 - No implicit `any` types allowed
 - Strict nil checking enabled
 
-```ruby
+```trb
 # Required in strict mode
 def process(data: Array<String>): Hash<String, Integer>
   @count: Integer = 0
@@ -267,7 +270,7 @@ end
 - Local variables can be inferred
 - Warns on implicit `any`
 
-```ruby
+```trb
 # OK in standard mode
 def process(data: Array<String>): Hash<String, Integer>
   @count: Integer = 0
@@ -314,7 +317,7 @@ Supported versions: `"2.7"`, `"3.0"`, `"3.1"`, `"3.2"`, `"3.3"`
 
 Example - Pattern matching:
 
-```ruby
+```trb
 # Input (.trb)
 case value
 in { name: String => n }
@@ -369,7 +372,7 @@ compiler:
 
 **no_implicit_any**
 
-```ruby
+```trb
 # Error when no_implicit_any: true
 def process(data)  # Error: implicit 'any' type
   # ...
@@ -383,7 +386,7 @@ end
 
 **no_unused_vars**
 
-```ruby
+```trb
 # Warning when no_unused_vars: true
 def calculate(x: Integer, y: Integer): Integer
   result = x * 2  # Warning: 'y' is unused
@@ -393,7 +396,7 @@ end
 
 **strict_nil**
 
-```ruby
+```trb
 # Error when strict_nil: true
 def find_user(id: Integer): User  # Error: might return nil
   users.find { |u| u.id == id }
@@ -407,7 +410,7 @@ end
 
 **no_unchecked_indexed_access**
 
-```ruby
+```trb
 # Error when no_unchecked_indexed_access: true
 users: Array<User> = get_users()
 user = users[0]  # Error: might be nil

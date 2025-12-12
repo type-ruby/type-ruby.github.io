@@ -4,6 +4,9 @@ title: 추상 클래스
 description: 추상 클래스와 메서드 정의하기
 ---
 
+<DocsBadge />
+
+
 # 추상 클래스
 
 추상 클래스는 서브클래스를 위한 템플릿을 정의하며, 구현된 메서드와 반드시 오버라이드해야 하는 추상 메서드를 모두 포함합니다. Ruby에는 내장 추상 클래스 문법이 없지만, T-Ruby는 타입 안전한 추상 클래스를 생성하기 위한 규약과 패턴을 제공합니다.
@@ -12,7 +15,7 @@ description: 추상 클래스와 메서드 정의하기
 
 서브클래스가 반드시 구현해야 하는 메서드에서 에러를 발생시켜 추상 클래스를 만듭니다:
 
-```ruby title="abstract_basic.trb"
+```trb title="abstract_basic.trb"
 class Shape
   def initialize()
     @name: String = "Shape"
@@ -88,7 +91,7 @@ puts circle.describe()  # "Circle: area = 78.53975, perimeter = 31.4159"
 
 모든 추상 메서드는 완전한 타입 어노테이션을 가져야 합니다:
 
-```ruby title="typed_abstract.trb"
+```trb title="typed_abstract.trb"
 abstract class DataSource
   def connect(): Boolean
     raise NotImplementedError, "Must implement connect()"
@@ -175,7 +178,7 @@ end
 
 추상 클래스는 종종 템플릿 메서드 패턴을 구현합니다:
 
-```ruby title="template_method.trb"
+```trb title="template_method.trb"
 abstract class Report
   def generate(): String
     validate()
@@ -262,7 +265,7 @@ puts html.generate()
 
 추상 클래스는 일부 구체적 기능을 제공할 수 있습니다:
 
-```ruby title="partial_implementation.trb"
+```trb title="partial_implementation.trb"
 abstract class CacheStore<T>
   def initialize()
     @stats: Hash<String, Integer> = { "hits" => 0, "misses" => 0 }
@@ -395,7 +398,7 @@ puts memory_cache.hit_rate()
 
 추상 클래스를 사용하여 공통 패턴을 강제합니다:
 
-```ruby title="common_patterns.trb"
+```trb title="common_patterns.trb"
 abstract class Controller
   def initialize()
     @before_filters: Array<Proc<[], void>> = []
@@ -480,7 +483,7 @@ controller.execute("index")
 
 추상 클래스를 사용하는 완전한 예제:
 
-```ruby title="payment_processor.trb"
+```trb title="payment_processor.trb"
 abstract class PaymentProcessor
   attr_reader :transaction_id: String?
   attr_reader :amount: Float
@@ -659,7 +662,7 @@ processors.each { |p| process_payment(p) }
 
 ### 전략 패턴
 
-```ruby title="strategy.trb"
+```trb title="strategy.trb"
 abstract class SortStrategy
   def sort(array: Array<Integer>): Array<Integer>
     raise NotImplementedError, "Must implement sort()"
@@ -696,7 +699,7 @@ sorted = sorter.sort([3, 1, 4, 1, 5, 9, 2, 6])
 
 ### 팩토리 패턴
 
-```ruby title="factory.trb"
+```trb title="factory.trb"
 abstract class Document
   def initialize(title: String)
     @title = title

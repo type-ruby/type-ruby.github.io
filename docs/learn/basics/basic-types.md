@@ -4,6 +4,9 @@ title: Basic Types
 description: String, Integer, Float, Boolean, Symbol, and nil
 ---
 
+<DocsBadge />
+
+
 # Basic Types
 
 T-Ruby provides a set of basic types that correspond to Ruby's fundamental data types. Understanding these types is essential for writing type-safe T-Ruby code. In this chapter, we'll explore each basic type in detail with practical examples.
@@ -27,7 +30,7 @@ The `String` type represents text data. Strings are sequences of characters encl
 
 ### Basic String Usage
 
-```ruby title="strings.trb"
+```trb title="strings.trb"
 # String variable
 name: String = "Alice"
 greeting: String = 'Hello, world!'
@@ -48,7 +51,7 @@ message: String = "#{name} is #{age} years old"
 
 Strings in T-Ruby have all the standard Ruby methods. The type checker understands these methods:
 
-```ruby title="string_methods.trb"
+```trb title="string_methods.trb"
 def format_name(name: String): String
   name.strip.downcase.capitalize
 end
@@ -66,7 +69,7 @@ initials: String = get_initials("Alice", "Smith")
 
 ### String Concatenation
 
-```ruby title="string_concat.trb"
+```trb title="string_concat.trb"
 def build_url(protocol: String, domain: String, path: String): String
   protocol + "://" + domain + path
 end
@@ -86,7 +89,7 @@ The `Integer` type represents whole numbers, both positive and negative.
 
 ### Basic Integer Usage
 
-```ruby title="integers.trb"
+```trb title="integers.trb"
 # Integer variables
 count: Integer = 42
 negative: Integer = -10
@@ -98,7 +101,7 @@ population: Integer = 7_900_000_000  # Underscores for readability
 
 ### Integer Arithmetic
 
-```ruby title="integer_math.trb"
+```trb title="integer_math.trb"
 def calculate_total(price: Integer, quantity: Integer): Integer
   price * quantity
 end
@@ -116,7 +119,7 @@ result: Integer = next_even_number(7)
 
 ### Integer Methods
 
-```ruby title="integer_methods.trb"
+```trb title="integer_methods.trb"
 def absolute_value(n: Integer): Integer
   n.abs
 end
@@ -136,7 +139,7 @@ check: Bool = is_even(10)
 
 Note that integer division in Ruby truncates the result:
 
-```ruby title="integer_division.trb"
+```trb title="integer_division.trb"
 def divide_integers(a: Integer, b: Integer): Integer
   a / b
 end
@@ -159,7 +162,7 @@ The `Float` type represents decimal numbers (floating-point numbers).
 
 ### Basic Float Usage
 
-```ruby title="floats.trb"
+```trb title="floats.trb"
 # Float variables
 price: Float = 19.99
 temperature: Float = -3.5
@@ -171,7 +174,7 @@ speed_of_light: Float = 2.998e8  # 299,800,000
 
 ### Float Arithmetic
 
-```ruby title="float_math.trb"
+```trb title="float_math.trb"
 def calculate_average(values: Array<Float>): Float
   sum = 0.0
   values.each do |v|
@@ -193,7 +196,7 @@ amount: Float = calculate_interest(1000.0, 0.05, 5)
 
 ### Rounding and Precision
 
-```ruby title="float_rounding.trb"
+```trb title="float_rounding.trb"
 def round_to_cents(amount: Float): Float
   (amount * 100).round / 100.0
 end
@@ -213,7 +216,7 @@ formatted: String = format_currency(19.99)
 
 When mixing integers and floats, the result is typically a float:
 
-```ruby title="mixed_math.trb"
+```trb title="mixed_math.trb"
 # Integer + Float = Float
 def add_numbers(a: Integer, b: Float): Float
   a + b
@@ -229,7 +232,7 @@ The `Bool` type represents boolean values: `true` or `false`. Note that T-Ruby u
 
 ### Basic Boolean Usage
 
-```ruby title="booleans.trb"
+```trb title="booleans.trb"
 # Boolean variables
 is_active: Bool = true
 has_permission: Bool = false
@@ -241,7 +244,7 @@ is_valid: Bool = count > 0
 
 ### Boolean Logic
 
-```ruby title="boolean_logic.trb"
+```trb title="boolean_logic.trb"
 def can_access(is_logged_in: Bool, has_permission: Bool): Bool
   is_logged_in && has_permission
 end
@@ -266,7 +269,7 @@ flipped: Bool = toggle(true)
 
 ### Booleans in Conditionals
 
-```ruby title="boolean_conditionals.trb"
+```trb title="boolean_conditionals.trb"
 def get_status(is_complete: Bool): String
   if is_complete
     "Done"
@@ -293,7 +296,7 @@ end
 
 In Ruby, many values are "truthy" or "falsy", but the `Bool` type only accepts `true` or `false`:
 
-```ruby title="bool_strict.trb"
+```trb title="bool_strict.trb"
 # This is correct
 flag: Bool = true
 
@@ -314,7 +317,7 @@ The `Symbol` type represents immutable identifiers. Symbols are often used as ke
 
 ### Basic Symbol Usage
 
-```ruby title="symbols.trb"
+```trb title="symbols.trb"
 # Symbol variables
 status: Symbol = :active
 direction: Symbol = :north
@@ -334,7 +337,7 @@ options = create_options(:production)
 
 Symbols are similar to strings but are immutable and optimized for use as identifiers:
 
-```ruby title="symbol_vs_string.trb"
+```trb title="symbol_vs_string.trb"
 # Same symbol is always the same object in memory
 def are_same_symbol(a: Symbol, b: Symbol): Bool
   a.object_id == b.object_id
@@ -363,7 +366,7 @@ symbol: Symbol = string_to_symbol("world")
 
 Symbols are commonly used as hash keys:
 
-```ruby title="symbol_keys.trb"
+```trb title="symbol_keys.trb"
 def create_user(name: String, role: Symbol): Hash<Symbol, String | Symbol>
   {
     name: name,
@@ -382,7 +385,7 @@ The `nil` type represents the absence of a value. In T-Ruby, `nil` is its own ty
 
 ### Basic nil Usage
 
-```ruby title="nil_basics.trb"
+```trb title="nil_basics.trb"
 # nil variable (not very useful by itself)
 nothing: nil = nil
 
@@ -398,7 +401,7 @@ user = find_user(-1)
 
 ### Checking for nil
 
-```ruby title="nil_checks.trb"
+```trb title="nil_checks.trb"
 def greet(name: String | nil): String
   if name.nil?
     "Hello, stranger!"
@@ -418,7 +421,7 @@ message2: String = greet(nil)
 
 Ruby's safe navigation operator (`&.`) works with nil:
 
-```ruby title="safe_navigation.trb"
+```trb title="safe_navigation.trb"
 def get_name_length(name: String | nil): Integer | nil
   name&.length
 end
@@ -432,7 +435,7 @@ len2 = get_name_length(nil)
 
 ### Default Values with nil
 
-```ruby title="nil_defaults.trb"
+```trb title="nil_defaults.trb"
 def get_greeting(custom: String | nil): String
   custom || "Hello!"
 end
@@ -450,7 +453,7 @@ Often you need to convert between basic types:
 
 ### Converting to String
 
-```ruby title="to_string.trb"
+```trb title="to_string.trb"
 def describe_number(num: Integer): String
   num.to_s
 end
@@ -475,7 +478,7 @@ text3: String = describe_bool(true)
 
 ### Converting to Integer
 
-```ruby title="to_integer.trb"
+```trb title="to_integer.trb"
 def parse_integer(text: String): Integer
   text.to_i
 end
@@ -496,7 +499,7 @@ truncated: Integer = float_to_int(3.7)
 
 ### Converting to Float
 
-```ruby title="to_float.trb"
+```trb title="to_float.trb"
 def parse_float(text: String): Float
   text.to_f
 end
@@ -516,7 +519,7 @@ decimal: Float = int_to_float(42)
 
 Here's a complete example using multiple basic types:
 
-```ruby title="temperature.trb"
+```trb title="temperature.trb"
 def celsius_to_fahrenheit(celsius: Float): Float
   (celsius * 9.0 / 5.0) + 32.0
 end
@@ -554,7 +557,7 @@ result: String = convert_temperature(100.0, :c, :f)
 
 ### Don't Confuse Integer Division
 
-```ruby title="division_pitfall.trb"
+```trb title="division_pitfall.trb"
 # This might surprise you
 def calculate_half(n: Integer): Integer
   n / 2  # Integer division!
@@ -574,7 +577,7 @@ half_precise: Float = calculate_half_precise(5)
 
 ### Bool vs Truthiness
 
-```ruby title="bool_pitfall.trb"
+```trb title="bool_pitfall.trb"
 # In Ruby, all values except false and nil are truthy
 # But Bool type only accepts true or false
 
@@ -589,7 +592,7 @@ end
 
 ### nil Requires Union Types
 
-```ruby title="nil_pitfall.trb"
+```trb title="nil_pitfall.trb"
 # This won't work:
 # value: String = nil  # Error: nil is not String
 

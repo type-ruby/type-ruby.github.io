@@ -4,6 +4,9 @@ title: 継承 & ミックスイン
 description: 型安全な継承とモジュールミックスイン
 ---
 
+<DocsBadge />
+
+
 # 継承 & ミックスイン
 
 継承とミックスインは、Rubyのオブジェクト指向プログラミングの強力な機能です。T-Rubyはこれらの概念を型安全性で拡張し、強力な型保証を維持しながら複雑なクラス階層を構築し、モジュールを通じて機能を共有できるようにします。
@@ -12,7 +15,7 @@ description: 型安全な継承とモジュールミックスイン
 
 クラスは親クラスから継承し、そのメソッドとインスタンス変数にアクセスできます：
 
-```ruby title="basic_inheritance.trb"
+```trb title="basic_inheritance.trb"
 class Animal
   attr_accessor :name: String
   attr_accessor :age: Integer
@@ -73,7 +76,7 @@ cat.scratch()
 
 子クラスは同じシグネチャで親メソッドをオーバーライドできます：
 
-```ruby title="override.trb"
+```trb title="override.trb"
 class Shape
   def initialize()
     @sides: Integer = 0
@@ -152,7 +155,7 @@ puts circle.area()     # 78.53975
 
 親クラスのメソッドを呼び出すには `super` を使用します：
 
-```ruby title="super.trb"
+```trb title="super.trb"
 class Employee
   attr_accessor :name: String
   attr_accessor :salary: Float
@@ -208,7 +211,7 @@ puts manager.total_compensation()   # 80000.0 + 13000.0 + 2500.0 = 95500.0
 
 モジュールを使用すると、複数のクラス間で機能を共有できます：
 
-```ruby title="modules.trb"
+```trb title="modules.trb"
 module Timestampable
   def created_at(): Time?
     @created_at
@@ -302,7 +305,7 @@ puts product.search("Gaming")  # true
 
 モジュールはインスタンス変数と連携するメソッドを定義できます：
 
-```ruby title="module_methods.trb"
+```trb title="module_methods.trb"
 module Validatable
   def valid?(): Boolean
     errors().empty?
@@ -362,7 +365,7 @@ end
 
 クラスは複数のモジュールをインクルードできます：
 
-```ruby title="multiple_mixins.trb"
+```trb title="multiple_mixins.trb"
 module Comparable
   def ==(other: self): Boolean
     compare_fields() == other.compare_fields()
@@ -441,7 +444,7 @@ puts clone.name  # "Alice"
 
 T-Rubyは継承階層全体で型安全性を保証します：
 
-```ruby title="type_safety.trb"
+```trb title="type_safety.trb"
 class Vehicle
   attr_accessor :make: String
   attr_accessor :model: String
@@ -502,7 +505,7 @@ vehicles.each { |v| v.start() }
 
 継承とミックスインを示す完全な例です：
 
-```ruby title="cms.trb"
+```trb title="cms.trb"
 module Publishable
   def publish(): void
     @published = true
@@ -676,7 +679,7 @@ puts page.url()  # "/pages/about"
 
 ### テンプレートメソッドパターン
 
-```ruby title="template_method.trb"
+```trb title="template_method.trb"
 class DataImporter
   def import(file_path: String): void
     data = read_file(file_path)
@@ -718,7 +721,7 @@ end
 
 ### モジュールを使用したデコレータパターン
 
-```ruby title="decorator.trb"
+```trb title="decorator.trb"
 module Logging
   def log(message: String): void
     puts "[#{Time.now}] #{message}"

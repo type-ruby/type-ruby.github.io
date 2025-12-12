@@ -4,6 +4,9 @@ title: Installation
 description: How to install T-Ruby
 ---
 
+<DocsBadge />
+
+
 # Installation
 
 This guide will help you install T-Ruby on your system. T-Ruby requires Ruby 3.0 or later.

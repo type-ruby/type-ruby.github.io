@@ -4,6 +4,9 @@ title: Commands
 description: trc CLI commands reference
 ---
 
+<DocsBadge />
+
+
 # Commands
 
 The `trc` command-line interface is the primary tool for working with T-Ruby. It compiles `.trb` files to Ruby, type-checks your code, and generates RBS signatures.

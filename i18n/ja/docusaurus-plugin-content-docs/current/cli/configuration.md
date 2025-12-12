@@ -4,6 +4,9 @@ title: 設定
 description: T-Ruby設定ファイルリファレンス
 ---
 
+<DocsBadge />
+
+
 # 設定
 
 T-Rubyは`trc.yaml`ファイルを使用して、コンパイラの動作、ソースファイル、出力場所、型チェックルールを設定します。このリファレンスでは、利用可能なすべての設定オプションについて説明します。
@@ -251,7 +254,7 @@ compiler:
 - 暗黙の`any`型は不許可
 - 厳格なnilチェックが有効
 
-```ruby
+```trb
 # 厳格モードで必要
 def process(data: Array<String>): Hash<String, Integer>
   @count: Integer = 0
@@ -267,7 +270,7 @@ end
 - ローカル変数は推論可能
 - 暗黙の`any`に警告
 
-```ruby
+```trb
 # 標準モードでOK
 def process(data: Array<String>): Hash<String, Integer>
   @count: Integer = 0
@@ -314,7 +317,7 @@ compiler:
 
 例 - パターンマッチング：
 
-```ruby
+```trb
 # 入力（.trb）
 case value
 in { name: String => n }
@@ -369,7 +372,7 @@ compiler:
 
 **no_implicit_any**
 
-```ruby
+```trb
 # no_implicit_any: trueの場合エラー
 def process(data)  # エラー: 暗黙の'any'型
   # ...
@@ -383,7 +386,7 @@ end
 
 **no_unused_vars**
 
-```ruby
+```trb
 # no_unused_vars: trueの場合警告
 def calculate(x: Integer, y: Integer): Integer
   result = x * 2  # 警告: 'y'が未使用
@@ -393,7 +396,7 @@ end
 
 **strict_nil**
 
-```ruby
+```trb
 # strict_nil: trueの場合エラー
 def find_user(id: Integer): User  # エラー: nilを返す可能性あり
   users.find { |u| u.id == id }
@@ -407,7 +410,7 @@ end
 
 **no_unchecked_indexed_access**
 
-```ruby
+```trb
 # no_unchecked_indexed_access: trueの場合エラー
 users: Array<User> = get_users()
 user = users[0]  # エラー: nilの可能性あり

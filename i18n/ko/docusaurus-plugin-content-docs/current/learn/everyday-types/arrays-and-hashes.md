@@ -4,6 +4,9 @@ title: 배열과 해시
 description: Array와 Hash 타입 다루기
 ---
 
+<DocsBadge />
+
+
 # 배열과 해시
 
 배열과 해시는 T-Ruby에서 가장 일반적으로 사용되는 컬렉션 타입입니다. 여러 값을 구조화된 방식으로 저장하고 구성할 수 있게 해줍니다. 이 장에서는 제네릭 타입 매개변수를 사용하여 타입 안전한 컬렉션을 만드는 방법을 배웁니다.
@@ -14,7 +17,7 @@ T-Ruby의 배열은 제네릭 타입 구문을 사용합니다: `Array<T>`, 여�
 
 ### 기본 Array 구문
 
-```ruby title="array_basics.trb"
+```trb title="array_basics.trb"
 # 정수 배열
 numbers: Array<Integer> = [1, 2, 3, 4, 5]
 
@@ -32,7 +35,7 @@ items: Array<String> = []
 
 값으로 초기화할 때 T-Ruby는 배열 타입을 추론할 수 있습니다:
 
-```ruby title="array_inference.trb"
+```trb title="array_inference.trb"
 # Array<Integer>로 추론됨
 numbers = [1, 2, 3, 4, 5]
 
@@ -45,7 +48,7 @@ items: Array<String> = []
 
 ### 배열 연산
 
-```ruby title="array_operations.trb"
+```trb title="array_operations.trb"
 def add_item(items: Array<String>, item: String): Array<String>
   items << item
   items
@@ -73,7 +76,7 @@ count: Integer = array_length(list)  # 3
 
 ### 배열 요소 접근
 
-```ruby title="array_access.trb"
+```trb title="array_access.trb"
 def get_at_index(items: Array<String>, index: Integer): String | nil
   items[index]
 end
@@ -95,7 +98,7 @@ subset: Array<String> = get_range(fruits, 1..2)  # ["banana", "cherry"]
 
 ### 배열 반복
 
-```ruby title="array_iteration.trb"
+```trb title="array_iteration.trb"
 def sum_numbers(numbers: Array<Integer>): Integer
   total = 0
   numbers.each do |n|
@@ -124,7 +127,7 @@ even: Integer | nil = find_first_even([1, 3, 4, 5])  # 4
 
 ### 배열 변환 메서드
 
-```ruby title="array_transform.trb"
+```trb title="array_transform.trb"
 def join_strings(items: Array<String>, separator: String): String
   items.join(separator)
 end
@@ -151,7 +154,7 @@ unique: Array<String> = unique_items(["a", "b", "a", "c"])  # ["a", "b", "c"]
 
 배열은 다른 배열을 포함할 수 있습니다:
 
-```ruby title="nested_arrays.trb"
+```trb title="nested_arrays.trb"
 # 2D 배열 (배열의 배열)
 def create_grid(rows: Integer, cols: Integer): Array<Array<Integer>>
   grid: Array<Array<Integer>> = []
@@ -184,7 +187,7 @@ T-Ruby의 해시는 제네릭 타입 구문을 사용합니다: `Hash<K, V>`, �
 
 ### 기본 Hash 구문
 
-```ruby title="hash_basics.trb"
+```trb title="hash_basics.trb"
 # Symbol 키와 String 값을 가진 해시
 user: Hash<Symbol, String> = {
   name: "Alice",
@@ -213,7 +216,7 @@ config: Hash<Symbol, String> = {}
 
 T-Ruby는 해시 내용에서 타입을 추론할 수 있습니다:
 
-```ruby title="hash_inference.trb"
+```trb title="hash_inference.trb"
 # Hash<Symbol, String>으로 추론됨
 user = {
   name: "Alice",
@@ -232,7 +235,7 @@ config: Hash<Symbol, String> = {}
 
 ### 해시 연산
 
-```ruby title="hash_operations.trb"
+```trb title="hash_operations.trb"
 def get_value(hash: Hash<Symbol, String>, key: Symbol): String | nil
   hash[key]
 end
@@ -259,7 +262,7 @@ count: Integer = hash_size(config)  # 2
 
 ### 해시 반복
 
-```ruby title="hash_iteration.trb"
+```trb title="hash_iteration.trb"
 def print_hash(hash: Hash<Symbol, String>)
   hash.each do |key, value|
     puts "#{key}: #{value}"
@@ -289,7 +292,7 @@ doubled: Hash<Symbol, Integer> = transform_values({ a: 5, b: 10 })
 
 ### 해시 변환 메서드
 
-```ruby title="hash_transform.trb"
+```trb title="hash_transform.trb"
 def merge_hashes(
   hash1: Hash<Symbol, String>,
   hash2: Hash<Symbol, String>
@@ -326,7 +329,7 @@ inverted: Hash<Integer, String> = invert_hash({ "a" => 1, "b" => 2 })
 
 해시는 다른 해시를 포함할 수 있습니다:
 
-```ruby title="nested_hashes.trb"
+```trb title="nested_hashes.trb"
 # 해시를 포함하는 해시
 def create_user(
   name: String,
@@ -370,7 +373,7 @@ user = create_user("Alice", 30, "alice@example.com")
 
 ### Union 타입을 가진 배열
 
-```ruby title="array_unions.trb"
+```trb title="array_unions.trb"
 # 문자열 또는 정수를 포함할 수 있는 배열
 def create_mixed_array(): Array<String | Integer>
   ["alice", 42, "bob", 100]
@@ -394,7 +397,7 @@ sum: Integer = sum_numbers_from_mixed(mixed)  # 142
 
 ### Union 타입을 가진 해시
 
-```ruby title="hash_unions.trb"
+```trb title="hash_unions.trb"
 # 혼합 값 타입을 가진 해시
 def create_config(): Hash<Symbol, String | Integer | Bool>
   {
@@ -429,7 +432,7 @@ port: Integer | nil = get_port(config)  # 3000
 
 배열과 해시를 결합한 종합적인 예제입니다:
 
-```ruby title="data_processing.trb"
+```trb title="data_processing.trb"
 class DataProcessor
   def initialize()
     @records: Array<Hash<Symbol, String | Integer>> = []
@@ -552,7 +555,7 @@ stats: Hash<Symbol, Float | Integer> = processor.get_statistics()
 
 ### 동적으로 배열 만들기
 
-```ruby title="array_building.trb"
+```trb title="array_building.trb"
 def build_range(start: Integer, stop: Integer): Array<Integer>
   result: Array<Integer> = []
 
@@ -587,7 +590,7 @@ filtered: Array<String> = filter_and_transform([10, 5, 20, 3], 8)
 
 ### 동적으로 해시 만들기
 
-```ruby title="hash_building.trb"
+```trb title="hash_building.trb"
 def count_occurrences(words: Array<String>): Hash<String, Integer>
   counts: Hash<String, Integer> = {}
 
@@ -628,7 +631,7 @@ counts: Hash<String, Integer> = count_occurrences(words)
 
 ### 빈 컬렉션은 타입 어노테이션이 필요
 
-```ruby title="empty_collections.trb"
+```trb title="empty_collections.trb"
 # 이것은 작동하지 않음 - 타입을 추론할 수 없음
 # items = []  # 오류!
 
@@ -639,7 +642,7 @@ config: Hash<Symbol, Integer> = {}
 
 ### 컬렉션 변경
 
-```ruby title="mutation.trb"
+```trb title="mutation.trb"
 def add_item_wrong(items: Array<String>): Array<String>
   # 이것은 원본 배열을 변경함
   items << "new"
@@ -664,7 +667,7 @@ result2 = add_item_safe(original2)
 
 ### 해시 키 타입 주의
 
-```ruby title="hash_keys.trb"
+```trb title="hash_keys.trb"
 # Symbol 키와 String 키는 다름!
 def demonstrate_key_types()
   hash: Hash<Symbol | String, Integer> = {}

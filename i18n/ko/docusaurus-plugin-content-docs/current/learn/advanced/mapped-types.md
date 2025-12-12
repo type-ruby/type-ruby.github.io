@@ -4,6 +4,9 @@ title: 매핑된 타입
 description: 프로그래밍 방식으로 타입 변환
 ---
 
+<DocsBadge />
+
+
 # 매핑된 타입
 
 :::caution 준비 중
@@ -16,7 +19,7 @@ description: 프로그래밍 방식으로 타입 변환
 
 매핑된 타입은 타입의 키를 반복하고 변환을 적용하여 새 타입을 만듭니다:
 
-```ruby
+```trb
 type MappedType<T> = {
   [K in keyof T]: Transformation<T[K]>
 }
@@ -24,7 +27,7 @@ type MappedType<T> = {
 
 ### 기본 문법
 
-```ruby
+```trb
 # T의 키를 반복
 type ReadonlyType<T> = {
   readonly [K in keyof T]: T[K]
@@ -45,7 +48,7 @@ type RequiredType<T> = {
 
 `keyof` 연산자는 타입의 모든 키를 유니온으로 가져옵니다:
 
-```ruby
+```trb
 type User = {
   id: Integer,
   name: String,
@@ -64,7 +67,7 @@ type UserValues<T> = {
 
 ### 속성을 읽기 전용으로 만들기
 
-```ruby
+```trb
 # 모든 속성을 읽기 전용으로 만들기
 type Readonly<T> = {
   readonly [K in keyof T]: T[K]
@@ -90,7 +93,7 @@ user: ReadonlyUser = { id: 1, name: "Alice", email: "alice@example.com" }
 
 ### 속성을 선택적으로 만들기
 
-```ruby
+```trb
 # 모든 속성을 선택적으로 만들기
 type Partial<T> = {
   [K in keyof T]?: T[K]
@@ -116,7 +119,7 @@ partial_user2: PartialUser = {}  # OK
 
 ### 속성을 필수로 만들기
 
-```ruby
+```trb
 # 선택적 수정자 제거
 type Required<T> = {
   [K in keyof T]-?: T[K]
@@ -140,7 +143,7 @@ type RequiredUserUpdate = Required<UserUpdate>
 
 ### 속성 타입 변환
 
-```ruby
+```trb
 # 모든 속성을 배열로 변환
 type Arrayify<T> = {
   [K in keyof T]: Array<T[K]>
@@ -170,7 +173,7 @@ type Nullable<T> = {
 
 ### 수정자 추가 또는 제거
 
-```ruby
+```trb
 # 읽기 전용 추가
 type AddReadonly<T> = {
   +readonly [K in keyof T]: T[K]
@@ -196,7 +199,7 @@ type MakeRequired<T> = {
 
 ### 특정 속성 선택
 
-```ruby
+```trb
 # 지정된 키만 선택
 type Pick<T, K extends keyof T> = {
   [P in K]: T[P]
@@ -221,7 +224,7 @@ public_user: PublicUser = { id: 1, name: "Alice" }
 
 ### 특정 속성 제외
 
-```ruby
+```trb
 # 지정된 키 제외
 type Omit<T, K extends keyof T> = {
   [P in Exclude<keyof T, K>]: T[P]
@@ -253,7 +256,7 @@ type UserBasic = Omit<User, "password" | "email">
 
 매핑된 타입을 조건부 타입과 결합:
 
-```ruby
+```trb
 # 조건에 따라 속성을 읽기 전용으로 만들기
 type ConditionalReadonly<T> = {
   readonly [K in keyof T]: T[K] extends Function ? T[K] : readonly T[K]
@@ -274,7 +277,7 @@ type RemoveFunctions<T> = {
 
 매핑하는 동안 속성 키 변환:
 
-```ruby
+```trb
 # 모든 키에 접두사 추가
 type Prefixed<T, Prefix extends String> = {
   [K in keyof T as `${Prefix}${K}`]: T[K]
@@ -313,7 +316,7 @@ type UserWithGetters = WithGetters<User>
 
 ### DTO 패턴
 
-```ruby
+```trb
 # 데이터 전송 객체 - 모든 속성이 선택적이고 널러블이 됨
 type DTO<T> = {
   [K in keyof T]?: T[K] | nil
@@ -347,7 +350,7 @@ type UserAPI = APIWrapper<User>
 
 ### 폼 핸들러
 
-```ruby
+```trb
 # 속성을 폼 필드로 변환
 type FormFields<T> = {
   [K in keyof T]: {
@@ -387,7 +390,7 @@ type LoginHandlers = FormHandlers<LoginForm>
 
 ### 데이터베이스 모델
 
-```ruby
+```trb
 # 모델에 타임스탬프 추가
 type WithTimestamps<T> = T & {
   created_at: Time,
@@ -430,7 +433,7 @@ type UserUpdate = UpdateModel<User>
 
 ### 이벤트 핸들러
 
-```ruby
+```trb
 # 모든 속성에 대한 이벤트 핸들러 생성
 type EventHandlers<T> = {
   [K in keyof T as `on${Capitalize<K>}Updated`]: (value: T[K]) => void
@@ -471,7 +474,7 @@ type ProductValidators = Validators<Product>
 
 중첩된 객체에 재귀적으로 매핑 적용:
 
-```ruby
+```trb
 # 깊은 읽기 전용
 type DeepReadonly<T> = {
   readonly [K in keyof T]: T[K] extends Hash<any, any>
@@ -511,7 +514,7 @@ type DeepReadonlyUser = DeepReadonly<NestedUser>
 
 여러 매핑 결합:
 
-```ruby
+```trb
 # 읽기 전용과 부분
 type ReadonlyPartial<T> = Readonly<Partial<T>>
 
@@ -545,7 +548,7 @@ type SafeUserUpdate = ReadonlyPartial<Omit<User, "id">>
 
 매핑된 타입을 사용하여 타입 안전 빌더 생성:
 
-```ruby
+```trb
 # 모든 속성이 설정되도록 보장하는 빌더
 type Builder<T> = {
   [K in keyof T as `with${Capitalize<K>}`]: (value: T[K]) => Builder<T>
@@ -580,7 +583,7 @@ type UserBuilder = Builder<User>
 
 ### 1. 설명적인 이름 사용
 
-```ruby
+```trb
 # 좋음: 명확한 목적
 type ReadonlyUser = Readonly<User>
 type PartialUpdate = Partial<UserUpdate>
@@ -593,7 +596,7 @@ type UserType2 = Partial<UserUpdate>
 
 ### 2. 재사용 가능한 매핑된 타입 생성
 
-```ruby
+```trb
 # 좋음: 재사용 가능한 유틸리티
 type WithTimestamps<T> = T & { created_at: Time, updated_at: Time }
 type WithSoftDelete<T> = T & { deleted_at: Time | nil }
@@ -605,7 +608,7 @@ type FullModel<T> = WithTimestamps<WithSoftDelete<WithMetadata<T>>>
 
 ### 3. 복잡한 매핑 문서화
 
-```ruby
+```trb
 # 좋음: 문서화됨
 # 모든 속성을 해당 getter 메서드로 변환
 # 예: { name: String } => { getName: () => String }
@@ -616,7 +619,7 @@ type ToGetters<T> = {
 
 ### 4. 조건부 타입과 결합
 
-```ruby
+```trb
 # 좋음: 스마트 변환
 type SmartNullable<T> = {
   [K in keyof T]: T[K] extends String | Integer
@@ -629,7 +632,7 @@ type SmartNullable<T> = {
 
 ### 레포지토리 패턴
 
-```ruby
+```trb
 type Repository<T> = {
   find_by_id: (id: Integer) => T | nil,
   find_all: () => Array<T>,
@@ -648,7 +651,7 @@ type CRUDHandlers<T> = {
 
 ### 상태 관리
 
-```ruby
+```trb
 type State<T> = T
 
 type Actions<T> = {
@@ -666,7 +669,7 @@ type Reducers<T> = {
 
 ### 새 속성을 추가할 수 없음
 
-```ruby
+```trb
 # 원본 타입에 없는 속성을 추가할 수 없음
 type Extended<T> = {
   [K in keyof T]: T[K]
@@ -679,7 +682,7 @@ type Extended<T> = T & { new_property: String }
 
 ### 키 타입 제한
 
-```ruby
+```trb
 # 키는 String | Symbol | Integer여야 함
 type ValidKeys = { [K in String]: any }     # OK
 type InvalidKeys = { [K in User]: any }     # 에러: User는 유효한 키 타입이 아님

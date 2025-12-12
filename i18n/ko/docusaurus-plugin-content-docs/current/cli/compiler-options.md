@@ -4,6 +4,9 @@ title: 컴파일러 옵션
 description: 사용 가능한 모든 컴파일러 옵션
 ---
 
+<DocsBadge />
+
+
 # 컴파일러 옵션
 
 T-Ruby의 컴파일러는 컴파일, 타입 검사, 코드 생성을 제어하기 위한 다양한 옵션을 제공합니다. 이 레퍼런스는 사용 가능한 모든 명령줄 플래그와 그 효과를 다룹니다.
@@ -34,7 +37,7 @@ trc compile --strict src/
 - 암시적 `any` 타입 불가
 - 엄격한 nil 검사 활성화
 
-```ruby
+```trb
 # 엄격 모드는 전체 타입 지정 필요
 def process(data: Array<String>): Hash<String, Integer>
   @count: Integer = 0
@@ -73,7 +76,7 @@ end
 trc compile --no-implicit-any src/
 ```
 
-```ruby
+```trb
 # --no-implicit-any 사용 시 오류
 def process(data)  # 오류: 암시적 any
   # ...
@@ -93,7 +96,7 @@ end
 trc compile --strict-nil src/
 ```
 
-```ruby
+```trb
 # --strict-nil 사용 시 오류
 def find_user(id: Integer): User  # 오류: nil을 반환할 수 있음
   users.find { |u| u.id == id }
@@ -113,7 +116,7 @@ end
 trc compile --no-unused-vars src/
 ```
 
-```ruby
+```trb
 # --no-unused-vars 사용 시 경고
 def calculate(x: Integer, y: Integer): Integer
   x * 2  # 경고: y가 사용되지 않음
@@ -133,7 +136,7 @@ end
 trc compile --no-unchecked-indexed-access src/
 ```
 
-```ruby
+```trb
 # --no-unchecked-indexed-access 사용 시 오류
 users: Array<User> = get_users()
 user = users[0]  # 오류: nil일 수 있음
@@ -152,7 +155,7 @@ end
 trc compile --require-return-types src/
 ```
 
-```ruby
+```trb
 # --require-return-types 사용 시 오류
 def calculate(x: Integer)  # 오류: 반환 타입 누락
   x * 2

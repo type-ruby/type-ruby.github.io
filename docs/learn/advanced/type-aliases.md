@@ -4,6 +4,9 @@ title: Type Aliases
 description: Creating custom type names
 ---
 
+<DocsBadge />
+
+
 # Type Aliases
 
 Type aliases allow you to create custom names for types, making your code more readable and maintainable. Think of them as nicknames for types—they don't create new types, but they make complex types easier to work with and understand.
@@ -19,7 +22,7 @@ Type aliases serve several important purposes:
 
 ### Without Type Aliases
 
-```ruby
+```trb
 # Complex types repeated everywhere
 def find_user(id: Integer): Hash<Symbol, String | Integer | Bool> | nil
   # ...
@@ -39,7 +42,7 @@ users: Array<Hash<Symbol, String | Integer | Bool>> = []
 
 ### With Type Aliases
 
-```ruby
+```trb
 # Define once
 type UserData = Hash<Symbol, String | Integer | Bool>
 
@@ -64,13 +67,13 @@ users: Array<UserData> = []
 
 The syntax for creating a type alias is simple:
 
-```ruby
+```trb
 type AliasName = ExistingType
 ```
 
 ### Simple Aliases
 
-```ruby
+```trb
 # Alias for a primitive type
 type UserId = Integer
 type EmailAddress = String
@@ -95,7 +98,7 @@ end
 
 Union types benefit greatly from aliases:
 
-```ruby
+```trb
 # Before: Repeated union types
 def process(value: String | Integer | Float): String
   # ...
@@ -126,7 +129,7 @@ type Result = :success | :error | :pending
 
 Make complex collection types more readable:
 
-```ruby
+```trb
 # Array aliases
 type StringList = Array<String>
 type NumberList = Array<Integer>
@@ -162,7 +165,7 @@ Type aliases can themselves be generic, accepting type parameters:
 
 ### Basic Generic Aliases
 
-```ruby
+```trb
 # A generic Result type
 type Result<T> = T | nil
 
@@ -186,7 +189,7 @@ name_age: Pair<String, Integer> = ["Alice", 30]
 
 ### Complex Generic Aliases
 
-```ruby
+```trb
 # A generic collection with metadata
 type Collection<T> = Hash<Symbol, T | Integer | String>
 
@@ -216,7 +219,7 @@ email_validator: Validator<String> = ->(s: String): Bool { s.include?("@") }
 
 You can create aliases that fix some type parameters while leaving others open:
 
-```ruby
+```trb
 # Base generic type
 type Response<T, E> = { success: Bool, data: T | nil, error: E | nil }
 
@@ -248,7 +251,7 @@ string_to_user: StringMap<User> = { "admin" => User.new("Admin") }
 
 ### Domain-Specific Types
 
-```ruby
+```trb
 # E-commerce domain
 type ProductId = Integer
 type OrderId = String
@@ -277,7 +280,7 @@ end
 
 ### Status and State Types
 
-```ruby
+```trb
 # Application states
 type Status = :pending | :processing | :completed | :failed
 type UserRole = :admin | :editor | :viewer
@@ -314,7 +317,7 @@ end
 
 ### JSON and API Types
 
-```ruby
+```trb
 # JSON types
 type JSONPrimitive = String | Integer | Float | Bool | nil
 type JSONArray = Array<JSONValue>
@@ -344,7 +347,7 @@ end
 
 ### Function Types
 
-```ruby
+```trb
 # Common function signatures
 type Predicate<T> = Proc<T, Bool>
 type Mapper<T, U> = Proc<T, U>
@@ -381,7 +384,7 @@ for_each(numbers, print_it)
 
 You can build complex type aliases from simpler ones:
 
-```ruby
+```trb
 # Base types
 type UserId = Integer
 type Username = String
@@ -419,7 +422,7 @@ This feature is planned for a future release.
 
 In the future, T-Ruby will support recursive type aliases for tree structures and linked lists:
 
-```ruby
+```trb
 # Tree structure
 type TreeNode<T> = {
   value: T,
@@ -447,7 +450,7 @@ type JSONValue =
 
 ### 1. Use Descriptive Names
 
-```ruby
+```trb
 # Good: Clear, descriptive names
 type EmailAddress = String
 type ProductPrice = Float
@@ -461,7 +464,7 @@ type UR = :admin | :editor | :viewer
 
 ### 2. Group Related Aliases
 
-```ruby
+```trb
 # Good: Organized by domain
 # User-related types
 type UserId = Integer
@@ -478,7 +481,7 @@ type ProductData = Hash<Symbol, String | Integer | Float>
 
 ### 3. Use Aliases for Complex Types
 
-```ruby
+```trb
 # Good: Alias for complex type used multiple times
 type QueryResult = Hash<Symbol, Array<Hash<String, String | Integer>> | Integer>
 
@@ -498,7 +501,7 @@ end
 
 ### 4. Don't Over-Alias Simple Types
 
-```ruby
+```trb
 # Unnecessary: String is already clear
 type S = String
 type N = Integer
@@ -512,7 +515,7 @@ type UserId = Integer       # Clarifies purpose
 
 Type aliases don't create new types—they're just alternative names. This is different from classes:
 
-```ruby
+```trb
 # Type alias - just a name
 type UserId = Integer
 
@@ -538,7 +541,7 @@ int_id: Integer = 456
 
 ### When to Use Each
 
-```ruby
+```trb
 # Use type aliases when:
 # - You want semantic clarity but same underlying behavior
 # - You want to simplify complex type expressions
@@ -567,7 +570,7 @@ end
 
 ### Optional Types
 
-```ruby
+```trb
 # Optional/nullable type aliases
 type Optional<T> = T | nil
 type Nullable<T> = T | nil
@@ -579,7 +582,7 @@ name: Nullable<String> = user&.name
 
 ### Result Types
 
-```ruby
+```trb
 # Result type for operations that can fail
 type Result<T, E> = { success: Bool, value: T | nil, error: E | nil }
 type SimpleResult<T> = T | Error
@@ -596,7 +599,7 @@ end
 
 ### Builder Types
 
-```ruby
+```trb
 # Configuration builders
 type Config = Hash<Symbol, String | Integer | Bool>
 type ConfigBuilder = Proc<Config, Config>
@@ -616,7 +619,7 @@ end
 
 Type aliases serve as inline documentation:
 
-```ruby
+```trb
 # The alias name documents what the type represents
 type PositiveInteger = Integer  # Should be > 0
 type NonEmptyString = String    # Should not be empty

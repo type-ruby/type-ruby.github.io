@@ -4,6 +4,9 @@ title: RBS Integration
 description: How T-Ruby generates and works with RBS files
 ---
 
+<DocsBadge />
+
+
 # RBS Integration
 
 T-Ruby seamlessly integrates with RBS (Ruby Signature), Ruby's official type signature format. When you compile T-Ruby code, the compiler automatically generates `.rbs` files alongside the Ruby output, enabling integration with the broader Ruby typing ecosystem.
@@ -25,7 +28,7 @@ When you compile T-Ruby code, the compiler extracts type information and generat
 
 **T-Ruby input** (`user.trb`):
 
-```ruby
+```trb
 class User
   @id: Integer
   @name: String
@@ -49,7 +52,7 @@ end
 
 **Generated RBS** (`sig/user.rbs`):
 
-```ruby
+```rbs
 class User
   @id: Integer
   @name: String
@@ -121,7 +124,7 @@ trc compile --rbs-dir signatures/ src/
 
 T-Ruby automatically generates method signatures with parameters and return types.
 
-```ruby title="calculator.trb"
+```trb title="calculator.trb"
 def add(a: Integer, b: Integer): Integer
   a + b
 end
@@ -132,14 +135,14 @@ def divide(a: Float, b: Float): Float | nil
 end
 ```
 
-```ruby title="sig/calculator.rbs"
+```rbs title="sig/calculator.rbs"
 def add: (Integer a, Integer b) -> Integer
 def divide: (Float a, Float b) -> (Float | nil)
 ```
 
 ### Optional and Keyword Parameters
 
-```ruby title="formatter.trb"
+```trb title="formatter.trb"
 def format(
   text: String,
   uppercase: Bool = false,
@@ -150,7 +153,7 @@ def format(
 end
 ```
 
-```ruby title="sig/formatter.rbs"
+```rbs title="sig/formatter.rbs"
 def format: (
   String text,
   ?Bool uppercase,
@@ -160,13 +163,13 @@ def format: (
 
 ### Block Signatures
 
-```ruby title="iterator.trb"
+```trb title="iterator.trb"
 def each_item(items: Array<String>): void do |String| -> void end
   items.each { |item| yield item }
 end
 ```
 
-```ruby title="sig/iterator.rbs"
+```rbs title="sig/iterator.rbs"
 def each_item: (Array[String] items) { (String) -> void } -> void
 ```
 
@@ -174,7 +177,7 @@ def each_item: (Array[String] items) { (String) -> void } -> void
 
 T-Ruby's generic types map directly to RBS generics.
 
-```ruby title="container.trb"
+```trb title="container.trb"
 class Container<T>
   @value: T
 
@@ -192,7 +195,7 @@ class Container<T>
 end
 ```
 
-```ruby title="sig/container.rbs"
+```rbs title="sig/container.rbs"
 class Container[T]
   @value: T
 
@@ -204,7 +207,7 @@ end
 
 ### Union Types
 
-```ruby title="parser.trb"
+```trb title="parser.trb"
 def parse(input: String): Integer | Float | nil
   return nil if input.empty?
 
@@ -216,13 +219,13 @@ def parse(input: String): Integer | Float | nil
 end
 ```
 
-```ruby title="sig/parser.rbs"
+```rbs title="sig/parser.rbs"
 def parse: (String input) -> (Integer | Float | nil)
 ```
 
 ### Modules and Mixins
 
-```ruby title="loggable.trb"
+```trb title="loggable.trb"
 module Loggable
   def log(message: String): void
     puts "[LOG] #{message}"
@@ -242,7 +245,7 @@ class Service
 end
 ```
 
-```ruby title="sig/loggable.rbs"
+```rbs title="sig/loggable.rbs"
 module Loggable
   def log: (String message) -> void
   def log_error: (String error) -> void
@@ -257,7 +260,7 @@ end
 
 ### Type Aliases
 
-```ruby title="types.trb"
+```trb title="types.trb"
 type UserId = Integer
 type UserMap = Hash<UserId, User>
 
@@ -266,7 +269,7 @@ def find_users(ids: Array<UserId>): UserMap
 end
 ```
 
-```ruby title="sig/types.rbs"
+```rbs title="sig/types.rbs"
 type UserId = Integer
 type UserMap = Hash[UserId, User]
 
@@ -277,7 +280,7 @@ def find_users: (Array[UserId] ids) -> UserMap
 
 T-Ruby interfaces are converted to RBS interface types.
 
-```ruby title="printable.trb"
+```trb title="printable.trb"
 interface Printable
   def to_s: String
   def print: void
@@ -296,7 +299,7 @@ class Document
 end
 ```
 
-```ruby title="sig/printable.rbs"
+```rbs title="sig/printable.rbs"
 interface _Printable
   def to_s: () -> String
   def print: () -> void
@@ -372,7 +375,7 @@ end
 
 Add RBS-specific annotations in comments:
 
-```ruby title="service.trb"
+```rbs title="service.trb"
 class Service
   # @rbs_skip
   def debug_method: void
@@ -480,7 +483,7 @@ Here's how T-Ruby's RBS integration fits into type checking:
 
 Create a typed library with RBS:
 
-```ruby title="lib/my_library.trb"
+```trb title="lib/my_library.trb"
 module MyLibrary
   class Client
     @api_key: String
@@ -532,7 +535,7 @@ client = MyLibrary::Client.new("key123")
 
 Use RBS with Rails models:
 
-```ruby title="app/models/user.trb"
+```trb title="app/models/user.trb"
 class User < ApplicationRecord
   @name: String
   @email: String
@@ -669,7 +672,7 @@ RBS files are source code - commit them alongside Ruby files.
 
 RBS files serve as documentation. Ensure public APIs are well-typed:
 
-```ruby
+```trb
 # Good - clear public API
 class Service
   def process(data: Array<String>): Hash<String, Integer>
@@ -686,7 +689,7 @@ end
 
 ### 4. Use Type Aliases for Clarity
 
-```ruby
+```trb
 type UserId = Integer
 type ResponseData = Hash<String, Any>
 

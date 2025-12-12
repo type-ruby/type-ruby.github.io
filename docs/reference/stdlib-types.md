@@ -4,6 +4,9 @@ title: Standard Library Types
 description: Type definitions for Ruby standard library
 ---
 
+<DocsBadge />
+
+
 # Standard Library Types
 
 T-Ruby provides type definitions for Ruby's standard library. This reference documents the typed interfaces for commonly used stdlib modules and classes.
@@ -20,7 +23,7 @@ T-Ruby's standard library type coverage is actively growing. The types listed he
 
 File I/O operations with type safety.
 
-```ruby
+```trb
 # Reading files
 def read_config(path: String): String | nil
   return nil unless File.exist?(path)
@@ -55,7 +58,7 @@ end
 
 Directory operations.
 
-```ruby
+```trb
 # List directory contents
 def list_files(dir: String): Array<String>
   Dir.entries(dir)
@@ -86,7 +89,7 @@ end
 
 High-level file operations.
 
-```ruby
+```trb
 require 'fileutils'
 
 # Copy files
@@ -117,7 +120,7 @@ end
 
 JSON parsing and generation.
 
-```ruby
+```trb
 require 'json'
 
 # Parse JSON
@@ -149,7 +152,7 @@ end
 
 For type-safe JSON operations, define explicit types:
 
-```ruby
+```trb
 type JSONPrimitive = String | Integer | Float | Bool | nil
 type JSONArray = Array<JSONValue>
 type JSONObject = Hash<String, JSONValue>
@@ -169,7 +172,7 @@ end
 
 YAML parsing and generation.
 
-```ruby
+```trb
 require 'yaml'
 
 # Load YAML
@@ -198,7 +201,7 @@ end
 
 HTTP client operations.
 
-```ruby
+```trb
 require 'net/http'
 
 # GET request
@@ -236,7 +239,7 @@ end
 
 URI parsing and manipulation.
 
-```ruby
+```trb
 require 'uri'
 
 # Parse URI
@@ -268,7 +271,7 @@ end
 
 CSV file handling.
 
-```ruby
+```trb
 require 'csv'
 
 # Read CSV
@@ -306,7 +309,7 @@ end
 
 Logging functionality.
 
-```ruby
+```trb
 require 'logger'
 
 # Create logger
@@ -339,7 +342,7 @@ end
 
 Object-oriented path manipulation.
 
-```ruby
+```trb
 require 'pathname'
 
 # Path operations
@@ -373,7 +376,7 @@ end
 
 In-memory string streams.
 
-```ruby
+```trb
 require 'stringio'
 
 # Create string buffer
@@ -403,7 +406,7 @@ end
 
 Collection of unique elements.
 
-```ruby
+```trb
 require 'set'
 
 # Create and use sets
@@ -441,7 +444,7 @@ end
 
 Dynamic attribute objects.
 
-```ruby
+```trb
 require 'ostruct'
 
 # Create struct
@@ -469,7 +472,7 @@ end
 
 Performance measurement.
 
-```ruby
+```trb
 require 'benchmark'
 
 # Measure execution time
@@ -499,7 +502,7 @@ end
 
 Embedded Ruby templating.
 
-```ruby
+```trb
 require 'erb'
 
 # Render template
@@ -523,7 +526,7 @@ end
 
 Base64 encoding and decoding.
 
-```ruby
+```trb
 require 'base64'
 
 # Encode
@@ -554,7 +557,7 @@ end
 
 Hash functions (MD5, SHA, etc.).
 
-```ruby
+```trb
 require 'digest'
 
 # MD5 hash
@@ -584,7 +587,7 @@ end
 
 Cryptographically secure random values.
 
-```ruby
+```trb
 require 'securerandom'
 
 # Random hex
@@ -613,7 +616,7 @@ end
 
 Execute code with timeout.
 
-```ruby
+```trb
 require 'timeout'
 
 # With timeout
@@ -664,7 +667,7 @@ Quick reference table of stdlib module support:
 
 ### Import and Use
 
-```ruby
+```trb
 # Import stdlib modules
 require 'json'
 require 'fileutils'
@@ -682,7 +685,7 @@ end
 
 For dynamic stdlib modules, use type casting:
 
-```ruby
+```trb
 # Safe casting
 def load_users(path: String): Array<Hash<String, String>>
   raw_data = JSON.parse(File.read(path))
@@ -699,7 +702,7 @@ end
 
 Create typed wrappers for better safety:
 
-```ruby
+```trb
 class Config
   @data: Hash<String, Any>
 

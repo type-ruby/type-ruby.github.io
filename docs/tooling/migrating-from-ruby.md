@@ -4,6 +4,9 @@ title: Migrating from Ruby
 description: Guide to migrating existing Ruby projects to T-Ruby
 ---
 
+<DocsBadge />
+
+
 # Migrating from Ruby
 
 Migrating an existing Ruby codebase to T-Ruby is a gradual process. Thanks to T-Ruby's optional type system, you can adopt types incrementally without rewriting everything at once.
@@ -106,7 +109,7 @@ At this point, the file is still valid Ruby - all Ruby is valid T-Ruby.
 
 Start with simple type annotations:
 
-```ruby title="user.trb"
+```trb title="user.trb"
 class User
   @id: Integer
   @name: String
@@ -146,7 +149,7 @@ Hint: Did you mean: String | nil ?
 
 Fix:
 
-```ruby
+```trb
 def initialize(id: Integer, name: String, email: String | nil): void
   @id = id
   @name = name
@@ -195,7 +198,7 @@ end
 
 **After** (T-Ruby):
 
-```ruby
+```trb
 class Product
   @id: Integer
   @name: String
@@ -245,7 +248,7 @@ end
 
 **After** (T-Ruby):
 
-```ruby
+```trb
 class UserService
   def find_user(id: Integer): User | nil
     User.find(id)
@@ -287,7 +290,7 @@ end
 
 **After** (T-Ruby):
 
-```ruby
+```trb
 module Timestampable
   @created_at: Time
   @updated_at: Time
@@ -342,7 +345,7 @@ end
 
 Define type aliases for clarity:
 
-```ruby
+```trb
 type OrderData = Hash<Symbol, Any>
 type OrderItem = Hash<Symbol, Any>
 type OrderResult = Hash<Symbol, String | Integer>
@@ -362,7 +365,7 @@ end
 
 Or use structured types:
 
-```ruby
+```trb
 class OrderItem
   @price: Integer
   @quantity: Integer
@@ -407,7 +410,7 @@ end
 
 Use explicit methods or define types:
 
-```ruby
+```trb
 class DynamicModel
   # Explicit methods for type safety
   def find_by_name(name: String): DynamicModel | nil
@@ -428,7 +431,7 @@ end
 
 Or use generics for flexible typing:
 
-```ruby
+```trb
 class DynamicModel
   def find_by<T>(attribute: String, value: T): DynamicModel | nil
     # Database query
@@ -453,7 +456,7 @@ user.name  # Might crash if nil!
 ```
 
 **After**:
-```ruby
+```trb
 def find_user(id: Integer): User | nil
   users.find { |u| u.id == id }
 end
@@ -485,7 +488,7 @@ config = {
 
 **After** - Use structured classes:
 
-```ruby
+```trb
 class Credentials
   @username: String
   @password: String
@@ -545,7 +548,7 @@ end
 
 **After** - Use interfaces:
 
-```ruby
+```trb
 interface Stringable
   def to_s: String
 end
@@ -580,7 +583,7 @@ end
 
 **After** - Explicit methods:
 
-```ruby
+```trb
 class DynamicClass
   @foo: Any
   @bar: Any
@@ -781,7 +784,7 @@ Migrate code where types provide the most value:
 
 Make complex types readable:
 
-```ruby
+```trb
 type UserId = Integer
 type UserAttributes = Hash<String, String | Integer | Bool>
 type UserList = Array<User>
@@ -890,7 +893,7 @@ end
 
 **After** (`app/models/article.trb`):
 
-```ruby
+```trb
 class Article < ApplicationRecord
   @id: Integer
   @title: String

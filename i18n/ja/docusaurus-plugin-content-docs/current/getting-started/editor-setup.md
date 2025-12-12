@@ -4,6 +4,9 @@ title: エディタ設定
 description: VS Code、Neovim、その他のエディタでT-Rubyを設定
 ---
 
+<DocsBadge />
+
+
 # エディタ設定
 
 シンタックスハイライト、型チェック、オートコンプリートを備えたエディタを設定して、最高のT-Ruby開発体験を得ましょう。

@@ -4,6 +4,9 @@ title: Instance & Class Variables
 description: Typing instance and class variables
 ---
 
+<DocsBadge />
+
+
 # Instance & Class Variables
 
 Instance and class variables are fundamental to Ruby's object-oriented programming. T-Ruby provides comprehensive type safety for both, ensuring your data structures are predictable and error-free. This guide covers how to type variables at both the instance and class level.
@@ -16,7 +19,7 @@ Instance variables store data unique to each object. In T-Ruby, there are severa
 
 The most common and recommended way to type instance variables:
 
-```ruby title="attr_methods.trb"
+```trb title="attr_methods.trb"
 class Person
   attr_accessor :name: String
   attr_accessor :age: Integer
@@ -49,7 +52,7 @@ person.password = "secret"   # ✓ OK - attr_writer
 
 You can explicitly declare types when initializing instance variables:
 
-```ruby title="explicit_types.trb"
+```trb title="explicit_types.trb"
 class ShoppingCart
   def initialize()
     @items: Array<String> = []
@@ -82,7 +85,7 @@ end
 
 You can use both approaches together:
 
-```ruby title="combined.trb"
+```trb title="combined.trb"
 class Article
   attr_reader :title: String
   attr_accessor :published: Boolean
@@ -117,7 +120,7 @@ end
 
 Instance variables that can be nil use the `?` suffix:
 
-```ruby title="nilable.trb"
+```trb title="nilable.trb"
 class UserAccount
   attr_accessor :username: String
   attr_accessor :email: String?
@@ -167,7 +170,7 @@ end
 
 Class variables are shared across all instances of a class. Type them with `@@`:
 
-```ruby title="class_vars.trb"
+```trb title="class_vars.trb"
 class Counter
   def initialize()
     @@count: Integer ||= 0
@@ -196,7 +199,7 @@ puts Counter.total_count()  # 0
 
 Initialize class variables with appropriate defaults:
 
-```ruby title="class_var_defaults.trb"
+```trb title="class_var_defaults.trb"
 class Configuration
   @@database_url: String = "localhost"
   @@max_connections: Integer = 10
@@ -247,7 +250,7 @@ Configuration.add_allowed_host("example.com")
 
 Understanding when to use each:
 
-```ruby title="comparison.trb"
+```trb title="comparison.trb"
 class BankAccount
   # Class variable - shared across all instances
   @@total_accounts: Integer = 0
@@ -322,7 +325,7 @@ puts BankAccount.total_balance()    # 3500.0
 
 Instance variables can hold any type:
 
-```ruby title="complex_types.trb"
+```trb title="complex_types.trb"
 class DataStore
   def initialize()
     @strings: Array<String> = []
@@ -371,7 +374,7 @@ end
 
 A real-world example combining instance and class variables:
 
-```ruby title="user_session.trb"
+```trb title="user_session.trb"
 class UserSession
   # Class variables - track all sessions
   @@active_sessions: Hash<String, UserSession> = {}
@@ -483,7 +486,7 @@ UserSession.expire_old_sessions(60)  # Expire sessions older than 60 minutes
 
 Another example showing effective use of class and instance variables:
 
-```ruby title="cache_system.trb"
+```trb title="cache_system.trb"
 class Cache<T>
   # Class variables - shared statistics
   @@total_hits: Integer = 0
@@ -623,7 +626,7 @@ puts Cache.total_caches()      # 2
 
 ### Lazy Initialization
 
-```ruby title="lazy_init.trb"
+```trb title="lazy_init.trb"
 class Report
   attr_reader :name: String
 
@@ -647,7 +650,7 @@ end
 
 ### Registry Pattern
 
-```ruby title="registry.trb"
+```trb title="registry.trb"
 class Plugin
   @@plugins: Hash<String, Plugin> = {}
 
@@ -674,7 +677,7 @@ end
 
 ### Memoization
 
-```ruby title="memoization.trb"
+```trb title="memoization.trb"
 class Calculator
   def initialize()
     @cache: Hash<String, Integer> = {}

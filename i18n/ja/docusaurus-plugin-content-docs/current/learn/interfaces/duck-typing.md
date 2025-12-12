@@ -4,6 +4,9 @@ title: ダックタイピング
 description: T-Rubyの構造的型付けとダックタイピング
 ---
 
+<DocsBadge />
+
+
 # ダックタイピング
 
 「アヒルのように歩き、アヒルのように鳴くなら、それはアヒルに違いない。」ダックタイピングは、明示的なインターフェース実装ではなく、メソッドとプロパティの存在によって型の互換性が決定される構造的型付けの一形態です。T-Rubyは型安全性を維持しながらダックタイピングをサポートします。
@@ -12,7 +15,7 @@ description: T-Rubyの構造的型付けとダックタイピング
 
 ダックタイピングでは、インターフェースを明示的に実装する必要はありません—必要なメソッドを持っていればよいのです：
 
-```ruby title="duck_typing_basic.trb"
+```trb title="duck_typing_basic.trb"
 # インターフェース不要
 def print_object(obj: { def to_string(): String }): void
   puts obj.to_string()
@@ -50,7 +53,7 @@ print_object(product)  # "Product: Laptop"
 
 オブジェクトリテラル構文を使用してインラインで構造的型を定義します：
 
-```ruby title="structural_types.trb"
+```trb title="structural_types.trb"
 # 構造的型の定義
 type Printable = {
   def print(): void
@@ -102,7 +105,7 @@ print_item(report)
 
 名前を付けずに構造的型を直接使用します：
 
-```ruby title="anonymous_types.trb"
+```trb title="anonymous_types.trb"
 def process_data(
   source: { def read(): String },
   destination: { def write(content: String): void }
@@ -146,7 +149,7 @@ process_data(reader, console_writer)
 
 構造的型は複数のメソッドとプロパティシグニチャを定義できます：
 
-```ruby title="complex_structural.trb"
+```trb title="complex_structural.trb"
 type Repository = {
   def find(id: Integer): Hash<String, String>?
   def save(data: Hash<String, String>): Boolean
@@ -225,7 +228,7 @@ use_repository(file_repo)
 
 明示的インターフェースとダックタイピングの比較：
 
-```ruby title="comparison.trb"
+```trb title="comparison.trb"
 # 明示的インターフェースアプローチ
 interface Logger
   def log(message: String): void
@@ -272,7 +275,7 @@ use_logger(file)     # 動作 - logメソッドを持つ（ダックタイピン
 
 必要以上のメソッドを持つオブジェクトも構造的型を満たします：
 
-```ruby title="subtyping.trb"
+```trb title="subtyping.trb"
 type BasicLogger = {
   def log(message: String): void
 }
@@ -309,7 +312,7 @@ simple_logging(advanced)  # 動作 - 構造的サブタイピング
 
 ジェネリクスと構造的型付けの組み合わせ：
 
-```ruby title="generic_structural.trb"
+```trb title="generic_structural.trb"
 def transform<T, U>(
   items: Array<T>,
   transformer: { def transform(item: T): U }
@@ -352,7 +355,7 @@ doubled = transform(numbers, doubler)  # [2, 4, 6]
 
 柔軟なプラグインアーキテクチャのためのダックタイピング：
 
-```ruby title="plugin_duck_typing.trb"
+```trb title="plugin_duck_typing.trb"
 type Plugin = {
   def name(): String
   def execute(): void
@@ -418,7 +421,7 @@ runner.run_configurable(advanced, { "level" => "high" })
 
 柔軟なデータ処理のためのダックタイピング：
 
-```ruby title="data_pipeline.trb"
+```trb title="data_pipeline.trb"
 type DataSource = {
   def read(): Array<Hash<String, String>>
 }
@@ -535,7 +538,7 @@ pipeline2.execute()
 
 ダックタイピングを使用した柔軟なイベント処理：
 
-```ruby title="event_system.trb"
+```trb title="event_system.trb"
 type EventHandler = {
   def handle(event: Hash<String, String>): void
 }

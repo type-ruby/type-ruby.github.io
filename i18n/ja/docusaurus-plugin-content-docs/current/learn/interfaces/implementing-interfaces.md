@@ -4,6 +4,9 @@ title: インターフェースの実装
 description: クラスがインターフェースを実装する方法
 ---
 
+<DocsBadge />
+
+
 # インターフェースの実装
 
 インターフェースを定義した後、クラスは`implements`キーワードを使用して実装します。T-Rubyは実装クラスが正しいシグニチャで全ての必須メソッドを提供することを確認します。このガイドではインターフェースを正しく効果的に実装する方法を示します。
@@ -12,7 +15,7 @@ description: クラスがインターフェースを実装する方法
 
 `implements`を使用してクラスがインターフェースコントラクトを満たすことを宣言します：
 
-```ruby title="basic_implementation.trb"
+```trb title="basic_implementation.trb"
 interface Drawable
   def draw(): void
   def get_area(): Float
@@ -67,7 +70,7 @@ shapes.each { |shape| shape.draw() }
 
 クラスは複数のインターフェースを実装できます：
 
-```ruby title="multiple_interfaces.trb"
+```trb title="multiple_interfaces.trb"
 interface Serializable
   def to_json(): String
   def from_json(json: String): void
@@ -128,7 +131,7 @@ clone = user1.clone()
 
 特定の型でジェネリックインターフェースを実装します：
 
-```ruby title="generic_implementation.trb"
+```trb title="generic_implementation.trb"
 interface Storage<T>
   def save(item: T): void
   def load(id: String): T?
@@ -206,7 +209,7 @@ product_storage.save(Product.new("SKU-001", "Laptop", 999.99))
 
 継承を通じてインターフェースを部分的に実装することもあります：
 
-```ruby title="partial_implementation.trb"
+```trb title="partial_implementation.trb"
 interface Validator
   def validate(): Boolean
   def errors(): Array<String>
@@ -297,7 +300,7 @@ end
 
 他のオブジェクトに委譲してインターフェースを実装します：
 
-```ruby title="delegation.trb"
+```trb title="delegation.trb"
 interface Logger
   def log(level: String, message: String): void
   def debug(message: String): void
@@ -351,7 +354,7 @@ app.run()
 
 決済インターフェースを実装する完全な例：
 
-```ruby title="payment_gateway.trb"
+```trb title="payment_gateway.trb"
 interface PaymentMethod
   def authorize(amount: Float): Boolean
   def capture(transaction_id: String): Boolean
@@ -522,7 +525,7 @@ end
 
 複数インターフェース実装を持つ別の完全な例：
 
-```ruby title="notification_system.trb"
+```trb title="notification_system.trb"
 interface NotificationChannel
   def send(recipient: String, message: String): Boolean
   def send_bulk(recipients: Array<String>, message: String): Array<Boolean>
@@ -689,7 +692,7 @@ service.notify_all(
 
 ### アダプターパターン
 
-```ruby title="adapter.trb"
+```trb title="adapter.trb"
 interface ModernAPI
   def get_data(id: String): Hash<String, String>
   def save_data(id: String, data: Hash<String, String>): Boolean
@@ -725,7 +728,7 @@ end
 
 ### コンポジットパターン
 
-```ruby title="composite.trb"
+```trb title="composite.trb"
 interface Component
   def render(): String
   def add(component: Component): void

@@ -4,6 +4,9 @@ title: Constraints
 description: Constraining generic type parameters
 ---
 
+<DocsBadge />
+
+
 # Constraints
 
 While generics allow you to write code that works with any type, sometimes you need to ensure that the types used have certain properties or capabilities. Constraints let you restrict generic type parameters to types that meet specific requirements, giving you access to their methods and properties while maintaining type safety.
@@ -19,7 +22,7 @@ Without constraints, generic code can only perform operations that work on all t
 
 ### The Problem: Unconstrained Generics
 
-```ruby
+```trb
 # Without constraints, you can't use type-specific methods
 def print_length<T>(value: T): void
   puts value.length  # Error: T might not have a length method
@@ -33,7 +36,7 @@ end
 
 ### The Solution: With Constraints
 
-```ruby
+```trb
 # Constrain T to types that have a length method
 def print_length<T: Lengthable>(value: T): void
   puts value.length  # OK: T is guaranteed to have length
@@ -49,7 +52,7 @@ end
 
 Constraints are specified using a colon (`:`) after the type parameter:
 
-```ruby
+```trb
 # Single constraint
 def process<T: Interface>(value: T): void
   # T must implement Interface
@@ -67,7 +70,7 @@ The most common constraint is requiring a type to implement an interface.
 
 ### Defining an Interface for Constraints
 
-```ruby
+```trb
 # Define an interface
 interface Printable
   def to_s: String
@@ -101,7 +104,7 @@ print_items(users)  # OK: User implements Printable
 
 ### Common Interface Constraints
 
-```ruby
+```trb
 # Comparable interface
 interface Comparable
   def <=>(other: self): Integer
@@ -141,7 +144,7 @@ end
 
 You can constrain a type parameter to be a specific class or a subclass of it.
 
-```ruby
+```trb
 # Constrain to a specific class
 class Animal
   @name: String
@@ -183,7 +186,7 @@ make_speak("string")  # Error: String is not an Animal
 
 ### Working with Class Hierarchies
 
-```ruby
+```trb
 class Vehicle
   @brand: String
 
@@ -246,7 +249,7 @@ This feature is planned for a future release.
 
 In the future, T-Ruby will support multiple constraints using the `&` operator:
 
-```ruby
+```trb
 # Type must implement both interfaces
 def process<T: Printable & Comparable>(value: T): void
   puts value.to_s
@@ -263,7 +266,7 @@ end
 
 You can constrain a type to be one of several specific types using union types:
 
-```ruby
+```trb
 # T must be either String or Integer
 def format<T: String | Integer>(value: T): String
   case value
@@ -281,7 +284,7 @@ format(3.14)     # Error: Float is not String | Integer
 
 ### Practical Union Constraint Example
 
-```ruby
+```trb
 # A flexible ID type
 type StringOrInt = String | Integer
 
@@ -303,7 +306,7 @@ user2 = find_user("alice")    # Find by username string
 
 Generic classes can have constrained type parameters:
 
-```ruby
+```trb
 # Queue that only works with comparable items
 class PriorityQueue<T: Comparable>
   @items: Array<T>
@@ -353,7 +356,7 @@ queue.enqueue(Task.new("Medium priority", 5))
 
 ### Generic Class with Multiple Constrained Parameters
 
-```ruby
+```trb
 # Map that requires hashable keys and serializable values
 interface Hashable
   def hash: Integer
@@ -391,7 +394,7 @@ end
 
 You can provide default types for generic parameters with constraints:
 
-```ruby
+```trb
 # Default to String if not specified
 class Cache<K: Hashable = String, V = Any>
   @data: Hash<K, V>
@@ -422,7 +425,7 @@ cache2.set(1, User.new("Alice"))
 
 ### Sortable Collection
 
-```ruby
+```trb
 interface Comparable
   def <=>(other: self): Integer
 end
@@ -472,7 +475,7 @@ puts numbers.to_a  # [1, 2, 5, 8] - always sorted
 
 ### Repository Pattern with Constraints
 
-```ruby
+```trb
 # Base entity class
 class Entity
   @id: Integer
@@ -556,7 +559,7 @@ all_products = product_repo.all  # Array<Product>
 
 ### Builder Pattern with Constraints
 
-```ruby
+```trb
 interface Buildable
   def build: self
 end
@@ -617,7 +620,7 @@ puts query.to_sql
 
 T-Ruby can infer constrained types from usage:
 
-```ruby
+```trb
 def sort_and_first<T: Comparable>(items: Array<T>): T | nil
   sorted = items.sort { |a, b| a <=> b }
   sorted.first
@@ -636,7 +639,7 @@ first_word = sort_and_first(words)  # String | nil
 
 ### 1. Use the Least Restrictive Constraint
 
-```ruby
+```trb
 # Good: Only requires what's needed
 def print_all<T: Printable>(items: Array<T>): void
   items.each { |item| puts item.to_s }
@@ -650,7 +653,7 @@ end
 
 ### 2. Create Small, Focused Interfaces for Constraints
 
-```ruby
+```trb
 # Good: Small, focused interfaces
 interface Identifiable
   def id: Integer
@@ -678,7 +681,7 @@ end
 
 ### 3. Document Constraint Requirements
 
-```ruby
+```trb
 # Good: Clear documentation
 # Processes items that can be converted to strings
 # @param items [Array<T>] Array of printable items
@@ -692,7 +695,7 @@ end
 
 ### Identity Constraint
 
-```ruby
+```trb
 interface Identifiable
   def id: Integer | String
 end
@@ -715,7 +718,7 @@ end
 
 ### Validation Constraint
 
-```ruby
+```trb
 interface Validatable
   def valid?: Bool
   def errors: Array<String>
@@ -734,7 +737,7 @@ end
 
 ### Conversion Constraint
 
-```ruby
+```trb
 interface Convertible<T>
   def convert: T
 end

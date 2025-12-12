@@ -4,6 +4,9 @@ title: Rubyからの移行
 description: 既存のRubyプロジェクトをT-Rubyに移行するガイド
 ---
 
+<DocsBadge />
+
+
 # Rubyからの移行
 
 既存のRubyコードベースをT-Rubyに移行することは段階的なプロセスです。T-Rubyのオプショナル型システムのおかげで、すべてを一度に書き直すことなく、段階的に型を導入できます。
@@ -106,7 +109,7 @@ mv user.rb user.trb
 
 シンプルな型アノテーションから開始：
 
-```ruby title="user.trb"
+```trb title="user.trb"
 class User
   @id: Integer
   @name: String
@@ -146,7 +149,7 @@ Hint: Did you mean: String | nil ?
 
 修正：
 
-```ruby
+```trb
 def initialize(id: Integer, name: String, email: String | nil): void
   @id = id
   @name = name
@@ -195,7 +198,7 @@ end
 
 **以後**（T-Ruby）：
 
-```ruby
+```trb
 class Product
   @id: Integer
   @name: String
@@ -245,7 +248,7 @@ end
 
 **以後**（T-Ruby）：
 
-```ruby
+```trb
 class UserService
   def find_user(id: Integer): User | nil
     User.find(id)
@@ -287,7 +290,7 @@ end
 
 **以後**（T-Ruby）：
 
-```ruby
+```trb
 module Timestampable
   @created_at: Time
   @updated_at: Time
@@ -342,7 +345,7 @@ end
 
 明確さのための型エイリアスを定義：
 
-```ruby
+```trb
 type OrderData = Hash<Symbol, Any>
 type OrderItem = Hash<Symbol, Any>
 type OrderResult = Hash<Symbol, String | Integer>
@@ -362,7 +365,7 @@ end
 
 または構造化された型を使用：
 
-```ruby
+```trb
 class OrderItem
   @price: Integer
   @quantity: Integer
@@ -407,7 +410,7 @@ end
 
 明示的なメソッドを使用するか型を定義：
 
-```ruby
+```trb
 class DynamicModel
   # 型安全性のための明示的メソッド
   def find_by_name(name: String): DynamicModel | nil
@@ -428,7 +431,7 @@ end
 
 または柔軟な型付けのためにジェネリクスを使用：
 
-```ruby
+```trb
 class DynamicModel
   def find_by<T>(attribute: String, value: T): DynamicModel | nil
     # データベースクエリ
@@ -453,7 +456,7 @@ user.name  # nilならクラッシュ！
 ```
 
 **以後**：
-```ruby
+```trb
 def find_user(id: Integer): User | nil
   users.find { |u| u.id == id }
 end
@@ -485,7 +488,7 @@ config = {
 
 **以後** - 構造化されたクラスを使用：
 
-```ruby
+```trb
 class Credentials
   @username: String
   @password: String
@@ -545,7 +548,7 @@ end
 
 **以後** - インターフェースを使用：
 
-```ruby
+```trb
 interface Stringable
   def to_s: String
 end
@@ -580,7 +583,7 @@ end
 
 **以後** - 明示的メソッド：
 
-```ruby
+```trb
 class DynamicClass
   @foo: Any
   @bar: Any
@@ -781,7 +784,7 @@ bundle exec rake test
 
 複雑な型を読みやすく：
 
-```ruby
+```trb
 type UserId = Integer
 type UserAttributes = Hash<String, String | Integer | Bool>
 type UserList = Array<User>
@@ -890,7 +893,7 @@ end
 
 **以後**（`app/models/article.trb`）：
 
-```ruby
+```trb
 class Article < ApplicationRecord
   @id: Integer
   @title: String

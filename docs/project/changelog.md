@@ -4,6 +4,9 @@ title: Changelog
 description: T-Ruby release history
 ---
 
+<DocsBadge />
+
+
 # Changelog
 
 All notable changes to T-Ruby will be documented in this file.
@@ -183,7 +186,7 @@ ruby hello.rb
 
 #### Example Code
 
-```ruby
+```trb
 # hello.trb - Type-safe Ruby
 class User
   @name: String

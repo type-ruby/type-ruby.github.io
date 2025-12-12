@@ -4,6 +4,9 @@ title: 표준 라이브러리 타입
 description: Ruby 표준 라이브러리의 타입 정의
 ---
 
+<DocsBadge />
+
+
 # 표준 라이브러리 타입
 
 T-Ruby는 Ruby의 표준 라이브러리에 대한 타입 정의를 제공합니다. 이 레퍼런스는 일반적으로 사용되는 stdlib 모듈과 클래스에 대한 타입이 지정된 인터페이스를 문서화합니다.
@@ -20,7 +23,7 @@ T-Ruby의 표준 라이브러리 타입 커버리지는 활발히 성장하고 �
 
 타입 안전성이 있는 파일 I/O 작업.
 
-```ruby
+```trb
 # 파일 읽기
 def read_config(path: String): String | nil
   return nil unless File.exist?(path)
@@ -55,7 +58,7 @@ end
 
 디렉토리 작업.
 
-```ruby
+```trb
 # 디렉토리 내용 나열
 def list_files(dir: String): Array<String>
   Dir.entries(dir)
@@ -86,7 +89,7 @@ end
 
 고수준 파일 작업.
 
-```ruby
+```trb
 require 'fileutils'
 
 # 파일 복사
@@ -117,7 +120,7 @@ end
 
 JSON 파싱과 생성.
 
-```ruby
+```trb
 require 'json'
 
 # JSON 파싱
@@ -149,7 +152,7 @@ end
 
 타입 안전한 JSON 작업을 위해 명시적 타입을 정의하세요:
 
-```ruby
+```trb
 type JSONPrimitive = String | Integer | Float | Bool | nil
 type JSONArray = Array<JSONValue>
 type JSONObject = Hash<String, JSONValue>
@@ -169,7 +172,7 @@ end
 
 YAML 파싱과 생성.
 
-```ruby
+```trb
 require 'yaml'
 
 # YAML 로드
@@ -198,7 +201,7 @@ end
 
 HTTP 클라이언트 작업.
 
-```ruby
+```trb
 require 'net/http'
 
 # GET 요청
@@ -236,7 +239,7 @@ end
 
 URI 파싱과 조작.
 
-```ruby
+```trb
 require 'uri'
 
 # URI 파싱
@@ -268,7 +271,7 @@ end
 
 CSV 파일 처리.
 
-```ruby
+```trb
 require 'csv'
 
 # CSV 읽기
@@ -306,7 +309,7 @@ end
 
 로깅 기능.
 
-```ruby
+```trb
 require 'logger'
 
 # 로거 생성
@@ -339,7 +342,7 @@ end
 
 객체 지향 경로 조작.
 
-```ruby
+```trb
 require 'pathname'
 
 # 경로 작업
@@ -373,7 +376,7 @@ end
 
 메모리 내 문자열 스트림.
 
-```ruby
+```trb
 require 'stringio'
 
 # 문자열 버퍼 생성
@@ -403,7 +406,7 @@ end
 
 고유한 요소의 컬렉션.
 
-```ruby
+```trb
 require 'set'
 
 # 집합 생성 및 사용
@@ -441,7 +444,7 @@ end
 
 동적 속성 객체.
 
-```ruby
+```trb
 require 'ostruct'
 
 # 구조체 생성
@@ -469,7 +472,7 @@ end
 
 성능 측정.
 
-```ruby
+```trb
 require 'benchmark'
 
 # 실행 시간 측정
@@ -499,7 +502,7 @@ end
 
 임베디드 Ruby 템플릿.
 
-```ruby
+```trb
 require 'erb'
 
 # 템플릿 렌더링
@@ -523,7 +526,7 @@ end
 
 Base64 인코딩과 디코딩.
 
-```ruby
+```trb
 require 'base64'
 
 # 인코딩
@@ -554,7 +557,7 @@ end
 
 해시 함수 (MD5, SHA 등).
 
-```ruby
+```trb
 require 'digest'
 
 # MD5 해시
@@ -584,7 +587,7 @@ end
 
 암호학적으로 안전한 랜덤 값.
 
-```ruby
+```trb
 require 'securerandom'
 
 # 랜덤 hex
@@ -613,7 +616,7 @@ end
 
 타임아웃으로 코드 실행.
 
-```ruby
+```trb
 require 'timeout'
 
 # 타임아웃으로
@@ -664,7 +667,7 @@ stdlib 모듈 지원의 빠른 참조 테이블:
 
 ### 가져오기와 사용
 
-```ruby
+```trb
 # stdlib 모듈 가져오기
 require 'json'
 require 'fileutils'
@@ -682,7 +685,7 @@ end
 
 동적 stdlib 모듈에는 타입 캐스팅을 사용하세요:
 
-```ruby
+```trb
 # 안전한 캐스팅
 def load_users(path: String): Array<Hash<String, String>>
   raw_data = JSON.parse(File.read(path))
@@ -699,7 +702,7 @@ end
 
 더 나은 안전성을 위해 타입이 지정된 래퍼를 생성하세요:
 
-```ruby
+```trb
 class Config
   @data: Hash<String, Any>
 

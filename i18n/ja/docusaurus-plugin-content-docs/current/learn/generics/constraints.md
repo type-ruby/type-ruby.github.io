@@ -4,6 +4,9 @@ title: 制約
 description: ジェネリック型パラメータの制約
 ---
 
+<DocsBadge />
+
+
 # 制約
 
 ジェネリクスは任意の型で動作するコードを書くことを可能にしますが、使用される型が特定のプロパティや機能を持つことを確認する必要がある場合があります。制約を使用すると、特定の要件を満たす型にジェネリック型パラメータを制限でき、型安全性を維持しながらそれらのメソッドやプロパティにアクセスできます。
@@ -19,7 +22,7 @@ description: ジェネリック型パラメータの制約
 
 ### 問題：制約なしのジェネリクス
 
-```ruby
+```trb
 # 制約なしでは型固有のメソッドを使用できない
 def print_length<T>(value: T): void
   puts value.length  # エラー：Tにlengthメソッドがない可能性
@@ -33,7 +36,7 @@ end
 
 ### 解決策：制約で
 
-```ruby
+```trb
 # Tをlengthメソッドを持つ型に制約
 def print_length<T: Lengthable>(value: T): void
   puts value.length  # OK：Tはlengthを持つことが保証
@@ -49,7 +52,7 @@ end
 
 制約は型パラメータの後にコロン（`:`）を使用して指定します：
 
-```ruby
+```trb
 # 単一の制約
 def process<T: Interface>(value: T): void
   # TはInterfaceを実装する必要がある
@@ -67,7 +70,7 @@ end
 
 ### 制約用のインターフェース定義
 
-```ruby
+```trb
 # インターフェースを定義
 interface Printable
   def to_s: String
@@ -101,7 +104,7 @@ print_items(users)  # OK：UserはPrintableを実装
 
 ### 一般的なインターフェース制約
 
-```ruby
+```trb
 # Comparableインターフェース
 interface Comparable
   def <=>(other: self): Integer
@@ -141,7 +144,7 @@ end
 
 型パラメータを特定のクラスまたはそのサブクラスに制約できます。
 
-```ruby
+```trb
 # 特定のクラスに制約
 class Animal
   @name: String
@@ -183,7 +186,7 @@ make_speak("string")  # エラー：StringはAnimalではない
 
 ### クラス階層での作業
 
-```ruby
+```trb
 class Vehicle
   @brand: String
 
@@ -246,7 +249,7 @@ found = car_repo.find_by_brand("Toyota")  # Car | nil
 
 将来、T-Rubyは`&`演算子を使用した複数の制約をサポートする予定です：
 
-```ruby
+```trb
 # 型は両方のインターフェースを実装する必要がある
 def process<T: Printable & Comparable>(value: T): void
   puts value.to_s
@@ -263,7 +266,7 @@ end
 
 ユニオン型を使用して、いくつかの特定の型のいずれかに制約できます：
 
-```ruby
+```trb
 # TはStringまたはIntegerでなければならない
 def format<T: String | Integer>(value: T): String
   case value
@@ -281,7 +284,7 @@ format(3.14)     # エラー：FloatはString | Integerではない
 
 ### 実用的なユニオン制約の例
 
-```ruby
+```trb
 # 柔軟なID型
 type StringOrInt = String | Integer
 
@@ -303,7 +306,7 @@ user2 = find_user("alice")    # ユーザー名文字列で検索
 
 ジェネリッククラスは制約付き型パラメータを持つことができます：
 
-```ruby
+```trb
 # 比較可能なアイテムのみで動作するキュー
 class PriorityQueue<T: Comparable>
   @items: Array<T>
@@ -355,7 +358,7 @@ queue.enqueue(Task.new("Medium priority", 5))
 
 ### ソート可能なコレクション
 
-```ruby
+```trb
 interface Comparable
   def <=>(other: self): Integer
 end
@@ -405,7 +408,7 @@ puts numbers.to_a  # [1, 2, 5, 8] - 常にソート済み
 
 ### 制約付きRepositoryパターン
 
-```ruby
+```trb
 # ベースエンティティクラス
 class Entity
   @id: Integer
@@ -491,7 +494,7 @@ all_products = product_repo.all  # Array<Product>
 
 ### 1. 最も制限の少ない制約を使用
 
-```ruby
+```trb
 # 良い：必要なものだけを要求
 def print_all<T: Printable>(items: Array<T>): void
   items.each { |item| puts item.to_s }
@@ -505,7 +508,7 @@ end
 
 ### 2. 制約用に小さくフォーカスされたインターフェースを作成
 
-```ruby
+```trb
 # 良い：小さくフォーカスされたインターフェース
 interface Identifiable
   def id: Integer
@@ -533,7 +536,7 @@ end
 
 ### 3. 制約要件を文書化
 
-```ruby
+```trb
 # 良い：明確なドキュメント
 # 文字列に変換できるアイテムを処理
 # @param items [Array<T>] 出力可能なアイテムの配列
@@ -547,7 +550,7 @@ end
 
 ### 識別制約
 
-```ruby
+```trb
 interface Identifiable
   def id: Integer | String
 end
@@ -570,7 +573,7 @@ end
 
 ### 検証制約
 
-```ruby
+```trb
 interface Validatable
   def valid?: Bool
   def errors: Array<String>
@@ -589,7 +592,7 @@ end
 
 ### 変換制約
 
-```ruby
+```trb
 interface Convertible<T>
   def convert: T
 end

@@ -4,6 +4,9 @@ title: 抽象クラス
 description: 抽象クラスとメソッドの定義
 ---
 
+<DocsBadge />
+
+
 # 抽象クラス
 
 抽象クラスはサブクラスのためのテンプレートを定義し、実装されたメソッドとオーバーライドが必要な抽象メソッドの両方を含みます。Rubyには組み込みの抽象クラス構文がありませんが、T-Rubyは型安全な抽象クラスを作成するための規約とパターンを提供します。
@@ -12,7 +15,7 @@ description: 抽象クラスとメソッドの定義
 
 サブクラスが実装する必要があるメソッドでエラーを発生させて抽象クラスを作成します：
 
-```ruby title="abstract_basic.trb"
+```trb title="abstract_basic.trb"
 class Shape
   def initialize()
     @name: String = "Shape"
@@ -88,7 +91,7 @@ puts circle.describe()  # "Circle: area = 78.53975, perimeter = 31.4159"
 
 すべての抽象メソッドは完全な型アノテーションを持つべきです：
 
-```ruby title="typed_abstract.trb"
+```trb title="typed_abstract.trb"
 abstract class DataSource
   def connect(): Boolean
     raise NotImplementedError, "Must implement connect()"
@@ -175,7 +178,7 @@ end
 
 抽象クラスはよくテンプレートメソッドパターンを実装します：
 
-```ruby title="template_method.trb"
+```trb title="template_method.trb"
 abstract class Report
   def generate(): String
     validate()
@@ -262,7 +265,7 @@ puts html.generate()
 
 抽象クラスはいくつかの具象機能を提供できます：
 
-```ruby title="partial_implementation.trb"
+```trb title="partial_implementation.trb"
 abstract class CacheStore<T>
   def initialize()
     @stats: Hash<String, Integer> = { "hits" => 0, "misses" => 0 }
@@ -395,7 +398,7 @@ puts memory_cache.hit_rate()
 
 抽象クラスを使用して共通パターンを強制します：
 
-```ruby title="common_patterns.trb"
+```trb title="common_patterns.trb"
 abstract class Controller
   def initialize()
     @before_filters: Array<Proc<[], void>> = []
@@ -480,7 +483,7 @@ controller.execute("index")
 
 抽象クラスを使用した完全な例：
 
-```ruby title="payment_processor.trb"
+```trb title="payment_processor.trb"
 abstract class PaymentProcessor
   attr_reader :transaction_id: String?
   attr_reader :amount: Float
@@ -659,7 +662,7 @@ processors.each { |p| process_payment(p) }
 
 ### ストラテジーパターン
 
-```ruby title="strategy.trb"
+```trb title="strategy.trb"
 abstract class SortStrategy
   def sort(array: Array<Integer>): Array<Integer>
     raise NotImplementedError, "Must implement sort()"
@@ -696,7 +699,7 @@ sorted = sorter.sort([3, 1, 4, 1, 5, 9, 2, 6])
 
 ### ファクトリーパターン
 
-```ruby title="factory.trb"
+```trb title="factory.trb"
 abstract class Document
   def initialize(title: String)
     @title = title

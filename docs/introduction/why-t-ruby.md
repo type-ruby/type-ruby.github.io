@@ -4,6 +4,9 @@ title: Why T-Ruby?
 description: Benefits and motivation behind T-Ruby
 ---
 
+<DocsBadge />
+
+
 # Why T-Ruby?
 
 Ruby is a beautiful language known for its expressiveness and developer happiness. But as projects grow, the lack of static types can lead to bugs that are hard to catch. T-Ruby addresses this while preserving everything that makes Ruby great.
@@ -24,7 +27,7 @@ user = fetch_user("123")  # Bug! Should be an Integer
 
 This bug won't surface until runtime—possibly in production. With T-Ruby:
 
-```ruby title="With T-Ruby"
+```trb title="With T-Ruby"
 def fetch_user(id: Integer): User
   User.find(id)
 end
@@ -44,7 +47,7 @@ Type errors are caught at compile time, not runtime. This means:
 - Faster debugging cycles
 - More confidence when refactoring
 
-```ruby
+```trb
 def process_payment(amount: Float, currency: String): PaymentResult
   # Type checker ensures:
   # - amount is always a Float
@@ -62,7 +65,7 @@ process_payment(100.0, "USD").foo  # Error: PaymentResult has no method 'foo'
 
 Types serve as documentation that never goes out of date:
 
-```ruby
+```trb
 # Without types - what does this return? What should I pass?
 def transform(data, options = {})
   # ...
@@ -84,7 +87,7 @@ Your IDE can provide:
 
 You don't have to rewrite your entire codebase. T-Ruby supports gradual typing:
 
-```ruby
+```trb
 # Start with your most critical code
 def charge_customer(customer_id: Integer, amount: Float): ChargeResult
   # This function is now type-safe
@@ -101,7 +104,7 @@ end
 
 Unlike some type systems that add runtime checks, T-Ruby types are completely erased during compilation:
 
-```ruby title="Before compilation (app.trb)"
+```trb title="Before compilation (app.trb)"
 def multiply(a: Integer, b: Integer): Integer
   a * b
 end
@@ -140,7 +143,7 @@ T-Ruby is particularly valuable for:
 
 Types add some overhead. For very small scripts or quick prototypes, untyped Ruby might be more appropriate:
 
-```ruby
+```trb
 # For a quick script, this is fine
 puts "Hello, #{ARGV[0]}!"
 

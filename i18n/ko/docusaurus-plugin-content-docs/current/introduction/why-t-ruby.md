@@ -4,6 +4,9 @@ title: 왜 T-Ruby인가?
 description: T-Ruby의 장점과 탄생 배경
 ---
 
+<DocsBadge />
+
+
 # 왜 T-Ruby인가?
 
 Ruby는 표현력과 개발자의 즐거움으로 유명한 아름다운 언어입니다. 하지만 프로젝트가 커지면서 정적 타입의 부재는 잡기 어려운 버그로 이어질 수 있습니다. T-Ruby는 Ruby를 훌륭하게 만드는 모든 것을 보존하면서 이 문제를 해결합니다.
@@ -24,7 +27,7 @@ user = fetch_user("123")  # 버그! Integer여야 합니다
 
 이 버그는 런타임까지—아마도 프로덕션에서—나타나지 않습니다. T-Ruby를 사용하면:
 
-```ruby title="T-Ruby 사용"
+```trb title="T-Ruby 사용"
 def fetch_user(id: Integer): User
   User.find(id)
 end
@@ -44,7 +47,7 @@ user = fetch_user("123")  # 컴파일 오류! Integer가 필요한데 String을 
 - 더 빠른 디버깅 사이클
 - 리팩토링 시 더 큰 자신감
 
-```ruby
+```trb
 def process_payment(amount: Float, currency: String): PaymentResult
   # 타입 체커가 보장합니다:
   # - amount는 항상 Float
@@ -62,7 +65,7 @@ process_payment(100.0, "USD").foo  # 오류: PaymentResult에 'foo' 메서드가
 
 타입은 절대 오래되지 않는 문서 역할을 합니다:
 
-```ruby
+```trb
 # 타입 없이 - 이게 뭘 반환하나요? 뭘 전달해야 하나요?
 def transform(data, options = {})
   # ...
@@ -84,7 +87,7 @@ IDE가 제공할 수 있는 것들:
 
 전체 코드베이스를 다시 작성할 필요가 없습니다. T-Ruby는 점진적 타이핑을 지원합니다:
 
-```ruby
+```trb
 # 가장 중요한 코드부터 시작하세요
 def charge_customer(customer_id: Integer, amount: Float): ChargeResult
   # 이 함수는 이제 타입 안전합니다
@@ -101,7 +104,7 @@ end
 
 런타임 검사를 추가하는 일부 타입 시스템과 달리, T-Ruby 타입은 컴파일 중에 완전히 제거됩니다:
 
-```ruby title="컴파일 전 (app.trb)"
+```trb title="컴파일 전 (app.trb)"
 def multiply(a: Integer, b: Integer): Integer
   a * b
 end
@@ -140,7 +143,7 @@ T-Ruby는 특히 다음에 유용합니다:
 
 타입은 약간의 오버헤드를 추가합니다. 매우 작은 스크립트나 빠른 프로토타입의 경우, 타입 없는 Ruby가 더 적절할 수 있습니다:
 
-```ruby
+```trb
 # 빠른 스크립트의 경우, 이것으로 충분합니다
 puts "Hello, #{ARGV[0]}!"
 

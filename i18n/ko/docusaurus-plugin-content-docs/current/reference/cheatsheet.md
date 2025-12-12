@@ -4,6 +4,9 @@ title: 타입 구문 치트시트
 description: T-Ruby 타입 구문 빠른 참조
 ---
 
+<DocsBadge />
+
+
 # 타입 구문 치트시트
 
 T-Ruby 타입 구문에 대한 포괄적인 빠른 참조 가이드입니다. 모든 타입 어노테이션과 구문 패턴에 쉽게 접근하기 위해 이 페이지를 북마크하세요.
@@ -23,7 +26,7 @@ T-Ruby 타입 구문에 대한 포괄적인 빠른 참조 가이드입니다. �
 
 ## 변수 어노테이션
 
-```ruby
+```trb
 # 타입 어노테이션이 있는 변수
 name: String = "Alice"
 age: Integer = 30
@@ -40,7 +43,7 @@ message = "Hello"  # String으로 추론
 
 ## 함수 시그니처
 
-```ruby
+```trb
 # 기본 함수
 def greet(name: String): String
   "Hello, #{name}!"
@@ -81,7 +84,7 @@ end
 | `T \| nil` | 선택적 타입 | `String \| nil` |
 | `T?` | `T \| nil`의 약어 | `String?` |
 
-```ruby
+```trb
 # 유니온 타입
 id: String | Integer = "user-123"
 id: String | Integer = 456
@@ -101,7 +104,7 @@ end
 
 ## 배열 타입
 
-```ruby
+```trb
 # 특정 타입의 배열
 names: Array<String> = ["Alice", "Bob"]
 numbers: Array<Integer> = [1, 2, 3]
@@ -118,7 +121,7 @@ items: Array<String> = []
 
 ## 해시 타입
 
-```ruby
+```trb
 # 특정 키와 값 타입의 해시
 scores: Hash<String, Integer> = { "Alice" => 100, "Bob" => 95 }
 
@@ -136,7 +139,7 @@ users: Hash<Integer, Hash<Symbol, String>> = {
 
 ## 제네릭 타입
 
-```ruby
+```trb
 # 제네릭 함수
 def first<T>(arr: Array<T>): T | nil
   arr[0]
@@ -167,7 +170,7 @@ result = first([1, 2, 3])  # 타입 추론
 
 ## 타입 별칭
 
-```ruby
+```trb
 # 간단한 별칭
 type UserId = Integer
 type EmailAddress = String
@@ -191,7 +194,7 @@ email: EmailAddress = "alice@example.com"
 
 ## 클래스 어노테이션
 
-```ruby
+```trb
 # 인스턴스 변수
 class User
   @name: String
@@ -242,7 +245,7 @@ end
 
 ## 인터페이스 정의
 
-```ruby
+```trb
 # 기본 인터페이스
 interface Printable
   def to_s: String
@@ -287,7 +290,7 @@ end
 | `<T>` | 제네릭 | 타입 매개변수 | `Array<T>` |
 | `=>` | 해시 쌍 | 키-값 타입 | `Hash<String => Integer>` |
 
-```ruby
+```trb
 # 유니온 (OR)
 value: String | Integer
 
@@ -306,7 +309,7 @@ pairs: Hash<String, Integer>
 
 ## 블록, Proc, 람다
 
-```ruby
+```trb
 # 블록 매개변수
 def each_item<T>(items: Array<T>, &block: Proc<T, void>): void
   items.each { |item| block.call(item) }
@@ -327,7 +330,7 @@ end
 
 ## 타입 좁히기
 
-```ruby
+```trb
 # is_a?로 타입 검사
 def process(value: String | Integer): String
   if value.is_a?(String)
@@ -360,7 +363,7 @@ end
 
 ## 리터럴 타입
 
-```ruby
+```trb
 # 문자열 리터럴
 type Status = "pending" | "active" | "completed"
 status: Status = "active"
@@ -380,7 +383,7 @@ type No = false
 
 ## 고급 타입
 
-```ruby
+```trb
 # 인터섹션 타입
 type Serializable = Printable & Comparable
 obj: Serializable  # 두 인터페이스 모두 구현해야 함
@@ -400,7 +403,7 @@ type Omit<T, K>    # 속성 제거
 
 ## 타입 단언
 
-```ruby
+```trb
 # 타입 캐스팅 (주의해서 사용)
 value = get_value() as String
 number = parse("42") as Integer
@@ -417,7 +420,7 @@ end
 
 ## 모듈 타입 어노테이션
 
-```ruby
+```trb
 module Formatter
   # 타입이 있는 모듈 메서드
   def self.format(value: String, width: Integer): String
@@ -444,7 +447,7 @@ end
 
 ### 기본값이 있는 선택적 매개변수
 
-```ruby
+```trb
 def create_user(
   name: String,
   email: String,
@@ -457,7 +460,7 @@ end
 
 ### 결과 타입 패턴
 
-```ruby
+```trb
 type Result<T, E> = { success: Bool, value: T | nil, error: E | nil }
 
 def divide(a: Float, b: Float): Result<Float, String>
@@ -471,7 +474,7 @@ end
 
 ### 빌더 패턴
 
-```ruby
+```trb
 class QueryBuilder
   @conditions: Array<String>
 
@@ -492,7 +495,7 @@ end
 
 ### 타입 가드
 
-```ruby
+```trb
 def is_string(value: Any): value is String
   value.is_a?(String)
 end
@@ -521,7 +524,7 @@ end
 
 ## 일반적인 타입 오류
 
-```ruby
+```trb
 # ❌ 잘못됨: 잘못된 타입 할당
 name: String = 123  # 오류: Integer는 String이 아님
 

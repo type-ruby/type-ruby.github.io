@@ -4,6 +4,9 @@ title: Utility Types
 description: Built-in utility types for common transformations
 ---
 
+<DocsBadge />
+
+
 # Utility Types
 
 :::caution Coming Soon
@@ -18,7 +21,7 @@ Utility types are pre-built generic types that perform common type transformatio
 
 Makes all properties of a type optional:
 
-```ruby
+```trb
 type Partial<T> = {
   [K in keyof T]?: T[K]
 }
@@ -58,7 +61,7 @@ update_user(1, {})  # Valid, no updates
 
 Makes all properties required (removes optionality):
 
-```ruby
+```trb
 type Required<T> = {
   [K in keyof T]-?: T[K]
 }
@@ -87,7 +90,7 @@ end
 
 Makes all properties readonly:
 
-```ruby
+```trb
 type Readonly<T> = {
   readonly [K in keyof T]: T[K]
 }
@@ -126,7 +129,7 @@ config: Config = {
 
 Creates a type by picking specific properties from another type:
 
-```ruby
+```trb
 type Pick<T, K extends keyof T> = {
   [P in K]: T[P]
 }
@@ -170,7 +173,7 @@ end
 
 Creates a type by omitting specific properties from another type:
 
-```ruby
+```trb
 type Omit<T, K extends keyof T> = {
   [P in Exclude<keyof T, K>]: T[P]
 }
@@ -221,7 +224,7 @@ end
 
 Excludes types from a union:
 
-```ruby
+```trb
 type Exclude<T, U> = T extends U ? never : T
 
 type AllTypes = String | Integer | Float | Bool
@@ -250,7 +253,7 @@ end
 
 Extracts types from a union:
 
-```ruby
+```trb
 type Extract<T, U> = T extends U ? T : never
 
 type AllTypes = String | Integer | Float | Bool
@@ -272,7 +275,7 @@ end
 
 Removes `nil` from a type:
 
-```ruby
+```trb
 type NonNullable<T> = T extends nil ? never : T
 
 type MaybeString = String | nil
@@ -296,7 +299,7 @@ end
 
 Extracts the return type of a function type:
 
-```ruby
+```trb
 type ReturnType<T> = T extends Proc<any, infer R> ? R : never
 
 type GetUserFn = Proc<Integer, User>
@@ -321,7 +324,7 @@ end
 
 Extracts parameter types from a function type:
 
-```ruby
+```trb
 type Parameters<T> = T extends Proc<infer P, any> ? P : never
 
 type GetUserFn = Proc<Integer, User>
@@ -347,7 +350,7 @@ end
 
 Creates a type with keys of type K and values of type V:
 
-```ruby
+```trb
 type Record<K extends String | Symbol | Integer, V> = {
   [P in K]: V
 }
@@ -391,7 +394,7 @@ configs: Record<"development" | "staging" | "production", Config> = {
 
 Extracts the element type from an array:
 
-```ruby
+```trb
 type ArrayElement<T> = T extends Array<infer E> ? E : never
 
 type StringArray = Array<String>
@@ -412,7 +415,7 @@ end
 
 An array whose elements cannot be modified:
 
-```ruby
+```trb
 type ReadonlyArray<T> = readonly Array<T>
 
 # Usage
@@ -432,7 +435,7 @@ ALLOWED_STATUSES: ReadonlyArray<String> = ["pending", "approved", "rejected"]
 
 Makes all properties and nested properties optional:
 
-```ruby
+```trb
 type DeepPartial<T> = {
   [K in keyof T]?: T[K] extends Hash<any, any>
     ? DeepPartial<T[K]>
@@ -468,7 +471,7 @@ end
 
 Makes all properties and nested properties readonly:
 
-```ruby
+```trb
 type DeepReadonly<T> = {
   readonly [K in keyof T]: T[K] extends Hash<any, any>
     ? DeepReadonly<T[K]>
@@ -498,7 +501,7 @@ config: ImmutableConfig = load_config()
 
 Removes readonly modifiers:
 
-```ruby
+```trb
 type Mutable<T> = {
   -readonly [K in keyof T]: T[K]
 }
@@ -529,7 +532,7 @@ end
 
 Merges two types, with U's properties overriding T's:
 
-```ruby
+```trb
 type Merge<T, U> = Omit<T, keyof U> & U
 
 type User = {
@@ -556,7 +559,7 @@ type MergedUser = Merge<User, UserUpdate>
 
 Gets properties that exist in both types:
 
-```ruby
+```trb
 type Intersection<T, U> = Pick<T, Extract<keyof T, keyof U>>
 
 type User = {
@@ -582,7 +585,7 @@ type Common = Intersection<User, Person>
 
 Gets properties that exist in T but not in U:
 
-```ruby
+```trb
 type Difference<T, U> = Omit<T, keyof U>
 
 type User = {
@@ -610,7 +613,7 @@ type PrivateFields = Difference<User, PublicFields>
 
 Type-level if-else:
 
-```ruby
+```trb
 type If<Condition extends Bool, Then, Else> =
   Condition extends true ? Then : Else
 
@@ -632,7 +635,7 @@ type DevConfig = IsProduction<"development">
 
 Makes a type nullable:
 
-```ruby
+```trb
 type Nullable<T> = T | nil
 
 type User = { id: Integer, name: String }
@@ -649,7 +652,7 @@ end
 
 Wraps return types in promises (for async operations):
 
-```ruby
+```trb
 type Promisify<T> = {
   [K in keyof T]: T[K] extends Proc<infer Args, infer R>
     ? Proc<Args, Promise<R>>
@@ -674,7 +677,7 @@ type AsyncUserService = Promisify<UserService>
 
 ### API Response Types
 
-```ruby
+```trb
 type APIResponse<T> = {
   success: true,
   data: T
@@ -707,7 +710,7 @@ end
 
 ### Form State Management
 
-```ruby
+```trb
 type FormState<T> = {
   values: T,
   errors: Partial<Record<keyof T, String>>,
@@ -733,7 +736,7 @@ type LoginFormState = FormState<LoginForm>
 
 ### Repository Pattern
 
-```ruby
+```trb
 type Repository<T> = {
   find: Proc<Integer, Nullable<T>>,
   find_all: Proc<Array<T>>,
@@ -760,7 +763,7 @@ updated = user_repository.update(1, { name: "Alice Smith" })
 
 ### 1. Compose Utilities
 
-```ruby
+```trb
 # Good: Build complex types from utilities
 type SafeUserUpdate = Partial<Omit<Required<User>, "id" | "created_at">>
 
@@ -772,7 +775,7 @@ type SafeUserUpdate = {
 
 ### 2. Create Domain-Specific Utilities
 
-```ruby
+```trb
 # Good: Custom utilities for your domain
 type Entity<T> = T & { id: Integer }
 type Timestamped<T> = T & { created_at: Time, updated_at: Time }
@@ -786,7 +789,7 @@ type User = FullEntity<{ name: String, email: String }>
 
 ### 3. Document Complex Utilities
 
-```ruby
+```trb
 # Good: Clear documentation
 # Creates a type-safe form state for any model
 # Includes validation errors and touched state tracking

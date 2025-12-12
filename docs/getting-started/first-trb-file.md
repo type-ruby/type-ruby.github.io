@@ -4,6 +4,9 @@ title: Your First .trb File
 description: Create and compile your first T-Ruby file
 ---
 
+<DocsBadge />
+
+
 # Your First .trb File
 
 This guide takes you through creating a T-Ruby file step by step, explaining each concept as we go.
@@ -19,7 +22,7 @@ A `.trb` file is a T-Ruby source file. It's essentially Ruby code with type anno
 
 Let's create a file called `calculator.trb` that implements a simple calculator:
 
-```ruby title="calculator.trb"
+```trb title="calculator.trb"
 # calculator.trb - A simple typed calculator
 
 # Basic arithmetic operations with type annotations
@@ -44,7 +47,7 @@ end
 
 Let's break down the syntax:
 
-```ruby
+```trb
 def add(a: Integer, b: Integer): Integer
 #   ^^^  ^  ^^^^^^^  ^  ^^^^^^^   ^^^^^^^
 #   |    |    |      |    |         |
@@ -60,7 +63,7 @@ def add(a: Integer, b: Integer): Integer
 
 Let's expand our calculator with more advanced features:
 
-```ruby title="calculator.trb"
+```trb title="calculator.trb"
 # Type alias for cleaner code
 type Number = Integer | Float
 
@@ -97,7 +100,7 @@ end
 
 The `|` operator creates a union type:
 
-```ruby
+```trb
 type Number = Integer | Float  # Can be Integer OR Float
 
 def safe_divide(a: Number, b: Number): Float | nil
@@ -111,7 +114,7 @@ end
 
 The `<T>` syntax defines a generic type parameter:
 
-```ruby
+```trb
 def max<T: Comparable>(a: T, b: T): T
 #     ^^  ^^^^^^^^^^
 #     |       |
@@ -128,7 +131,7 @@ max("a", "b")   # T is String
 
 Let's create a Calculator class:
 
-```ruby title="calculator.trb"
+```trb title="calculator.trb"
 class Calculator
   # Instance variable with type annotation
   @history: Array<String>
@@ -229,7 +232,7 @@ class Calculator
 end
 ```
 
-```ruby title="build/calculator.rbs"
+```rbs title="build/calculator.rbs"
 type Number = Integer | Float
 
 class Calculator
@@ -249,7 +252,7 @@ end
 
 ### Optional Parameters
 
-```ruby
+```trb
 def greet(name: String, greeting: String = "Hello"): String
   "#{greeting}, #{name}!"
 end
@@ -260,7 +263,7 @@ greet("Alice", "Hi")     # "Hi, Alice!"
 
 ### Nullable Types (Optional Shorthand)
 
-```ruby
+```trb
 # These are equivalent:
 def find(id: Integer): User | nil
 def find(id: Integer): User?  # Shorthand
@@ -268,7 +271,7 @@ def find(id: Integer): User?  # Shorthand
 
 ### Block Parameters
 
-```ruby
+```rbs
 def each_item(items: Array<String>, &block: (String) -> void): void
   items.each(&block)
 end

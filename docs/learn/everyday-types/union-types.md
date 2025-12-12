@@ -4,6 +4,9 @@ title: Union Types
 description: Combining multiple types with union
 ---
 
+<DocsBadge />
+
+
 # Union Types
 
 Union types allow a value to be one of several different types. They are essential for modeling data that can legitimately have multiple forms. This chapter will teach you how to use union types effectively in T-Ruby.
@@ -12,7 +15,7 @@ Union types allow a value to be one of several different types. They are essenti
 
 A union type represents a value that can be one of several specified types. In T-Ruby, you create union types using the pipe (`|`) operator:
 
-```ruby title="union_basics.trb"
+```trb title="union_basics.trb"
 # This variable can be either a String or nil
 name: String | nil = "Alice"
 
@@ -31,7 +34,7 @@ Union types are useful in several scenarios:
 
 The most common use is combining a type with `nil` to represent optional values:
 
-```ruby title="optional_values.trb"
+```trb title="optional_values.trb"
 def find_user(id: Integer): String | nil
   return nil if id < 0
   "User #{id}"
@@ -46,7 +49,7 @@ no_user: String | nil = find_user(-1)  # nil
 
 When a function can accept different types of input:
 
-```ruby title="multiple_inputs.trb"
+```trb title="multiple_inputs.trb"
 def format_id(id: String | Integer): String
   if id.is_a?(Integer)
     "ID-#{id}"
@@ -63,7 +66,7 @@ formatted2: String = format_id("abc")  # "ABC"
 
 When a function might return different types based on conditions:
 
-```ruby title="different_returns.trb"
+```trb title="different_returns.trb"
 def parse_value(input: String): String | Integer | Bool
   if input == "true" || input == "false"
     input == "true"
@@ -85,7 +88,7 @@ result3 = parse_value("hello")  # "hello" (String)
 
 To safely use a value with a union type, you need to check which type it actually is:
 
-```ruby title="type_checking.trb"
+```trb title="type_checking.trb"
 def process_value(value: String | Integer): String
   if value.is_a?(String)
     # Inside this block, T-Ruby knows value is a String
@@ -104,7 +107,7 @@ result2: String = process_value(42)  # "42"
 
 When working with optional values, always check for `nil`:
 
-```ruby title="nil_checking.trb"
+```trb title="nil_checking.trb"
 def get_length(text: String | nil): Integer
   if text.nil?
     0
@@ -127,7 +130,7 @@ end
 
 When you have more than two types in a union:
 
-```ruby title="multiple_checks.trb"
+```trb title="multiple_checks.trb"
 def describe_value(value: String | Integer | Bool): String
   if value.is_a?(String)
     "Text: #{value}"
@@ -151,7 +154,7 @@ Union types are commonly used with arrays and hashes:
 
 ### Arrays with Union Element Types
 
-```ruby title="union_arrays.trb"
+```trb title="union_arrays.trb"
 # Array that can contain strings or integers
 def create_mixed_list(): Array<String | Integer>
   ["Alice", 1, "Bob", 2, "Charlie", 3]
@@ -188,7 +191,7 @@ strings: Array<String> = get_strings(mixed)  # ["Alice", "Bob", "Charlie"]
 
 ### Hashes with Union Value Types
 
-```ruby title="union_hashes.trb"
+```trb title="union_hashes.trb"
 # Hash with different value types
 def create_config(): Hash<Symbol, String | Integer | Bool>
   {
@@ -235,7 +238,7 @@ port: Integer | nil = get_integer_value(config, :port)  # 3000
 
 ### Pattern 1: Success or Error
 
-```ruby title="result_pattern.trb"
+```trb title="result_pattern.trb"
 def divide_safe(a: Float, b: Float): Float | String
   if b == 0.0
     "Error: Division by zero"
@@ -262,7 +265,7 @@ message2: String = process_result(result2)  # "Error: Division by zero"
 
 ### Pattern 2: Default Values
 
-```ruby title="default_pattern.trb"
+```trb title="default_pattern.trb"
 def get_value_or_default(
   value: String | nil,
   default: String
@@ -285,7 +288,7 @@ result2: String = get_value_or_default(nil, "default")  # "default"
 
 ### Pattern 3: Type Coercion
 
-```ruby title="coercion_pattern.trb"
+```trb title="coercion_pattern.trb"
 def to_integer(value: String | Integer): Integer
   if value.is_a?(Integer)
     value
@@ -312,7 +315,7 @@ str3: String = to_string(true)  # "true"
 
 ### Pattern 4: Polymorphic Functions
 
-```ruby title="polymorphic_pattern.trb"
+```trb title="polymorphic_pattern.trb"
 def repeat(value: String | Integer, times: Integer): String
   if value.is_a?(String)
     value * times
@@ -332,7 +335,7 @@ Union types can be combined in complex ways:
 
 ### Unions in Unions
 
-```ruby title="nested_unions.trb"
+```trb title="nested_unions.trb"
 # A value that can be a number (Integer or Float) or text (String or Symbol)
 def process_input(value: Integer | Float | String | Symbol): String
   if value.is_a?(Integer) || value.is_a?(Float)
@@ -352,7 +355,7 @@ result4: String = process_input(:active)  # "Symbol: active"
 
 ### Unions with Complex Types
 
-```ruby title="complex_unions.trb"
+```trb title="complex_unions.trb"
 # Can be a simple value or an array of values
 def normalize_input(
   value: String | Array<String>
@@ -384,7 +387,7 @@ nums2: Array<Integer> = expand_range(1..5)  # [1, 2, 3, 4, 5]
 
 Here's a comprehensive example using union types:
 
-```ruby title="config_system.trb"
+```trb title="config_system.trb"
 class ConfigManager
   def initialize()
     @config: Hash<String, String | Integer | Bool | nil> = {}
@@ -501,7 +504,7 @@ config.parse_and_set("environment", "production")  # Stored as String
 
 Avoid unions with too many types:
 
-```ruby title="simple_unions.trb"
+```trb title="simple_unions.trb"
 # Good - clear and simple
 def process(value: String | Integer): String
   # ...
@@ -517,7 +520,7 @@ end
 
 ### 2. Use nil Unions for Optional Values
 
-```ruby title="optional_best_practice.trb"
+```trb title="optional_best_practice.trb"
 # Good - clearly optional
 def find_item(id: Integer): String | nil
   # ...
@@ -531,7 +534,7 @@ end
 
 ### 3. Check Types in Consistent Order
 
-```ruby title="consistent_checks.trb"
+```trb title="consistent_checks.trb"
 # Good - consistent pattern
 def process(value: String | Integer): String
   if value.is_a?(String)
@@ -553,7 +556,7 @@ end
 
 ### 4. Document Union Type Semantics
 
-```ruby title="documentation.trb"
+```trb title="documentation.trb"
 # Good - clear what each type means
 def get_status(id: Integer): String | Symbol | nil
   # Returns:
@@ -571,7 +574,7 @@ end
 
 ### Forgetting Type Checks
 
-```ruby title="missing_checks.trb"
+```trb title="missing_checks.trb"
 # Wrong - doesn't check type
 def bad_example(value: String | Integer): Integer
   value.length  # Error! Integer doesn't have length
@@ -589,7 +592,7 @@ end
 
 ### Assuming Type After Mutation
 
-```ruby title="type_mutation.trb"
+```trb title="type_mutation.trb"
 def risky_example(value: String | Integer)
   if value.is_a?(String)
     value = value.to_i  # Now it's an Integer!

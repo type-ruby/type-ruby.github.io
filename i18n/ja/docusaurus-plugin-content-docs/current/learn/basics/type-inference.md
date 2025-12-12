@@ -4,6 +4,9 @@ title: 型推論
 description: T-Rubyが自動的に型を推論する方法
 ---
 
+<DocsBadge />
+
+
 # 型推論
 
 T-Rubyの最も強力な機能の1つは型推論です。型システムは、すべての場所で明示的なアノテーションを必要とせずに、変数や式の型を自動的に判断できます。この章では、型推論がどのように機能し、いつそれに頼るべきかを学びます。
@@ -14,7 +17,7 @@ T-Rubyの最も強力な機能の1つは型推論です。型システムは、�
 
 ### 基本的な推論例
 
-```ruby title="basic_inference.trb"
+```trb title="basic_inference.trb"
 # T-RubyはnameがStringであることを推論
 name = "Alice"
 
@@ -43,7 +46,7 @@ T-Rubyは割り当てられる値を調べ、リテラルから型を判断し�
 
 ### リテラルベースの推論
 
-```ruby title="literals.trb"
+```trb title="literals.trb"
 # Stringリテラル → String型
 greeting = "Hello"
 
@@ -67,7 +70,7 @@ nothing = nil
 
 T-Rubyは式から型を推論できます：
 
-```ruby title="expressions.trb"
+```trb title="expressions.trb"
 x = 10
 y = 20
 
@@ -87,7 +90,7 @@ decimal = x.to_f
 
 メソッドに戻り値型アノテーションがある場合、T-Rubyは結果の型を知っています：
 
-```ruby title="method_returns.trb"
+```trb title="method_returns.trb"
 def get_name(): String
   "Alice"
 end
@@ -109,7 +112,7 @@ total = calculate_total(3, 9.99)
 
 ### ローカル変数
 
-```ruby title="local_vars.trb"
+```trb title="local_vars.trb"
 def process_order(quantity: Integer, unit_price: Float)
   # これらの型はすべて推論される
   subtotal = quantity * unit_price
@@ -135,7 +138,7 @@ end
 
 T-Rubyは配列とハッシュ要素の型を推論できます：
 
-```ruby title="collections.trb"
+```trb title="collections.trb"
 # Array<Integer>として推論
 numbers = [1, 2, 3, 4, 5]
 
@@ -159,7 +162,7 @@ scores = {
 
 T-Rubyは型付きコレクションを反復処理するときにブロックパラメータの型を推論できます：
 
-```ruby title="blocks.trb"
+```trb title="blocks.trb"
 def sum_numbers(numbers: Array<Integer>): Integer
   total = 0
 
@@ -187,7 +190,7 @@ end
 
 常にメソッドパラメータと戻り値型にアノテーションを付けてください：
 
-```ruby title="method_sigs.trb"
+```trb title="method_sigs.trb"
 # 良い - 明示的アノテーション
 def calculate_discount(price: Float, percent: Integer): Float
   price * (percent / 100.0)
@@ -203,7 +206,7 @@ end
 
 インスタンス変数は宣言時にアノテーションを付けるべきです：
 
-```ruby title="instance_vars.trb"
+```trb title="instance_vars.trb"
 class ShoppingCart
   def initialize()
     @items: Array<String> = []
@@ -221,7 +224,7 @@ end
 
 初期値から型が明確でない場合：
 
-```ruby title="ambiguous.trb"
+```trb title="ambiguous.trb"
 # 曖昧 - FloatかIntegerか？
 result = 0  # Integerとして推論
 
@@ -236,7 +239,7 @@ users: Array<String> = []  # 後でユーザー名を保持する
 
 変数が異なる型を保持する可能性がある場合：
 
-```ruby title="unions.trb"
+```trb title="unions.trb"
 # union型には明示的アノテーションが必要
 def find_user(id: Integer): String | nil
   return nil if id < 0
@@ -251,7 +254,7 @@ current_user: String | nil = nil
 
 パブリックメソッド、クラス、またはモジュールを定義する場合：
 
-```ruby title="public_api.trb"
+```trb title="public_api.trb"
 module MathHelpers
   # パブリックメソッド - 完全にアノテーション
   def self.calculate_average(numbers: Array<Float>): Float
@@ -272,7 +275,7 @@ T-Rubyの推論は制御フロー構造を通して機能します：
 
 ### If文
 
-```ruby title="if_statements.trb"
+```trb title="if_statements.trb"
 def categorize_age(age: Integer): String
   # categoryはすべてのブランチでStringとして推論
   if age < 13
@@ -289,7 +292,7 @@ end
 
 ### Case文
 
-```ruby title="case_statements.trb"
+```trb title="case_statements.trb"
 def get_day_type(day: Symbol): String
   # day_typeはStringとして推論
   day_type = case day
@@ -309,7 +312,7 @@ end
 
 ### パターン1：初期化して使用
 
-```ruby title="pattern1.trb"
+```trb title="pattern1.trb"
 def process_names(raw_names: String): Array<String>
   # namesはArray<String>として推論
   names = raw_names.split(",")
@@ -323,7 +326,7 @@ end
 
 ### パターン2：アキュムレータ変数
 
-```ruby title="pattern2.trb"
+```trb title="pattern2.trb"
 def calculate_stats(numbers: Array<Integer>): Hash<Symbol, Float>
   # sumはIntegerとして推論（0から始まり、Integerを加算）
   sum = 0
@@ -338,7 +341,7 @@ end
 
 ### パターン3：ビルダーパターン
 
-```ruby title="pattern3.trb"
+```trb title="pattern3.trb"
 def build_query(table: String, conditions: Array<String>): String
   # queryはStringとして推論
   query = "SELECT * FROM #{table}"
@@ -359,7 +362,7 @@ T-Rubyが自動的に型を推論できない状況があります：
 
 ### 空のコレクション
 
-```ruby title="empty_collections.trb"
+```trb title="empty_collections.trb"
 # T-Rubyは空の配列から要素型を推論できない
 items = []  # アノテーションが必要！
 
@@ -372,7 +375,7 @@ items = ["first_item"]
 
 ### 複雑なUnion型
 
-```ruby title="complex_unions.trb"
+```trb title="complex_unions.trb"
 # T-Rubyはこれが複数の型を受け入れるべきことを推論できない
 def process_value(value)  # アノテーションが必要！
   if value.is_a?(String)
@@ -394,7 +397,7 @@ end
 
 ### 再帰関数
 
-```ruby title="recursive.trb"
+```trb title="recursive.trb"
 # 再帰には戻り値型アノテーションが必要
 def factorial(n: Integer): Integer
   return 1 if n <= 1
@@ -411,7 +414,7 @@ end
 
 ### 1. ローカル変数は推論に任せる
 
-```ruby title="locals.trb"
+```trb title="locals.trb"
 def calculate_discount(price: Float, rate: Float): Float
   # 推論に任せる - 型は明らか
   discount = price * rate
@@ -423,7 +426,7 @@ end
 
 ### 2. スコープ間で共有する場合はアノテーション
 
-```ruby title="shared_scope.trb"
+```trb title="shared_scope.trb"
 class OrderProcessor
   def initialize()
     # アノテーション - メソッド間で共有
@@ -444,7 +447,7 @@ end
 
 ### 3. 中間計算には推論を優先
 
-```ruby title="intermediate.trb"
+```trb title="intermediate.trb"
 def calculate_compound_interest(
   principal: Float,
   rate: Float,
@@ -462,7 +465,7 @@ end
 
 ### 4. 複雑なロジックでは明確さのためにアノテーション
 
-```ruby title="clarity.trb"
+```trb title="clarity.trb"
 def parse_config(raw: String): Hash<Symbol, String | Integer>
   # 明確さのために結果型をアノテーション
   config: Hash<Symbol, String | Integer> = {}

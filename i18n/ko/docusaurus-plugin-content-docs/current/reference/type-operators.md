@@ -4,6 +4,9 @@ title: 타입 연산자
 description: 타입 연산자와 수정자
 ---
 
+<DocsBadge />
+
+
 # 타입 연산자
 
 타입 연산자를 사용하면 T-Ruby에서 타입을 결합, 수정, 변환할 수 있습니다. 이 레퍼런스는 사용 가능한 모든 타입 연산자와 사용 패턴을 다룹니다.
@@ -20,7 +23,7 @@ Type1 | Type2 | Type3
 
 ### 예시
 
-```ruby
+```trb
 # 기본 유니온
 id: String | Integer = "user-123"
 id: String | Integer = 456
@@ -43,7 +46,7 @@ config: Hash<Symbol, String | Integer | Bool> = {
 
 ### 사용 패턴
 
-```ruby
+```trb
 # 함수 반환 타입
 def find_user(id: Integer): User | nil
   # User 또는 nil 반환
@@ -69,7 +72,7 @@ end
 
 타입 가드를 사용하여 유니온 타입을 좁힙니다:
 
-```ruby
+```trb
 def process(value: String | Integer): String
   if value.is_a?(String)
     # T-Ruby는 여기서 value가 String임을 앎
@@ -87,14 +90,14 @@ end
 
 ### 구문
 
-```ruby
+```trb
 Type?
 # 동일: Type | nil
 ```
 
 ### 예시
 
-```ruby
+```trb
 # 이것들은 동일
 name1: String | nil = nil
 name2: String? = nil
@@ -128,7 +131,7 @@ cache: Hash<String, Integer?> = { "count" => 42, "missing" => nil }
 
 선택적 타입과 함께 안전 탐색 연산자(`&.`)를 사용하세요:
 
-```ruby
+```trb
 def get_email_domain(user: User?): String?
   user&.email&.split("@")&.last
 end
@@ -146,7 +149,7 @@ Type1 & Type2 & Type3
 
 ### 예시
 
-```ruby
+```trb
 # 인터페이스 인터섹션
 interface Printable
   def to_s: String
@@ -187,7 +190,7 @@ end
 
 ### 다중 제약
 
-```ruby
+```trb
 # 다중 제약이 있는 제네릭
 def sort_and_print<T>(items: Array<T>): void
   where T: Printable & Comparable
@@ -203,7 +206,7 @@ end
 
 ### 함수 제네릭
 
-```ruby
+```trb
 # 단일 타입 매개변수
 def first<T>(arr: Array<T>): T | nil
   arr[0]
@@ -222,7 +225,7 @@ end
 
 ### 클래스 제네릭
 
-```ruby
+```trb
 # 제네릭 클래스
 class Box<T>
   @value: T
@@ -262,7 +265,7 @@ end
 
 ### 중첩 제네릭
 
-```ruby
+```trb
 # 중첩 제네릭 타입
 cache: Hash<String, Array<Integer>> = {
   "fibonacci" => [1, 1, 2, 3, 5, 8]
@@ -285,13 +288,13 @@ data: NestedData = {
 
 ### 구문
 
-```ruby
+```trb
 Array<ElementType>
 ```
 
 ### 예시
 
-```ruby
+```trb
 # 기본 배열
 strings: Array<String> = ["a", "b", "c"]
 numbers: Array<Integer> = [1, 2, 3]
@@ -325,13 +328,13 @@ end
 
 ### 구문
 
-```ruby
+```trb
 Hash<KeyType, ValueType>
 ```
 
 ### 예시
 
-```ruby
+```trb
 # 기본 해시
 scores: Hash<String, Integer> = { "Alice" => 100 }
 config: Hash<Symbol, String> = { host: "localhost" }
@@ -368,13 +371,13 @@ Proc 타입은 타입이 지정된 매개변수와 반환 값을 가진 호출 �
 
 ### 구문
 
-```ruby
+```trb {skip-verify}
 Proc<Param1Type, Param2Type, ..., ReturnType>
 ```
 
 ### 예시
 
-```ruby
+```trb
 # 매개변수 없음
 supplier: Proc<String> = ->: String { "Hello" }
 
@@ -412,7 +415,7 @@ value as TargetType
 
 ### 예시
 
-```ruby
+```trb
 # 타입 단언
 value = get_unknown_value() as String
 
@@ -436,7 +439,7 @@ end
 
 타입 단언은 타입 안전성을 우회합니다. 타입 가드를 선호하세요:
 
-```ruby
+```trb
 # ❌ 위험: 타입 단언 사용
 def bad_example(value: Any): String
   (value as String).upcase
@@ -458,7 +461,7 @@ end
 
 ### 구문
 
-```ruby
+```trb
 def function_name(param: Type): param is NarrowedType
   # 타입 검사 로직
 end
@@ -466,7 +469,7 @@ end
 
 ### 예시
 
-```ruby
+```trb
 # 문자열 가드
 def is_string(value: Any): value is String
   value.is_a?(String)
@@ -496,7 +499,7 @@ end
 
 ### 문자열 리터럴
 
-```ruby
+```trb
 type Status = "pending" | "active" | "completed" | "failed"
 
 status: Status = "active"  # OK
@@ -509,7 +512,7 @@ end
 
 ### 숫자 리터럴
 
-```ruby
+```trb
 type HTTPPort = 80 | 443 | 8080 | 3000
 
 port: HTTPPort = 443  # OK
@@ -520,7 +523,7 @@ type DiceRoll = 1 | 2 | 3 | 4 | 5 | 6
 
 ### 심볼 리터럴
 
-```ruby
+```trb
 type Role = :admin | :editor | :viewer
 
 role: Role = :admin  # OK
@@ -531,7 +534,7 @@ type HTTPMethod = :get | :post | :put | :patch | :delete
 
 ### 불리언 리터럴
 
-```ruby
+```trb
 type AlwaysTrue = true
 type AlwaysFalse = false
 
@@ -543,7 +546,7 @@ flag: AlwaysTrue = true
 
 위치별로 특정 타입을 가진 고정 길이 배열입니다.
 
-```ruby
+```trb
 # 튜플 타입 (계획됨)
 type Point = [Float, Float]
 type RGB = [Integer, Integer, Integer]
@@ -560,7 +563,7 @@ person: Person = ["Alice", 30]
 
 타입을 불변으로 만듭니다.
 
-```ruby
+```trb
 # Readonly 타입 (계획됨)
 type ReadonlyArray<T> = readonly Array<T>
 type ReadonlyHash<K, V> = readonly Hash<K, V>
@@ -574,7 +577,7 @@ nums: ReadonlyArray<Integer> = [1, 2, 3]
 
 객체 타입에서 키를 추출합니다.
 
-```ruby
+```trb
 # Keyof 연산자 (계획됨)
 interface User
   @name: String
@@ -589,7 +592,7 @@ type UserKey = keyof User  # :name | :email | :age
 
 값의 타입을 가져옵니다.
 
-```ruby
+```trb
 # Typeof 연산자 (계획됨)
 config = { host: "localhost", port: 3000 }
 type Config = typeof config
@@ -608,7 +611,7 @@ type Config = typeof config
 
 ### 예시
 
-```ruby
+```trb
 # 인터섹션이 유니온보다 높은 우선순위
 type A = String | Integer & Float
 # 동일: String | (Integer & Float)
@@ -643,7 +646,7 @@ type D = String | (Integer?)
 
 ### 1. Any보다 유니온 선호
 
-```ruby
+```trb
 # ❌ 너무 관용적
 data: Any = get_data()
 
@@ -653,7 +656,7 @@ data: String | Integer | Hash<String, String> = get_data()
 
 ### 2. 명확성을 위해 선택적 연산자 사용
 
-```ruby
+```trb
 # ❌ 장황함
 name: String | nil = nil
 
@@ -663,7 +666,7 @@ name: String? = nil
 
 ### 3. 유니온 복잡도 제한
 
-```ruby
+```trb
 # ❌ 너무 많은 옵션
 value: String | Integer | Float | Bool | Symbol | nil | Array<String>
 
@@ -674,7 +677,7 @@ type OptionalPrimitive = PrimitiveValue?
 
 ### 4. 여러 인터페이스에 인터섹션 사용
 
-```ruby
+```trb
 # ✅ 명확한 요구사항
 def process<T>(item: T): void
   where T: Serializable & Comparable
@@ -684,7 +687,7 @@ end
 
 ### 5. 과도한 타입 단언 피하기
 
-```ruby
+```trb
 # ❌ 타입 안전성 우회
 def risky(data: Any): String
   (data as Hash<String, String>)["key"] as String
@@ -702,7 +705,7 @@ end
 
 ### 유니온이 있는 Result 타입
 
-```ruby
+```trb
 type Result<T, E> = { success: true, value: T } | { success: false, error: E }
 
 def divide(a: Float, b: Float): Result<Float, String>
@@ -716,7 +719,7 @@ end
 
 ### 선택적 체이닝
 
-```ruby
+```trb
 class User
   @profile: Profile?
 
@@ -728,7 +731,7 @@ end
 
 ### 가드가 있는 타입 좁히기
 
-```ruby
+```trb
 def process_value(value: String | Integer | nil): String
   if value.nil?
     "No value"

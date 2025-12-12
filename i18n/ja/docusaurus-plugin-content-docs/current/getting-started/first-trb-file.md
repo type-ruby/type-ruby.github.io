@@ -4,6 +4,9 @@ title: 最初の.trbファイル
 description: 最初のT-Rubyファイルの作成とコンパイル
 ---
 
+<DocsBadge />
+
+
 # 最初の.trbファイル
 
 このガイドでは、T-Rubyファイルをステップバイステップで作成しながら、各概念を説明します。
@@ -19,7 +22,7 @@ description: 最初のT-Rubyファイルの作成とコンパイル
 
 シンプルな計算機を実装する`calculator.trb`ファイルを作成しましょう：
 
-```ruby title="calculator.trb"
+```trb title="calculator.trb"
 # calculator.trb - シンプルな型付き計算機
 
 # 型アノテーション付きの基本算術演算
@@ -44,7 +47,7 @@ end
 
 構文を分解してみましょう：
 
-```ruby
+```trb
 def add(a: Integer, b: Integer): Integer
 #   ^^^  ^  ^^^^^^^  ^  ^^^^^^^   ^^^^^^^
 #   |    |    |      |    |         |
@@ -60,7 +63,7 @@ def add(a: Integer, b: Integer): Integer
 
 計算機をより高度な機能で拡張しましょう：
 
-```ruby title="calculator.trb"
+```trb title="calculator.trb"
 # よりクリーンなコードのための型エイリアス
 type Number = Integer | Float
 
@@ -97,7 +100,7 @@ end
 
 `|`演算子はunion型を作成します：
 
-```ruby
+```trb
 type Number = Integer | Float  # IntegerまたはFloatになれる
 
 def safe_divide(a: Number, b: Number): Float | nil
@@ -111,7 +114,7 @@ end
 
 `<T>`構文はジェネリック型パラメータを定義します：
 
-```ruby
+```trb
 def max<T: Comparable>(a: T, b: T): T
 #     ^^  ^^^^^^^^^^
 #     |       |
@@ -128,7 +131,7 @@ max("a", "b")   # TはString
 
 Calculatorクラスを作成しましょう：
 
-```ruby title="calculator.trb"
+```trb title="calculator.trb"
 class Calculator
   # 型アノテーション付きインスタンス変数
   @history: Array<String>
@@ -229,7 +232,7 @@ class Calculator
 end
 ```
 
-```ruby title="build/calculator.rbs"
+```rbs title="build/calculator.rbs"
 type Number = Integer | Float
 
 class Calculator
@@ -249,7 +252,7 @@ end
 
 ### オプショナルパラメータ
 
-```ruby
+```trb
 def greet(name: String, greeting: String = "Hello"): String
   "#{greeting}, #{name}!"
 end
@@ -260,7 +263,7 @@ greet("Alice", "Hi")     # "Hi, Alice!"
 
 ### Nullable型（オプショナルの短縮形）
 
-```ruby
+```trb
 # これらは同等です：
 def find(id: Integer): User | nil
 def find(id: Integer): User?  # 短縮形
@@ -268,7 +271,7 @@ def find(id: Integer): User?  # 短縮形
 
 ### ブロックパラメータ
 
-```ruby
+```rbs
 def each_item(items: Array<String>, &block: (String) -> void): void
   items.each(&block)
 end

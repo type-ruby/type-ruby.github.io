@@ -4,6 +4,9 @@ title: Compiler Options
 description: All available compiler options
 ---
 
+<DocsBadge />
+
+
 # Compiler Options
 
 T-Ruby's compiler provides extensive options to control compilation, type checking, and code generation. This reference covers all available command-line flags and their effects.
@@ -34,7 +37,7 @@ In strict mode:
 - No implicit `any` types
 - Strict nil checking enabled
 
-```ruby
+```trb
 # Strict mode requires full typing
 def process(data: Array<String>): Hash<String, Integer>
   @count: Integer = 0
@@ -73,7 +76,7 @@ Disallow implicit `any` types.
 trc compile --no-implicit-any src/
 ```
 
-```ruby
+```trb
 # Error with --no-implicit-any
 def process(data)  # Error: implicit any
   # ...
@@ -93,7 +96,7 @@ Enable strict nil checking.
 trc compile --strict-nil src/
 ```
 
-```ruby
+```trb
 # Error with --strict-nil
 def find_user(id: Integer): User  # Error: might return nil
   users.find { |u| u.id == id }
@@ -113,7 +116,7 @@ Warn on unused variables and parameters.
 trc compile --no-unused-vars src/
 ```
 
-```ruby
+```trb
 # Warning with --no-unused-vars
 def calculate(x: Integer, y: Integer): Integer
   x * 2  # Warning: y is unused
@@ -133,7 +136,7 @@ Require checks before array/hash access.
 trc compile --no-unchecked-indexed-access src/
 ```
 
-```ruby
+```trb
 # Error with --no-unchecked-indexed-access
 users: Array<User> = get_users()
 user = users[0]  # Error: might be nil
@@ -152,7 +155,7 @@ Require explicit return types for all functions.
 trc compile --require-return-types src/
 ```
 
-```ruby
+```trb
 # Error with --require-return-types
 def calculate(x: Integer)  # Error: missing return type
   x * 2

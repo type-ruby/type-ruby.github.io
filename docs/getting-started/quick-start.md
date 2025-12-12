@@ -4,6 +4,9 @@ title: Quick Start
 description: Get started with T-Ruby in 5 minutes
 ---
 
+<DocsBadge />
+
+
 # Quick Start
 
 Let's get you writing typed Ruby in under 5 minutes. This guide assumes you've already [installed T-Ruby](/docs/getting-started/installation).
@@ -19,7 +22,7 @@ cd my-truby-project
 
 Create a file called `hello.trb`:
 
-```ruby title="hello.trb"
+```trb title="hello.trb"
 # A simple typed function
 def greet(name: String): String
   "Hello, #{name}!"
@@ -81,7 +84,7 @@ puts greet("World")
 puts add(5, 3)
 ```
 
-```ruby title="build/hello.rbs"
+```rbs title="build/hello.rbs"
 def greet: (String name) -> String
 def add: (Integer a, Integer b) -> Integer
 ```
@@ -90,7 +93,7 @@ def add: (Integer a, Integer b) -> Integer
 
 Now let's see type checking in action. Modify `hello.trb` to introduce a bug:
 
-```ruby title="hello.trb (with bug)"
+```trb title="hello.trb (with bug)"
 def greet(name: String): String
   "Hello, #{name}!"
 end
@@ -152,7 +155,7 @@ You've written and compiled your first T-Ruby code! Here's where to go next:
 
 Here's a slightly more complex example to play with:
 
-```ruby title="user.trb"
+```trb title="user.trb"
 # Define a type alias
 type UserId = Integer
 

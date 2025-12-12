@@ -4,6 +4,9 @@ title: 条件型
 description: 条件に依存する型
 ---
 
+<DocsBadge />
+
+
 # 条件型
 
 :::caution 準備中
@@ -16,7 +19,7 @@ description: 条件に依存する型
 
 条件型は、型関係に基づいて2つの型のいずれかを選択する三項演算子のような構文を使用します：
 
-```ruby
+```trb
 type Result = Condition ? TrueType : FalseType
 ```
 
@@ -24,7 +27,7 @@ type Result = Condition ? TrueType : FalseType
 
 ### 基本構文
 
-```ruby
+```trb
 # 条件型の構文
 type TypeName<T> = T extends SomeType ? TypeIfTrue : TypeIfFalse
 
@@ -40,7 +43,7 @@ type Test2 = IsString<Integer>  # false
 
 条件型の`extends`キーワードは、型が別の型に割り当て可能かどうかをチェックします：
 
-```ruby
+```trb
 # T extends Uは「TをUに割り当てられるか？」を意味する
 
 type IsArray<T> = T extends Array<any> ? true : false
@@ -52,7 +55,7 @@ type Test3 = IsArray<Hash<String, Integer>>  # false
 
 ### 特定の型のチェック
 
-```ruby
+```trb
 # 型が数値かどうかを確認
 type IsNumeric<T> = T extends Integer | Float ? true : false
 
@@ -72,7 +75,7 @@ type FnTest = IsFunction<Proc<String, Integer>>  # true
 
 ### nil以外の型を抽出
 
-```ruby
+```trb
 # ユニオン型からnilを削除
 type NonNil<T> = T extends nil ? never : T
 
@@ -86,7 +89,7 @@ type WithoutNil = NonNil<MixedTypes>  # String | Integer | Float
 
 ### 関数の戻り値の型を抽出
 
-```ruby
+```trb
 # 関数の戻り値の型を取得
 type ReturnType<T> = T extends Proc<any, infer R> ? R : never
 
@@ -100,7 +103,7 @@ type UserReturnType = ReturnType<GetUserFunction>  # User
 
 ### 配列の要素型を抽出
 
-```ruby
+```trb
 # 配列の要素型を取得
 type ElementType<T> = T extends Array<infer E> ? E : never
 
@@ -116,7 +119,7 @@ type NumberElement = ElementType<NumberArray>  # Integer
 
 `infer`キーワードを使用すると、条件型内で型をキャプチャして名前を付けることができます：
 
-```ruby
+```trb
 # 関数のパラメータ型を推論
 type ParamType<T> = T extends Proc<infer P, any> ? P : never
 
@@ -137,7 +140,7 @@ type Value = ValueError<MyHash>  # User
 
 ### 複数のinferの使用
 
-```ruby
+```trb
 # ペアの両方の部分を抽出
 type Unpair<T> = T extends Hash<Symbol, { first: infer F, second: infer S }>
   ? [F, S]
@@ -156,7 +159,7 @@ type FunctionParts<T> =
 
 ラッパー型を削除して内部の型を取得します：
 
-```ruby
+```trb
 # 配列のアンラップ
 type Unwrap<T> = T extends Array<infer U> ? U : T
 
@@ -176,7 +179,7 @@ type Unwrapped = DeepUnwrap<NestedArray>  # Integer
 
 ### ユニオン型のフラット化
 
-```ruby
+```trb
 # ネストしたユニオンのフラット化
 type Flatten<T> =
   T extends Array<infer U>
@@ -196,7 +199,7 @@ type Unique<T, U = T> =
 
 ### Promiseのような型
 
-```ruby
+```trb
 # Promiseのような型をアンラップ
 type Awaited<T> =
   T extends Promise<infer U>
@@ -214,7 +217,7 @@ type AsyncReturnType<T> =
 
 条件型がユニオン型に作用するとき、ユニオンに対して分配されます：
 
-```ruby
+```trb
 # この条件型は分配的
 type ToArray<T> = T extends any ? Array<T> : never
 
@@ -236,7 +239,7 @@ type Boxed = BoxedType<Mixed>
 
 分配を防ぐには、型をタプルでラップします：
 
-```ruby
+```trb
 # 非分配バージョン
 type ToArrayNonDist<T> = [T] extends [any] ? Array<T> : never
 
@@ -249,7 +252,7 @@ type Result = ToArrayNonDist<StringOrNumber>
 
 ### 型ナローイング
 
-```ruby
+```trb {skip-verify}
 # プロパティに基づいた型のナローイング
 type NarrowByProperty<T, K extends keyof T, V> =
   T extends { K: V } ? T : never
@@ -265,7 +268,7 @@ type FilterByProperty<T, K, V> =
 
 ### 再帰条件型
 
-```ruby
+```trb
 # 深い読み取り専用型
 type DeepReadonly<T> =
   T extends (Array<infer U> | Hash<any, infer U>)
@@ -285,7 +288,7 @@ type DeepPartial<T> =
 
 ### 型ガード関数
 
-```ruby
+```trb
 # 型述語を作成
 def is_string<T>(value: T): value is String
   value.is_a?(String)
@@ -304,7 +307,7 @@ type TypeGuardReturn<T, G> =
 
 条件型をジェネリック制約と組み合わせます：
 
-```ruby
+```trb
 # 特定の型のみを許可
 type Addable<T> =
   T extends Integer | Float | String
@@ -341,7 +344,7 @@ end
 
 ### APIレスポンス型
 
-```ruby
+```trb
 # 成功ステータスに基づいて条件付きでエラーフィールドを追加
 type APIResponse<T, Success extends Bool> =
   Success extends true
@@ -358,7 +361,7 @@ type ErrorResponse = APIResponse<User, false>
 
 ### スマートデフォルト
 
-```ruby
+```trb
 # 条件付きでデフォルト型を提供
 type WithDefault<T, D> = T extends nil ? D : T
 
@@ -372,7 +375,7 @@ type IntegerWithDefault = WithDefault<DefiniteValue, Float>  # Integer
 
 ### コレクション要素アクセス
 
-```ruby
+```trb
 # コレクション型に基づいた型の取得
 type CollectionElement<T> =
   T extends Array<infer E> ? E :
@@ -388,7 +391,7 @@ type SetElement = CollectionElement<Set<User>>  # User
 
 ### 関数合成
 
-```ruby
+```trb
 # 関数型の合成
 type Compose<F, G> =
   F extends Proc<infer A, infer B>
@@ -407,7 +410,7 @@ type Composed = Compose<F, G>   # String -> Bool
 
 ### 1. 条件をシンプルに保つ
 
-```ruby
+```trb
 # 良い：シンプルで明確な条件
 type IsString<T> = T extends String ? true : false
 
@@ -424,7 +427,7 @@ type ComplexCheck<T> =
 
 ### 2. 説明的な名前を使用
 
-```ruby
+```trb
 # 良い：明確な名前
 type NonNilable<T> = T extends nil ? never : T
 type Unwrap<T> = T extends Array<infer U> ? U : T
@@ -436,7 +439,7 @@ type UW<T> = T extends Array<infer U> ? U : T
 
 ### 3. 複雑な型を文書化
 
-```ruby
+```trb
 # 良い：文書化された条件型
 # 関数型の戻り値の型を抽出
 # @example ReturnType<Proc<String, Integer>> => Integer
@@ -452,7 +455,7 @@ type DeepPartial<T> =
 
 ### 4. 深いネストを避ける
 
-```ruby
+```trb
 # 良い：フラットで管理可能な構造
 type FirstType<T> = T extends [infer F, ...any] ? F : never
 type RestTypes<T> = T extends [any, ...infer R] ? R : never
@@ -474,7 +477,7 @@ type Extract<T> =
 
 ### 再帰の深さ
 
-```ruby
+```trb
 # 非常に深い再帰は限界に達する可能性がある
 type DeepNested<T, N> =
   N extends 0
@@ -484,7 +487,7 @@ type DeepNested<T, N> =
 
 ### 型推論の複雑さ
 
-```ruby
+```trb
 # 複雑な推論は常に期待通りに動作しない可能性がある
 type ComplexInfer<T> =
   T extends {

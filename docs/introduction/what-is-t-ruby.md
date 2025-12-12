@@ -4,6 +4,9 @@ title: What is T-Ruby?
 description: Introduction to T-Ruby - TypeScript-style type system for Ruby
 ---
 
+<DocsBadge />
+
+
 # What is T-Ruby?
 
 T-Ruby is a **typed superset of Ruby** that compiles to plain Ruby. It adds optional static type annotations to Ruby code, allowing you to catch errors at compile time rather than runtime.
@@ -12,7 +15,7 @@ T-Ruby is a **typed superset of Ruby** that compiles to plain Ruby. It adds opti
 
 Think of T-Ruby as "TypeScript for Ruby." Just as TypeScript extends JavaScript with types and compiles down to JavaScript, T-Ruby extends Ruby with types and compiles down to Ruby.
 
-```ruby title="hello.trb"
+```trb title="hello.trb"
 # T-Ruby code with type annotations
 def greet(name: String): String
   "Hello, #{name}!"
@@ -46,7 +49,7 @@ Types exist only at compile time. The output is pure Ruby code that runs anywher
 
 You don't need to type everything at once. Start with one file, one function, or even one parameter. T-Ruby works alongside untyped Ruby code.
 
-```ruby
+```trb
 # Fully typed
 def calculate(x: Integer, y: Integer): Integer
   x * y + 10

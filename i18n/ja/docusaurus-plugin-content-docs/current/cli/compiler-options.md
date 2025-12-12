@@ -4,6 +4,9 @@ title: コンパイラオプション
 description: 利用可能なすべてのコンパイラオプション
 ---
 
+<DocsBadge />
+
+
 # コンパイラオプション
 
 T-Rubyのコンパイラは、コンパイル、型チェック、コード生成を制御するための豊富なオプションを提供します。このリファレンスでは、利用可能なすべてのコマンドラインフラグとその効果について説明します。
@@ -34,7 +37,7 @@ trc compile --strict src/
 - 暗黙の`any`型は不可
 - 厳格なnil検査が有効
 
-```ruby
+```trb
 # 厳格モードでは完全な型指定が必要
 def process(data: Array<String>): Hash<String, Integer>
   @count: Integer = 0
@@ -73,7 +76,7 @@ end
 trc compile --no-implicit-any src/
 ```
 
-```ruby
+```trb
 # --no-implicit-any使用時はエラー
 def process(data)  # エラー: 暗黙のany
   # ...
@@ -93,7 +96,7 @@ end
 trc compile --strict-nil src/
 ```
 
-```ruby
+```trb
 # --strict-nil使用時はエラー
 def find_user(id: Integer): User  # エラー: nilを返す可能性あり
   users.find { |u| u.id == id }
@@ -113,7 +116,7 @@ end
 trc compile --no-unused-vars src/
 ```
 
-```ruby
+```trb
 # --no-unused-vars使用時は警告
 def calculate(x: Integer, y: Integer): Integer
   x * 2  # 警告: yが未使用
@@ -133,7 +136,7 @@ end
 trc compile --no-unchecked-indexed-access src/
 ```
 
-```ruby
+```trb
 # --no-unchecked-indexed-access使用時はエラー
 users: Array<User> = get_users()
 user = users[0]  # エラー: nilの可能性あり
@@ -152,7 +155,7 @@ end
 trc compile --require-return-types src/
 ```
 
-```ruby
+```trb
 # --require-return-types使用時はエラー
 def calculate(x: Integer)  # エラー: 戻り型が不足
   x * 2

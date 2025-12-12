@@ -4,6 +4,9 @@ title: 変更ログ
 description: T-Rubyリリース履歴
 ---
 
+<DocsBadge />
+
+
 # 変更ログ
 
 T-Rubyのすべての注目すべき変更はこのファイルに文書化されます。
@@ -183,7 +186,7 @@ ruby hello.rb
 
 #### サンプルコード
 
-```ruby
+```trb
 # hello.trb - 型安全Ruby
 class User
   @name: String

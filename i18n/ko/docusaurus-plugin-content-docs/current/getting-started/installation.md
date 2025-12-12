@@ -4,6 +4,9 @@ title: 설치하기
 description: T-Ruby 컴파일러 및 CLI 도구 설치
 ---
 
+<DocsBadge />
+
+
 # 설치하기
 
 이 가이드는 T-Ruby 컴파일러를 시스템에 설치하는 다양한 방법을 안내합니다.

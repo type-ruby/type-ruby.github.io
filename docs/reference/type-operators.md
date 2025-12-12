@@ -4,6 +4,9 @@ title: Type Operators
 description: Type operators and modifiers
 ---
 
+<DocsBadge />
+
+
 # Type Operators
 
 Type operators allow you to combine, modify, and transform types in T-Ruby. This reference covers all available type operators and their usage patterns.
@@ -20,7 +23,7 @@ Type1 | Type2 | Type3
 
 ### Examples
 
-```ruby
+```trb
 # Basic union
 id: String | Integer = "user-123"
 id: String | Integer = 456
@@ -43,7 +46,7 @@ config: Hash<Symbol, String | Integer | Bool> = {
 
 ### Usage Patterns
 
-```ruby
+```trb
 # Function return types
 def find_user(id: Integer): User | nil
   # Returns User or nil
@@ -69,7 +72,7 @@ end
 
 Use type guards to narrow union types:
 
-```ruby
+```trb
 def process(value: String | Integer): String
   if value.is_a?(String)
     # T-Ruby knows value is String here
@@ -87,14 +90,14 @@ Shorthand for union with `nil`. `T?` is equivalent to `T | nil`.
 
 ### Syntax
 
-```ruby
+```trb
 Type?
 # Equivalent to: Type | nil
 ```
 
 ### Examples
 
-```ruby
+```trb
 # These are equivalent
 name1: String | nil = nil
 name2: String? = nil
@@ -128,7 +131,7 @@ cache: Hash<String, Integer?> = { "count" => 42, "missing" => nil }
 
 Use the safe navigation operator (`&.`) with optional types:
 
-```ruby
+```trb
 def get_email_domain(user: User?): String?
   user&.email&.split("@")&.last
 end
@@ -146,7 +149,7 @@ Type1 & Type2 & Type3
 
 ### Examples
 
-```ruby
+```trb
 # Interface intersection
 interface Printable
   def to_s: String
@@ -187,7 +190,7 @@ end
 
 ### Multiple Constraints
 
-```ruby
+```trb
 # Generic with multiple constraints
 def sort_and_print<T>(items: Array<T>): void
   where T: Printable & Comparable
@@ -203,7 +206,7 @@ Angle brackets denote generic type parameters.
 
 ### Function Generics
 
-```ruby
+```trb
 # Single type parameter
 def first<T>(arr: Array<T>): T | nil
   arr[0]
@@ -222,7 +225,7 @@ end
 
 ### Class Generics
 
-```ruby
+```trb
 # Generic class
 class Box<T>
   @value: T
@@ -262,7 +265,7 @@ end
 
 ### Nested Generics
 
-```ruby
+```trb
 # Nested generic types
 cache: Hash<String, Array<Integer>> = {
   "fibonacci" => [1, 1, 2, 3, 5, 8]
@@ -285,13 +288,13 @@ Array types use angle bracket notation with a single type parameter.
 
 ### Syntax
 
-```ruby
+```trb
 Array<ElementType>
 ```
 
 ### Examples
 
-```ruby
+```trb
 # Basic arrays
 strings: Array<String> = ["a", "b", "c"]
 numbers: Array<Integer> = [1, 2, 3]
@@ -325,13 +328,13 @@ Hash types use angle brackets with two type parameters: key and value types.
 
 ### Syntax
 
-```ruby
+```trb
 Hash<KeyType, ValueType>
 ```
 
 ### Examples
 
-```ruby
+```trb
 # Basic hashes
 scores: Hash<String, Integer> = { "Alice" => 100 }
 config: Hash<Symbol, String> = { host: "localhost" }
@@ -368,13 +371,13 @@ Proc types specify callable objects with typed parameters and return values.
 
 ### Syntax
 
-```ruby
+```trb {skip-verify}
 Proc<Param1Type, Param2Type, ..., ReturnType>
 ```
 
 ### Examples
 
-```ruby
+```trb
 # No parameters
 supplier: Proc<String> = ->: String { "Hello" }
 
@@ -412,7 +415,7 @@ value as TargetType
 
 ### Examples
 
-```ruby
+```trb
 # Asserting type
 value = get_unknown_value() as String
 
@@ -436,7 +439,7 @@ end
 
 Type assertions bypass type safety. Prefer type guards:
 
-```ruby
+```trb
 # ❌ Risky: Using type assertion
 def bad_example(value: Any): String
   (value as String).upcase
@@ -458,7 +461,7 @@ Type guards are predicates that narrow types. *(Experimental feature)*
 
 ### Syntax
 
-```ruby
+```trb
 def function_name(param: Type): param is NarrowedType
   # Type checking logic
 end
@@ -466,7 +469,7 @@ end
 
 ### Examples
 
-```ruby
+```trb
 # String guard
 def is_string(value: Any): value is String
   value.is_a?(String)
@@ -496,7 +499,7 @@ Literal types represent specific values rather than general types.
 
 ### String Literals
 
-```ruby
+```trb
 type Status = "pending" | "active" | "completed" | "failed"
 
 status: Status = "active"  # OK
@@ -509,7 +512,7 @@ end
 
 ### Number Literals
 
-```ruby
+```trb
 type HTTPPort = 80 | 443 | 8080 | 3000
 
 port: HTTPPort = 443  # OK
@@ -520,7 +523,7 @@ type DiceRoll = 1 | 2 | 3 | 4 | 5 | 6
 
 ### Symbol Literals
 
-```ruby
+```trb
 type Role = :admin | :editor | :viewer
 
 role: Role = :admin  # OK
@@ -531,7 +534,7 @@ type HTTPMethod = :get | :post | :put | :patch | :delete
 
 ### Boolean Literals
 
-```ruby
+```trb
 type AlwaysTrue = true
 type AlwaysFalse = false
 
@@ -543,7 +546,7 @@ flag: AlwaysTrue = true
 
 Fixed-length arrays with specific types per position.
 
-```ruby
+```trb
 # Tuple type (planned)
 type Point = [Float, Float]
 type RGB = [Integer, Integer, Integer]
@@ -560,7 +563,7 @@ person: Person = ["Alice", 30]
 
 Makes types immutable.
 
-```ruby
+```trb
 # Readonly type (planned)
 type ReadonlyArray<T> = readonly Array<T>
 type ReadonlyHash<K, V> = readonly Hash<K, V>
@@ -574,7 +577,7 @@ nums: ReadonlyArray<Integer> = [1, 2, 3]
 
 Extracts keys from object types.
 
-```ruby
+```trb
 # Keyof operator (planned)
 interface User
   @name: String
@@ -589,7 +592,7 @@ type UserKey = keyof User  # :name | :email | :age
 
 Gets the type of a value.
 
-```ruby
+```trb
 # Typeof operator (planned)
 config = { host: "localhost", port: 3000 }
 type Config = typeof config
@@ -608,7 +611,7 @@ When combining operators, T-Ruby follows this precedence (highest to lowest):
 
 ### Examples
 
-```ruby
+```trb
 # Intersection has higher precedence than union
 type A = String | Integer & Float
 # Equivalent to: String | (Integer & Float)
@@ -643,7 +646,7 @@ type D = String | (Integer?)
 
 ### 1. Prefer Union Over Any
 
-```ruby
+```trb
 # ❌ Too permissive
 data: Any = get_data()
 
@@ -653,7 +656,7 @@ data: String | Integer | Hash<String, String> = get_data()
 
 ### 2. Use Optional Operator for Clarity
 
-```ruby
+```trb
 # ❌ Verbose
 name: String | nil = nil
 
@@ -663,7 +666,7 @@ name: String? = nil
 
 ### 3. Limit Union Complexity
 
-```ruby
+```trb
 # ❌ Too many options
 value: String | Integer | Float | Bool | Symbol | nil | Array<String>
 
@@ -674,7 +677,7 @@ type OptionalPrimitive = PrimitiveValue?
 
 ### 4. Use Intersection for Multiple Interfaces
 
-```ruby
+```trb
 # ✅ Clear requirements
 def process<T>(item: T): void
   where T: Serializable & Comparable
@@ -684,7 +687,7 @@ end
 
 ### 5. Avoid Excessive Type Assertions
 
-```ruby
+```trb
 # ❌ Bypassing type safety
 def risky(data: Any): String
   (data as Hash<String, String>)["key"] as String
@@ -702,7 +705,7 @@ end
 
 ### Result Type with Union
 
-```ruby
+```trb
 type Result<T, E> = { success: true, value: T } | { success: false, error: E }
 
 def divide(a: Float, b: Float): Result<Float, String>
@@ -716,7 +719,7 @@ end
 
 ### Optional Chaining
 
-```ruby
+```trb
 class User
   @profile: Profile?
 
@@ -728,7 +731,7 @@ end
 
 ### Type Narrowing with Guards
 
-```ruby
+```trb
 def process_value(value: String | Integer | nil): String
   if value.nil?
     "No value"

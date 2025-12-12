@@ -4,6 +4,9 @@ title: Type Inference
 description: How T-Ruby automatically infers types
 ---
 
+<DocsBadge />
+
+
 # Type Inference
 
 One of T-Ruby's most powerful features is type inference. The type system can automatically determine the types of variables and expressions without requiring explicit annotations everywhere. This chapter will teach you how type inference works and when to rely on it.
@@ -14,7 +17,7 @@ Type inference is the ability of T-Ruby's type checker to automatically deduce t
 
 ### Basic Inference Example
 
-```ruby title="basic_inference.trb"
+```trb title="basic_inference.trb"
 # T-Ruby infers that name is a String
 name = "Alice"
 
@@ -43,7 +46,7 @@ T-Ruby examines the value being assigned and determines its type from the litera
 
 ### Literal-Based Inference
 
-```ruby title="literals.trb"
+```trb title="literals.trb"
 # String literal → String type
 greeting = "Hello"
 
@@ -67,7 +70,7 @@ nothing = nil
 
 T-Ruby can infer types from expressions:
 
-```ruby title="expressions.trb"
+```trb title="expressions.trb"
 x = 10
 y = 20
 
@@ -87,7 +90,7 @@ decimal = x.to_f
 
 When a method has a return type annotation, T-Ruby knows the type of the result:
 
-```ruby title="method_returns.trb"
+```trb title="method_returns.trb"
 def get_name(): String
   "Alice"
 end
@@ -109,7 +112,7 @@ Type inference works best for local variables with clear initialization:
 
 ### Local Variables
 
-```ruby title="local_vars.trb"
+```trb title="local_vars.trb"
 def process_order(quantity: Integer, unit_price: Float)
   # These types are all inferred
   subtotal = quantity * unit_price
@@ -135,7 +138,7 @@ In this example, T-Ruby infers:
 
 T-Ruby can infer the types of array and hash elements:
 
-```ruby title="collections.trb"
+```trb title="collections.trb"
 # Inferred as Array<Integer>
 numbers = [1, 2, 3, 4, 5]
 
@@ -159,7 +162,7 @@ scores = {
 
 T-Ruby can infer block parameter types when iterating over typed collections:
 
-```ruby title="blocks.trb"
+```trb title="blocks.trb"
 def sum_numbers(numbers: Array<Integer>): Integer
   total = 0
 
@@ -187,7 +190,7 @@ While inference is powerful, there are times when you should add explicit type a
 
 Always annotate method parameters and return types:
 
-```ruby title="method_sigs.trb"
+```trb title="method_sigs.trb"
 # Good - explicit annotations
 def calculate_discount(price: Float, percent: Integer): Float
   price * (percent / 100.0)
@@ -203,7 +206,7 @@ end
 
 Instance variables should be annotated when declared:
 
-```ruby title="instance_vars.trb"
+```trb title="instance_vars.trb"
 class ShoppingCart
   def initialize()
     @items: Array<String> = []
@@ -221,7 +224,7 @@ end
 
 When the type isn't clear from the initial value:
 
-```ruby title="ambiguous.trb"
+```trb title="ambiguous.trb"
 # Ambiguous - is this supposed to be Float or Integer?
 result = 0  # Inferred as Integer
 
@@ -236,7 +239,7 @@ users: Array<String> = []  # Will hold usernames later
 
 When a variable might hold different types:
 
-```ruby title="unions.trb"
+```trb title="unions.trb"
 # Explicit annotation needed for union types
 def find_user(id: Integer): String | nil
   return nil if id < 0
@@ -251,7 +254,7 @@ current_user: String | nil = nil
 
 When defining public methods, classes, or modules:
 
-```ruby title="public_api.trb"
+```trb title="public_api.trb"
 module MathHelpers
   # Public method - fully annotated
   def self.calculate_average(numbers: Array<Float>): Float
@@ -272,7 +275,7 @@ T-Ruby's inference works through control flow structures:
 
 ### If Statements
 
-```ruby title="if_statements.trb"
+```trb title="if_statements.trb"
 def categorize_age(age: Integer): String
   # category is inferred as String in all branches
   if age < 13
@@ -289,7 +292,7 @@ end
 
 ### Case Statements
 
-```ruby title="case_statements.trb"
+```trb title="case_statements.trb"
 def get_day_type(day: Symbol): String
   # day_type is inferred as String
   day_type = case day
@@ -309,7 +312,7 @@ end
 
 ### Pattern 1: Initialize Then Use
 
-```ruby title="pattern1.trb"
+```trb title="pattern1.trb"
 def process_names(raw_names: String): Array<String>
   # names is inferred as Array<String>
   names = raw_names.split(",")
@@ -323,7 +326,7 @@ end
 
 ### Pattern 2: Accumulator Variables
 
-```ruby title="pattern2.trb"
+```trb title="pattern2.trb"
 def calculate_stats(numbers: Array<Integer>): Hash<Symbol, Float>
   # sum is inferred as Integer (starts at 0, adds Integers)
   sum = 0
@@ -338,7 +341,7 @@ end
 
 ### Pattern 3: Builder Pattern
 
-```ruby title="pattern3.trb"
+```trb title="pattern3.trb"
 def build_query(table: String, conditions: Array<String>): String
   # query is inferred as String
   query = "SELECT * FROM #{table}"
@@ -359,7 +362,7 @@ There are situations where T-Ruby cannot infer types automatically:
 
 ### Empty Collections
 
-```ruby title="empty_collections.trb"
+```trb title="empty_collections.trb"
 # T-Ruby cannot infer element type from empty array
 items = []  # Needs annotation!
 
@@ -372,7 +375,7 @@ items = ["first_item"]
 
 ### Complex Union Types
 
-```ruby title="complex_unions.trb"
+```trb title="complex_unions.trb"
 # T-Ruby cannot infer that this should accept multiple types
 def process_value(value)  # Needs annotation!
   if value.is_a?(String)
@@ -394,7 +397,7 @@ end
 
 ### Recursive Functions
 
-```ruby title="recursive.trb"
+```trb title="recursive.trb"
 # Needs return type annotation for recursion
 def factorial(n: Integer): Integer
   return 1 if n <= 1
@@ -411,7 +414,7 @@ end
 
 ### 1. Let Inference Handle Local Variables
 
-```ruby title="locals.trb"
+```trb title="locals.trb"
 def calculate_discount(price: Float, rate: Float): Float
   # Let inference work - types are obvious
   discount = price * rate
@@ -423,7 +426,7 @@ end
 
 ### 2. Annotate When Sharing Across Scopes
 
-```ruby title="shared_scope.trb"
+```trb title="shared_scope.trb"
 class OrderProcessor
   def initialize()
     # Annotate - shared across methods
@@ -444,7 +447,7 @@ end
 
 ### 3. Prefer Inference for Intermediate Calculations
 
-```ruby title="intermediate.trb"
+```trb title="intermediate.trb"
 def calculate_compound_interest(
   principal: Float,
   rate: Float,
@@ -462,7 +465,7 @@ end
 
 ### 4. Annotate for Clarity in Complex Logic
 
-```ruby title="clarity.trb"
+```trb title="clarity.trb"
 def parse_config(raw: String): Hash<Symbol, String | Integer>
   # Annotate the result type for clarity
   config: Hash<Symbol, String | Integer> = {}
@@ -489,7 +492,7 @@ end
 
 Here's a complete example showing effective use of type inference:
 
-```ruby title="invoice.trb"
+```trb title="invoice.trb"
 class Invoice
   def initialize(customer: String)
     @customer: String = customer

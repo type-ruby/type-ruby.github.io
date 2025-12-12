@@ -4,6 +4,9 @@ title: T-Ruby vs 다른 도구들
 description: T-Ruby와 TypeScript, RBS, Sorbet 비교
 ---
 
+<DocsBadge />
+
+
 # T-Ruby vs 다른 도구들
 
 Ruby 에코시스템에는 정적 타이핑에 대한 여러 접근 방식이 있습니다. 이 페이지에서는 T-Ruby가 어디에 위치하는지 이해하는 데 도움이 되도록 다른 솔루션과 비교합니다.
@@ -41,7 +44,7 @@ class User
 end
 ```
 
-```ruby title="sig/user.rbs"
+```rbs title="sig/user.rbs"
 class User
   @name: String
   @age: Integer
@@ -55,7 +58,7 @@ end
 
 타입은 인라인으로 작성됩니다:
 
-```ruby title="lib/user.trb"
+```trb title="lib/user.trb"
 class User
   @name: String
   @age: Integer
@@ -119,7 +122,7 @@ end
 
 ### T-Ruby 접근 방식
 
-```ruby title="lib/calculator.trb"
+```trb title="lib/calculator.trb"
 class Calculator
   def add(a: Integer, b: Integer): Integer
     a + b
@@ -153,7 +156,7 @@ greet(123)  # 런타임 검사가 활성화되면 TypeError 발생
 ```
 
 **T-Ruby 접근 방식:**
-```ruby
+```trb
 # 타입은 컴파일 타임에만 존재
 def greet(name: String): String
   "Hello, #{name}"
@@ -193,7 +196,7 @@ function processUser<T extends User>(user: T): string {
 }
 ```
 
-```ruby title="T-Ruby"
+```trb title="T-Ruby"
 def greet(name: String): String
   "Hello, #{name}!"
 end

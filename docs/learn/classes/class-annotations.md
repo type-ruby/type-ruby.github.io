@@ -4,6 +4,9 @@ title: Class Annotations
 description: Adding type annotations to classes
 ---
 
+<DocsBadge />
+
+
 # Class Annotations
 
 Classes are the foundation of object-oriented Ruby programming. T-Ruby brings type safety to classes through annotations on methods, instance variables, and class-level constructs. This guide will teach you how to write fully typed classes.
@@ -12,7 +15,7 @@ Classes are the foundation of object-oriented Ruby programming. T-Ruby brings ty
 
 Start by typing the methods in your class:
 
-```ruby title="basic_class.trb"
+```trb title="basic_class.trb"
 class User
   def initialize(name: String, email: String, age: Integer)
     @name = name
@@ -44,7 +47,7 @@ user.update_email("newemail@example.com")
 
 Instance variables should be typed with `attr_accessor`, `attr_reader`, or `attr_writer`:
 
-```ruby title="instance_vars.trb"
+```trb title="instance_vars.trb"
 class Product
   attr_accessor :name: String
   attr_accessor :price: Float
@@ -79,7 +82,7 @@ product.stock = 10               # ✓ OK - attr_writer (private getter)
 
 You can also declare instance variable types explicitly in the constructor:
 
-```ruby title="explicit_ivars.trb"
+```trb title="explicit_ivars.trb"
 class BlogPost
   def initialize(title: String, content: String, published: Boolean = false)
     @title: String = title
@@ -111,7 +114,7 @@ end
 
 Class methods (singleton methods) are typed the same way as instance methods:
 
-```ruby title="class_methods.trb"
+```trb title="class_methods.trb"
 class User
   def self.from_hash(data: Hash<String, String | Integer>): User
     User.new(
@@ -154,7 +157,7 @@ total = User.count()
 
 Ruby doesn't support true overloading, but you can use union types for flexible constructors:
 
-```ruby title="flexible_constructor.trb"
+```trb title="flexible_constructor.trb"
 class Rectangle
   attr_reader :width: Float
   attr_reader :height: Float
@@ -179,7 +182,7 @@ rect3 = Rectangle.new(10, 20.5)     # Mixed
 
 Private methods are typed just like public ones:
 
-```ruby title="private_methods.trb"
+```trb title="private_methods.trb"
 class BankAccount
   attr_reader :balance: Float
 
@@ -225,7 +228,7 @@ account.withdraw(200.0)
 
 When you need custom getter/setter logic, type them explicitly:
 
-```ruby title="custom_accessors.trb"
+```trb title="custom_accessors.trb"
 class Temperature
   def initialize(celsius: Float)
     @celsius = celsius
@@ -266,7 +269,7 @@ puts temp.celsius      # 37.0
 
 Instance variables that can be nil should use the `?` suffix:
 
-```ruby title="nilable_ivars.trb"
+```trb title="nilable_ivars.trb"
 class UserProfile
   attr_accessor :name: String
   attr_accessor :bio: String?
@@ -309,7 +312,7 @@ end
 
 Here's a complete example showing various typing techniques:
 
-```ruby title="product.trb"
+```trb title="product.trb"
 class Product
   attr_reader :id: Integer
   attr_accessor :name: String
@@ -435,7 +438,7 @@ puts laptop.same_category?(phone)  # true
 
 Another complete example with different patterns:
 
-```ruby title="task_manager.trb"
+```trb title="task_manager.trb"
 class Task
   attr_reader :id: Integer
   attr_accessor :title: String
@@ -583,7 +586,7 @@ puts list.overdue_tasks().length       # 0
 
 ### Builder Pattern
 
-```ruby title="builder.trb"
+```trb title="builder.trb"
 class EmailBuilder
   def initialize()
     @to = []
@@ -627,7 +630,7 @@ email = EmailBuilder.new
 
 ### Value Object
 
-```ruby title="value_object.trb"
+```trb title="value_object.trb"
 class Money
   attr_reader :amount: Float
   attr_reader :currency: String
@@ -654,7 +657,7 @@ end
 
 ### Singleton Pattern
 
-```ruby title="singleton.trb"
+```trb title="singleton.trb"
 class Configuration
   def self.instance(): Configuration
     @instance ||= Configuration.new

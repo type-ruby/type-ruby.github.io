@@ -4,6 +4,9 @@ title: オプショナル & 残余パラメータ
 description: オプショナルパラメータと残余引数
 ---
 
+<DocsBadge />
+
+
 # オプショナル & 残余パラメータ
 
 Ruby関数は、パラメータリストに柔軟性が必要になることがよくあります。T-Rubyは、完全な型安全性を維持しながら、オプショナルパラメータ（デフォルト値付き）と残余パラメータ（可変長引数リスト）の両方をサポートします。
@@ -12,7 +15,7 @@ Ruby関数は、パラメータリストに柔軟性が必要になることが�
 
 オプショナルパラメータは、引数が提供されない場合に使用されるデフォルト値を持ちます：
 
-```ruby title="optional.trb"
+```trb title="optional.trb"
 def greet(name: String, greeting: String = "Hello"): String
   "#{greeting}, #{name}!"
 end
@@ -36,7 +39,7 @@ user3 = create_user("Charlie", "moderator", false)     # デフォルト使用�
 
 「提供されていない」と「明示的にnil」を区別したい場合があります。nilable型を使用します：
 
-```ruby title="nilable_optional.trb"
+```trb title="nilable_optional.trb"
 def format_title(text: String, prefix: String? = nil): String
   if prefix
     "#{prefix}: #{text}"
@@ -64,7 +67,7 @@ send_email("bob@example.com", "Meeting", "team@example.com")
 
 残余パラメータは複数の引数を配列に収集します。配列の要素型を指定します：
 
-```ruby title="rest.trb"
+```trb title="rest.trb"
 def sum(*numbers: Integer): Integer
   numbers.reduce(0, :+)
 end
@@ -99,7 +102,7 @@ log_messages("INFO", "App started", "Database connected", "Ready")
 
 オプショナルパラメータと残余パラメータを組み合わせることができますが、残余パラメータはオプショナルパラメータの後に来る必要があります：
 
-```ruby title="combined.trb"
+```trb title="combined.trb"
 def create_team(
   name: String,
   leader: String,
@@ -129,7 +132,7 @@ team3 = create_team("Gamma", "Charlie", true, "Dave", "Eve", "Frank")
 
 Rubyのキーワード引数も型を指定できます。位置引数よりも明確性を提供します：
 
-```ruby title="keyword.trb"
+```trb title="keyword.trb"
 def create_post(
   title: String,
   content: String,
@@ -162,7 +165,7 @@ post2 = create_post(
 
 ダブルスプラット `**` を使用してキーワード引数をハッシュに収集します：
 
-```ruby title="keyword_rest.trb"
+```trb title="keyword_rest.trb"
 def build_query(table: String, **conditions: String | Integer): String
   where_clause = conditions.map { |k, v| "#{k} = #{v}" }.join(" AND ")
   "SELECT * FROM #{table} WHERE #{where_clause}"
@@ -193,7 +196,7 @@ config = create_config(
 
 Rubyでは、デフォルト値を省略することでキーワード引数を必須にできます：
 
-```ruby title="required_kwargs.trb"
+```trb title="required_kwargs.trb"
 def register_user(
   email: String,
   password: String,
@@ -231,7 +234,7 @@ user2 = register_user(
 5. オプショナルキーワード引数
 6. キーワード残余パラメータ (`**kwargs`)
 
-```ruby title="all_types.trb"
+```trb title="all_types.trb"
 def complex_function(
   required_pos: String,                    # 1. 必須位置
   optional_pos: Integer = 0,               # 2. オプショナル位置
@@ -266,7 +269,7 @@ result = complex_function(
 
 様々なパラメータタイプを示す実際の例です：
 
-```ruby title="http_builder.trb"
+```trb title="http_builder.trb"
 class HTTPRequestBuilder
   # 必須パラメータのみ
   def get(url: String): Response
@@ -362,7 +365,7 @@ response4 = builder.custom_request(
 
 柔軟なパラメータ処理を示す別の例です：
 
-```ruby title="logger.trb"
+```trb title="logger.trb"
 class Logger
   # オプショナルレベル付きのシンプルなメッセージ
   def log(message: String, level: String = "INFO"): void
@@ -435,7 +438,7 @@ logger.debug(
 
 ### デフォルト付きビルダーメソッド
 
-```ruby title="builder_pattern.trb"
+```trb title="builder_pattern.trb"
 def build_email(
   to: String,
   subject: String,
@@ -450,7 +453,7 @@ end
 
 ### 可変ファクトリ関数
 
-```ruby title="factory.trb"
+```trb title="factory.trb"
 def create_users(*names: String, role: String = "user"): Array<User>
   names.map { |name| User.new(name: name, role: role) }
 end
@@ -460,7 +463,7 @@ users = create_users("Alice", "Bob", "Charlie", role: "admin")
 
 ### 設定のマージ
 
-```ruby title="config.trb"
+```trb title="config.trb"
 def merge_config(base: Hash<String, String>, **overrides: String): Hash<String, String>
   base.merge(overrides)
 end
