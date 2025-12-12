@@ -15,6 +15,8 @@ description: 타입 안전한 상속과 모듈 믹스인
 
 클래스는 부모 클래스로부터 상속받아 메서드와 인스턴스 변수에 접근할 수 있습니다:
 
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/classes/inheritance_mixins_spec.rb" line={21} />
+
 ```trb title="basic_inheritance.trb"
 class Animal
   attr_accessor :name: String
@@ -75,6 +77,8 @@ cat.scratch()
 ## 메서드 오버라이딩
 
 자식 클래스는 동일한 시그니처로 부모 메서드를 오버라이드할 수 있습니다:
+
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/classes/inheritance_mixins_spec.rb" line={21} />
 
 ```trb title="override.trb"
 class Shape
@@ -155,6 +159,8 @@ puts circle.area()     # 78.53975
 
 부모 클래스 메서드를 호출하려면 `super`를 사용합니다:
 
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/classes/inheritance_mixins_spec.rb" line={21} />
+
 ```trb title="super.trb"
 class Employee
   attr_accessor :name: String
@@ -210,6 +216,8 @@ puts manager.total_compensation()   # 80000.0 + 13000.0 + 2500.0 = 95500.0
 ## 모듈과 믹스인
 
 모듈을 사용하면 여러 클래스에서 기능을 공유할 수 있습니다:
+
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/classes/inheritance_mixins_spec.rb" line={21} />
 
 ```trb title="modules.trb"
 module Timestampable
@@ -305,6 +313,8 @@ puts product.search("Gaming")  # true
 
 모듈은 인스턴스 변수와 함께 작동하는 메서드를 정의할 수 있습니다:
 
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/classes/inheritance_mixins_spec.rb" line={21} />
+
 ```trb title="module_methods.trb"
 module Validatable
   def valid?(): Boolean
@@ -364,6 +374,8 @@ end
 ## 다중 믹스인
 
 클래스는 여러 모듈을 포함할 수 있습니다:
+
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/classes/inheritance_mixins_spec.rb" line={21} />
 
 ```trb title="multiple_mixins.trb"
 module Comparable
@@ -444,6 +456,8 @@ puts clone.name  # "Alice"
 
 T-Ruby는 상속 계층 전체에서 타입 안전성을 보장합니다:
 
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/classes/inheritance_mixins_spec.rb" line={21} />
+
 ```trb title="type_safety.trb"
 class Vehicle
   attr_accessor :make: String
@@ -504,6 +518,8 @@ vehicles.each { |v| v.start() }
 ## 실전 예제: 콘텐츠 관리 시스템
 
 상속과 믹스인을 보여주는 완전한 예제입니다:
+
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/classes/inheritance_mixins_spec.rb" line={21} />
 
 ```trb title="cms.trb"
 module Publishable
@@ -679,6 +695,8 @@ puts page.url()  # "/pages/about"
 
 ### 템플릿 메서드 패턴
 
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/classes/inheritance_mixins_spec.rb" line={21} />
+
 ```trb title="template_method.trb"
 class DataImporter
   def import(file_path: String): void
@@ -720,6 +738,8 @@ end
 ```
 
 ### 모듈을 사용한 데코레이터 패턴
+
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/classes/inheritance_mixins_spec.rb" line={21} />
 
 ```trb title="decorator.trb"
 module Logging

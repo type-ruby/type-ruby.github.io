@@ -17,6 +17,8 @@ T-Ruby에는 매일 사용하게 될 여러 내장 제네릭 타입이 있습니
 
 ### 기본 배열 사용법
 
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/generics/built_in_generics_spec.rb" line={21} />
+
 ```trb
 # 명시적으로 타입이 지정된 배열
 numbers: Array<Integer> = [1, 2, 3, 4, 5]
@@ -35,6 +37,8 @@ empty_users = Array<User>.new
 ### 배열 연산
 
 모든 표준 배열 연산은 타입 안전성을 유지합니다:
+
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/generics/built_in_generics_spec.rb" line={21} />
 
 ```trb
 numbers: Array<Integer> = [1, 2, 3, 4, 5]
@@ -61,6 +65,8 @@ index: Integer | nil = numbers.index(3)     # 2
 ### 배열 매핑 및 변환
 
 매핑은 `Array<T>`를 `Array<U>`로 변환합니다:
+
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/generics/built_in_generics_spec.rb" line={21} />
 
 ```trb
 # 정수를 문자열로 매핑
@@ -96,6 +102,8 @@ people: Array<Person> = names.map { |name| Person.new(name, 25) }
 
 필터링은 같은 타입을 유지합니다:
 
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/generics/built_in_generics_spec.rb" line={21} />
+
 ```trb
 numbers: Array<Integer> = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
 
@@ -120,6 +128,8 @@ long_words: Array<String> = words.select { |w| w.length > 4 }
 ### 배열 축소
 
 reduce는 배열을 단일 값으로 축소합니다:
+
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/generics/built_in_generics_spec.rb" line={21} />
 
 ```trb
 numbers: Array<Integer> = [1, 2, 3, 4, 5]
@@ -148,6 +158,8 @@ hash: Hash<String, String> = pairs.reduce({}) { |h, pair|
 ### 중첩 배열
 
 배열은 어떤 깊이로든 중첩될 수 있습니다:
+
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/generics/built_in_generics_spec.rb" line={21} />
 
 ```trb
 # 2차원 배열 (행렬)
@@ -179,6 +191,8 @@ flat: Array<Integer> = nested.flatten
 
 ### 기본 해시 사용법
 
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/generics/built_in_generics_spec.rb" line={21} />
+
 ```trb
 # 명시적으로 타입이 지정된 해시
 ages: Hash<String, Integer> = {
@@ -203,6 +217,8 @@ empty_map = Hash<Symbol, Array<String>>.new
 ```
 
 ### 해시 연산
+
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/generics/built_in_generics_spec.rb" line={21} />
 
 ```trb
 ages: Hash<String, Integer> = {
@@ -232,6 +248,8 @@ values: Array<Integer> = ages.values      # [31, 35]
 
 ### 해시 반복
 
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/generics/built_in_generics_spec.rb" line={21} />
+
 ```trb
 scores: Hash<String, Integer> = {
   "Alice" => 95,
@@ -259,6 +277,8 @@ doubled: Hash<String, Integer> = scores.transform_values { |score| score * 2 }
 ```
 
 ### 복잡한 해시 타입
+
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/generics/built_in_generics_spec.rb" line={21} />
 
 ```trb
 # 배열 값을 가진 해시
@@ -301,6 +321,8 @@ user_map: Hash<Integer, User> = {
 
 `Set<T>`는 타입 `T`의 고유 요소의 정렬되지 않은 컬렉션을 나타냅니다.
 
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/generics/built_in_generics_spec.rb" line={21} />
+
 ```trb
 # 셋 생성
 numbers: Set<Integer> = Set.new([1, 2, 3, 4, 5])
@@ -333,6 +355,8 @@ array: Array<Integer> = numbers.to_a
 
 `Range<T>`는 시작부터 끝까지의 값 범위를 나타냅니다.
 
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/generics/built_in_generics_spec.rb" line={21} />
+
 ```trb
 # 정수 범위
 one_to_ten: Range<Integer> = 1..10      # 포함: 1, 2, ..., 10
@@ -357,6 +381,8 @@ letters: Array<String> = ('a'..'e').to_a  # ["a", "b", "c", "d", "e"]
 ## Proc\<Args, Return\>
 
 `Proc<Args, Return>`은 타입이 지정된 매개변수와 반환 타입을 가진 proc/lambda를 나타냅니다.
+
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/generics/built_in_generics_spec.rb" line={21} />
 
 ```trb
 # 간단한 proc
@@ -393,6 +419,8 @@ result = operations.reduce(10) { |acc, op| op.call(acc) }
 
 엄격하게 제네릭은 아니지만, `T | nil`은 매우 자주 사용되어 언급할 가치가 있습니다. T-Ruby는 또한 `T?` 약칭을 지원합니다.
 
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/generics/built_in_generics_spec.rb" line={21} />
+
 ```trb
 # 명시적 옵셔널 타입
 name: String | nil = "Alice"
@@ -424,6 +452,8 @@ settings: Hash<String, String | nil> = {
 ## 제네릭 타입 결합
 
 제네릭 타입은 강력한 방식으로 결합할 수 있습니다:
+
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/generics/built_in_generics_spec.rb" line={21} />
 
 ```trb
 # 해시의 배열
@@ -461,6 +491,8 @@ data = nil
 
 복잡한 제네릭 타입을 위한 읽기 쉬운 별칭을 만듭니다:
 
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/generics/built_in_generics_spec.rb" line={21} />
+
 ```trb
 # 간단한 별칭
 type StringArray = Array<String>
@@ -497,6 +529,8 @@ to_string: Transformer<Integer, String> = ->(n: Integer): String { n.to_s }
 
 ### 1. Any보다 특정 타입 선호
 
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/generics/built_in_generics_spec.rb" line={21} />
+
 ```trb
 # 좋음: 특정 타입
 users: Array<User> = []
@@ -507,6 +541,8 @@ data: Array<Any> = []  # 타입 검사 없음
 ```
 
 ### 2. 복잡한 타입에 타입 별칭 사용
+
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/generics/built_in_generics_spec.rb" line={21} />
 
 ```trb
 # 좋음: 명확하고 재사용 가능한 별칭
@@ -525,6 +561,8 @@ end
 
 ### 3. Nil 값을 명시적으로 처리
 
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/generics/built_in_generics_spec.rb" line={21} />
+
 ```trb
 # 좋음: 명시적 nil 처리
 users: Array<User> = []
@@ -542,6 +580,8 @@ end
 
 ### 4. 적절한 컬렉션 타입 사용
 
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/generics/built_in_generics_spec.rb" line={21} />
+
 ```trb
 # 좋음: 고유 항목에 Set 사용
 unique_tags: Set<String> = Set.new
@@ -555,6 +595,8 @@ unique_tags.push(tag) unless unique_tags.include?(tag)
 
 ### 안전한 배열 접근
 
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/generics/built_in_generics_spec.rb" line={21} />
+
 ```trb
 def safe_get<T>(array: Array<T>, index: Integer, default: T): T
   array.fetch(index, default)
@@ -565,6 +607,8 @@ value = safe_get(numbers, 10, 0)  # nil 대신 0 반환
 ```
 
 ### 해시로 그룹화
+
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/generics/built_in_generics_spec.rb" line={21} />
 
 ```trb
 class Person
@@ -593,6 +637,8 @@ by_age: Hash<Integer, Array<Person>> = people.group_by { |p| p.age }
 ```
 
 ### 해시로 메모이제이션
+
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/generics/built_in_generics_spec.rb" line={21} />
 
 ```trb
 class Calculator

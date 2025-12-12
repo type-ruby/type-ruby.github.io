@@ -17,6 +17,8 @@ T-Ruby의 배열은 제네릭 타입 구문을 사용합니다: `Array<T>`, 여�
 
 ### 기본 Array 구문
 
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/everyday_types/arrays_and_hashes_spec.rb" line={21} />
+
 ```trb title="array_basics.trb"
 # 정수 배열
 numbers: Array<Integer> = [1, 2, 3, 4, 5]
@@ -35,6 +37,8 @@ items: Array<String> = []
 
 값으로 초기화할 때 T-Ruby는 배열 타입을 추론할 수 있습니다:
 
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/everyday_types/arrays_and_hashes_spec.rb" line={21} />
+
 ```trb title="array_inference.trb"
 # Array<Integer>로 추론됨
 numbers = [1, 2, 3, 4, 5]
@@ -47,6 +51,8 @@ items: Array<String> = []
 ```
 
 ### 배열 연산
+
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/everyday_types/arrays_and_hashes_spec.rb" line={21} />
 
 ```trb title="array_operations.trb"
 def add_item(items: Array<String>, item: String): Array<String>
@@ -76,6 +82,8 @@ count: Integer = array_length(list)  # 3
 
 ### 배열 요소 접근
 
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/everyday_types/arrays_and_hashes_spec.rb" line={21} />
+
 ```trb title="array_access.trb"
 def get_at_index(items: Array<String>, index: Integer): String | nil
   items[index]
@@ -97,6 +105,8 @@ subset: Array<String> = get_range(fruits, 1..2)  # ["banana", "cherry"]
 ```
 
 ### 배열 반복
+
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/everyday_types/arrays_and_hashes_spec.rb" line={21} />
 
 ```trb title="array_iteration.trb"
 def sum_numbers(numbers: Array<Integer>): Integer
@@ -127,6 +137,8 @@ even: Integer | nil = find_first_even([1, 3, 4, 5])  # 4
 
 ### 배열 변환 메서드
 
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/everyday_types/arrays_and_hashes_spec.rb" line={21} />
+
 ```trb title="array_transform.trb"
 def join_strings(items: Array<String>, separator: String): String
   items.join(separator)
@@ -153,6 +165,8 @@ unique: Array<String> = unique_items(["a", "b", "a", "c"])  # ["a", "b", "c"]
 ### 중첩 배열
 
 배열은 다른 배열을 포함할 수 있습니다:
+
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/everyday_types/arrays_and_hashes_spec.rb" line={21} />
 
 ```trb title="nested_arrays.trb"
 # 2D 배열 (배열의 배열)
@@ -187,6 +201,8 @@ T-Ruby의 해시는 제네릭 타입 구문을 사용합니다: `Hash<K, V>`, �
 
 ### 기본 Hash 구문
 
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/everyday_types/arrays_and_hashes_spec.rb" line={21} />
+
 ```trb title="hash_basics.trb"
 # Symbol 키와 String 값을 가진 해시
 user: Hash<Symbol, String> = {
@@ -216,6 +232,8 @@ config: Hash<Symbol, String> = {}
 
 T-Ruby는 해시 내용에서 타입을 추론할 수 있습니다:
 
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/everyday_types/arrays_and_hashes_spec.rb" line={21} />
+
 ```trb title="hash_inference.trb"
 # Hash<Symbol, String>으로 추론됨
 user = {
@@ -234,6 +252,8 @@ config: Hash<Symbol, String> = {}
 ```
 
 ### 해시 연산
+
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/everyday_types/arrays_and_hashes_spec.rb" line={21} />
 
 ```trb title="hash_operations.trb"
 def get_value(hash: Hash<Symbol, String>, key: Symbol): String | nil
@@ -261,6 +281,8 @@ count: Integer = hash_size(config)  # 2
 ```
 
 ### 해시 반복
+
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/everyday_types/arrays_and_hashes_spec.rb" line={21} />
 
 ```trb title="hash_iteration.trb"
 def print_hash(hash: Hash<Symbol, String>)
@@ -291,6 +313,8 @@ doubled: Hash<Symbol, Integer> = transform_values({ a: 5, b: 10 })
 ```
 
 ### 해시 변환 메서드
+
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/everyday_types/arrays_and_hashes_spec.rb" line={21} />
 
 ```trb title="hash_transform.trb"
 def merge_hashes(
@@ -328,6 +352,8 @@ inverted: Hash<Integer, String> = invert_hash({ "a" => 1, "b" => 2 })
 ### 중첩 해시
 
 해시는 다른 해시를 포함할 수 있습니다:
+
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/everyday_types/arrays_and_hashes_spec.rb" line={21} />
 
 ```trb title="nested_hashes.trb"
 # 해시를 포함하는 해시
@@ -373,6 +399,8 @@ user = create_user("Alice", 30, "alice@example.com")
 
 ### Union 타입을 가진 배열
 
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/everyday_types/arrays_and_hashes_spec.rb" line={21} />
+
 ```trb title="array_unions.trb"
 # 문자열 또는 정수를 포함할 수 있는 배열
 def create_mixed_array(): Array<String | Integer>
@@ -396,6 +424,8 @@ sum: Integer = sum_numbers_from_mixed(mixed)  # 142
 ```
 
 ### Union 타입을 가진 해시
+
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/everyday_types/arrays_and_hashes_spec.rb" line={21} />
 
 ```trb title="hash_unions.trb"
 # 혼합 값 타입을 가진 해시
@@ -431,6 +461,8 @@ port: Integer | nil = get_port(config)  # 3000
 ## 실용적 예제: 데이터 처리
 
 배열과 해시를 결합한 종합적인 예제입니다:
+
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/everyday_types/arrays_and_hashes_spec.rb" line={21} />
 
 ```trb title="data_processing.trb"
 class DataProcessor
@@ -555,6 +587,8 @@ stats: Hash<Symbol, Float | Integer> = processor.get_statistics()
 
 ### 동적으로 배열 만들기
 
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/everyday_types/arrays_and_hashes_spec.rb" line={21} />
+
 ```trb title="array_building.trb"
 def build_range(start: Integer, stop: Integer): Array<Integer>
   result: Array<Integer> = []
@@ -589,6 +623,8 @@ filtered: Array<String> = filter_and_transform([10, 5, 20, 3], 8)
 ```
 
 ### 동적으로 해시 만들기
+
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/everyday_types/arrays_and_hashes_spec.rb" line={21} />
 
 ```trb title="hash_building.trb"
 def count_occurrences(words: Array<String>): Hash<String, Integer>
@@ -631,6 +667,8 @@ counts: Hash<String, Integer> = count_occurrences(words)
 
 ### 빈 컬렉션은 타입 어노테이션이 필요
 
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/everyday_types/arrays_and_hashes_spec.rb" line={21} />
+
 ```trb title="empty_collections.trb"
 # 이것은 작동하지 않음 - 타입을 추론할 수 없음
 # items = []  # 오류!
@@ -641,6 +679,8 @@ config: Hash<Symbol, Integer> = {}
 ```
 
 ### 컬렉션 변경
+
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/everyday_types/arrays_and_hashes_spec.rb" line={21} />
 
 ```trb title="mutation.trb"
 def add_item_wrong(items: Array<String>): Array<String>
@@ -666,6 +706,8 @@ result2 = add_item_safe(original2)
 ```
 
 ### 해시 키 타입 주의
+
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/everyday_types/arrays_and_hashes_spec.rb" line={21} />
 
 ```trb title="hash_keys.trb"
 # Symbol 키와 String 키는 다름!

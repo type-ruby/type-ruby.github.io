@@ -236,6 +236,8 @@ trc --config trc.production.yaml
 
 Gemfile에 T-Ruby 추가:
 
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/getting_started/project_configuration_spec.rb" line={21} />
+
 ```ruby title="Gemfile"
 source "https://rubygems.org"
 
@@ -247,6 +249,8 @@ end
 ```
 
 Rake 태스크 생성:
+
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/getting_started/project_configuration_spec.rb" line={21} />
 
 ```ruby title="Rakefile"
 require "t-ruby/rake_task"
@@ -292,6 +296,8 @@ types:
 ```
 
 `config/application.rb`에 추가:
+
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/getting_started/project_configuration_spec.rb" line={21} />
 
 ```ruby
 # 개발 중 .trb 파일 감시

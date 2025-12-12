@@ -15,6 +15,8 @@ Union 타입을 사용하면 값이 여러 다른 타입 중 하나가 될 수 �
 
 Union 타입은 지정된 여러 타입 중 하나가 될 수 있는 값을 나타냅니다. T-Ruby에서는 파이프(`|`) 연산자를 사용하여 union 타입을 만듭니다:
 
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/everyday_types/union_types_spec.rb" line={21} />
+
 ```trb title="union_basics.trb"
 # 이 변수는 String 또는 nil이 될 수 있음
 name: String | nil = "Alice"
@@ -34,6 +36,8 @@ Union 타입은 여러 시나리오에서 유용합니다:
 
 가장 일반적인 용도는 타입과 `nil`을 결합하여 선택적 값을 나타내는 것입니다:
 
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/everyday_types/union_types_spec.rb" line={21} />
+
 ```trb title="optional_values.trb"
 def find_user(id: Integer): String | nil
   return nil if id < 0
@@ -48,6 +52,8 @@ no_user: String | nil = find_user(-1)  # nil
 ### 2. 여러 유효한 입력 타입
 
 함수가 다른 타입의 입력을 받을 수 있을 때:
+
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/everyday_types/union_types_spec.rb" line={21} />
 
 ```trb title="multiple_inputs.trb"
 def format_id(id: String | Integer): String
@@ -65,6 +71,8 @@ formatted2: String = format_id("abc")  # "ABC"
 ### 3. 다른 반환 타입
 
 함수가 조건에 따라 다른 타입을 반환할 수 있을 때:
+
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/everyday_types/union_types_spec.rb" line={21} />
 
 ```trb title="different_returns.trb"
 def parse_value(input: String): String | Integer | Bool
@@ -88,6 +96,8 @@ result3 = parse_value("hello")  # "hello" (String)
 
 union 타입을 가진 값을 안전하게 사용하려면 실제 타입을 확인해야 합니다:
 
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/everyday_types/union_types_spec.rb" line={21} />
+
 ```trb title="type_checking.trb"
 def process_value(value: String | Integer): String
   if value.is_a?(String)
@@ -106,6 +116,8 @@ result2: String = process_value(42)  # "42"
 ### nil 검사
 
 선택적 값을 다룰 때 항상 `nil`을 검사하세요:
+
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/everyday_types/union_types_spec.rb" line={21} />
 
 ```trb title="nil_checking.trb"
 def get_length(text: String | nil): Integer
@@ -130,6 +142,8 @@ end
 
 union에 두 개 이상의 타입이 있을 때:
 
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/everyday_types/union_types_spec.rb" line={21} />
+
 ```trb title="multiple_checks.trb"
 def describe_value(value: String | Integer | Bool): String
   if value.is_a?(String)
@@ -153,6 +167,8 @@ desc3: String = describe_value(true)  # "부울: true"
 Union 타입은 배열과 해시와 함께 일반적으로 사용됩니다:
 
 ### Union 요소 타입을 가진 배열
+
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/everyday_types/union_types_spec.rb" line={21} />
 
 ```trb title="union_arrays.trb"
 # 문자열 또는 정수를 포함할 수 있는 배열
@@ -190,6 +206,8 @@ strings: Array<String> = get_strings(mixed)  # ["Alice", "Bob", "Charlie"]
 ```
 
 ### Union 값 타입을 가진 해시
+
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/everyday_types/union_types_spec.rb" line={21} />
 
 ```trb title="union_hashes.trb"
 # 다른 값 타입을 가진 해시
@@ -238,6 +256,8 @@ port: Integer | nil = get_integer_value(config, :port)  # 3000
 
 ### 패턴 1: 성공 또는 오류
 
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/everyday_types/union_types_spec.rb" line={21} />
+
 ```trb title="result_pattern.trb"
 def divide_safe(a: Float, b: Float): Float | String
   if b == 0.0
@@ -265,6 +285,8 @@ message2: String = process_result(result2)  # "오류: 0으로 나눌 수 없음
 
 ### 패턴 2: 기본값
 
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/everyday_types/union_types_spec.rb" line={21} />
+
 ```trb title="default_pattern.trb"
 def get_value_or_default(
   value: String | nil,
@@ -287,6 +309,8 @@ result2: String = get_value_or_default(nil, "default")  # "default"
 ```
 
 ### 패턴 3: 타입 강제 변환
+
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/everyday_types/union_types_spec.rb" line={21} />
 
 ```trb title="coercion_pattern.trb"
 def to_integer(value: String | Integer): Integer
@@ -315,6 +339,8 @@ str3: String = to_string(true)  # "true"
 
 ### 패턴 4: 다형성 함수
 
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/everyday_types/union_types_spec.rb" line={21} />
+
 ```trb title="polymorphic_pattern.trb"
 def repeat(value: String | Integer, times: Integer): String
   if value.is_a?(String)
@@ -335,6 +361,8 @@ Union 타입은 복잡한 방식으로 결합될 수 있습니다:
 
 ### Union 안의 Union
 
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/everyday_types/union_types_spec.rb" line={21} />
+
 ```trb title="nested_unions.trb"
 # 숫자(Integer 또는 Float) 또는 텍스트(String 또는 Symbol)가 될 수 있는 값
 def process_input(value: Integer | Float | String | Symbol): String
@@ -354,6 +382,8 @@ result4: String = process_input(:active)  # "심볼: active"
 ```
 
 ### 복잡한 타입과의 Union
+
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/everyday_types/union_types_spec.rb" line={21} />
 
 ```trb title="complex_unions.trb"
 # 단일 값이거나 값의 배열일 수 있음
@@ -386,6 +416,8 @@ nums2: Array<Integer> = expand_range(1..5)  # [1, 2, 3, 4, 5]
 ## 실용적 예제: 설정 시스템
 
 union 타입을 사용하는 종합적인 예제입니다:
+
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/everyday_types/union_types_spec.rb" line={21} />
 
 ```trb title="config_system.trb"
 class ConfigManager
@@ -504,6 +536,8 @@ config.parse_and_set("environment", "production")  # String으로 저장
 
 너무 많은 타입을 가진 union을 피하세요:
 
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/everyday_types/union_types_spec.rb" line={21} />
+
 ```trb title="simple_unions.trb"
 # 좋음 - 명확하고 단순함
 def process(value: String | Integer): String
@@ -520,6 +554,8 @@ end
 
 ### 2. 선택적 값에 nil Union 사용
 
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/everyday_types/union_types_spec.rb" line={21} />
+
 ```trb title="optional_best_practice.trb"
 # 좋음 - 명확하게 선택적
 def find_item(id: Integer): String | nil
@@ -533,6 +569,8 @@ end
 ```
 
 ### 3. 일관된 순서로 타입 검사
+
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/everyday_types/union_types_spec.rb" line={21} />
 
 ```trb title="consistent_checks.trb"
 # 좋음 - 일관된 패턴
@@ -556,6 +594,8 @@ end
 
 ### 4. Union 타입 의미 문서화
 
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/everyday_types/union_types_spec.rb" line={21} />
+
 ```trb title="documentation.trb"
 # 좋음 - 각 타입이 의미하는 바가 명확함
 def get_status(id: Integer): String | Symbol | nil
@@ -574,6 +614,8 @@ end
 
 ### 타입 검사 잊음
 
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/everyday_types/union_types_spec.rb" line={21} />
+
 ```trb title="missing_checks.trb"
 # 잘못됨 - 타입을 검사하지 않음
 def bad_example(value: String | Integer): Integer
@@ -591,6 +633,8 @@ end
 ```
 
 ### 변경 후 타입 가정
+
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/everyday_types/union_types_spec.rb" line={21} />
 
 ```trb title="type_mutation.trb"
 def risky_example(value: String | Integer)

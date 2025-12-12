@@ -17,6 +17,8 @@ description: T-Ruby에서 타입 어노테이션의 기본 학습
 
 T-Ruby에서 타입 어노테이션은 콜론(`:`) 뒤에 타입 이름을 사용합니다:
 
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/basics/type_annotations_spec.rb" line={21} />
+
 ```trb title="hello.trb"
 # 타입 어노테이션이 있는 변수
 name: String = "Alice"
@@ -33,6 +35,8 @@ end
 ```
 
 T-Ruby가 이 코드를 트랜스파일하면, 타입 어노테이션이 제거되어 순수 Ruby가 남습니다:
+
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/basics/type_annotations_spec.rb" line={21} />
 
 ```ruby title="hello.rb"
 # 타입 어노테이션이 제거된 변수
@@ -53,11 +57,15 @@ end
 
 변수를 선언할 때 어노테이션을 추가할 수 있습니다. 문법은:
 
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/basics/type_annotations_spec.rb" line={21} />
+
 ```trb
 variable_name: Type = value
 ```
 
 ### 기본 예제
+
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/basics/type_annotations_spec.rb" line={21} />
 
 ```trb title="variables.trb"
 # String 변수
@@ -81,6 +89,8 @@ is_active: Bool = true
 2. **오류 감지**: T-Ruby가 트랜스파일 시간에 타입 불일치를 잡음
 3. **IDE 지원**: 에디터가 더 나은 자동완성과 힌트를 제공
 
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/basics/type_annotations_spec.rb" line={21} />
+
 ```trb title="error_example.trb"
 # 이것은 타입 오류를 발생시킴
 age: Integer = "twenty-five"  # 오류: Integer 변수에 String 할당
@@ -92,6 +102,8 @@ age: Integer = 25
 ## 메서드 매개변수 어노테이션
 
 메서드가 어떤 타입의 인자를 받는지 지정하기 위해 매개변수에 어노테이션을 달아야 합니다:
+
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/basics/type_annotations_spec.rb" line={21} />
 
 ```trb title="parameters.trb"
 def calculate_total(price: Float, quantity: Integer): Float
@@ -105,6 +117,8 @@ total = calculate_total(9.99, 3)  # 29.97 반환
 ### 여러 매개변수
 
 메서드에 여러 매개변수가 있을 때 각각에 어노테이션을 달아야 합니다:
+
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/basics/type_annotations_spec.rb" line={21} />
 
 ```trb title="multiple_params.trb"
 def create_user(name: String, age: Integer, email: String)
@@ -122,6 +136,8 @@ user = create_user("Alice", 30, "alice@example.com")
 
 타입 어노테이션을 기본값과 결합할 수 있습니다:
 
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/basics/type_annotations_spec.rb" line={21} />
+
 ```trb title="defaults.trb"
 def greet(name: String, greeting: String = "Hello")
   "#{greeting}, #{name}!"
@@ -134,6 +150,8 @@ puts greet("Bob", "Hi")          # "Hi, Bob!"
 ## 반환 타입 어노테이션
 
 반환 타입 어노테이션은 메서드가 반환할 타입을 지정합니다. 매개변수 목록 뒤, 메서드 본문 앞에 옵니다:
+
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/basics/type_annotations_spec.rb" line={21} />
 
 ```trb title="return_types.trb"
 # String 반환
@@ -162,6 +180,8 @@ end
 
 반환 타입 어노테이션은 메서드가 항상 예상된 타입을 반환하도록 보장하여 오류를 방지합니다:
 
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/basics/type_annotations_spec.rb" line={21} />
+
 ```trb title="return_safety.trb"
 def divide(a: Integer, b: Integer): Float
   return 0.0 if b == 0  # 안전한 기본값
@@ -175,6 +195,8 @@ result: Float = divide(10, 3)
 ## 완전한 메서드 예제
 
 모든 어노테이션 타입을 함께 보여주는 포괄적인 예제입니다:
+
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/basics/type_annotations_spec.rb" line={21} />
 
 ```trb title="complete_example.trb"
 # 매개변수와 반환 타입 어노테이션이 있는 메서드
@@ -203,6 +225,8 @@ member_price: Float = calculate_discount(100.0, 10, true)
 
 이것은 깔끔한 Ruby로 트랜스파일됩니다:
 
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/basics/type_annotations_spec.rb" line={21} />
+
 ```ruby title="complete_example.rb"
 def calculate_discount(
   original_price,
@@ -226,6 +250,8 @@ member_price = calculate_discount(100.0, 10, true)
 
 블록 매개변수에도 어노테이션을 달 수 있습니다:
 
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/basics/type_annotations_spec.rb" line={21} />
+
 ```trb title="blocks.trb"
 def process_numbers(numbers: Array<Integer>)
   numbers.map do |n: Integer|
@@ -240,6 +266,8 @@ result = process_numbers([1, 2, 3])
 ## 인스턴스 변수
 
 클래스의 인스턴스 변수에도 어노테이션을 달 수 있습니다:
+
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/basics/type_annotations_spec.rb" line={21} />
 
 ```trb title="instance_vars.trb"
 class Person
@@ -264,6 +292,8 @@ puts person.introduce()
 
 모든 단일 변수에 어노테이션을 달 필요는 없습니다. T-Ruby는 타입 추론이 있습니다(다음 장에서 다룸). 명확성을 더할 때만 어노테이션을 달아야 합니다:
 
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/basics/type_annotations_spec.rb" line={21} />
+
 ```trb title="over_annotation.trb"
 # 너무 많은 어노테이션
 x: Integer = 5
@@ -280,6 +310,8 @@ sum: Integer = x + y  # 필요할 때만 결과에 어노테이션
 
 메서드가 조건에 따라 다른 타입을 반환할 수 있다면, union 타입을 사용하세요(나중에 다룸):
 
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/basics/type_annotations_spec.rb" line={21} />
+
 ```trb title="inconsistent_return.trb"
 # 이것은 오류를 발생시킴 - 일관성 없는 반환
 def get_value(flag: Bool): String
@@ -294,6 +326,8 @@ end
 ### Nil 값 기억하기
 
 메서드가 `nil`을 반환할 수 있다면, 반환 타입에 포함하세요:
+
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/basics/type_annotations_spec.rb" line={21} />
 
 ```trb title="nil_returns.trb"
 # 올바름 - nil 가능성 포함

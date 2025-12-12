@@ -17,6 +17,8 @@ T-Ruby의 가장 강력한 기능 중 하나는 타입 추론입니다. 타입 �
 
 ### 기본 추론 예제
 
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/basics/type_inference_spec.rb" line={21} />
+
 ```trb title="basic_inference.trb"
 # T-Ruby는 name이 String임을 추론
 name = "Alice"
@@ -33,6 +35,8 @@ active = true
 
 트랜스파일된 Ruby는 동일합니다:
 
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/basics/type_inference_spec.rb" line={21} />
+
 ```ruby title="basic_inference.rb"
 name = "Alice"
 count = 42
@@ -45,6 +49,8 @@ active = true
 T-Ruby는 할당되는 값을 검사하고 리터럴에서 타입을 결정합니다:
 
 ### 리터럴 기반 추론
+
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/basics/type_inference_spec.rb" line={21} />
 
 ```trb title="literals.trb"
 # String 리터럴 → String 타입
@@ -70,6 +76,8 @@ nothing = nil
 
 T-Ruby는 표현식에서 타입을 추론할 수 있습니다:
 
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/basics/type_inference_spec.rb" line={21} />
+
 ```trb title="expressions.trb"
 x = 10
 y = 20
@@ -89,6 +97,8 @@ decimal = x.to_f
 ### 메서드 반환 타입 추론
 
 메서드에 반환 타입 어노테이션이 있을 때, T-Ruby는 결과의 타입을 알고 있습니다:
+
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/basics/type_inference_spec.rb" line={21} />
 
 ```trb title="method_returns.trb"
 def get_name(): String
@@ -111,6 +121,8 @@ total = calculate_total(3, 9.99)
 타입 추론은 명확한 초기화가 있는 지역 변수에 가장 잘 작동합니다:
 
 ### 지역 변수
+
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/basics/type_inference_spec.rb" line={21} />
 
 ```trb title="local_vars.trb"
 def process_order(quantity: Integer, unit_price: Float)
@@ -138,6 +150,8 @@ end
 
 T-Ruby는 배열과 해시 요소의 타입을 추론할 수 있습니다:
 
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/basics/type_inference_spec.rb" line={21} />
+
 ```trb title="collections.trb"
 # Array<Integer>로 추론
 numbers = [1, 2, 3, 4, 5]
@@ -161,6 +175,8 @@ scores = {
 ### 블록 매개변수 추론
 
 T-Ruby는 타입이 지정된 컬렉션을 반복할 때 블록 매개변수 타입을 추론할 수 있습니다:
+
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/basics/type_inference_spec.rb" line={21} />
 
 ```trb title="blocks.trb"
 def sum_numbers(numbers: Array<Integer>): Integer
@@ -190,6 +206,8 @@ end
 
 항상 메서드 매개변수와 반환 타입에 어노테이션을 달아야 합니다:
 
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/basics/type_inference_spec.rb" line={21} />
+
 ```trb title="method_sigs.trb"
 # 좋음 - 명시적 어노테이션
 def calculate_discount(price: Float, percent: Integer): Float
@@ -205,6 +223,8 @@ end
 ### 2. 인스턴스 변수
 
 인스턴스 변수는 선언할 때 어노테이션을 달아야 합니다:
+
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/basics/type_inference_spec.rb" line={21} />
 
 ```trb title="instance_vars.trb"
 class ShoppingCart
@@ -224,6 +244,8 @@ end
 
 초기 값에서 타입이 명확하지 않을 때:
 
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/basics/type_inference_spec.rb" line={21} />
+
 ```trb title="ambiguous.trb"
 # 모호함 - Float여야 하나 Integer여야 하나?
 result = 0  # Integer로 추론
@@ -239,6 +261,8 @@ users: Array<String> = []  # 나중에 사용자 이름을 담을 것
 
 변수가 다른 타입을 담을 수 있을 때:
 
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/basics/type_inference_spec.rb" line={21} />
+
 ```trb title="unions.trb"
 # union 타입에는 명시적 어노테이션 필요
 def find_user(id: Integer): String | nil
@@ -253,6 +277,8 @@ current_user: String | nil = nil
 ### 5. 공개 API
 
 공개 메서드, 클래스 또는 모듈을 정의할 때:
+
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/basics/type_inference_spec.rb" line={21} />
 
 ```trb title="public_api.trb"
 module MathHelpers
@@ -275,6 +301,8 @@ T-Ruby의 추론은 제어 흐름 구조를 통해 작동합니다:
 
 ### If 문
 
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/basics/type_inference_spec.rb" line={21} />
+
 ```trb title="if_statements.trb"
 def categorize_age(age: Integer): String
   # category는 모든 브랜치에서 String으로 추론
@@ -291,6 +319,8 @@ end
 ```
 
 ### Case 문
+
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/basics/type_inference_spec.rb" line={21} />
 
 ```trb title="case_statements.trb"
 def get_day_type(day: Symbol): String
@@ -312,6 +342,8 @@ end
 
 ### 패턴 1: 초기화 후 사용
 
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/basics/type_inference_spec.rb" line={21} />
+
 ```trb title="pattern1.trb"
 def process_names(raw_names: String): Array<String>
   # names는 Array<String>으로 추론
@@ -325,6 +357,8 @@ end
 ```
 
 ### 패턴 2: 누산기 변수
+
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/basics/type_inference_spec.rb" line={21} />
 
 ```trb title="pattern2.trb"
 def calculate_stats(numbers: Array<Integer>): Hash<Symbol, Float>
@@ -340,6 +374,8 @@ end
 ```
 
 ### 패턴 3: 빌더 패턴
+
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/basics/type_inference_spec.rb" line={21} />
 
 ```trb title="pattern3.trb"
 def build_query(table: String, conditions: Array<String>): String
@@ -362,6 +398,8 @@ T-Ruby가 자동으로 타입을 추론할 수 없는 상황이 있습니다:
 
 ### 빈 컬렉션
 
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/basics/type_inference_spec.rb" line={21} />
+
 ```trb title="empty_collections.trb"
 # T-Ruby는 빈 배열에서 요소 타입을 추론할 수 없음
 items = []  # 어노테이션 필요!
@@ -374,6 +412,8 @@ items = ["first_item"]
 ```
 
 ### 복잡한 Union 타입
+
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/basics/type_inference_spec.rb" line={21} />
 
 ```trb title="complex_unions.trb"
 # T-Ruby는 이것이 여러 타입을 받아야 한다는 것을 추론할 수 없음
@@ -397,6 +437,8 @@ end
 
 ### 재귀 함수
 
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/basics/type_inference_spec.rb" line={21} />
+
 ```trb title="recursive.trb"
 # 재귀에는 반환 타입 어노테이션 필요
 def factorial(n: Integer): Integer
@@ -414,6 +456,8 @@ end
 
 ### 1. 지역 변수는 추론에 맡기기
 
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/basics/type_inference_spec.rb" line={21} />
+
 ```trb title="locals.trb"
 def calculate_discount(price: Float, rate: Float): Float
   # 추론에 맡기기 - 타입이 명백함
@@ -425,6 +469,8 @@ end
 ```
 
 ### 2. 스코프 간 공유할 때 어노테이션
+
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/basics/type_inference_spec.rb" line={21} />
 
 ```trb title="shared_scope.trb"
 class OrderProcessor
@@ -447,6 +493,8 @@ end
 
 ### 3. 중간 계산에는 추론 선호
 
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/basics/type_inference_spec.rb" line={21} />
+
 ```trb title="intermediate.trb"
 def calculate_compound_interest(
   principal: Float,
@@ -464,6 +512,8 @@ end
 ```
 
 ### 4. 복잡한 로직에서는 명확성을 위해 어노테이션
+
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/basics/type_inference_spec.rb" line={21} />
 
 ```trb title="clarity.trb"
 def parse_config(raw: String): Hash<Symbol, String | Integer>

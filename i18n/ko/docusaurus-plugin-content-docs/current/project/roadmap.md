@@ -204,6 +204,8 @@ T-Ruby는 현재 **실험적/알파** 상태입니다. 핵심 기능은 작동�
 
 ### 1. 이펙트 타입
 타입 시스템에서 부작용 추적:
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/project/roadmap_spec.rb" line={21} />
+
 ```trb
 def read_file(path: String): String throws IOError
 def calculate(x: Integer): Integer pure
@@ -211,6 +213,8 @@ def calculate(x: Integer): Integer pure
 
 ### 2. 의존 타입
 값에 의존하는 타입:
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/project/roadmap_spec.rb" line={21} />
+
 ```trb
 def create_array<N: Integer>(size: N): Array<T>[N]
 # 정확히 N개의 요소를 가진 배열 반환
@@ -218,6 +222,8 @@ def create_array<N: Integer>(size: N): Array<T>[N]
 
 ### 3. 선형 타입
 리소스가 정확히 한 번만 사용되도록 보장:
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/project/roadmap_spec.rb" line={21} />
+
 ```trb
 def process_file(handle: File) consume: String
 # 이 호출 후에는 handle을 사용할 수 없음
@@ -225,6 +231,8 @@ def process_file(handle: File) consume: String
 
 ### 4. 로우 다형성
 유연한 레코드 타입:
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/project/roadmap_spec.rb" line={21} />
+
 ```trb
 def add_id<T: { ... }>(obj: T): T & { id: Integer }
 ```
