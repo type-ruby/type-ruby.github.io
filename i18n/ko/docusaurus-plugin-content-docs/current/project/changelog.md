@@ -186,7 +186,7 @@ ruby hello.rb
 
 #### 예제 코드
 
-<ExampleBadge status="pass" testFile="spec/docs_site/pages/project/changelog_spec.rb" line={21} />
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/project/changelog_spec.rb" line={25} />
 
 ```trb
 # hello.trb - 타입 안전 Ruby

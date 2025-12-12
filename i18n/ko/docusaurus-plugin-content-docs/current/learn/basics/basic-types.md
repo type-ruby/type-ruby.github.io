@@ -30,7 +30,7 @@ T-Ruby에는 다음 기본 타입이 포함됩니다:
 
 ### 기본 String 사용
 
-<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/basics/basic_types_spec.rb" line={21} />
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/basics/basic_types_spec.rb" line={25} />
 
 ```trb title="strings.trb"
 # String 변수
@@ -53,7 +53,7 @@ message: String = "#{name}은 #{age}살입니다"
 
 T-Ruby의 문자열은 모든 표준 Ruby 메서드를 가집니다. 타입 체커는 이러한 메서드를 이해합니다:
 
-<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/basics/basic_types_spec.rb" line={21} />
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/basics/basic_types_spec.rb" line={36} />
 
 ```trb title="string_methods.trb"
 def format_name(name: String): String
@@ -73,7 +73,7 @@ initials: String = get_initials("Alice", "Smith")
 
 ### String 연결
 
-<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/basics/basic_types_spec.rb" line={21} />
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/basics/basic_types_spec.rb" line={47} />
 
 ```trb title="string_concat.trb"
 def build_url(protocol: String, domain: String, path: String): String
@@ -95,7 +95,7 @@ end
 
 ### 기본 Integer 사용
 
-<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/basics/basic_types_spec.rb" line={21} />
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/basics/basic_types_spec.rb" line={58} />
 
 ```trb title="integers.trb"
 # Integer 변수
@@ -109,7 +109,7 @@ population: Integer = 7_900_000_000  # 가독성을 위한 밑줄
 
 ### Integer 산술
 
-<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/basics/basic_types_spec.rb" line={21} />
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/basics/basic_types_spec.rb" line={69} />
 
 ```trb title="integer_math.trb"
 def calculate_total(price: Integer, quantity: Integer): Integer
@@ -129,7 +129,7 @@ result: Integer = next_even_number(7)
 
 ### Integer 메서드
 
-<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/basics/basic_types_spec.rb" line={21} />
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/basics/basic_types_spec.rb" line={80} />
 
 ```trb title="integer_methods.trb"
 def absolute_value(n: Integer): Integer
@@ -151,7 +151,7 @@ check: Bool = is_even(10)
 
 Ruby에서 정수 나눗셈은 결과를 자릅니다:
 
-<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/basics/basic_types_spec.rb" line={21} />
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/basics/basic_types_spec.rb" line={91} />
 
 ```trb title="integer_division.trb"
 def divide_integers(a: Integer, b: Integer): Integer
@@ -176,7 +176,7 @@ decimal_result: Float = divide_as_float(7, 2)
 
 ### 기본 Float 사용
 
-<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/basics/basic_types_spec.rb" line={21} />
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/basics/basic_types_spec.rb" line={102} />
 
 ```trb title="floats.trb"
 # Float 변수
@@ -190,7 +190,7 @@ speed_of_light: Float = 2.998e8  # 299,800,000
 
 ### Float 산술
 
-<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/basics/basic_types_spec.rb" line={21} />
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/basics/basic_types_spec.rb" line={113} />
 
 ```trb title="float_math.trb"
 def calculate_average(values: Array<Float>): Float
@@ -214,7 +214,7 @@ amount: Float = calculate_interest(1000.0, 0.05, 5)
 
 ### 반올림과 정밀도
 
-<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/basics/basic_types_spec.rb" line={21} />
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/basics/basic_types_spec.rb" line={124} />
 
 ```trb title="float_rounding.trb"
 def round_to_cents(amount: Float): Float
@@ -236,7 +236,7 @@ formatted: String = format_currency(19.99)
 
 정수와 부동소수점을 혼합하면 결과는 일반적으로 부동소수점입니다:
 
-<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/basics/basic_types_spec.rb" line={21} />
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/basics/basic_types_spec.rb" line={135} />
 
 ```trb title="mixed_math.trb"
 # Integer + Float = Float
@@ -254,7 +254,7 @@ sum: Float = add_numbers(5, 2.5)
 
 ### 기본 Boolean 사용
 
-<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/basics/basic_types_spec.rb" line={21} />
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/basics/basic_types_spec.rb" line={146} />
 
 ```trb title="booleans.trb"
 # Boolean 변수
@@ -268,7 +268,7 @@ is_valid: Bool = count > 0
 
 ### Boolean 논리
 
-<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/basics/basic_types_spec.rb" line={21} />
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/basics/basic_types_spec.rb" line={157} />
 
 ```trb title="boolean_logic.trb"
 def can_access(is_logged_in: Bool, has_permission: Bool): Bool
@@ -295,7 +295,7 @@ flipped: Bool = toggle(true)
 
 ### 조건문에서의 Booleans
 
-<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/basics/basic_types_spec.rb" line={21} />
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/basics/basic_types_spec.rb" line={168} />
 
 ```trb title="boolean_conditionals.trb"
 def get_status(is_complete: Bool): String
@@ -324,7 +324,7 @@ end
 
 Ruby에서 많은 값이 "truthy" 또는 "falsy"이지만, `Bool` 타입은 `true` 또는 `false`만 받습니다:
 
-<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/basics/basic_types_spec.rb" line={21} />
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/basics/basic_types_spec.rb" line={179} />
 
 ```trb title="bool_strict.trb"
 # 이것은 올바름
@@ -347,7 +347,7 @@ end
 
 ### 기본 Symbol 사용
 
-<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/basics/basic_types_spec.rb" line={21} />
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/basics/basic_types_spec.rb" line={190} />
 
 ```trb title="symbols.trb"
 # Symbol 변수
@@ -369,7 +369,7 @@ options = create_options(:production)
 
 심볼은 문자열과 비슷하지만 불변이고 식별자로 사용하도록 최적화되어 있습니다:
 
-<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/basics/basic_types_spec.rb" line={21} />
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/basics/basic_types_spec.rb" line={201} />
 
 ```trb title="symbol_vs_string.trb"
 # 같은 심볼은 항상 메모리에서 같은 객체
@@ -402,7 +402,7 @@ symbol: Symbol = string_to_symbol("world")
 
 ### 기본 nil 사용
 
-<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/basics/basic_types_spec.rb" line={21} />
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/basics/basic_types_spec.rb" line={212} />
 
 ```trb title="nil_basics.trb"
 # nil 변수 (그 자체로는 그다지 유용하지 않음)
@@ -420,7 +420,7 @@ user = find_user(-1)
 
 ### nil 검사
 
-<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/basics/basic_types_spec.rb" line={21} />
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/basics/basic_types_spec.rb" line={223} />
 
 ```trb title="nil_checks.trb"
 def greet(name: String | nil): String
@@ -442,7 +442,7 @@ message2: String = greet(nil)
 
 Ruby의 안전 내비게이션 연산자(`&.`)는 nil과 함께 작동합니다:
 
-<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/basics/basic_types_spec.rb" line={21} />
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/basics/basic_types_spec.rb" line={234} />
 
 ```trb title="safe_navigation.trb"
 def get_name_length(name: String | nil): Integer | nil
@@ -458,7 +458,7 @@ len2 = get_name_length(nil)
 
 ### nil과 기본값
 
-<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/basics/basic_types_spec.rb" line={21} />
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/basics/basic_types_spec.rb" line={245} />
 
 ```trb title="nil_defaults.trb"
 def get_greeting(custom: String | nil): String
@@ -478,7 +478,7 @@ greeting2: String = get_greeting(nil)
 
 ### String으로 변환
 
-<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/basics/basic_types_spec.rb" line={21} />
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/basics/basic_types_spec.rb" line={256} />
 
 ```trb title="to_string.trb"
 def describe_number(num: Integer): String
@@ -505,7 +505,7 @@ text3: String = describe_bool(true)
 
 ### Integer로 변환
 
-<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/basics/basic_types_spec.rb" line={21} />
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/basics/basic_types_spec.rb" line={267} />
 
 ```trb title="to_integer.trb"
 def parse_integer(text: String): Integer
@@ -530,7 +530,7 @@ truncated: Integer = float_to_int(3.7)
 
 여러 기본 타입을 사용하는 완전한 예제입니다:
 
-<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/basics/basic_types_spec.rb" line={21} />
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/basics/basic_types_spec.rb" line={278} />
 
 ```trb title="temperature.trb"
 def celsius_to_fahrenheit(celsius: Float): Float

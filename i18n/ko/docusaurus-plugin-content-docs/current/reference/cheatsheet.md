@@ -26,7 +26,7 @@ T-Ruby 타입 구문에 대한 포괄적인 빠른 참조 가이드입니다. �
 
 ## 변수 어노테이션
 
-<ExampleBadge status="pass" testFile="spec/docs_site/pages/reference/cheatsheet_spec.rb" line={21} />
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/reference/cheatsheet_spec.rb" line={25} />
 
 ```trb
 # 타입 어노테이션이 있는 변수
@@ -45,7 +45,7 @@ message = "Hello"  # String으로 추론
 
 ## 함수 시그니처
 
-<ExampleBadge status="pass" testFile="spec/docs_site/pages/reference/cheatsheet_spec.rb" line={21} />
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/reference/cheatsheet_spec.rb" line={36} />
 
 ```trb
 # 기본 함수
@@ -88,7 +88,7 @@ end
 | `T \| nil` | 선택적 타입 | `String \| nil` |
 | `T?` | `T \| nil`의 약어 | `String?` |
 
-<ExampleBadge status="pass" testFile="spec/docs_site/pages/reference/cheatsheet_spec.rb" line={21} />
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/reference/cheatsheet_spec.rb" line={47} />
 
 ```trb
 # 유니온 타입
@@ -110,7 +110,7 @@ end
 
 ## 배열 타입
 
-<ExampleBadge status="pass" testFile="spec/docs_site/pages/reference/cheatsheet_spec.rb" line={21} />
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/reference/cheatsheet_spec.rb" line={58} />
 
 ```trb
 # 특정 타입의 배열
@@ -129,7 +129,7 @@ items: Array<String> = []
 
 ## 해시 타입
 
-<ExampleBadge status="pass" testFile="spec/docs_site/pages/reference/cheatsheet_spec.rb" line={21} />
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/reference/cheatsheet_spec.rb" line={69} />
 
 ```trb
 # 특정 키와 값 타입의 해시
@@ -149,7 +149,7 @@ users: Hash<Integer, Hash<Symbol, String>> = {
 
 ## 제네릭 타입
 
-<ExampleBadge status="pass" testFile="spec/docs_site/pages/reference/cheatsheet_spec.rb" line={21} />
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/reference/cheatsheet_spec.rb" line={80} />
 
 ```trb
 # 제네릭 함수
@@ -182,7 +182,7 @@ result = first([1, 2, 3])  # 타입 추론
 
 ## 타입 별칭
 
-<ExampleBadge status="pass" testFile="spec/docs_site/pages/reference/cheatsheet_spec.rb" line={21} />
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/reference/cheatsheet_spec.rb" line={91} />
 
 ```trb
 # 간단한 별칭
@@ -208,7 +208,7 @@ email: EmailAddress = "alice@example.com"
 
 ## 클래스 어노테이션
 
-<ExampleBadge status="pass" testFile="spec/docs_site/pages/reference/cheatsheet_spec.rb" line={21} />
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/reference/cheatsheet_spec.rb" line={102} />
 
 ```trb
 # 인스턴스 변수
@@ -261,7 +261,7 @@ end
 
 ## 인터페이스 정의
 
-<ExampleBadge status="pass" testFile="spec/docs_site/pages/reference/cheatsheet_spec.rb" line={21} />
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/reference/cheatsheet_spec.rb" line={113} />
 
 ```trb
 # 기본 인터페이스
@@ -308,7 +308,7 @@ end
 | `<T>` | 제네릭 | 타입 매개변수 | `Array<T>` |
 | `=>` | 해시 쌍 | 키-값 타입 | `Hash<String => Integer>` |
 
-<ExampleBadge status="pass" testFile="spec/docs_site/pages/reference/cheatsheet_spec.rb" line={21} />
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/reference/cheatsheet_spec.rb" line={124} />
 
 ```trb
 # 유니온 (OR)
@@ -329,7 +329,7 @@ pairs: Hash<String, Integer>
 
 ## 블록, Proc, 람다
 
-<ExampleBadge status="pass" testFile="spec/docs_site/pages/reference/cheatsheet_spec.rb" line={21} />
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/reference/cheatsheet_spec.rb" line={135} />
 
 ```trb
 # 블록 매개변수
@@ -352,7 +352,7 @@ end
 
 ## 타입 좁히기
 
-<ExampleBadge status="pass" testFile="spec/docs_site/pages/reference/cheatsheet_spec.rb" line={21} />
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/reference/cheatsheet_spec.rb" line={146} />
 
 ```trb
 # is_a?로 타입 검사
@@ -387,7 +387,7 @@ end
 
 ## 리터럴 타입
 
-<ExampleBadge status="pass" testFile="spec/docs_site/pages/reference/cheatsheet_spec.rb" line={21} />
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/reference/cheatsheet_spec.rb" line={157} />
 
 ```trb
 # 문자열 리터럴
@@ -409,7 +409,7 @@ type No = false
 
 ## 고급 타입
 
-<ExampleBadge status="pass" testFile="spec/docs_site/pages/reference/cheatsheet_spec.rb" line={21} />
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/reference/cheatsheet_spec.rb" line={168} />
 
 ```trb
 # 인터섹션 타입
@@ -431,7 +431,7 @@ type Omit<T, K>    # 속성 제거
 
 ## 타입 단언
 
-<ExampleBadge status="pass" testFile="spec/docs_site/pages/reference/cheatsheet_spec.rb" line={21} />
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/reference/cheatsheet_spec.rb" line={179} />
 
 ```trb
 # 타입 캐스팅 (주의해서 사용)
@@ -450,7 +450,7 @@ end
 
 ## 모듈 타입 어노테이션
 
-<ExampleBadge status="pass" testFile="spec/docs_site/pages/reference/cheatsheet_spec.rb" line={21} />
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/reference/cheatsheet_spec.rb" line={190} />
 
 ```trb
 module Formatter
@@ -479,7 +479,7 @@ end
 
 ### 기본값이 있는 선택적 매개변수
 
-<ExampleBadge status="pass" testFile="spec/docs_site/pages/reference/cheatsheet_spec.rb" line={21} />
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/reference/cheatsheet_spec.rb" line={201} />
 
 ```trb
 def create_user(
@@ -494,7 +494,7 @@ end
 
 ### 결과 타입 패턴
 
-<ExampleBadge status="pass" testFile="spec/docs_site/pages/reference/cheatsheet_spec.rb" line={21} />
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/reference/cheatsheet_spec.rb" line={212} />
 
 ```trb
 type Result<T, E> = { success: Bool, value: T | nil, error: E | nil }
@@ -510,7 +510,7 @@ end
 
 ### 빌더 패턴
 
-<ExampleBadge status="pass" testFile="spec/docs_site/pages/reference/cheatsheet_spec.rb" line={21} />
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/reference/cheatsheet_spec.rb" line={223} />
 
 ```trb
 class QueryBuilder
@@ -533,7 +533,7 @@ end
 
 ### 타입 가드
 
-<ExampleBadge status="pass" testFile="spec/docs_site/pages/reference/cheatsheet_spec.rb" line={21} />
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/reference/cheatsheet_spec.rb" line={234} />
 
 ```trb
 def is_string(value: Any): value is String
@@ -564,7 +564,7 @@ end
 
 ## 일반적인 타입 오류
 
-<ExampleBadge status="pass" testFile="spec/docs_site/pages/reference/cheatsheet_spec.rb" line={21} />
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/reference/cheatsheet_spec.rb" line={245} />
 
 ```trb
 # ❌ 잘못됨: 잘못된 타입 할당

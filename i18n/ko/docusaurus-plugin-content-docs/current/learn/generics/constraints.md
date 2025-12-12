@@ -22,7 +22,7 @@ description: 제네릭 타입 매개변수 제약하기
 
 ### 문제: 제약 없는 제네릭
 
-<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/generics/constraints_spec.rb" line={21} />
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/generics/constraints_spec.rb" line={25} />
 
 ```trb
 # 제약 없이는 타입별 메서드를 사용할 수 없음
@@ -38,7 +38,7 @@ end
 
 ### 해결책: 제약 조건으로
 
-<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/generics/constraints_spec.rb" line={21} />
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/generics/constraints_spec.rb" line={36} />
 
 ```trb
 # T를 length 메서드가 있는 타입으로 제약
@@ -56,7 +56,7 @@ end
 
 제약 조건은 타입 매개변수 뒤에 콜론(`:`)을 사용하여 지정합니다:
 
-<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/generics/constraints_spec.rb" line={21} />
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/generics/constraints_spec.rb" line={47} />
 
 ```trb
 # 단일 제약 조건
@@ -76,7 +76,7 @@ end
 
 ### 제약 조건을 위한 인터페이스 정의
 
-<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/generics/constraints_spec.rb" line={21} />
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/generics/constraints_spec.rb" line={58} />
 
 ```trb
 # 인터페이스 정의
@@ -112,7 +112,7 @@ print_items(users)  # OK: User는 Printable을 구현
 
 ### 일반적인 인터페이스 제약 조건
 
-<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/generics/constraints_spec.rb" line={21} />
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/generics/constraints_spec.rb" line={69} />
 
 ```trb
 # Comparable 인터페이스
@@ -154,7 +154,7 @@ end
 
 타입 매개변수를 특정 클래스 또는 그 서브클래스로 제약할 수 있습니다.
 
-<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/generics/constraints_spec.rb" line={21} />
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/generics/constraints_spec.rb" line={80} />
 
 ```trb
 # 특정 클래스로 제약
@@ -198,7 +198,7 @@ make_speak("string")  # 에러: String은 Animal이 아님
 
 ### 클래스 계층 구조와 작업
 
-<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/generics/constraints_spec.rb" line={21} />
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/generics/constraints_spec.rb" line={91} />
 
 ```trb
 class Vehicle
@@ -263,7 +263,7 @@ found = car_repo.find_by_brand("Toyota")  # Car | nil
 
 향후 T-Ruby는 `&` 연산자를 사용한 다중 제약 조건을 지원할 예정입니다:
 
-<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/generics/constraints_spec.rb" line={21} />
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/generics/constraints_spec.rb" line={102} />
 
 ```trb
 # 타입은 두 인터페이스를 모두 구현해야 함
@@ -282,7 +282,7 @@ end
 
 유니온 타입을 사용하여 여러 특정 타입 중 하나로 제약할 수 있습니다:
 
-<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/generics/constraints_spec.rb" line={21} />
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/generics/constraints_spec.rb" line={113} />
 
 ```trb
 # T는 String 또는 Integer여야 함
@@ -302,7 +302,7 @@ format(3.14)     # 에러: Float는 String | Integer가 아님
 
 ### 실용적인 유니온 제약 조건 예제
 
-<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/generics/constraints_spec.rb" line={21} />
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/generics/constraints_spec.rb" line={124} />
 
 ```trb
 # 유연한 ID 타입
@@ -326,7 +326,7 @@ user2 = find_user("alice")    # 사용자명 문자열로 찾기
 
 제네릭 클래스는 제약된 타입 매개변수를 가질 수 있습니다:
 
-<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/generics/constraints_spec.rb" line={21} />
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/generics/constraints_spec.rb" line={135} />
 
 ```trb
 # 비교 가능한 항목으로만 작동하는 큐
@@ -380,7 +380,7 @@ queue.enqueue(Task.new("Medium priority", 5))
 
 ### 정렬 가능한 컬렉션
 
-<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/generics/constraints_spec.rb" line={21} />
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/generics/constraints_spec.rb" line={146} />
 
 ```trb
 interface Comparable
@@ -432,7 +432,7 @@ puts numbers.to_a  # [1, 2, 5, 8] - 항상 정렬됨
 
 ### 제약 조건이 있는 Repository 패턴
 
-<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/generics/constraints_spec.rb" line={21} />
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/generics/constraints_spec.rb" line={157} />
 
 ```trb
 # 기본 엔티티 클래스
@@ -520,7 +520,7 @@ all_products = product_repo.all  # Array<Product>
 
 ### 1. 가장 덜 제한적인 제약 조건 사용
 
-<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/generics/constraints_spec.rb" line={21} />
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/generics/constraints_spec.rb" line={168} />
 
 ```trb
 # 좋음: 필요한 것만 요구
@@ -536,7 +536,7 @@ end
 
 ### 2. 제약 조건을 위한 작고 집중된 인터페이스 생성
 
-<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/generics/constraints_spec.rb" line={21} />
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/generics/constraints_spec.rb" line={179} />
 
 ```trb
 # 좋음: 작고 집중된 인터페이스
@@ -566,7 +566,7 @@ end
 
 ### 3. 제약 조건 요구사항 문서화
 
-<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/generics/constraints_spec.rb" line={21} />
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/generics/constraints_spec.rb" line={190} />
 
 ```trb
 # 좋음: 명확한 문서화
@@ -582,7 +582,7 @@ end
 
 ### 식별 제약 조건
 
-<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/generics/constraints_spec.rb" line={21} />
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/generics/constraints_spec.rb" line={201} />
 
 ```trb
 interface Identifiable
@@ -607,7 +607,7 @@ end
 
 ### 검증 제약 조건
 
-<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/generics/constraints_spec.rb" line={21} />
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/generics/constraints_spec.rb" line={212} />
 
 ```trb
 interface Validatable
@@ -628,7 +628,7 @@ end
 
 ### 변환 제약 조건
 
-<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/generics/constraints_spec.rb" line={21} />
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/generics/constraints_spec.rb" line={223} />
 
 ```trb
 interface Convertible<T>

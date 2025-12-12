@@ -15,7 +15,7 @@ description: 추상 클래스와 메서드 정의하기
 
 서브클래스가 반드시 구현해야 하는 메서드에서 에러를 발생시켜 추상 클래스를 만듭니다:
 
-<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/classes/abstract_classes_spec.rb" line={21} />
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/classes/abstract_classes_spec.rb" line={25} />
 
 ```trb title="abstract_basic.trb"
 class Shape
@@ -93,7 +93,7 @@ puts circle.describe()  # "Circle: area = 78.53975, perimeter = 31.4159"
 
 모든 추상 메서드는 완전한 타입 어노테이션을 가져야 합니다:
 
-<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/classes/abstract_classes_spec.rb" line={21} />
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/classes/abstract_classes_spec.rb" line={36} />
 
 ```trb title="typed_abstract.trb"
 abstract class DataSource
@@ -182,7 +182,7 @@ end
 
 추상 클래스는 종종 템플릿 메서드 패턴을 구현합니다:
 
-<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/classes/abstract_classes_spec.rb" line={21} />
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/classes/abstract_classes_spec.rb" line={47} />
 
 ```trb title="template_method.trb"
 abstract class Report
@@ -271,7 +271,7 @@ puts html.generate()
 
 추상 클래스는 일부 구체적 기능을 제공할 수 있습니다:
 
-<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/classes/abstract_classes_spec.rb" line={21} />
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/classes/abstract_classes_spec.rb" line={58} />
 
 ```trb title="partial_implementation.trb"
 abstract class CacheStore<T>
@@ -406,7 +406,7 @@ puts memory_cache.hit_rate()
 
 추상 클래스를 사용하여 공통 패턴을 강제합니다:
 
-<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/classes/abstract_classes_spec.rb" line={21} />
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/classes/abstract_classes_spec.rb" line={69} />
 
 ```trb title="common_patterns.trb"
 abstract class Controller
@@ -493,7 +493,7 @@ controller.execute("index")
 
 추상 클래스를 사용하는 완전한 예제:
 
-<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/classes/abstract_classes_spec.rb" line={21} />
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/classes/abstract_classes_spec.rb" line={80} />
 
 ```trb title="payment_processor.trb"
 abstract class PaymentProcessor
@@ -674,7 +674,7 @@ processors.each { |p| process_payment(p) }
 
 ### 전략 패턴
 
-<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/classes/abstract_classes_spec.rb" line={21} />
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/classes/abstract_classes_spec.rb" line={91} />
 
 ```trb title="strategy.trb"
 abstract class SortStrategy
@@ -713,7 +713,7 @@ sorted = sorter.sort([3, 1, 4, 1, 5, 9, 2, 6])
 
 ### 팩토리 패턴
 
-<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/classes/abstract_classes_spec.rb" line={21} />
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/classes/abstract_classes_spec.rb" line={102} />
 
 ```trb title="factory.trb"
 abstract class Document

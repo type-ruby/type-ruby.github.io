@@ -31,7 +31,7 @@ Ruby 에코시스템에는 정적 타이핑에 대한 여러 접근 방식이 �
 
 타입은 별도의 `.rbs` 파일에 작성됩니다:
 
-<ExampleBadge status="pass" testFile="spec/docs_site/pages/introduction/t_ruby_vs_others_spec.rb" line={21} />
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/introduction/t_ruby_vs_others_spec.rb" line={25} />
 
 ```ruby title="lib/user.rb"
 class User
@@ -60,7 +60,7 @@ end
 
 타입은 인라인으로 작성됩니다:
 
-<ExampleBadge status="pass" testFile="spec/docs_site/pages/introduction/t_ruby_vs_others_spec.rb" line={21} />
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/introduction/t_ruby_vs_others_spec.rb" line={35} />
 
 ```trb title="lib/user.trb"
 class User
@@ -105,7 +105,7 @@ end
 
 타입은 `sig` 블록과 T:: 문법을 사용합니다:
 
-<ExampleBadge status="pass" testFile="spec/docs_site/pages/introduction/t_ruby_vs_others_spec.rb" line={21} />
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/introduction/t_ruby_vs_others_spec.rb" line={45} />
 
 ```ruby title="lib/calculator.rb"
 # typed: strict
@@ -128,7 +128,7 @@ end
 
 ### T-Ruby 접근 방식
 
-<ExampleBadge status="pass" testFile="spec/docs_site/pages/introduction/t_ruby_vs_others_spec.rb" line={21} />
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/introduction/t_ruby_vs_others_spec.rb" line={56} />
 
 ```trb title="lib/calculator.trb"
 class Calculator
@@ -154,7 +154,7 @@ end
 
 **런타임 검사가 있는 Sorbet 예시:**
 
-<ExampleBadge status="pass" testFile="spec/docs_site/pages/introduction/t_ruby_vs_others_spec.rb" line={21} />
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/introduction/t_ruby_vs_others_spec.rb" line={66} />
 
 ```ruby
 # Sorbet은 런타임에 타입을 검사할 수 있음
@@ -168,7 +168,7 @@ greet(123)  # 런타임 검사가 활성화되면 TypeError 발생
 
 **T-Ruby 접근 방식:**
 
-<ExampleBadge status="pass" testFile="spec/docs_site/pages/introduction/t_ruby_vs_others_spec.rb" line={21} />
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/introduction/t_ruby_vs_others_spec.rb" line={77} />
 
 ```trb
 # 타입은 컴파일 타임에만 존재
@@ -195,7 +195,7 @@ T-Ruby는 TypeScript에서 영감을 받았으므로, 어떻게 비교되는지 
 
 ### 문법 비교
 
-<ExampleBadge status="pass" testFile="spec/docs_site/pages/introduction/t_ruby_vs_others_spec.rb" line={21} />
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/introduction/t_ruby_vs_others_spec.rb" line={87} />
 
 ```typescript title="TypeScript"
 function greet(name: string): string {

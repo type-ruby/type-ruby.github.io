@@ -15,7 +15,7 @@ description: 클래스가 인터페이스를 구현하는 방법
 
 `implements`를 사용하여 클래스가 인터페이스 계약을 충족한다고 선언합니다:
 
-<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/interfaces/implementing_interfaces_spec.rb" line={21} />
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/interfaces/implementing_interfaces_spec.rb" line={25} />
 
 ```trb title="basic_implementation.trb"
 interface Drawable
@@ -72,7 +72,7 @@ shapes.each { |shape| shape.draw() }
 
 클래스는 여러 인터페이스를 구현할 수 있습니다:
 
-<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/interfaces/implementing_interfaces_spec.rb" line={21} />
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/interfaces/implementing_interfaces_spec.rb" line={36} />
 
 ```trb title="multiple_interfaces.trb"
 interface Serializable
@@ -135,7 +135,7 @@ clone = user1.clone()
 
 특정 타입으로 제네릭 인터페이스를 구현합니다:
 
-<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/interfaces/implementing_interfaces_spec.rb" line={21} />
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/interfaces/implementing_interfaces_spec.rb" line={47} />
 
 ```trb title="generic_implementation.trb"
 interface Storage<T>
@@ -215,7 +215,7 @@ product_storage.save(Product.new("SKU-001", "Laptop", 999.99))
 
 상속을 통해 인터페이스를 부분적으로 구현할 때도 있습니다:
 
-<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/interfaces/implementing_interfaces_spec.rb" line={21} />
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/interfaces/implementing_interfaces_spec.rb" line={58} />
 
 ```trb title="partial_implementation.trb"
 interface Validator
@@ -308,7 +308,7 @@ end
 
 다른 객체에 위임하여 인터페이스를 구현합니다:
 
-<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/interfaces/implementing_interfaces_spec.rb" line={21} />
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/interfaces/implementing_interfaces_spec.rb" line={69} />
 
 ```trb title="delegation.trb"
 interface Logger
@@ -364,7 +364,7 @@ app.run()
 
 결제 인터페이스를 구현하는 완전한 예제:
 
-<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/interfaces/implementing_interfaces_spec.rb" line={21} />
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/interfaces/implementing_interfaces_spec.rb" line={80} />
 
 ```trb title="payment_gateway.trb"
 interface PaymentMethod
@@ -537,7 +537,7 @@ end
 
 다중 인터페이스 구현이 있는 또 다른 완전한 예제:
 
-<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/interfaces/implementing_interfaces_spec.rb" line={21} />
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/interfaces/implementing_interfaces_spec.rb" line={91} />
 
 ```trb title="notification_system.trb"
 interface NotificationChannel
@@ -706,7 +706,7 @@ service.notify_all(
 
 ### 어댑터 패턴
 
-<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/interfaces/implementing_interfaces_spec.rb" line={21} />
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/interfaces/implementing_interfaces_spec.rb" line={102} />
 
 ```trb title="adapter.trb"
 interface ModernAPI
@@ -744,7 +744,7 @@ end
 
 ### 컴포지트 패턴
 
-<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/interfaces/implementing_interfaces_spec.rb" line={21} />
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/interfaces/implementing_interfaces_spec.rb" line={113} />
 
 ```trb title="composite.trb"
 interface Component

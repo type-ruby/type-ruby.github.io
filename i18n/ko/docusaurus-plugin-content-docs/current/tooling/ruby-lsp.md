@@ -58,7 +58,7 @@ gem install ruby-lsp
 
 또는 Gemfile에 추가:
 
-<ExampleBadge status="pass" testFile="spec/docs_site/pages/tooling/ruby_lsp_spec.rb" line={21} />
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/tooling/ruby_lsp_spec.rb" line={25} />
 
 ```ruby
 group :development do
@@ -193,7 +193,7 @@ VS Code가 `.trb` 파일을 Ruby로 처리하도록 설정:
 
 Ruby LSP는 RBS 타입을 사용하여 지능적인 자동완성 제공:
 
-<ExampleBadge status="pass" testFile="spec/docs_site/pages/tooling/ruby_lsp_spec.rb" line={21} />
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/tooling/ruby_lsp_spec.rb" line={35} />
 
 ```trb title="user.trb"
 class User
@@ -223,7 +223,7 @@ user.   # <- 자동완성이 보여줌: greet, name, email
 
 사용 위치에서 정의로 이동:
 
-<ExampleBadge status="pass" testFile="spec/docs_site/pages/tooling/ruby_lsp_spec.rb" line={21} />
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/tooling/ruby_lsp_spec.rb" line={46} />
 
 ```ruby
 user = User.new("Alice", "alice@example.com")
@@ -237,7 +237,7 @@ result = user.greet
 
 심볼 위에 마우스를 올리면 타입 정보 표시:
 
-<ExampleBadge status="pass" testFile="spec/docs_site/pages/tooling/ruby_lsp_spec.rb" line={21} />
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/tooling/ruby_lsp_spec.rb" line={56} />
 
 ```trb
 def process_user(user: User): String
@@ -251,7 +251,7 @@ end
 
 코딩하면서 타입 오류를 인라인으로 확인:
 
-<ExampleBadge status="pass" testFile="spec/docs_site/pages/tooling/ruby_lsp_spec.rb" line={21} />
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/tooling/ruby_lsp_spec.rb" line={67} />
 
 ```trb
 def greet(name: String): String
@@ -267,7 +267,7 @@ greet(123)  # Expected String, got Integer
 
 빠른 수정과 리팩토링:
 
-<ExampleBadge status="pass" testFile="spec/docs_site/pages/tooling/ruby_lsp_spec.rb" line={21} />
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/tooling/ruby_lsp_spec.rb" line={78} />
 
 ```trb
 class User
@@ -303,7 +303,7 @@ gem install steep
 
 ### Steepfile 설정
 
-<ExampleBadge status="pass" testFile="spec/docs_site/pages/tooling/ruby_lsp_spec.rb" line={21} />
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/tooling/ruby_lsp_spec.rb" line={89} />
 
 ```ruby
 target :app do

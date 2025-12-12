@@ -46,7 +46,7 @@ T-Ruby에 기여하는 방법은 여러 가지가 있습니다:
 **Ruby 버전:** 3.2.0
 
 ### 재현 단계
-<ExampleBadge status="pass" testFile="spec/docs_site/pages/project/contributing_spec.rb" line={21} />
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/project/contributing_spec.rb" line={25} />
 
 ```trb
 numbers: Array<Integer> = [1, 2, 3]
@@ -318,7 +318,7 @@ git push origin feature/my-awesome-feature
 
 일부 수정과 함께 [Ruby 스타일 가이드](https://rubystyle.guide/)를 따릅니다:
 
-<ExampleBadge status="pass" testFile="spec/docs_site/pages/project/contributing_spec.rb" line={21} />
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/project/contributing_spec.rb" line={36} />
 
 ```trb
 # 좋음
@@ -343,7 +343,7 @@ end
 
 ### T-Ruby 스타일 (예제용)
 
-<ExampleBadge status="pass" testFile="spec/docs_site/pages/project/contributing_spec.rb" line={21} />
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/project/contributing_spec.rb" line={47} />
 
 ```trb
 # 예제에서 명확하고 명시적인 타입 사용
@@ -362,7 +362,7 @@ active_users: Array<User> = users.select { |u| u.active? }
 
 ### 문서 스타일
 
-<ExampleBadge status="pass" testFile="spec/docs_site/pages/project/contributing_spec.rb" line={21} />
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/project/contributing_spec.rb" line={58} />
 
 ```trb
 # 좋은 문서
@@ -382,7 +382,7 @@ end
 
 ### 테스트 작성
 
-<ExampleBadge status="pass" testFile="spec/docs_site/pages/project/contributing_spec.rb" line={21} />
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/project/contributing_spec.rb" line={69} />
 
 ```trb
 RSpec.describe TypeChecker do
@@ -435,7 +435,7 @@ spec/
 
 ### 1. 타입 정의 파일 생성
 
-<ExampleBadge status="pass" testFile="spec/docs_site/pages/project/contributing_spec.rb" line={21} />
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/project/contributing_spec.rb" line={80} />
 
 ```trb
 # lib/t_ruby/stdlib/json.trb

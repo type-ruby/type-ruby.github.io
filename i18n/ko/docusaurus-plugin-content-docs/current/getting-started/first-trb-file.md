@@ -22,7 +22,7 @@ description: 첫 번째 T-Ruby 파일 생성 및 컴파일
 
 간단한 계산기를 구현하는 `calculator.trb` 파일을 만들어봅시다:
 
-<ExampleBadge status="pass" testFile="spec/docs_site/pages/getting_started/first_trb_file_spec.rb" line={21} />
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/getting_started/first_trb_file_spec.rb" line={25} />
 
 ```trb title="calculator.trb"
 # calculator.trb - 간단한 타입 계산기
@@ -49,7 +49,7 @@ end
 
 문법을 분석해봅시다:
 
-<ExampleBadge status="pass" testFile="spec/docs_site/pages/getting_started/first_trb_file_spec.rb" line={21} />
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/getting_started/first_trb_file_spec.rb" line={36} />
 
 ```trb
 def add(a: Integer, b: Integer): Integer
@@ -67,7 +67,7 @@ def add(a: Integer, b: Integer): Integer
 
 계산기를 더 고급 기능으로 확장해봅시다:
 
-<ExampleBadge status="pass" testFile="spec/docs_site/pages/getting_started/first_trb_file_spec.rb" line={21} />
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/getting_started/first_trb_file_spec.rb" line={47} />
 
 ```trb title="calculator.trb"
 # 더 깔끔한 코드를 위한 타입 별칭
@@ -106,7 +106,7 @@ end
 
 `|` 연산자는 union 타입을 생성합니다:
 
-<ExampleBadge status="pass" testFile="spec/docs_site/pages/getting_started/first_trb_file_spec.rb" line={21} />
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/getting_started/first_trb_file_spec.rb" line={58} />
 
 ```trb
 type Number = Integer | Float  # Integer 또는 Float일 수 있음
@@ -122,7 +122,7 @@ end
 
 `<T>` 문법은 제네릭 타입 매개변수를 정의합니다:
 
-<ExampleBadge status="pass" testFile="spec/docs_site/pages/getting_started/first_trb_file_spec.rb" line={21} />
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/getting_started/first_trb_file_spec.rb" line={69} />
 
 ```trb
 def max<T: Comparable>(a: T, b: T): T
@@ -141,7 +141,7 @@ max("a", "b")   # T는 String
 
 Calculator 클래스를 만들어봅시다:
 
-<ExampleBadge status="pass" testFile="spec/docs_site/pages/getting_started/first_trb_file_spec.rb" line={21} />
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/getting_started/first_trb_file_spec.rb" line={80} />
 
 ```trb title="calculator.trb"
 class Calculator
@@ -228,7 +228,7 @@ ruby build/calculator.rb
 
 생성된 파일을 살펴보세요:
 
-<ExampleBadge status="pass" testFile="spec/docs_site/pages/getting_started/first_trb_file_spec.rb" line={21} />
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/getting_started/first_trb_file_spec.rb" line={91} />
 
 ```ruby title="build/calculator.rb"
 class Calculator
@@ -246,7 +246,7 @@ class Calculator
 end
 ```
 
-<ExampleBadge status="pass" testFile="spec/docs_site/pages/getting_started/first_trb_file_spec.rb" line={21} />
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/getting_started/first_trb_file_spec.rb" line={101} />
 
 ```rbs title="build/calculator.rbs"
 type Number = Integer | Float
@@ -268,7 +268,7 @@ end
 
 ### 옵셔널 매개변수
 
-<ExampleBadge status="pass" testFile="spec/docs_site/pages/getting_started/first_trb_file_spec.rb" line={21} />
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/getting_started/first_trb_file_spec.rb" line={111} />
 
 ```trb
 def greet(name: String, greeting: String = "Hello"): String
@@ -281,7 +281,7 @@ greet("Alice", "Hi")     # "Hi, Alice!"
 
 ### Nullable 타입 (옵셔널 축약형)
 
-<ExampleBadge status="pass" testFile="spec/docs_site/pages/getting_started/first_trb_file_spec.rb" line={21} />
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/getting_started/first_trb_file_spec.rb" line={122} />
 
 ```trb
 # 다음은 동일합니다:
@@ -291,7 +291,7 @@ def find(id: Integer): User?  # 축약형
 
 ### 블록 매개변수
 
-<ExampleBadge status="pass" testFile="spec/docs_site/pages/getting_started/first_trb_file_spec.rb" line={21} />
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/getting_started/first_trb_file_spec.rb" line={133} />
 
 ```trb
 def each_item(items: Array<String>, &block: (String) -> void): void

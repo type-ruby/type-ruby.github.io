@@ -14,7 +14,7 @@ T-Ruby는 Ruby에 TypeScript 스타일의 타입 문법을 도입하는 새로�
 
 TypeScript가 JavaScript에 타입 안전성을 추가하듯이, T-Ruby는 Ruby에 동일한 기능을 제공합니다. `.trb` 파일에 타입 주석이 포함된 Ruby 코드를 작성하면, T-Ruby가 이를 순수한 Ruby 코드와 RBS 타입 정의로 컴파일합니다.
 
-<ExampleBadge status="pass" testFile="spec/docs_site/pages/introduction/what_is_t_ruby_spec.rb" line={23} />
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/introduction/what_is_t_ruby_spec.rb" line={25} />
 
 ```trb
 # 입력: hello.trb
@@ -45,7 +45,7 @@ def greet: (String) -> String
 
 T-Ruby의 타입 문법은 TypeScript에서 직접 영감을 받았습니다. TypeScript를 사용해본 경험이 있다면, T-Ruby도 바로 이해할 수 있습니다.
 
-<ExampleBadge status="pass" testFile="spec/docs_site/pages/introduction/what_is_t_ruby_spec.rb" line={35} />
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/introduction/what_is_t_ruby_spec.rb" line={36} />
 
 ```trb
 # Union 타입
