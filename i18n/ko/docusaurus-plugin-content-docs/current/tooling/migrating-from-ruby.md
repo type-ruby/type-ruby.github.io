@@ -51,7 +51,7 @@ gem install t-ruby
 
 또는 Gemfile에 추가:
 
-<ExampleBadge status="pass" testFile="spec/docs_site/pages/tooling/migrating_from_ruby_spec.rb" line={21} />
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/tooling/migrating_from_ruby_spec.rb" line={25} />
 
 ```ruby
 group :development do
@@ -71,7 +71,7 @@ trc init
 
 **데이터 클래스** - 명확한 구조, 최소한의 의존성:
 
-<ExampleBadge status="pass" testFile="spec/docs_site/pages/tooling/migrating_from_ruby_spec.rb" line={21} />
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/tooling/migrating_from_ruby_spec.rb" line={35} />
 
 ```ruby title="user.rb"
 class User
@@ -91,7 +91,7 @@ end
 
 **순수 함수** - 예측 가능한 입력과 출력:
 
-<ExampleBadge status="pass" testFile="spec/docs_site/pages/tooling/migrating_from_ruby_spec.rb" line={21} />
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/tooling/migrating_from_ruby_spec.rb" line={45} />
 
 ```ruby title="calculator.rb"
 def calculate_tax(amount, rate)
@@ -115,7 +115,7 @@ mv user.rb user.trb
 
 간단한 타입 어노테이션으로 시작:
 
-<ExampleBadge status="pass" testFile="spec/docs_site/pages/tooling/migrating_from_ruby_spec.rb" line={21} />
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/tooling/migrating_from_ruby_spec.rb" line={55} />
 
 ```trb title="user.trb"
 class User
@@ -157,7 +157,7 @@ Hint: Did you mean: String | nil ?
 
 수정:
 
-<ExampleBadge status="pass" testFile="spec/docs_site/pages/tooling/migrating_from_ruby_spec.rb" line={21} />
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/tooling/migrating_from_ruby_spec.rb" line={66} />
 
 ```trb
 def initialize(id: Integer, name: String, email: String | nil): void
@@ -189,7 +189,7 @@ After:
 
 **이전** (Ruby):
 
-<ExampleBadge status="pass" testFile="spec/docs_site/pages/tooling/migrating_from_ruby_spec.rb" line={21} />
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/tooling/migrating_from_ruby_spec.rb" line={77} />
 
 ```ruby
 class Product
@@ -210,7 +210,7 @@ end
 
 **이후** (T-Ruby):
 
-<ExampleBadge status="pass" testFile="spec/docs_site/pages/tooling/migrating_from_ruby_spec.rb" line={21} />
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/tooling/migrating_from_ruby_spec.rb" line={87} />
 
 ```trb
 class Product
@@ -243,7 +243,7 @@ end
 
 **이전** (Ruby):
 
-<ExampleBadge status="pass" testFile="spec/docs_site/pages/tooling/migrating_from_ruby_spec.rb" line={21} />
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/tooling/migrating_from_ruby_spec.rb" line={98} />
 
 ```ruby
 class UserService
@@ -264,7 +264,7 @@ end
 
 **이후** (T-Ruby):
 
-<ExampleBadge status="pass" testFile="spec/docs_site/pages/tooling/migrating_from_ruby_spec.rb" line={21} />
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/tooling/migrating_from_ruby_spec.rb" line={108} />
 
 ```trb
 class UserService
@@ -286,7 +286,7 @@ end
 
 **이전** (Ruby):
 
-<ExampleBadge status="pass" testFile="spec/docs_site/pages/tooling/migrating_from_ruby_spec.rb" line={21} />
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/tooling/migrating_from_ruby_spec.rb" line={119} />
 
 ```ruby
 module Timestampable
@@ -310,7 +310,7 @@ end
 
 **이후** (T-Ruby):
 
-<ExampleBadge status="pass" testFile="spec/docs_site/pages/tooling/migrating_from_ruby_spec.rb" line={21} />
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/tooling/migrating_from_ruby_spec.rb" line={129} />
 
 ```trb
 module Timestampable
@@ -349,7 +349,7 @@ end
 
 **이전** (Ruby):
 
-<ExampleBadge status="pass" testFile="spec/docs_site/pages/tooling/migrating_from_ruby_spec.rb" line={21} />
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/tooling/migrating_from_ruby_spec.rb" line={140} />
 
 ```ruby
 def process_order(order_data)
@@ -369,7 +369,7 @@ end
 
 명확성을 위해 타입 별칭 정의:
 
-<ExampleBadge status="pass" testFile="spec/docs_site/pages/tooling/migrating_from_ruby_spec.rb" line={21} />
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/tooling/migrating_from_ruby_spec.rb" line={150} />
 
 ```trb
 type OrderData = Hash<Symbol, Any>
@@ -391,7 +391,7 @@ end
 
 또는 구조화된 타입 사용:
 
-<ExampleBadge status="pass" testFile="spec/docs_site/pages/tooling/migrating_from_ruby_spec.rb" line={21} />
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/tooling/migrating_from_ruby_spec.rb" line={161} />
 
 ```trb
 class OrderItem
@@ -417,7 +417,7 @@ end
 
 **이전** (Ruby):
 
-<ExampleBadge status="pass" testFile="spec/docs_site/pages/tooling/migrating_from_ruby_spec.rb" line={21} />
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/tooling/migrating_from_ruby_spec.rb" line={172} />
 
 ```ruby
 class DynamicModel
@@ -440,7 +440,7 @@ end
 
 명시적 메서드를 사용하거나 타입 정의:
 
-<ExampleBadge status="pass" testFile="spec/docs_site/pages/tooling/migrating_from_ruby_spec.rb" line={21} />
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/tooling/migrating_from_ruby_spec.rb" line={182} />
 
 ```trb
 class DynamicModel
@@ -463,7 +463,7 @@ end
 
 또는 유연한 타이핑을 위해 제네릭 사용:
 
-<ExampleBadge status="pass" testFile="spec/docs_site/pages/tooling/migrating_from_ruby_spec.rb" line={21} />
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/tooling/migrating_from_ruby_spec.rb" line={193} />
 
 ```trb
 class DynamicModel
@@ -480,7 +480,7 @@ end
 Ruby 코드는 종종 암묵적으로 nil을 사용합니다:
 
 **이전**:
-<ExampleBadge status="pass" testFile="spec/docs_site/pages/tooling/migrating_from_ruby_spec.rb" line={21} />
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/tooling/migrating_from_ruby_spec.rb" line={204} />
 
 ```ruby
 def find_user(id)
@@ -492,7 +492,7 @@ user.name  # nil이면 크래시!
 ```
 
 **이후**:
-<ExampleBadge status="pass" testFile="spec/docs_site/pages/tooling/migrating_from_ruby_spec.rb" line={21} />
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/tooling/migrating_from_ruby_spec.rb" line={214} />
 
 ```trb
 def find_user(id: Integer): User | nil
@@ -511,7 +511,7 @@ user&.name
 ### 복잡한 Hash
 
 **이전**:
-<ExampleBadge status="pass" testFile="spec/docs_site/pages/tooling/migrating_from_ruby_spec.rb" line={21} />
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/tooling/migrating_from_ruby_spec.rb" line={225} />
 
 ```ruby
 config = {
@@ -528,7 +528,7 @@ config = {
 
 **이후** - 구조화된 클래스 사용:
 
-<ExampleBadge status="pass" testFile="spec/docs_site/pages/tooling/migrating_from_ruby_spec.rb" line={21} />
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/tooling/migrating_from_ruby_spec.rb" line={235} />
 
 ```trb
 class Credentials
@@ -578,7 +578,7 @@ config = Config.new(
 ### 덕 타이핑
 
 **이전**:
-<ExampleBadge status="pass" testFile="spec/docs_site/pages/tooling/migrating_from_ruby_spec.rb" line={21} />
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/tooling/migrating_from_ruby_spec.rb" line={246} />
 
 ```ruby
 def format(object)
@@ -592,7 +592,7 @@ end
 
 **이후** - 인터페이스 사용:
 
-<ExampleBadge status="pass" testFile="spec/docs_site/pages/tooling/migrating_from_ruby_spec.rb" line={21} />
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/tooling/migrating_from_ruby_spec.rb" line={256} />
 
 ```trb
 interface Stringable
@@ -617,7 +617,7 @@ end
 3. **.rb** 파일로 유지 (마이그레이션하지 않음)
 
 **이전**:
-<ExampleBadge status="pass" testFile="spec/docs_site/pages/tooling/migrating_from_ruby_spec.rb" line={21} />
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/tooling/migrating_from_ruby_spec.rb" line={267} />
 
 ```ruby
 class DynamicClass
@@ -631,7 +631,7 @@ end
 
 **이후** - 명시적 메서드:
 
-<ExampleBadge status="pass" testFile="spec/docs_site/pages/tooling/migrating_from_ruby_spec.rb" line={21} />
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/tooling/migrating_from_ruby_spec.rb" line={277} />
 
 ```trb
 class DynamicClass
@@ -834,7 +834,7 @@ bundle exec rake test
 
 복잡한 타입을 읽기 쉽게:
 
-<ExampleBadge status="pass" testFile="spec/docs_site/pages/tooling/migrating_from_ruby_spec.rb" line={21} />
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/tooling/migrating_from_ruby_spec.rb" line={288} />
 
 ```trb
 type UserId = Integer
@@ -918,7 +918,7 @@ git revert HEAD
 
 **이전** (`app/models/article.rb`):
 
-<ExampleBadge status="pass" testFile="spec/docs_site/pages/tooling/migrating_from_ruby_spec.rb" line={21} />
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/tooling/migrating_from_ruby_spec.rb" line={299} />
 
 ```ruby
 class Article < ApplicationRecord
@@ -947,7 +947,7 @@ end
 
 **이후** (`app/models/article.trb`):
 
-<ExampleBadge status="pass" testFile="spec/docs_site/pages/tooling/migrating_from_ruby_spec.rb" line={21} />
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/tooling/migrating_from_ruby_spec.rb" line={309} />
 
 ```trb
 class Article < ApplicationRecord

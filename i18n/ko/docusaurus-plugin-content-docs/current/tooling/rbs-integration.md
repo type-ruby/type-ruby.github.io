@@ -28,7 +28,7 @@ T-Ruby 코드를 컴파일하면 컴파일러가 타입 정보를 추출하여 �
 
 **T-Ruby 입력** (`user.trb`):
 
-<ExampleBadge status="pass" testFile="spec/docs_site/pages/tooling/rbs_integration_spec.rb" line={21} />
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/tooling/rbs_integration_spec.rb" line={25} />
 
 ```trb
 class User
@@ -54,7 +54,7 @@ end
 
 **생성된 RBS** (`sig/user.rbs`):
 
-<ExampleBadge status="pass" testFile="spec/docs_site/pages/tooling/rbs_integration_spec.rb" line={21} />
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/tooling/rbs_integration_spec.rb" line={36} />
 
 ```rbs
 class User
@@ -70,7 +70,7 @@ end
 
 **생성된 Ruby** (`build/user.rb`):
 
-<ExampleBadge status="pass" testFile="spec/docs_site/pages/tooling/rbs_integration_spec.rb" line={21} />
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/tooling/rbs_integration_spec.rb" line={46} />
 
 ```ruby
 class User
@@ -130,7 +130,7 @@ trc compile --rbs-dir signatures/ src/
 
 T-Ruby는 파라미터와 반환 타입을 포함한 메서드 시그니처를 자동으로 생성합니다.
 
-<ExampleBadge status="pass" testFile="spec/docs_site/pages/tooling/rbs_integration_spec.rb" line={21} />
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/tooling/rbs_integration_spec.rb" line={56} />
 
 ```trb title="calculator.trb"
 def add(a: Integer, b: Integer): Integer
@@ -143,7 +143,7 @@ def divide(a: Float, b: Float): Float | nil
 end
 ```
 
-<ExampleBadge status="pass" testFile="spec/docs_site/pages/tooling/rbs_integration_spec.rb" line={21} />
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/tooling/rbs_integration_spec.rb" line={67} />
 
 ```rbs title="sig/calculator.rbs"
 def add: (Integer a, Integer b) -> Integer
@@ -152,7 +152,7 @@ def divide: (Float a, Float b) -> (Float | nil)
 
 ### 선택적 파라미터와 키워드 파라미터
 
-<ExampleBadge status="pass" testFile="spec/docs_site/pages/tooling/rbs_integration_spec.rb" line={21} />
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/tooling/rbs_integration_spec.rb" line={77} />
 
 ```trb title="formatter.trb"
 def format(
@@ -165,7 +165,7 @@ def format(
 end
 ```
 
-<ExampleBadge status="pass" testFile="spec/docs_site/pages/tooling/rbs_integration_spec.rb" line={21} />
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/tooling/rbs_integration_spec.rb" line={88} />
 
 ```rbs title="sig/formatter.rbs"
 def format: (
@@ -177,7 +177,7 @@ def format: (
 
 ### 블록 시그니처
 
-<ExampleBadge status="pass" testFile="spec/docs_site/pages/tooling/rbs_integration_spec.rb" line={21} />
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/tooling/rbs_integration_spec.rb" line={98} />
 
 ```trb title="iterator.trb"
 def each_item(items: Array<String>): void do |String| -> void end
@@ -185,7 +185,7 @@ def each_item(items: Array<String>): void do |String| -> void end
 end
 ```
 
-<ExampleBadge status="pass" testFile="spec/docs_site/pages/tooling/rbs_integration_spec.rb" line={21} />
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/tooling/rbs_integration_spec.rb" line={109} />
 
 ```rbs title="sig/iterator.rbs"
 def each_item: (Array[String] items) { (String) -> void } -> void
@@ -195,7 +195,7 @@ def each_item: (Array[String] items) { (String) -> void } -> void
 
 T-Ruby의 제네릭 타입은 RBS 제네릭에 직접 매핑됩니다.
 
-<ExampleBadge status="pass" testFile="spec/docs_site/pages/tooling/rbs_integration_spec.rb" line={21} />
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/tooling/rbs_integration_spec.rb" line={119} />
 
 ```trb title="container.trb"
 class Container<T>
@@ -215,7 +215,7 @@ class Container<T>
 end
 ```
 
-<ExampleBadge status="pass" testFile="spec/docs_site/pages/tooling/rbs_integration_spec.rb" line={21} />
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/tooling/rbs_integration_spec.rb" line={130} />
 
 ```rbs title="sig/container.rbs"
 class Container[T]
@@ -229,7 +229,7 @@ end
 
 ### 유니온 타입
 
-<ExampleBadge status="pass" testFile="spec/docs_site/pages/tooling/rbs_integration_spec.rb" line={21} />
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/tooling/rbs_integration_spec.rb" line={140} />
 
 ```trb title="parser.trb"
 def parse(input: String): Integer | Float | nil
@@ -243,7 +243,7 @@ def parse(input: String): Integer | Float | nil
 end
 ```
 
-<ExampleBadge status="pass" testFile="spec/docs_site/pages/tooling/rbs_integration_spec.rb" line={21} />
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/tooling/rbs_integration_spec.rb" line={151} />
 
 ```rbs title="sig/parser.rbs"
 def parse: (String input) -> (Integer | Float | nil)
@@ -251,7 +251,7 @@ def parse: (String input) -> (Integer | Float | nil)
 
 ### 모듈과 믹스인
 
-<ExampleBadge status="pass" testFile="spec/docs_site/pages/tooling/rbs_integration_spec.rb" line={21} />
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/tooling/rbs_integration_spec.rb" line={161} />
 
 ```trb title="loggable.trb"
 module Loggable
@@ -273,7 +273,7 @@ class Service
 end
 ```
 
-<ExampleBadge status="pass" testFile="spec/docs_site/pages/tooling/rbs_integration_spec.rb" line={21} />
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/tooling/rbs_integration_spec.rb" line={172} />
 
 ```rbs title="sig/loggable.rbs"
 module Loggable
@@ -290,7 +290,7 @@ end
 
 ### 타입 별칭
 
-<ExampleBadge status="pass" testFile="spec/docs_site/pages/tooling/rbs_integration_spec.rb" line={21} />
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/tooling/rbs_integration_spec.rb" line={182} />
 
 ```trb title="types.trb"
 type UserId = Integer
@@ -301,7 +301,7 @@ def find_users(ids: Array<UserId>): UserMap
 end
 ```
 
-<ExampleBadge status="pass" testFile="spec/docs_site/pages/tooling/rbs_integration_spec.rb" line={21} />
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/tooling/rbs_integration_spec.rb" line={193} />
 
 ```rbs title="sig/types.rbs"
 type UserId = Integer
@@ -314,7 +314,7 @@ def find_users: (Array[UserId] ids) -> UserMap
 
 T-Ruby 인터페이스는 RBS 인터페이스 타입으로 변환됩니다.
 
-<ExampleBadge status="pass" testFile="spec/docs_site/pages/tooling/rbs_integration_spec.rb" line={21} />
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/tooling/rbs_integration_spec.rb" line={203} />
 
 ```trb title="printable.trb"
 interface Printable
@@ -335,7 +335,7 @@ class Document
 end
 ```
 
-<ExampleBadge status="pass" testFile="spec/docs_site/pages/tooling/rbs_integration_spec.rb" line={21} />
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/tooling/rbs_integration_spec.rb" line={214} />
 
 ```rbs title="sig/printable.rbs"
 interface _Printable
@@ -399,7 +399,7 @@ rbs-to-sorbet sig/ sorbet/rbi/
 
 RBS 시그니처를 gem에 포함:
 
-<ExampleBadge status="pass" testFile="spec/docs_site/pages/tooling/rbs_integration_spec.rb" line={21} />
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/tooling/rbs_integration_spec.rb" line={224} />
 
 ```ruby title="my_gem.gemspec"
 Gem::Specification.new do |spec|
@@ -415,7 +415,7 @@ end
 
 주석에 RBS 전용 어노테이션 추가:
 
-<ExampleBadge status="pass" testFile="spec/docs_site/pages/tooling/rbs_integration_spec.rb" line={21} />
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/tooling/rbs_integration_spec.rb" line={234} />
 
 ```trb title="service.trb"
 class Service
@@ -525,7 +525,7 @@ T-Ruby의 RBS 통합이 타입 검사에 어떻게 적용되는지:
 
 RBS를 포함한 타입이 지정된 라이브러리 생성:
 
-<ExampleBadge status="pass" testFile="spec/docs_site/pages/tooling/rbs_integration_spec.rb" line={21} />
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/tooling/rbs_integration_spec.rb" line={245} />
 
 ```trb title="lib/my_library.trb"
 module MyLibrary
@@ -566,7 +566,7 @@ sig/
 
 사용자는 이제 다음과 같이 사용할 수 있습니다:
 
-<ExampleBadge status="pass" testFile="spec/docs_site/pages/tooling/rbs_integration_spec.rb" line={21} />
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/tooling/rbs_integration_spec.rb" line={256} />
 
 ```ruby
 # Ruby에서 사용
@@ -581,7 +581,7 @@ client = MyLibrary::Client.new("key123")
 
 Rails 모델에서 RBS 사용:
 
-<ExampleBadge status="pass" testFile="spec/docs_site/pages/tooling/rbs_integration_spec.rb" line={21} />
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/tooling/rbs_integration_spec.rb" line={266} />
 
 ```trb title="app/models/user.trb"
 class User < ApplicationRecord
@@ -634,7 +634,7 @@ end
 
 gem에 RBS 패키징:
 
-<ExampleBadge status="pass" testFile="spec/docs_site/pages/tooling/rbs_integration_spec.rb" line={21} />
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/tooling/rbs_integration_spec.rb" line={277} />
 
 ```ruby title="my_gem.gemspec"
 Gem::Specification.new do |spec|
@@ -722,7 +722,7 @@ RBS 파일은 소스 코드입니다 - Ruby 파일과 함께 커밋하세요.
 
 RBS 파일은 문서 역할을 합니다. 공개 API가 잘 타입 지정되어 있는지 확인하세요:
 
-<ExampleBadge status="pass" testFile="spec/docs_site/pages/tooling/rbs_integration_spec.rb" line={21} />
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/tooling/rbs_integration_spec.rb" line={287} />
 
 ```trb
 # 좋음 - 명확한 공개 API
@@ -741,7 +741,7 @@ end
 
 ### 4. 명확성을 위한 타입 별칭 사용
 
-<ExampleBadge status="pass" testFile="spec/docs_site/pages/tooling/rbs_integration_spec.rb" line={21} />
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/tooling/rbs_integration_spec.rb" line={298} />
 
 ```trb
 type UserId = Integer

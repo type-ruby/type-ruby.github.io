@@ -254,7 +254,7 @@ compiler:
 - 암시적 `any` 타입 불허
 - 엄격한 nil 검사 활성화
 
-<ExampleBadge status="pass" testFile="spec/docs_site/pages/cli/configuration_spec.rb" line={21} />
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/cli/configuration_spec.rb" line={25} />
 
 ```trb
 # 엄격 모드에서 필요
@@ -272,7 +272,7 @@ end
 - 지역 변수는 추론 가능
 - 암시적 `any`에 경고
 
-<ExampleBadge status="pass" testFile="spec/docs_site/pages/cli/configuration_spec.rb" line={21} />
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/cli/configuration_spec.rb" line={36} />
 
 ```trb
 # 표준 모드에서 OK
@@ -294,7 +294,7 @@ end
 - 암시적 `any` 타입 허용
 - 기존 코드 마이그레이션에 유용
 
-<ExampleBadge status="pass" testFile="spec/docs_site/pages/cli/configuration_spec.rb" line={21} />
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/cli/configuration_spec.rb" line={47} />
 
 ```ruby
 # 관용 모드에서 OK
@@ -323,7 +323,7 @@ compiler:
 
 예시 - 패턴 매칭:
 
-<ExampleBadge status="pass" testFile="spec/docs_site/pages/cli/configuration_spec.rb" line={21} />
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/cli/configuration_spec.rb" line={57} />
 
 ```trb
 # 입력 (.trb)
@@ -334,7 +334,7 @@ end
 ```
 
 `target_ruby: "3.0"` 사용 시:
-<ExampleBadge status="pass" testFile="spec/docs_site/pages/cli/configuration_spec.rb" line={21} />
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/cli/configuration_spec.rb" line={68} />
 
 ```ruby
 # 패턴 매칭 사용 (Ruby 3.0+)
@@ -345,7 +345,7 @@ end
 ```
 
 `target_ruby: "2.7"` 사용 시:
-<ExampleBadge status="pass" testFile="spec/docs_site/pages/cli/configuration_spec.rb" line={21} />
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/cli/configuration_spec.rb" line={78} />
 
 ```ruby
 # case/when으로 폴백
@@ -384,7 +384,7 @@ compiler:
 
 **no_implicit_any**
 
-<ExampleBadge status="pass" testFile="spec/docs_site/pages/cli/configuration_spec.rb" line={21} />
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/cli/configuration_spec.rb" line={88} />
 
 ```trb
 # no_implicit_any: true일 때 오류
@@ -400,7 +400,7 @@ end
 
 **no_unused_vars**
 
-<ExampleBadge status="pass" testFile="spec/docs_site/pages/cli/configuration_spec.rb" line={21} />
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/cli/configuration_spec.rb" line={99} />
 
 ```trb
 # no_unused_vars: true일 때 경고
@@ -412,7 +412,7 @@ end
 
 **strict_nil**
 
-<ExampleBadge status="pass" testFile="spec/docs_site/pages/cli/configuration_spec.rb" line={21} />
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/cli/configuration_spec.rb" line={110} />
 
 ```trb
 # strict_nil: true일 때 오류
@@ -428,7 +428,7 @@ end
 
 **no_unchecked_indexed_access**
 
-<ExampleBadge status="pass" testFile="spec/docs_site/pages/cli/configuration_spec.rb" line={21} />
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/cli/configuration_spec.rb" line={121} />
 
 ```trb
 # no_unchecked_indexed_access: true일 때 오류

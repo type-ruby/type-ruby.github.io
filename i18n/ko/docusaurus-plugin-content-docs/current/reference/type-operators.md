@@ -17,7 +17,7 @@ description: 타입 연산자와 수정자
 
 ### 구문
 
-<ExampleBadge status="pass" testFile="spec/docs_site/pages/reference/type_operators_spec.rb" line={21} />
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/reference/type_operators_spec.rb" line={25} />
 
 ```ruby
 Type1 | Type2 | Type3
@@ -25,7 +25,7 @@ Type1 | Type2 | Type3
 
 ### 예시
 
-<ExampleBadge status="pass" testFile="spec/docs_site/pages/reference/type_operators_spec.rb" line={21} />
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/reference/type_operators_spec.rb" line={35} />
 
 ```trb
 # 기본 유니온
@@ -50,7 +50,7 @@ config: Hash<Symbol, String | Integer | Bool> = {
 
 ### 사용 패턴
 
-<ExampleBadge status="pass" testFile="spec/docs_site/pages/reference/type_operators_spec.rb" line={21} />
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/reference/type_operators_spec.rb" line={46} />
 
 ```trb
 # 함수 반환 타입
@@ -78,7 +78,7 @@ end
 
 타입 가드를 사용하여 유니온 타입을 좁힙니다:
 
-<ExampleBadge status="pass" testFile="spec/docs_site/pages/reference/type_operators_spec.rb" line={21} />
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/reference/type_operators_spec.rb" line={57} />
 
 ```trb
 def process(value: String | Integer): String
@@ -98,7 +98,7 @@ end
 
 ### 구문
 
-<ExampleBadge status="pass" testFile="spec/docs_site/pages/reference/type_operators_spec.rb" line={21} />
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/reference/type_operators_spec.rb" line={68} />
 
 ```trb
 Type?
@@ -107,7 +107,7 @@ Type?
 
 ### 예시
 
-<ExampleBadge status="pass" testFile="spec/docs_site/pages/reference/type_operators_spec.rb" line={21} />
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/reference/type_operators_spec.rb" line={79} />
 
 ```trb
 # 이것들은 동일
@@ -143,7 +143,7 @@ cache: Hash<String, Integer?> = { "count" => 42, "missing" => nil }
 
 선택적 타입과 함께 안전 탐색 연산자(`&.`)를 사용하세요:
 
-<ExampleBadge status="pass" testFile="spec/docs_site/pages/reference/type_operators_spec.rb" line={21} />
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/reference/type_operators_spec.rb" line={90} />
 
 ```trb
 def get_email_domain(user: User?): String?
@@ -157,7 +157,7 @@ end
 
 ### 구문
 
-<ExampleBadge status="pass" testFile="spec/docs_site/pages/reference/type_operators_spec.rb" line={21} />
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/reference/type_operators_spec.rb" line={101} />
 
 ```ruby
 Type1 & Type2 & Type3
@@ -165,7 +165,7 @@ Type1 & Type2 & Type3
 
 ### 예시
 
-<ExampleBadge status="pass" testFile="spec/docs_site/pages/reference/type_operators_spec.rb" line={21} />
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/reference/type_operators_spec.rb" line={111} />
 
 ```trb
 # 인터페이스 인터섹션
@@ -208,7 +208,7 @@ end
 
 ### 다중 제약
 
-<ExampleBadge status="pass" testFile="spec/docs_site/pages/reference/type_operators_spec.rb" line={21} />
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/reference/type_operators_spec.rb" line={122} />
 
 ```trb
 # 다중 제약이 있는 제네릭
@@ -226,7 +226,7 @@ end
 
 ### 함수 제네릭
 
-<ExampleBadge status="pass" testFile="spec/docs_site/pages/reference/type_operators_spec.rb" line={21} />
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/reference/type_operators_spec.rb" line={133} />
 
 ```trb
 # 단일 타입 매개변수
@@ -247,7 +247,7 @@ end
 
 ### 클래스 제네릭
 
-<ExampleBadge status="pass" testFile="spec/docs_site/pages/reference/type_operators_spec.rb" line={21} />
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/reference/type_operators_spec.rb" line={144} />
 
 ```trb
 # 제네릭 클래스
@@ -289,7 +289,7 @@ end
 
 ### 중첩 제네릭
 
-<ExampleBadge status="pass" testFile="spec/docs_site/pages/reference/type_operators_spec.rb" line={21} />
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/reference/type_operators_spec.rb" line={155} />
 
 ```trb
 # 중첩 제네릭 타입
@@ -314,7 +314,7 @@ data: NestedData = {
 
 ### 구문
 
-<ExampleBadge status="pass" testFile="spec/docs_site/pages/reference/type_operators_spec.rb" line={21} />
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/reference/type_operators_spec.rb" line={166} />
 
 ```trb
 Array<ElementType>
@@ -322,7 +322,7 @@ Array<ElementType>
 
 ### 예시
 
-<ExampleBadge status="pass" testFile="spec/docs_site/pages/reference/type_operators_spec.rb" line={21} />
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/reference/type_operators_spec.rb" line={177} />
 
 ```trb
 # 기본 배열
@@ -358,7 +358,7 @@ end
 
 ### 구문
 
-<ExampleBadge status="pass" testFile="spec/docs_site/pages/reference/type_operators_spec.rb" line={21} />
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/reference/type_operators_spec.rb" line={188} />
 
 ```trb
 Hash<KeyType, ValueType>
@@ -366,7 +366,7 @@ Hash<KeyType, ValueType>
 
 ### 예시
 
-<ExampleBadge status="pass" testFile="spec/docs_site/pages/reference/type_operators_spec.rb" line={21} />
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/reference/type_operators_spec.rb" line={199} />
 
 ```trb
 # 기본 해시
@@ -405,7 +405,7 @@ Proc 타입은 타입이 지정된 매개변수와 반환 값을 가진 호출 �
 
 ### 구문
 
-<ExampleBadge status="pass" testFile="spec/docs_site/pages/reference/type_operators_spec.rb" line={21} />
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/reference/type_operators_spec.rb" line={210} />
 
 ```trb {skip-verify}
 Proc<Param1Type, Param2Type, ..., ReturnType>
@@ -413,7 +413,7 @@ Proc<Param1Type, Param2Type, ..., ReturnType>
 
 ### 예시
 
-<ExampleBadge status="pass" testFile="spec/docs_site/pages/reference/type_operators_spec.rb" line={21} />
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/reference/type_operators_spec.rb" line={221} />
 
 ```trb
 # 매개변수 없음
@@ -447,7 +447,7 @@ end
 
 ### 구문
 
-<ExampleBadge status="pass" testFile="spec/docs_site/pages/reference/type_operators_spec.rb" line={21} />
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/reference/type_operators_spec.rb" line={232} />
 
 ```ruby
 value as TargetType
@@ -455,7 +455,7 @@ value as TargetType
 
 ### 예시
 
-<ExampleBadge status="pass" testFile="spec/docs_site/pages/reference/type_operators_spec.rb" line={21} />
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/reference/type_operators_spec.rb" line={242} />
 
 ```trb
 # 타입 단언
@@ -481,7 +481,7 @@ end
 
 타입 단언은 타입 안전성을 우회합니다. 타입 가드를 선호하세요:
 
-<ExampleBadge status="pass" testFile="spec/docs_site/pages/reference/type_operators_spec.rb" line={21} />
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/reference/type_operators_spec.rb" line={253} />
 
 ```trb
 # ❌ 위험: 타입 단언 사용
@@ -505,7 +505,7 @@ end
 
 ### 구문
 
-<ExampleBadge status="pass" testFile="spec/docs_site/pages/reference/type_operators_spec.rb" line={21} />
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/reference/type_operators_spec.rb" line={264} />
 
 ```trb
 def function_name(param: Type): param is NarrowedType
@@ -515,7 +515,7 @@ end
 
 ### 예시
 
-<ExampleBadge status="pass" testFile="spec/docs_site/pages/reference/type_operators_spec.rb" line={21} />
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/reference/type_operators_spec.rb" line={275} />
 
 ```trb
 # 문자열 가드
@@ -547,7 +547,7 @@ end
 
 ### 문자열 리터럴
 
-<ExampleBadge status="pass" testFile="spec/docs_site/pages/reference/type_operators_spec.rb" line={21} />
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/reference/type_operators_spec.rb" line={286} />
 
 ```trb
 type Status = "pending" | "active" | "completed" | "failed"
@@ -562,7 +562,7 @@ end
 
 ### 숫자 리터럴
 
-<ExampleBadge status="pass" testFile="spec/docs_site/pages/reference/type_operators_spec.rb" line={21} />
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/reference/type_operators_spec.rb" line={297} />
 
 ```trb
 type HTTPPort = 80 | 443 | 8080 | 3000
@@ -575,7 +575,7 @@ type DiceRoll = 1 | 2 | 3 | 4 | 5 | 6
 
 ### 심볼 리터럴
 
-<ExampleBadge status="pass" testFile="spec/docs_site/pages/reference/type_operators_spec.rb" line={21} />
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/reference/type_operators_spec.rb" line={308} />
 
 ```trb
 type Role = :admin | :editor | :viewer
@@ -588,7 +588,7 @@ type HTTPMethod = :get | :post | :put | :patch | :delete
 
 ### 불리언 리터럴
 
-<ExampleBadge status="pass" testFile="spec/docs_site/pages/reference/type_operators_spec.rb" line={21} />
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/reference/type_operators_spec.rb" line={319} />
 
 ```trb
 type AlwaysTrue = true
@@ -602,7 +602,7 @@ flag: AlwaysTrue = true
 
 위치별로 특정 타입을 가진 고정 길이 배열입니다.
 
-<ExampleBadge status="pass" testFile="spec/docs_site/pages/reference/type_operators_spec.rb" line={21} />
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/reference/type_operators_spec.rb" line={330} />
 
 ```trb
 # 튜플 타입 (계획됨)
@@ -621,7 +621,7 @@ person: Person = ["Alice", 30]
 
 타입을 불변으로 만듭니다.
 
-<ExampleBadge status="pass" testFile="spec/docs_site/pages/reference/type_operators_spec.rb" line={21} />
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/reference/type_operators_spec.rb" line={341} />
 
 ```trb
 # Readonly 타입 (계획됨)
@@ -637,7 +637,7 @@ nums: ReadonlyArray<Integer> = [1, 2, 3]
 
 객체 타입에서 키를 추출합니다.
 
-<ExampleBadge status="pass" testFile="spec/docs_site/pages/reference/type_operators_spec.rb" line={21} />
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/reference/type_operators_spec.rb" line={352} />
 
 ```trb
 # Keyof 연산자 (계획됨)
@@ -654,7 +654,7 @@ type UserKey = keyof User  # :name | :email | :age
 
 값의 타입을 가져옵니다.
 
-<ExampleBadge status="pass" testFile="spec/docs_site/pages/reference/type_operators_spec.rb" line={21} />
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/reference/type_operators_spec.rb" line={363} />
 
 ```trb
 # Typeof 연산자 (계획됨)
@@ -675,7 +675,7 @@ type Config = typeof config
 
 ### 예시
 
-<ExampleBadge status="pass" testFile="spec/docs_site/pages/reference/type_operators_spec.rb" line={21} />
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/reference/type_operators_spec.rb" line={374} />
 
 ```trb
 # 인터섹션이 유니온보다 높은 우선순위
@@ -712,7 +712,7 @@ type D = String | (Integer?)
 
 ### 1. Any보다 유니온 선호
 
-<ExampleBadge status="pass" testFile="spec/docs_site/pages/reference/type_operators_spec.rb" line={21} />
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/reference/type_operators_spec.rb" line={385} />
 
 ```trb
 # ❌ 너무 관용적
@@ -724,7 +724,7 @@ data: String | Integer | Hash<String, String> = get_data()
 
 ### 2. 명확성을 위해 선택적 연산자 사용
 
-<ExampleBadge status="pass" testFile="spec/docs_site/pages/reference/type_operators_spec.rb" line={21} />
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/reference/type_operators_spec.rb" line={396} />
 
 ```trb
 # ❌ 장황함
@@ -736,7 +736,7 @@ name: String? = nil
 
 ### 3. 유니온 복잡도 제한
 
-<ExampleBadge status="pass" testFile="spec/docs_site/pages/reference/type_operators_spec.rb" line={21} />
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/reference/type_operators_spec.rb" line={407} />
 
 ```trb
 # ❌ 너무 많은 옵션
@@ -749,7 +749,7 @@ type OptionalPrimitive = PrimitiveValue?
 
 ### 4. 여러 인터페이스에 인터섹션 사용
 
-<ExampleBadge status="pass" testFile="spec/docs_site/pages/reference/type_operators_spec.rb" line={21} />
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/reference/type_operators_spec.rb" line={418} />
 
 ```trb
 # ✅ 명확한 요구사항
@@ -761,7 +761,7 @@ end
 
 ### 5. 과도한 타입 단언 피하기
 
-<ExampleBadge status="pass" testFile="spec/docs_site/pages/reference/type_operators_spec.rb" line={21} />
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/reference/type_operators_spec.rb" line={429} />
 
 ```trb
 # ❌ 타입 안전성 우회
@@ -781,7 +781,7 @@ end
 
 ### 유니온이 있는 Result 타입
 
-<ExampleBadge status="pass" testFile="spec/docs_site/pages/reference/type_operators_spec.rb" line={21} />
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/reference/type_operators_spec.rb" line={440} />
 
 ```trb
 type Result<T, E> = { success: true, value: T } | { success: false, error: E }
@@ -797,7 +797,7 @@ end
 
 ### 선택적 체이닝
 
-<ExampleBadge status="pass" testFile="spec/docs_site/pages/reference/type_operators_spec.rb" line={21} />
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/reference/type_operators_spec.rb" line={451} />
 
 ```trb
 class User
@@ -811,7 +811,7 @@ end
 
 ### 가드가 있는 타입 좁히기
 
-<ExampleBadge status="pass" testFile="spec/docs_site/pages/reference/type_operators_spec.rb" line={21} />
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/reference/type_operators_spec.rb" line={462} />
 
 ```trb
 def process_value(value: String | Integer | nil): String

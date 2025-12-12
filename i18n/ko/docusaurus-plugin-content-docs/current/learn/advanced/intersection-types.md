@@ -21,7 +21,7 @@ description: 교차로 타입 결합하기
 
 ### 유니온 vs 교차
 
-<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/advanced/intersection_types_spec.rb" line={21} />
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/advanced/intersection_types_spec.rb" line={25} />
 
 ```trb
 # 유니온 타입: 값은 String 또는 Integer일 수 있음
@@ -38,7 +38,7 @@ type NamedAndAged = Named & Aged
 
 교차 연산자는 `&`입니다:
 
-<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/advanced/intersection_types_spec.rb" line={21} />
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/advanced/intersection_types_spec.rb" line={36} />
 
 ```trb
 type Combined = TypeA & TypeB & TypeC
@@ -48,7 +48,7 @@ type Combined = TypeA & TypeB & TypeC
 
 교차 타입의 가장 일반적인 사용법은 인터페이스를 결합하는 것입니다:
 
-<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/advanced/intersection_types_spec.rb" line={21} />
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/advanced/intersection_types_spec.rb" line={47} />
 
 ```trb
 # 개별 인터페이스 정의
@@ -100,7 +100,7 @@ puts user.age   # OK: Aged 인터페이스
 
 인터페이스를 클래스 타입과 결합할 수 있습니다:
 
-<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/advanced/intersection_types_spec.rb" line={21} />
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/advanced/intersection_types_spec.rb" line={58} />
 
 ```trb
 # 기본 클래스
@@ -161,7 +161,7 @@ puts user.created_at  # Timestamped 인터페이스에서
 
 교차 타입은 Ruby의 믹스인 개념과 잘 작동합니다:
 
-<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/advanced/intersection_types_spec.rb" line={21} />
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/advanced/intersection_types_spec.rb" line={69} />
 
 ```trb
 # 기능 인터페이스 정의
@@ -238,7 +238,7 @@ article.save            # Persistable
 
 ### 레포지토리 패턴
 
-<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/advanced/intersection_types_spec.rb" line={21} />
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/advanced/intersection_types_spec.rb" line={80} />
 
 ```trb
 interface Identifiable
@@ -296,7 +296,7 @@ end
 
 ### 이벤트 시스템
 
-<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/advanced/intersection_types_spec.rb" line={21} />
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/advanced/intersection_types_spec.rb" line={91} />
 
 ```trb
 interface Event
@@ -427,7 +427,7 @@ end
 
 교차 타입은 제네릭과 결합할 수 있습니다:
 
-<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/advanced/intersection_types_spec.rb" line={21} />
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/advanced/intersection_types_spec.rb" line={102} />
 
 ```trb
 # 교차 제약이 있는 제네릭 타입
@@ -477,7 +477,7 @@ end
 
 교차 타입은 타입 좁히기와 함께 작동합니다:
 
-<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/advanced/intersection_types_spec.rb" line={21} />
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/advanced/intersection_types_spec.rb" line={113} />
 
 ```trb
 interface Animal
@@ -527,7 +527,7 @@ end
 
 교차 타입에 충돌하는 멤버가 있을 때, 더 구체적인 타입이 이깁니다:
 
-<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/advanced/intersection_types_spec.rb" line={21} />
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/advanced/intersection_types_spec.rb" line={124} />
 
 ```trb
 interface HasName
@@ -563,7 +563,7 @@ end
 
 ### 1. 작고 집중된 인터페이스 구성
 
-<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/advanced/intersection_types_spec.rb" line={21} />
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/advanced/intersection_types_spec.rb" line={135} />
 
 ```trb
 # 좋음: 단일 책임을 가진 작은 인터페이스
@@ -595,7 +595,7 @@ end
 
 ### 2. 의미 있는 이름 사용
 
-<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/advanced/intersection_types_spec.rb" line={21} />
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/advanced/intersection_types_spec.rb" line={146} />
 
 ```trb
 # 좋음: 교차가 나타내는 것이 명확
@@ -609,7 +609,7 @@ type Combined = Foo & Bar
 
 ### 3. 과도하게 복잡하게 만들지 않기
 
-<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/advanced/intersection_types_spec.rb" line={21} />
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/advanced/intersection_types_spec.rb" line={157} />
 
 ```trb
 # 좋음: 적절한 수의 교차
@@ -622,7 +622,7 @@ type SuperType = A & B & C & D & E & F & G & H
 
 ### 4. 의도 문서화
 
-<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/advanced/intersection_types_spec.rb" line={21} />
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/advanced/intersection_types_spec.rb" line={168} />
 
 ```trb
 # 좋음: 왜 교차가 필요한지 설명하는 주석
@@ -647,7 +647,7 @@ end
 
 ### 빌더 패턴
 
-<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/advanced/intersection_types_spec.rb" line={21} />
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/advanced/intersection_types_spec.rb" line={179} />
 
 ```trb
 interface Buildable
@@ -699,7 +699,7 @@ end
 
 ### 상태 머신
 
-<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/advanced/intersection_types_spec.rb" line={21} />
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/advanced/intersection_types_spec.rb" line={190} />
 
 ```trb
 interface State
@@ -761,7 +761,7 @@ end
 
 ### 기본 타입은 교차할 수 없음
 
-<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/advanced/intersection_types_spec.rb" line={21} />
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/advanced/intersection_types_spec.rb" line={201} />
 
 ```trb
 # 의미가 없음 - 값은 String이면서 동시에 Integer일 수 없음
@@ -773,7 +773,7 @@ type Valid = Interface1 & Interface2
 
 ### 구현 요구사항
 
-<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/advanced/intersection_types_spec.rb" line={21} />
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/advanced/intersection_types_spec.rb" line={212} />
 
 ```trb
 # 교차를 사용할 때 구현은 모든 부분을 만족해야 함

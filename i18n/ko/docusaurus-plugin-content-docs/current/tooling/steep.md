@@ -31,7 +31,7 @@ gem install steep
 
 또는 Gemfile에:
 
-<ExampleBadge status="pass" testFile="spec/docs_site/pages/tooling/steep_spec.rb" line={21} />
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/tooling/steep_spec.rb" line={25} />
 
 ```ruby
 group :development do
@@ -66,7 +66,7 @@ sig/            # RBS 타입 시그니처
 
 Steep을 설정하기 위한 `Steepfile` 생성:
 
-<ExampleBadge status="pass" testFile="spec/docs_site/pages/tooling/steep_spec.rb" line={21} />
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/tooling/steep_spec.rb" line={35} />
 
 ```ruby title="Steepfile"
 target :app do
@@ -95,7 +95,7 @@ Steep은 컴파일된 Ruby 코드가 생성된 RBS 시그니처와 일치하는�
 
 **T-Ruby 소스** (`src/user.trb`):
 
-<ExampleBadge status="pass" testFile="spec/docs_site/pages/tooling/steep_spec.rb" line={21} />
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/tooling/steep_spec.rb" line={45} />
 
 ```trb
 class User
@@ -135,7 +135,7 @@ trc compile src/
 
 **Steep 설정** (`Steepfile`):
 
-<ExampleBadge status="pass" testFile="spec/docs_site/pages/tooling/steep_spec.rb" line={21} />
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/tooling/steep_spec.rb" line={56} />
 
 ```ruby
 target :app do
@@ -165,7 +165,7 @@ build/user.rb:19:8: [error] Type mismatch:
 
 ### 기본 구조
 
-<ExampleBadge status="pass" testFile="spec/docs_site/pages/tooling/steep_spec.rb" line={21} />
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/tooling/steep_spec.rb" line={66} />
 
 ```ruby
 target :app do
@@ -178,7 +178,7 @@ end
 
 더 큰 프로젝트에서는 여러 타겟을 사용:
 
-<ExampleBadge status="pass" testFile="spec/docs_site/pages/tooling/steep_spec.rb" line={21} />
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/tooling/steep_spec.rb" line={76} />
 
 ```ruby
 # 애플리케이션 코드
@@ -202,7 +202,7 @@ end
 
 Ruby 표준 라이브러리와 gem의 RBS 포함:
 
-<ExampleBadge status="pass" testFile="spec/docs_site/pages/tooling/steep_spec.rb" line={21} />
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/tooling/steep_spec.rb" line={86} />
 
 ```ruby
 target :app do
@@ -224,7 +224,7 @@ end
 
 Steep이 타입을 해결하는 방법 설정:
 
-<ExampleBadge status="pass" testFile="spec/docs_site/pages/tooling/steep_spec.rb" line={21} />
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/tooling/steep_spec.rb" line={96} />
 
 ```ruby
 target :app do
@@ -304,7 +304,7 @@ chmod +x bin/typecheck
 
 Steep에서 엄격한 타입 검사 활성화:
 
-<ExampleBadge status="pass" testFile="spec/docs_site/pages/tooling/steep_spec.rb" line={21} />
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/tooling/steep_spec.rb" line={106} />
 
 ```ruby
 target :app do
@@ -325,7 +325,7 @@ end
 
 T-Ruby가 생성한 RBS와 함께 직접 작성한 RBS가 있는 경우:
 
-<ExampleBadge status="pass" testFile="spec/docs_site/pages/tooling/steep_spec.rb" line={21} />
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/tooling/steep_spec.rb" line={116} />
 
 ```ruby
 target :app do
@@ -346,7 +346,7 @@ end
 
 Rails 프로젝트의 경우:
 
-<ExampleBadge status="pass" testFile="spec/docs_site/pages/tooling/steep_spec.rb" line={21} />
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/tooling/steep_spec.rb" line={126} />
 
 ```ruby
 target :app do
@@ -379,7 +379,7 @@ end
 
 생성되거나 벤더 코드 무시:
 
-<ExampleBadge status="pass" testFile="spec/docs_site/pages/tooling/steep_spec.rb" line={21} />
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/tooling/steep_spec.rb" line={136} />
 
 ```ruby
 target :app do
@@ -397,7 +397,7 @@ end
 
 Steep의 진단 수준 커스터마이즈:
 
-<ExampleBadge status="pass" testFile="spec/docs_site/pages/tooling/steep_spec.rb" line={21} />
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/tooling/steep_spec.rb" line={146} />
 
 ```ruby
 target :app do
@@ -431,7 +431,7 @@ end
 
 여러 메서드 오버로드가 있고, Steep이 어느 것인지 결정할 수 없음:
 
-<ExampleBadge status="pass" testFile="spec/docs_site/pages/tooling/steep_spec.rb" line={21} />
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/tooling/steep_spec.rb" line={156} />
 
 ```rbs
 # RBS에서
@@ -448,7 +448,7 @@ result = process(input)  # input의 타입이 불명확
 
 Steep이 타입을 추론할 수 없어 `Any`로 대체:
 
-<ExampleBadge status="pass" testFile="spec/docs_site/pages/tooling/steep_spec.rb" line={21} />
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/tooling/steep_spec.rb" line={166} />
 
 ```ruby
 result = some_method()  # 타입 불명, Any로 대체
@@ -460,7 +460,7 @@ result = some_method()  # 타입 불명, Any로 대체
 
 할당에서 타입 불일치:
 
-<ExampleBadge status="pass" testFile="spec/docs_site/pages/tooling/steep_spec.rb" line={21} />
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/tooling/steep_spec.rb" line={176} />
 
 ```trb
 x: Integer = "string"  # 오류: 호환되지 않는 타입
@@ -643,7 +643,7 @@ rbs collection init
 rbs collection install
 ```
 
-<ExampleBadge status="pass" testFile="spec/docs_site/pages/tooling/steep_spec.rb" line={21} />
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/tooling/steep_spec.rb" line={187} />
 
 ```ruby
 # Steepfile에서
@@ -705,7 +705,7 @@ steep watch --code=build --signature=sig
 
 관대하게 시작하고 시간이 지남에 따라 엄격도 증가:
 
-<ExampleBadge status="pass" testFile="spec/docs_site/pages/tooling/steep_spec.rb" line={21} />
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/tooling/steep_spec.rb" line={197} />
 
 ```ruby
 # 여기서 시작
@@ -755,7 +755,7 @@ steep check        # 런타임 동작 검사
 
 프로덕션 애플리케이션을 위한 완전한 설정:
 
-<ExampleBadge status="pass" testFile="spec/docs_site/pages/tooling/steep_spec.rb" line={21} />
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/tooling/steep_spec.rb" line={207} />
 
 ```ruby title="Steepfile"
 target :app do

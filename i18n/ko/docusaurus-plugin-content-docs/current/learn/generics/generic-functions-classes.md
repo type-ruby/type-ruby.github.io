@@ -17,7 +17,7 @@ description: 제네릭으로 재사용 가능한 코드 만들기
 
 ### 문제: 제네릭 없이
 
-<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/generics/generic_functions_classes_spec.rb" line={21} />
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/generics/generic_functions_classes_spec.rb" line={25} />
 
 ```trb
 # 제네릭 없이는 각 타입에 대해 별도의 함수가 필요
@@ -41,7 +41,7 @@ end
 
 ### 해결책: 제네릭으로
 
-<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/generics/generic_functions_classes_spec.rb" line={21} />
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/generics/generic_functions_classes_spec.rb" line={36} />
 
 ```trb
 # 모든 타입에 작동하는 하나의 함수
@@ -63,7 +63,7 @@ value = first(numbers)  # value는 Integer | nil
 
 ### 기본 제네릭 함수
 
-<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/generics/generic_functions_classes_spec.rb" line={21} />
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/generics/generic_functions_classes_spec.rb" line={47} />
 
 ```trb
 # 간단한 제네릭 함수
@@ -81,7 +81,7 @@ arr = identity([1, 2, 3])    # Array<Integer>
 
 필요할 때 여러 타입 매개변수를 사용할 수 있습니다:
 
-<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/generics/generic_functions_classes_spec.rb" line={21} />
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/generics/generic_functions_classes_spec.rb" line={58} />
 
 ```trb
 # 두 개의 타입 매개변수를 가진 함수
@@ -99,7 +99,7 @@ mixed = pair("count", 42)          # Hash<String, Integer>
 
 일반적인 사용 사례는 모든 타입의 배열과 작업하는 것입니다:
 
-<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/generics/generic_functions_classes_spec.rb" line={21} />
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/generics/generic_functions_classes_spec.rb" line={69} />
 
 ```trb
 # 배열의 마지막 요소 가져오기
@@ -129,7 +129,7 @@ long_words = filter(words) { |w| w.length > 3 }  # Array<String>
 
 때로는 반환 타입이 입력 타입과 다르지만 여전히 제네릭입니다:
 
-<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/generics/generic_functions_classes_spec.rb" line={21} />
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/generics/generic_functions_classes_spec.rb" line={80} />
 
 ```trb
 # 타입 T를 타입 U로 변환하는 map 함수
@@ -152,7 +152,7 @@ lengths = map(words) { |w| w.length }  # Array<Integer>
 
 ### 기본 제네릭 클래스
 
-<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/generics/generic_functions_classes_spec.rb" line={21} />
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/generics/generic_functions_classes_spec.rb" line={91} />
 
 ```trb
 # 간단한 제네릭 컨테이너
@@ -188,7 +188,7 @@ string_box.set(123)      # 에러: 타입 불일치
 
 T-Ruby는 종종 생성자에서 타입 매개변수를 추론할 수 있습니다:
 
-<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/generics/generic_functions_classes_spec.rb" line={21} />
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/generics/generic_functions_classes_spec.rb" line={102} />
 
 ```trb
 class Container<T>
@@ -219,7 +219,7 @@ container3 = Container<Bool>.new(true)
 
 제네릭 스택 데이터 구조의 실용적인 예제:
 
-<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/generics/generic_functions_classes_spec.rb" line={21} />
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/generics/generic_functions_classes_spec.rb" line={113} />
 
 ```trb
 class Stack<T>
@@ -275,7 +275,7 @@ puts int_stack.size  # 3
 
 제네릭 클래스는 여러 타입 매개변수를 가질 수 있습니다:
 
-<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/generics/generic_functions_classes_spec.rb" line={21} />
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/generics/generic_functions_classes_spec.rb" line={124} />
 
 ```trb
 class Pair<K, V>
@@ -317,7 +317,7 @@ swapped = name_age.swap              # Pair<Integer, String>
 
 커스텀 컬렉션을 보여주는 더 복잡한 예제:
 
-<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/generics/generic_functions_classes_spec.rb" line={21} />
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/generics/generic_functions_classes_spec.rb" line={135} />
 
 ```trb
 class Collection<T>
@@ -391,7 +391,7 @@ numbers.each { |n| puts n }
 
 자체적으로 제네릭이 아닌 클래스에서도 제네릭 메서드를 가질 수 있습니다:
 
-<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/generics/generic_functions_classes_spec.rb" line={21} />
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/generics/generic_functions_classes_spec.rb" line={146} />
 
 ```trb
 class Utils
@@ -419,7 +419,7 @@ zipped = Utils.zip([1, 2], ["a", "b"])      # Array<Pair<Integer, String>>
 
 제네릭을 중첩하여 복잡한 타입 구조를 만들 수 있습니다:
 
-<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/generics/generic_functions_classes_spec.rb" line={21} />
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/generics/generic_functions_classes_spec.rb" line={157} />
 
 ```trb
 # 각 키에 대해 값 배열을 저장하는 캐시
@@ -457,7 +457,7 @@ tags = user_tags.get(1)  # Array<String> = ["ruby", "programming"]
 
 ### 1. 설명적인 타입 매개변수 이름 사용
 
-<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/generics/generic_functions_classes_spec.rb" line={21} />
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/generics/generic_functions_classes_spec.rb" line={168} />
 
 ```trb
 # 좋음: 도메인별 타입에 설명적 이름
@@ -480,7 +480,7 @@ end
 
 ### 2. 제네릭 함수를 단순하게 유지
 
-<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/generics/generic_functions_classes_spec.rb" line={21} />
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/generics/generic_functions_classes_spec.rb" line={179} />
 
 ```trb
 # 좋음: 간단하고 집중된 제네릭 함수
@@ -496,7 +496,7 @@ end
 
 ### 3. 가능하면 타입 추론 사용
 
-<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/generics/generic_functions_classes_spec.rb" line={21} />
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/generics/generic_functions_classes_spec.rb" line={190} />
 
 ```trb
 # T-Ruby가 인자에서 타입 추론하도록 함
@@ -510,7 +510,7 @@ container = Container<String | Integer>.new("hello")
 
 ### Option/Maybe 타입
 
-<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/generics/generic_functions_classes_spec.rb" line={21} />
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/generics/generic_functions_classes_spec.rb" line={201} />
 
 ```trb
 class Option<T>
@@ -558,7 +558,7 @@ result = some.map { |n| n * 2 }  # Option<Integer> 값 84
 
 ### Result 타입
 
-<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/generics/generic_functions_classes_spec.rb" line={21} />
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/generics/generic_functions_classes_spec.rb" line={212} />
 
 ```trb
 class Result<T, E>

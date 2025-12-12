@@ -21,7 +21,7 @@ description: 일반적인 변환을 위한 내장 유틸리티 타입
 
 타입의 모든 속성을 선택적으로 만듭니다:
 
-<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/advanced/utility_types_spec.rb" line={21} />
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/advanced/utility_types_spec.rb" line={25} />
 
 ```trb
 type Partial<T> = {
@@ -63,7 +63,7 @@ update_user(1, {})  # 유효, 업데이트 없음
 
 모든 속성을 필수로 만듭니다(선택성 제거):
 
-<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/advanced/utility_types_spec.rb" line={21} />
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/advanced/utility_types_spec.rb" line={36} />
 
 ```trb
 type Required<T> = {
@@ -94,7 +94,7 @@ end
 
 모든 속성을 읽기 전용으로 만듭니다:
 
-<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/advanced/utility_types_spec.rb" line={21} />
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/advanced/utility_types_spec.rb" line={47} />
 
 ```trb
 type Readonly<T> = {
@@ -135,7 +135,7 @@ config: Config = {
 
 다른 타입에서 특정 속성을 선택하여 타입을 만듭니다:
 
-<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/advanced/utility_types_spec.rb" line={21} />
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/advanced/utility_types_spec.rb" line={58} />
 
 ```trb
 type Pick<T, K extends keyof T> = {
@@ -181,7 +181,7 @@ end
 
 다른 타입에서 특정 속성을 제외하여 타입을 만듭니다:
 
-<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/advanced/utility_types_spec.rb" line={21} />
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/advanced/utility_types_spec.rb" line={69} />
 
 ```trb
 type Omit<T, K extends keyof T> = {
@@ -234,7 +234,7 @@ end
 
 유니온에서 타입 제외:
 
-<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/advanced/utility_types_spec.rb" line={21} />
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/advanced/utility_types_spec.rb" line={80} />
 
 ```trb
 type Exclude<T, U> = T extends U ? never : T
@@ -265,7 +265,7 @@ end
 
 유니온에서 타입 추출:
 
-<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/advanced/utility_types_spec.rb" line={21} />
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/advanced/utility_types_spec.rb" line={91} />
 
 ```trb
 type Extract<T, U> = T extends U ? T : never
@@ -289,7 +289,7 @@ end
 
 타입에서 `nil` 제거:
 
-<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/advanced/utility_types_spec.rb" line={21} />
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/advanced/utility_types_spec.rb" line={102} />
 
 ```trb
 type NonNullable<T> = T extends nil ? never : T
@@ -315,7 +315,7 @@ end
 
 함수 타입의 반환 타입 추출:
 
-<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/advanced/utility_types_spec.rb" line={21} />
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/advanced/utility_types_spec.rb" line={113} />
 
 ```trb
 type ReturnType<T> = T extends Proc<any, infer R> ? R : never
@@ -342,7 +342,7 @@ end
 
 함수 타입에서 매개변수 타입 추출:
 
-<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/advanced/utility_types_spec.rb" line={21} />
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/advanced/utility_types_spec.rb" line={124} />
 
 ```trb
 type Parameters<T> = T extends Proc<infer P, any> ? P : never
@@ -370,7 +370,7 @@ end
 
 키 타입이 K이고 값 타입이 V인 타입을 만듭니다:
 
-<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/advanced/utility_types_spec.rb" line={21} />
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/advanced/utility_types_spec.rb" line={135} />
 
 ```trb
 type Record<K extends String | Symbol | Integer, V> = {
@@ -416,7 +416,7 @@ configs: Record<"development" | "staging" | "production", Config> = {
 
 배열에서 요소 타입 추출:
 
-<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/advanced/utility_types_spec.rb" line={21} />
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/advanced/utility_types_spec.rb" line={146} />
 
 ```trb
 type ArrayElement<T> = T extends Array<infer E> ? E : never
@@ -439,7 +439,7 @@ end
 
 요소를 수정할 수 없는 배열:
 
-<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/advanced/utility_types_spec.rb" line={21} />
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/advanced/utility_types_spec.rb" line={157} />
 
 ```trb
 type ReadonlyArray<T> = readonly Array<T>
@@ -461,7 +461,7 @@ ALLOWED_STATUSES: ReadonlyArray<String> = ["pending", "approved", "rejected"]
 
 모든 속성과 중첩된 속성을 선택적으로 만듭니다:
 
-<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/advanced/utility_types_spec.rb" line={21} />
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/advanced/utility_types_spec.rb" line={168} />
 
 ```trb
 type DeepPartial<T> = {
@@ -499,7 +499,7 @@ end
 
 모든 속성과 중첩된 속성을 읽기 전용으로 만듭니다:
 
-<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/advanced/utility_types_spec.rb" line={21} />
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/advanced/utility_types_spec.rb" line={179} />
 
 ```trb
 type DeepReadonly<T> = {
@@ -531,7 +531,7 @@ config: ImmutableConfig = load_config()
 
 읽기 전용 수정자 제거:
 
-<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/advanced/utility_types_spec.rb" line={21} />
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/advanced/utility_types_spec.rb" line={190} />
 
 ```trb
 type Mutable<T> = {
@@ -564,7 +564,7 @@ end
 
 두 타입을 병합하고, U의 속성이 T의 속성을 재정의:
 
-<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/advanced/utility_types_spec.rb" line={21} />
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/advanced/utility_types_spec.rb" line={201} />
 
 ```trb
 type Merge<T, U> = Omit<T, keyof U> & U
@@ -593,7 +593,7 @@ type MergedUser = Merge<User, UserUpdate>
 
 두 타입에 모두 존재하는 속성 가져오기:
 
-<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/advanced/utility_types_spec.rb" line={21} />
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/advanced/utility_types_spec.rb" line={212} />
 
 ```trb
 type Intersection<T, U> = Pick<T, Extract<keyof T, keyof U>>
@@ -621,7 +621,7 @@ type Common = Intersection<User, Person>
 
 T에는 있지만 U에는 없는 속성 가져오기:
 
-<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/advanced/utility_types_spec.rb" line={21} />
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/advanced/utility_types_spec.rb" line={223} />
 
 ```trb
 type Difference<T, U> = Omit<T, keyof U>
@@ -651,7 +651,7 @@ type PrivateFields = Difference<User, PublicFields>
 
 타입 수준 if-else:
 
-<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/advanced/utility_types_spec.rb" line={21} />
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/advanced/utility_types_spec.rb" line={234} />
 
 ```trb
 type If<Condition extends Bool, Then, Else> =
@@ -675,7 +675,7 @@ type DevConfig = IsProduction<"development">
 
 타입을 널러블로 만들기:
 
-<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/advanced/utility_types_spec.rb" line={21} />
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/advanced/utility_types_spec.rb" line={245} />
 
 ```trb
 type Nullable<T> = T | nil
@@ -694,7 +694,7 @@ end
 
 반환 타입을 프로미스로 래핑 (비동기 연산용):
 
-<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/advanced/utility_types_spec.rb" line={21} />
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/advanced/utility_types_spec.rb" line={256} />
 
 ```trb
 type Promisify<T> = {
@@ -721,7 +721,7 @@ type AsyncUserService = Promisify<UserService>
 
 ### API 응답 타입
 
-<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/advanced/utility_types_spec.rb" line={21} />
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/advanced/utility_types_spec.rb" line={267} />
 
 ```trb
 type APIResponse<T> = {
@@ -756,7 +756,7 @@ end
 
 ### 폼 상태 관리
 
-<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/advanced/utility_types_spec.rb" line={21} />
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/advanced/utility_types_spec.rb" line={278} />
 
 ```trb
 type FormState<T> = {
@@ -784,7 +784,7 @@ type LoginFormState = FormState<LoginForm>
 
 ### 레포지토리 패턴
 
-<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/advanced/utility_types_spec.rb" line={21} />
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/advanced/utility_types_spec.rb" line={289} />
 
 ```trb
 type Repository<T> = {
@@ -813,7 +813,7 @@ updated = user_repository.update(1, { name: "Alice Smith" })
 
 ### 1. 유틸리티 구성
 
-<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/advanced/utility_types_spec.rb" line={21} />
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/advanced/utility_types_spec.rb" line={300} />
 
 ```trb
 # 좋음: 유틸리티에서 복잡한 타입 구축
@@ -827,7 +827,7 @@ type SafeUserUpdate = {
 
 ### 2. 도메인별 유틸리티 생성
 
-<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/advanced/utility_types_spec.rb" line={21} />
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/advanced/utility_types_spec.rb" line={311} />
 
 ```trb
 # 좋음: 도메인을 위한 커스텀 유틸리티
@@ -843,7 +843,7 @@ type User = FullEntity<{ name: String, email: String }>
 
 ### 3. 복잡한 유틸리티 문서화
 
-<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/advanced/utility_types_spec.rb" line={21} />
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/advanced/utility_types_spec.rb" line={322} />
 
 ```trb
 # 좋음: 명확한 문서화

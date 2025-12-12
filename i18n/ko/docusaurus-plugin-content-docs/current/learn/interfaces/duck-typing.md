@@ -15,7 +15,7 @@ description: T-Ruby의 구조적 타이핑과 덕 타이핑
 
 덕 타이핑에서는 인터페이스를 명시적으로 구현할 필요가 없습니다—필요한 메서드만 가지고 있으면 됩니다:
 
-<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/interfaces/duck_typing_spec.rb" line={21} />
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/interfaces/duck_typing_spec.rb" line={25} />
 
 ```trb title="duck_typing_basic.trb"
 # 인터페이스 필요 없음
@@ -55,7 +55,7 @@ print_object(product)  # "Product: Laptop"
 
 객체 리터럴 문법을 사용하여 인라인으로 구조적 타입을 정의합니다:
 
-<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/interfaces/duck_typing_spec.rb" line={21} />
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/interfaces/duck_typing_spec.rb" line={36} />
 
 ```trb title="structural_types.trb"
 # 구조적 타입 정의
@@ -109,7 +109,7 @@ print_item(report)
 
 이름을 붙이지 않고 구조적 타입을 직접 사용합니다:
 
-<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/interfaces/duck_typing_spec.rb" line={21} />
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/interfaces/duck_typing_spec.rb" line={47} />
 
 ```trb title="anonymous_types.trb"
 def process_data(
@@ -155,7 +155,7 @@ process_data(reader, console_writer)
 
 구조적 타입은 여러 메서드와 속성 시그니처를 정의할 수 있습니다:
 
-<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/interfaces/duck_typing_spec.rb" line={21} />
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/interfaces/duck_typing_spec.rb" line={58} />
 
 ```trb title="complex_structural.trb"
 type Repository = {
@@ -236,7 +236,7 @@ use_repository(file_repo)
 
 명시적 인터페이스와 덕 타이핑 비교:
 
-<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/interfaces/duck_typing_spec.rb" line={21} />
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/interfaces/duck_typing_spec.rb" line={69} />
 
 ```trb title="comparison.trb"
 # 명시적 인터페이스 접근법
@@ -285,7 +285,7 @@ use_logger(file)     # 동작 - log 메서드 있음 (덕 타이핑)
 
 필요한 것보다 더 많은 메서드를 가진 객체도 구조적 타입을 만족합니다:
 
-<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/interfaces/duck_typing_spec.rb" line={21} />
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/interfaces/duck_typing_spec.rb" line={80} />
 
 ```trb title="subtyping.trb"
 type BasicLogger = {
@@ -324,7 +324,7 @@ simple_logging(advanced)  # 동작 - 구조적 서브타이핑
 
 제네릭과 구조적 타이핑 결합:
 
-<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/interfaces/duck_typing_spec.rb" line={21} />
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/interfaces/duck_typing_spec.rb" line={91} />
 
 ```trb title="generic_structural.trb"
 def transform<T, U>(
@@ -369,7 +369,7 @@ doubled = transform(numbers, doubler)  # [2, 4, 6]
 
 유연한 플러그인 아키텍처를 위한 덕 타이핑 사용:
 
-<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/interfaces/duck_typing_spec.rb" line={21} />
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/interfaces/duck_typing_spec.rb" line={102} />
 
 ```trb title="plugin_duck_typing.trb"
 type Plugin = {
@@ -437,7 +437,7 @@ runner.run_configurable(advanced, { "level" => "high" })
 
 유연한 데이터 처리를 위한 덕 타이핑:
 
-<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/interfaces/duck_typing_spec.rb" line={21} />
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/interfaces/duck_typing_spec.rb" line={113} />
 
 ```trb title="data_pipeline.trb"
 type DataSource = {
@@ -556,7 +556,7 @@ pipeline2.execute()
 
 덕 타이핑을 사용한 유연한 이벤트 처리:
 
-<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/interfaces/duck_typing_spec.rb" line={21} />
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/interfaces/duck_typing_spec.rb" line={124} />
 
 ```trb title="event_system.trb"
 type EventHandler = {

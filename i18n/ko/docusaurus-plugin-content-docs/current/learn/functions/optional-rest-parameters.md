@@ -15,7 +15,7 @@ Ruby 함수는 종종 매개변수 목록에 유연성이 필요합니다. T-Rub
 
 선택적 매개변수는 인수가 제공되지 않을 때 사용되는 기본값을 가집니다:
 
-<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/functions/optional_rest_parameters_spec.rb" line={21} />
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/functions/optional_rest_parameters_spec.rb" line={25} />
 
 ```trb title="optional.trb"
 def greet(name: String, greeting: String = "Hello"): String
@@ -41,7 +41,7 @@ user3 = create_user("Charlie", "moderator", false)     # 기본값 사용 안 �
 
 때로는 "제공되지 않음"과 "명시적으로 nil"을 구분하고 싶을 수 있습니다. nilable 타입을 사용하세요:
 
-<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/functions/optional_rest_parameters_spec.rb" line={21} />
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/functions/optional_rest_parameters_spec.rb" line={36} />
 
 ```trb title="nilable_optional.trb"
 def format_title(text: String, prefix: String? = nil): String
@@ -71,7 +71,7 @@ send_email("bob@example.com", "Meeting", "team@example.com")
 
 나머지 매개변수는 여러 인수를 배열로 수집합니다. 배열의 요소 타입을 지정합니다:
 
-<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/functions/optional_rest_parameters_spec.rb" line={21} />
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/functions/optional_rest_parameters_spec.rb" line={47} />
 
 ```trb title="rest.trb"
 def sum(*numbers: Integer): Integer
@@ -108,7 +108,7 @@ log_messages("INFO", "App started", "Database connected", "Ready")
 
 선택적 매개변수와 나머지 매개변수를 조합할 수 있지만, 나머지 매개변수는 선택적 매개변수 뒤에 와야 합니다:
 
-<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/functions/optional_rest_parameters_spec.rb" line={21} />
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/functions/optional_rest_parameters_spec.rb" line={58} />
 
 ```trb title="combined.trb"
 def create_team(
@@ -140,7 +140,7 @@ team3 = create_team("Gamma", "Charlie", true, "Dave", "Eve", "Frank")
 
 Ruby의 키워드 인수도 타입을 지정할 수 있습니다. 위치 인수보다 더 명확성을 제공합니다:
 
-<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/functions/optional_rest_parameters_spec.rb" line={21} />
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/functions/optional_rest_parameters_spec.rb" line={69} />
 
 ```trb title="keyword.trb"
 def create_post(
@@ -175,7 +175,7 @@ post2 = create_post(
 
 이중 스플랫 `**`를 사용하여 키워드 인수를 해시로 수집합니다:
 
-<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/functions/optional_rest_parameters_spec.rb" line={21} />
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/functions/optional_rest_parameters_spec.rb" line={80} />
 
 ```trb title="keyword_rest.trb"
 def build_query(table: String, **conditions: String | Integer): String
@@ -208,7 +208,7 @@ config = create_config(
 
 Ruby에서는 기본값을 생략하여 키워드 인수를 필수로 만들 수 있습니다:
 
-<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/functions/optional_rest_parameters_spec.rb" line={21} />
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/functions/optional_rest_parameters_spec.rb" line={91} />
 
 ```trb title="required_kwargs.trb"
 def register_user(
@@ -248,7 +248,7 @@ user2 = register_user(
 5. 선택적 키워드 인수
 6. 키워드 나머지 매개변수 (`**kwargs`)
 
-<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/functions/optional_rest_parameters_spec.rb" line={21} />
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/functions/optional_rest_parameters_spec.rb" line={102} />
 
 ```trb title="all_types.trb"
 def complex_function(
@@ -285,7 +285,7 @@ result = complex_function(
 
 다양한 매개변수 타입을 보여주는 실제 예제입니다:
 
-<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/functions/optional_rest_parameters_spec.rb" line={21} />
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/functions/optional_rest_parameters_spec.rb" line={113} />
 
 ```trb title="http_builder.trb"
 class HTTPRequestBuilder
@@ -383,7 +383,7 @@ response4 = builder.custom_request(
 
 유연한 매개변수 처리를 보여주는 또 다른 예제입니다:
 
-<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/functions/optional_rest_parameters_spec.rb" line={21} />
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/functions/optional_rest_parameters_spec.rb" line={124} />
 
 ```trb title="logger.trb"
 class Logger
@@ -458,7 +458,7 @@ logger.debug(
 
 ### 기본값이 있는 빌더 메서드
 
-<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/functions/optional_rest_parameters_spec.rb" line={21} />
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/functions/optional_rest_parameters_spec.rb" line={135} />
 
 ```trb title="builder_pattern.trb"
 def build_email(
@@ -475,7 +475,7 @@ end
 
 ### 가변 팩토리 함수
 
-<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/functions/optional_rest_parameters_spec.rb" line={21} />
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/functions/optional_rest_parameters_spec.rb" line={146} />
 
 ```trb title="factory.trb"
 def create_users(*names: String, role: String = "user"): Array<User>
@@ -487,7 +487,7 @@ users = create_users("Alice", "Bob", "Charlie", role: "admin")
 
 ### 설정 병합
 
-<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/functions/optional_rest_parameters_spec.rb" line={21} />
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/functions/optional_rest_parameters_spec.rb" line={157} />
 
 ```trb title="config.trb"
 def merge_config(base: Hash<String, String>, **overrides: String): Hash<String, String>

@@ -17,7 +17,7 @@ T-Ruby는 Ruby의 기본 데이터 타입과 일반적으로 사용되는 패턴
 
 텍스트 데이터를 나타냅니다. 문자열은 문자의 시퀀스입니다.
 
-<ExampleBadge status="pass" testFile="spec/docs_site/pages/reference/built_in_types_spec.rb" line={21} />
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/reference/built_in_types_spec.rb" line={25} />
 
 ```trb
 name: String = "Alice"
@@ -41,7 +41,7 @@ TEXT
 
 정수(양수, 음수 또는 0)를 나타냅니다.
 
-<ExampleBadge status="pass" testFile="spec/docs_site/pages/reference/built_in_types_spec.rb" line={21} />
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/reference/built_in_types_spec.rb" line={36} />
 
 ```trb
 count: Integer = 42
@@ -62,7 +62,7 @@ large: Integer = 1_000_000
 
 소수(부동 소수점)를 나타냅니다.
 
-<ExampleBadge status="pass" testFile="spec/docs_site/pages/reference/built_in_types_spec.rb" line={21} />
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/reference/built_in_types_spec.rb" line={47} />
 
 ```trb
 price: Float = 19.99
@@ -84,7 +84,7 @@ scientific: Float = 2.998e8
 
 불리언 값: `true` 또는 `false`를 나타냅니다.
 
-<ExampleBadge status="pass" testFile="spec/docs_site/pages/reference/built_in_types_spec.rb" line={21} />
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/reference/built_in_types_spec.rb" line={58} />
 
 ```trb
 active: Bool = true
@@ -98,7 +98,7 @@ is_valid: Bool = count > 0
 
 불변 식별자를 나타냅니다. 심볼은 상수와 해시 키로 사용하기에 최적화되어 있습니다.
 
-<ExampleBadge status="pass" testFile="spec/docs_site/pages/reference/built_in_types_spec.rb" line={21} />
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/reference/built_in_types_spec.rb" line={69} />
 
 ```trb
 status: Symbol = :active
@@ -119,7 +119,7 @@ key: Symbol = :name
 
 값의 부재를 나타냅니다.
 
-<ExampleBadge status="pass" testFile="spec/docs_site/pages/reference/built_in_types_spec.rb" line={21} />
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/reference/built_in_types_spec.rb" line={80} />
 
 ```trb
 nothing: nil = nil
@@ -138,7 +138,7 @@ result: User | nil = find_user(123)
 
 모든 타입을 나타냅니다. 타입 검사를 우회하므로 신중하게 사용하세요.
 
-<ExampleBadge status="pass" testFile="spec/docs_site/pages/reference/built_in_types_spec.rb" line={21} />
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/reference/built_in_types_spec.rb" line={91} />
 
 ```trb
 value: Any = "string"
@@ -152,7 +152,7 @@ value = true         # OK
 
 반환 값이 없음을 나타냅니다. 부작용을 수행하는 함수에 사용됩니다.
 
-<ExampleBadge status="pass" testFile="spec/docs_site/pages/reference/built_in_types_spec.rb" line={21} />
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/reference/built_in_types_spec.rb" line={102} />
 
 ```trb
 def log(message: String): void
@@ -170,7 +170,7 @@ end
 
 절대 발생하지 않는 값을 나타냅니다. 절대 반환하지 않는 함수에 사용됩니다.
 
-<ExampleBadge status="pass" testFile="spec/docs_site/pages/reference/built_in_types_spec.rb" line={21} />
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/reference/built_in_types_spec.rb" line={113} />
 
 ```trb
 def raise_error(message: String): never
@@ -186,7 +186,7 @@ end
 
 현재 인스턴스의 타입을 나타냅니다. 메서드 체이닝에 유용합니다.
 
-<ExampleBadge status="pass" testFile="spec/docs_site/pages/reference/built_in_types_spec.rb" line={21} />
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/reference/built_in_types_spec.rb" line={124} />
 
 ```trb
 class Builder
@@ -216,7 +216,7 @@ result = Builder.new.append("Hello").append(" ").append("World").build
 
 타입 `T`의 요소로 이루어진 순서 있는 컬렉션을 나타냅니다.
 
-<ExampleBadge status="pass" testFile="spec/docs_site/pages/reference/built_in_types_spec.rb" line={21} />
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/reference/built_in_types_spec.rb" line={135} />
 
 ```trb
 # 문자열 배열
@@ -257,7 +257,7 @@ items: Array<String> = []
 
 타입 `K`의 키와 타입 `V`의 값으로 이루어진 키-값 쌍 컬렉션을 나타냅니다.
 
-<ExampleBadge status="pass" testFile="spec/docs_site/pages/reference/built_in_types_spec.rb" line={21} />
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/reference/built_in_types_spec.rb" line={146} />
 
 ```trb
 # 문자열 키, 정수 값
@@ -295,7 +295,7 @@ cache: Hash<String, Any> = {}
 
 고유한 요소의 순서 없는 컬렉션을 나타냅니다.
 
-<ExampleBadge status="pass" testFile="spec/docs_site/pages/reference/built_in_types_spec.rb" line={21} />
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/reference/built_in_types_spec.rb" line={157} />
 
 ```trb
 # 문자열 집합
@@ -317,7 +317,7 @@ unique_ids: Set<Integer> = Set.new([1, 2, 3, 2, 1])  # {1, 2, 3}
 
 값의 범위를 나타냅니다.
 
-<ExampleBadge status="pass" testFile="spec/docs_site/pages/reference/built_in_types_spec.rb" line={21} />
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/reference/built_in_types_spec.rb" line={168} />
 
 ```trb
 # 정수 범위
@@ -341,7 +341,7 @@ letters: Range = 'a'..'z'
 
 모든 숫자 타입의 부모 타입입니다.
 
-<ExampleBadge status="pass" testFile="spec/docs_site/pages/reference/built_in_types_spec.rb" line={21} />
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/reference/built_in_types_spec.rb" line={179} />
 
 ```trb
 value: Numeric = 42
@@ -358,7 +358,7 @@ value: Numeric = 3.14
 
 유리수(분수)를 나타냅니다. *(계획된 기능)*
 
-<ExampleBadge status="pass" testFile="spec/docs_site/pages/reference/built_in_types_spec.rb" line={21} />
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/reference/built_in_types_spec.rb" line={190} />
 
 ```trb
 fraction: Rational = Rational(1, 2)  # 1/2
@@ -368,7 +368,7 @@ fraction: Rational = Rational(1, 2)  # 1/2
 
 복소수를 나타냅니다. *(계획된 기능)*
 
-<ExampleBadge status="pass" testFile="spec/docs_site/pages/reference/built_in_types_spec.rb" line={21} />
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/reference/built_in_types_spec.rb" line={201} />
 
 ```trb
 complex: Complex = Complex(1, 2)  # 1+2i
@@ -380,7 +380,7 @@ complex: Complex = Complex(1, 2)  # 1+2i
 
 proc, 람다 또는 블록을 나타냅니다.
 
-<ExampleBadge status="pass" testFile="spec/docs_site/pages/reference/built_in_types_spec.rb" line={21} />
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/reference/built_in_types_spec.rb" line={212} />
 
 ```trb
 # 간단한 proc
@@ -400,7 +400,7 @@ supplier: Proc<String> = ->: String { "Hello" }
 
 `Proc`의 타입 별칭입니다. T-Ruby에서 람다와 proc은 같은 타입을 사용합니다.
 
-<ExampleBadge status="pass" testFile="spec/docs_site/pages/reference/built_in_types_spec.rb" line={21} />
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/reference/built_in_types_spec.rb" line={223} />
 
 ```trb {skip-verify}
 type Lambda<Args..., Return> = Proc<Args..., Return>
@@ -408,7 +408,7 @@ type Lambda<Args..., Return> = Proc<Args..., Return>
 
 ### 블록 매개변수
 
-<ExampleBadge status="pass" testFile="spec/docs_site/pages/reference/built_in_types_spec.rb" line={21} />
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/reference/built_in_types_spec.rb" line={234} />
 
 ```trb
 # 블록을 받는 메서드
@@ -431,7 +431,7 @@ end
 
 모든 객체의 기본 타입입니다.
 
-<ExampleBadge status="pass" testFile="spec/docs_site/pages/reference/built_in_types_spec.rb" line={21} />
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/reference/built_in_types_spec.rb" line={245} />
 
 ```trb
 value: Object = "string"
@@ -443,7 +443,7 @@ value: Object = User.new
 
 클래스 객체를 나타냅니다.
 
-<ExampleBadge status="pass" testFile="spec/docs_site/pages/reference/built_in_types_spec.rb" line={21} />
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/reference/built_in_types_spec.rb" line={256} />
 
 ```trb
 user_class: Class = User
@@ -457,7 +457,7 @@ instance = user_class.new
 
 모듈을 나타냅니다.
 
-<ExampleBadge status="pass" testFile="spec/docs_site/pages/reference/built_in_types_spec.rb" line={21} />
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/reference/built_in_types_spec.rb" line={267} />
 
 ```trb
 mod: Module = Enumerable
@@ -469,7 +469,7 @@ mod: Module = Enumerable
 
 입력/출력 스트림을 나타냅니다.
 
-<ExampleBadge status="pass" testFile="spec/docs_site/pages/reference/built_in_types_spec.rb" line={21} />
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/reference/built_in_types_spec.rb" line={278} />
 
 ```trb
 file: IO = File.open("data.txt", "r")
@@ -484,7 +484,7 @@ end
 
 파일 객체를 나타냅니다 (IO의 하위 타입).
 
-<ExampleBadge status="pass" testFile="spec/docs_site/pages/reference/built_in_types_spec.rb" line={21} />
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/reference/built_in_types_spec.rb" line={289} />
 
 ```trb
 file: File = File.open("data.txt", "r")
@@ -501,7 +501,7 @@ end
 
 시점을 나타냅니다.
 
-<ExampleBadge status="pass" testFile="spec/docs_site/pages/reference/built_in_types_spec.rb" line={21} />
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/reference/built_in_types_spec.rb" line={300} />
 
 ```trb
 now: Time = Time.now
@@ -516,7 +516,7 @@ end
 
 날짜(시간 없음)를 나타냅니다.
 
-<ExampleBadge status="pass" testFile="spec/docs_site/pages/reference/built_in_types_spec.rb" line={21} />
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/reference/built_in_types_spec.rb" line={311} />
 
 ```trb
 today: Date = Date.today
@@ -527,7 +527,7 @@ birthday: Date = Date.new(1990, 5, 15)
 
 시간대가 있는 날짜와 시간을 나타냅니다.
 
-<ExampleBadge status="pass" testFile="spec/docs_site/pages/reference/built_in_types_spec.rb" line={21} />
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/reference/built_in_types_spec.rb" line={322} />
 
 ```trb
 moment: DateTime = DateTime.now
@@ -539,7 +539,7 @@ moment: DateTime = DateTime.now
 
 정규 표현식 패턴을 나타냅니다.
 
-<ExampleBadge status="pass" testFile="spec/docs_site/pages/reference/built_in_types_spec.rb" line={21} />
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/reference/built_in_types_spec.rb" line={333} />
 
 ```trb
 pattern: Regexp = /\d+/
@@ -554,7 +554,7 @@ end
 
 정규 표현식 매치의 결과를 나타냅니다.
 
-<ExampleBadge status="pass" testFile="spec/docs_site/pages/reference/built_in_types_spec.rb" line={21} />
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/reference/built_in_types_spec.rb" line={344} />
 
 ```trb
 def extract_numbers(text: String): Array<String> | nil
@@ -570,7 +570,7 @@ end
 
 모든 예외의 기본 클래스입니다.
 
-<ExampleBadge status="pass" testFile="spec/docs_site/pages/reference/built_in_types_spec.rb" line={21} />
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/reference/built_in_types_spec.rb" line={355} />
 
 ```trb
 def handle_error(error: Exception): String
@@ -582,7 +582,7 @@ end
 
 표준 오류 타입 (가장 일반적으로 rescue됨).
 
-<ExampleBadge status="pass" testFile="spec/docs_site/pages/reference/built_in_types_spec.rb" line={21} />
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/reference/built_in_types_spec.rb" line={366} />
 
 ```trb
 def safe_divide(a: Integer, b: Integer): Float | StandardError
@@ -596,7 +596,7 @@ end
 
 ### 일반적인 예외 타입
 
-<ExampleBadge status="pass" testFile="spec/docs_site/pages/reference/built_in_types_spec.rb" line={21} />
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/reference/built_in_types_spec.rb" line={377} />
 
 ```ruby
 ArgumentError      # 잘못된 인자
@@ -613,7 +613,7 @@ IOError            # I/O 작업 실패
 
 열거 가능한 객체를 나타냅니다.
 
-<ExampleBadge status="pass" testFile="spec/docs_site/pages/reference/built_in_types_spec.rb" line={21} />
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/reference/built_in_types_spec.rb" line={387} />
 
 ```trb
 enum: Enumerator<Integer> = [1, 2, 3].each
@@ -630,7 +630,7 @@ end
 
 구조체 클래스를 나타냅니다.
 
-<ExampleBadge status="pass" testFile="spec/docs_site/pages/reference/built_in_types_spec.rb" line={21} />
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/reference/built_in_types_spec.rb" line={398} />
 
 ```trb
 Point = Struct.new(:x, :y)
@@ -644,7 +644,7 @@ point: Point = Point.new(10, 20)
 
 실행 스레드를 나타냅니다.
 
-<ExampleBadge status="pass" testFile="spec/docs_site/pages/reference/built_in_types_spec.rb" line={21} />
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/reference/built_in_types_spec.rb" line={409} />
 
 ```trb
 thread: Thread = Thread.new { puts "Hello from thread" }
@@ -683,7 +683,7 @@ end
 
 T-Ruby는 내장 타입에 타입 변환 메서드를 제공합니다:
 
-<ExampleBadge status="pass" testFile="spec/docs_site/pages/reference/built_in_types_spec.rb" line={21} />
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/reference/built_in_types_spec.rb" line={420} />
 
 ```ruby
 # String으로
@@ -718,7 +718,7 @@ true.to_i         # 오류: Bool에는 to_i 없음
 
 모든 타입은 타입 검사 메서드를 지원합니다:
 
-<ExampleBadge status="pass" testFile="spec/docs_site/pages/reference/built_in_types_spec.rb" line={21} />
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/reference/built_in_types_spec.rb" line={430} />
 
 ```trb
 value: String | Integer = get_value()

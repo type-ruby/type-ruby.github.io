@@ -15,7 +15,7 @@ description: 함수 매개변수와 반환 값의 타입 지정
 
 함수에 타입을 추가하는 가장 간단한 방법은 매개변수와 반환 값에 어노테이션을 다는 것입니다:
 
-<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/functions/parameter_return_types_spec.rb" line={21} />
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/functions/parameter_return_types_spec.rb" line={25} />
 
 ```trb title="greetings.trb"
 def greet(name: String): String
@@ -43,7 +43,7 @@ add("5", "3")        # ✗ 오류: Integer를 기대했는데 String을 받음
 
 T-Ruby는 종종 함수 본문을 기반으로 반환 타입을 추론할 수 있지만, 명시적으로 작성하는 것이 좋은 관행입니다:
 
-<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/functions/parameter_return_types_spec.rb" line={21} />
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/functions/parameter_return_types_spec.rb" line={36} />
 
 ```trb title="inference.trb"
 # 반환 타입 명시적으로 어노테이션
@@ -66,7 +66,7 @@ end
 
 상황에 따라 함수가 다른 타입을 반환할 수 있습니다. 유니온 타입을 사용하세요:
 
-<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/functions/parameter_return_types_spec.rb" line={21} />
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/functions/parameter_return_types_spec.rb" line={47} />
 
 ```trb title="unions.trb"
 def find_user(id: Integer): User | nil
@@ -99,7 +99,7 @@ value = parse_value("3.14")
 
 의미 있는 값을 반환하지 않는 함수는 `void` 반환 타입을 사용합니다:
 
-<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/functions/parameter_return_types_spec.rb" line={21} />
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/functions/parameter_return_types_spec.rb" line={58} />
 
 ```trb title="void.trb"
 def log_message(message: String): void
@@ -121,7 +121,7 @@ save_to_database(user_record)
 
 매개변수는 배열, 해시, 커스텀 클래스를 포함한 모든 타입을 가질 수 있습니다:
 
-<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/functions/parameter_return_types_spec.rb" line={21} />
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/functions/parameter_return_types_spec.rb" line={69} />
 
 ```trb title="complex.trb"
 def process_names(names: Array<String>): Integer
@@ -149,7 +149,7 @@ config = merge_configs(
 
 각 매개변수에 개별적으로 타입을 지정합니다:
 
-<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/functions/parameter_return_types_spec.rb" line={21} />
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/functions/parameter_return_types_spec.rb" line={80} />
 
 ```trb title="multiple_params.trb"
 def create_user(
@@ -183,7 +183,7 @@ price = calculate_price(100.0, 0.08, 0.10)
 
 nil일 수 있는 매개변수에는 `?` 축약형을 사용합니다:
 
-<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/functions/parameter_return_types_spec.rb" line={21} />
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/functions/parameter_return_types_spec.rb" line={91} />
 
 ```trb title="nilable.trb"
 def format_name(first: String, middle: String?, last: String): String
@@ -216,7 +216,7 @@ greeting2 = greet_with_title("Jones", nil)
 
 true/false를 반환하는 함수에는 `Boolean`을 사용합니다:
 
-<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/functions/parameter_return_types_spec.rb" line={21} />
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/functions/parameter_return_types_spec.rb" line={102} />
 
 ```trb title="boolean.trb"
 def is_valid_email(email: String): Boolean
@@ -243,7 +243,7 @@ can_edit = has_permission(current_user, "posts:edit")
 
 함수는 타입 정보를 보존하는 제네릭 타입을 반환할 수 있습니다:
 
-<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/functions/parameter_return_types_spec.rb" line={21} />
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/functions/parameter_return_types_spec.rb" line={113} />
 
 ```trb title="generics.trb"
 def first_element<T>(array: Array<T>): T | nil
@@ -268,7 +268,7 @@ wrapped = wrap_in_array(42)  # 타입: Array<Integer>
 
 실제 시나리오에서 함수 타이핑을 보여주는 완전한 예제입니다:
 
-<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/functions/parameter_return_types_spec.rb" line={21} />
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/functions/parameter_return_types_spec.rb" line={124} />
 
 ```trb title="user_service.trb"
 class UserService
@@ -349,7 +349,7 @@ exists = service.is_email_taken("test@example.com")
 
 ### 팩토리 함수
 
-<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/functions/parameter_return_types_spec.rb" line={21} />
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/functions/parameter_return_types_spec.rb" line={135} />
 
 ```trb title="factory.trb"
 def create_admin_user(name: String, email: String): User
@@ -363,7 +363,7 @@ end
 
 ### 변환 함수
 
-<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/functions/parameter_return_types_spec.rb" line={21} />
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/functions/parameter_return_types_spec.rb" line={146} />
 
 ```trb title="converters.trb"
 def to_integer(value: String): Integer | nil
@@ -381,7 +381,7 @@ end
 
 ### 검증 함수
 
-<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/functions/parameter_return_types_spec.rb" line={21} />
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/functions/parameter_return_types_spec.rb" line={157} />
 
 ```trb title="validators.trb"
 def validate_password(password: String): Boolean

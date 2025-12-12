@@ -15,7 +15,7 @@ description: 제어 흐름 분석으로 타입 좁히기
 
 타입 좁히기는 T-Ruby가 코드를 분석하고 특정 범위 내에서 변수가 선언된 타입보다 더 구체적인 타입이어야 한다고 판단할 때 발생합니다.
 
-<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/everyday_types/type_narrowing_spec.rb" line={21} />
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/everyday_types/type_narrowing_spec.rb" line={25} />
 
 ```trb title="narrowing_basics.trb"
 def process(value: String | Integer): String
@@ -41,7 +41,7 @@ end
 
 `is_a?` 메서드는 값이 특정 타입의 인스턴스인지 확인합니다:
 
-<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/everyday_types/type_narrowing_spec.rb" line={21} />
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/everyday_types/type_narrowing_spec.rb" line={36} />
 
 ```trb title="is_a_guard.trb"
 def format_value(value: String | Integer | Bool): String
@@ -68,7 +68,7 @@ result3: String = format_value(true)  # "부울: true"
 
 `nil?` 메서드는 선택적 타입을 좁힙니다:
 
-<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/everyday_types/type_narrowing_spec.rb" line={21} />
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/everyday_types/type_narrowing_spec.rb" line={47} />
 
 ```trb title="nil_guard.trb"
 def get_length(text: String | nil): Integer
@@ -100,7 +100,7 @@ len2: Integer = get_length(nil)  # 0
 
 `empty?` 메서드는 컬렉션의 타입을 좁힐 수 있습니다:
 
-<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/everyday_types/type_narrowing_spec.rb" line={21} />
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/everyday_types/type_narrowing_spec.rb" line={58} />
 
 ```trb title="empty_guard.trb"
 def process_array(items: Array<String> | nil): String
@@ -123,7 +123,7 @@ result3: String = process_array(nil)  # "항목 없음"
 
 ### nil과 비교
 
-<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/everyday_types/type_narrowing_spec.rb" line={21} />
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/everyday_types/type_narrowing_spec.rb" line={69} />
 
 ```trb title="nil_comparison.trb"
 def greet(name: String | nil): String
@@ -150,7 +150,7 @@ end
 
 ### 특정 값과 비교
 
-<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/everyday_types/type_narrowing_spec.rb" line={21} />
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/everyday_types/type_narrowing_spec.rb" line={80} />
 
 ```trb title="value_comparison.trb"
 def process_status(status: String): String
@@ -169,7 +169,7 @@ end
 
 ### If/Elsif/Else 문
 
-<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/everyday_types/type_narrowing_spec.rb" line={21} />
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/everyday_types/type_narrowing_spec.rb" line={91} />
 
 ```trb title="if_narrowing.trb"
 def categorize(value: String | Integer | nil): String
@@ -192,7 +192,7 @@ cat3: String = categorize(42)  # "숫자: 42"
 
 ### Unless 문
 
-<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/everyday_types/type_narrowing_spec.rb" line={21} />
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/everyday_types/type_narrowing_spec.rb" line={102} />
 
 ```trb title="unless_narrowing.trb"
 def process_unless(value: String | nil): String
@@ -211,7 +211,7 @@ result2: String = process_unless(nil)  # "값 없음"
 
 ### Case/When 문
 
-<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/everyday_types/type_narrowing_spec.rb" line={21} />
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/everyday_types/type_narrowing_spec.rb" line={113} />
 
 ```trb title="case_narrowing.trb"
 def describe(value: String | Integer | Symbol): String
@@ -237,7 +237,7 @@ desc3: String = describe(:active)  # "심볼: active"
 
 ### 삼항 연산자
 
-<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/everyday_types/type_narrowing_spec.rb" line={21} />
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/everyday_types/type_narrowing_spec.rb" line={124} />
 
 ```trb title="ternary_narrowing.trb"
 def get_display_name(name: String | nil): String
@@ -252,7 +252,7 @@ display2: String = get_display_name(nil)  # "익명"
 
 ### AND 연산자 (`&&`)
 
-<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/everyday_types/type_narrowing_spec.rb" line={21} />
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/everyday_types/type_narrowing_spec.rb" line={135} />
 
 ```trb title="and_narrowing.trb"
 def process_and(
@@ -280,7 +280,7 @@ end
 
 ### OR 연산자 (`||`)
 
-<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/everyday_types/type_narrowing_spec.rb" line={21} />
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/everyday_types/type_narrowing_spec.rb" line={146} />
 
 ```trb title="or_narrowing.trb"
 def process_or(value: String | nil): String
@@ -297,7 +297,7 @@ end
 
 조기 반환은 함수의 나머지 부분에서 타입을 좁힙니다:
 
-<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/everyday_types/type_narrowing_spec.rb" line={21} />
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/everyday_types/type_narrowing_spec.rb" line={157} />
 
 ```trb title="early_return.trb"
 def process_with_guard(value: String | nil): String
@@ -332,7 +332,7 @@ end
 
 ### String 메서드
 
-<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/everyday_types/type_narrowing_spec.rb" line={21} />
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/everyday_types/type_narrowing_spec.rb" line={168} />
 
 ```trb title="string_method_narrowing.trb"
 def process_string(value: String | nil): String
@@ -346,7 +346,7 @@ end
 
 ### Array 메서드
 
-<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/everyday_types/type_narrowing_spec.rb" line={21} />
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/everyday_types/type_narrowing_spec.rb" line={179} />
 
 ```trb title="array_method_narrowing.trb"
 def get_first_element(items: Array<String> | nil): String
@@ -362,7 +362,7 @@ end
 
 타입 좁히기는 블록 내에서도 작동합니다:
 
-<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/everyday_types/type_narrowing_spec.rb" line={21} />
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/everyday_types/type_narrowing_spec.rb" line={190} />
 
 ```trb title="block_narrowing.trb"
 def process_items(items: Array<String | nil>): Array<String>
@@ -396,7 +396,7 @@ end
 
 타입 좁히기를 사용하는 종합적인 예제입니다:
 
-<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/everyday_types/type_narrowing_spec.rb" line={21} />
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/everyday_types/type_narrowing_spec.rb" line={201} />
 
 ```trb title="form_validator.trb"
 class FormValidator
@@ -515,7 +515,7 @@ errors2 = validator.validate_form(nil, "invalid-email", -5)
 
 ### 함수 호출 간에 좁히기가 유지되지 않음
 
-<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/everyday_types/type_narrowing_spec.rb" line={21} />
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/everyday_types/type_narrowing_spec.rb" line={212} />
 
 ```trb title="narrowing_limits.trb"
 def helper(value: String | Integer)
@@ -537,7 +537,7 @@ end
 
 ### 변경 후에는 좁히기가 작동하지 않음
 
-<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/everyday_types/type_narrowing_spec.rb" line={21} />
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/everyday_types/type_narrowing_spec.rb" line={223} />
 
 ```trb title="mutation_limits.trb"
 def example(value: String | Integer)
@@ -553,7 +553,7 @@ end
 
 ### 복잡한 조건은 좁히지 못할 수 있음
 
-<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/everyday_types/type_narrowing_spec.rb" line={21} />
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/everyday_types/type_narrowing_spec.rb" line={234} />
 
 ```trb title="complex_limits.trb"
 def complex(a: String | nil, b: String | nil): String
@@ -583,7 +583,7 @@ end
 
 ### 1. 가드 절 사용
 
-<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/everyday_types/type_narrowing_spec.rb" line={21} />
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/everyday_types/type_narrowing_spec.rb" line={245} />
 
 ```trb title="guard_clauses.trb"
 # 좋음 - 조기 반환으로 좁히기가 명확함
@@ -606,7 +606,7 @@ end
 
 ### 2. nil을 먼저 검사
 
-<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/everyday_types/type_narrowing_spec.rb" line={21} />
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/everyday_types/type_narrowing_spec.rb" line={256} />
 
 ```trb title="nil_first.trb"
 # 좋음 - 다른 타입보다 nil을 먼저 검사
@@ -623,7 +623,7 @@ end
 
 ### 3. 구체적인 타입 검사 사용
 
-<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/everyday_types/type_narrowing_spec.rb" line={21} />
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/everyday_types/type_narrowing_spec.rb" line={267} />
 
 ```trb title="specific_checks.trb"
 # 좋음 - 구체적인 타입 검사

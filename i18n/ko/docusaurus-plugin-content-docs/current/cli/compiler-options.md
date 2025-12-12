@@ -37,7 +37,7 @@ trc compile --strict src/
 - 암시적 `any` 타입 불가
 - 엄격한 nil 검사 활성화
 
-<ExampleBadge status="pass" testFile="spec/docs_site/pages/cli/compiler_options_spec.rb" line={21} />
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/cli/compiler_options_spec.rb" line={25} />
 
 ```trb
 # 엄격 모드는 전체 타입 지정 필요
@@ -61,7 +61,7 @@ trc compile --permissive src/
 - 암시적 `any` 허용
 - 명시적 타입 오류만 캐치
 
-<ExampleBadge status="pass" testFile="spec/docs_site/pages/cli/compiler_options_spec.rb" line={21} />
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/cli/compiler_options_spec.rb" line={36} />
 
 ```ruby
 # 관용 모드는 타입 없는 코드 허용
@@ -80,7 +80,7 @@ end
 trc compile --no-implicit-any src/
 ```
 
-<ExampleBadge status="pass" testFile="spec/docs_site/pages/cli/compiler_options_spec.rb" line={21} />
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/cli/compiler_options_spec.rb" line={46} />
 
 ```trb
 # --no-implicit-any 사용 시 오류
@@ -102,7 +102,7 @@ end
 trc compile --strict-nil src/
 ```
 
-<ExampleBadge status="pass" testFile="spec/docs_site/pages/cli/compiler_options_spec.rb" line={21} />
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/cli/compiler_options_spec.rb" line={57} />
 
 ```trb
 # --strict-nil 사용 시 오류
@@ -124,7 +124,7 @@ end
 trc compile --no-unused-vars src/
 ```
 
-<ExampleBadge status="pass" testFile="spec/docs_site/pages/cli/compiler_options_spec.rb" line={21} />
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/cli/compiler_options_spec.rb" line={68} />
 
 ```trb
 # --no-unused-vars 사용 시 경고
@@ -146,7 +146,7 @@ end
 trc compile --no-unchecked-indexed-access src/
 ```
 
-<ExampleBadge status="pass" testFile="spec/docs_site/pages/cli/compiler_options_spec.rb" line={21} />
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/cli/compiler_options_spec.rb" line={79} />
 
 ```trb
 # --no-unchecked-indexed-access 사용 시 오류
@@ -167,7 +167,7 @@ end
 trc compile --require-return-types src/
 ```
 
-<ExampleBadge status="pass" testFile="spec/docs_site/pages/cli/compiler_options_spec.rb" line={21} />
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/cli/compiler_options_spec.rb" line={90} />
 
 ```trb
 # --require-return-types 사용 시 오류
@@ -349,7 +349,7 @@ trc compile --optimize basic src/
 - `aggressive` - 최대 최적화
 
 **none:**
-<ExampleBadge status="pass" testFile="spec/docs_site/pages/cli/compiler_options_spec.rb" line={21} />
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/cli/compiler_options_spec.rb" line={101} />
 
 ```ruby
 # 코드 구조 변경 없음
@@ -361,7 +361,7 @@ end
 ```
 
 **basic:**
-<ExampleBadge status="pass" testFile="spec/docs_site/pages/cli/compiler_options_spec.rb" line={21} />
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/cli/compiler_options_spec.rb" line={111} />
 
 ```ruby
 # 상수 인라인, 데드 코드 제거
@@ -371,7 +371,7 @@ end
 ```
 
 **aggressive:**
-<ExampleBadge status="pass" testFile="spec/docs_site/pages/cli/compiler_options_spec.rb" line={21} />
+<ExampleBadge status="pass" testFile="spec/docs_site/pages/cli/compiler_options_spec.rb" line={121} />
 
 ```ruby
 # 함수 인라인, 코드 재정렬 가능
