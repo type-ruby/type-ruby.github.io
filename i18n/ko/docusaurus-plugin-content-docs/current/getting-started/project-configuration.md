@@ -34,10 +34,8 @@ source:
 
 # 출력 구성
 output:
-  # 컴파일된 .rb 파일을 작성할 위치
+  # 컴파일된 .rb 및 .rbs 파일을 작성할 위치
   ruby_dir: build
-  # .rbs 서명 파일을 작성할 위치
-  rbs_dir: sig
   # 소스 디렉토리 구조 유지
   preserve_structure: true
 
@@ -96,15 +94,15 @@ source:
 
 ```yaml
 output:
-  # 컴파일된 Ruby 파일용 디렉토리
+  # 컴파일된 .rb 및 .rbs 파일용 디렉토리
   ruby_dir: build
 
-  # RBS 서명 파일용 디렉토리
-  rbs_dir: sig
+  # RBS 파일 별도 디렉토리 (선택사항, 기본값은 ruby_dir)
+  # rbs_dir: sig
 
   # 출력에서 소스 디렉토리 구조 유지
-  # true:  src/models/user.trb → build/models/user.rb
-  # false: src/models/user.trb → build/user.rb
+  # true:  src/models/user.trb → build/models/user.rb + build/models/user.rbs
+  # false: src/models/user.trb → build/user.rb + build/user.rbs
   preserve_structure: true
 
   # 컴파일 전 출력 디렉토리 정리
@@ -160,48 +158,25 @@ watch:
   on_success: "bundle exec rspec"
 ```
 
-### 타입 해결
-
-```yaml
-types:
-  # 추가 타입 정의 경로
-  paths:
-    - types
-    - vendor/types
-
-  # 표준 라이브러리 타입 자동 가져오기
-  stdlib: true
-
-  # 외부 타입 정의
-  external:
-    - rails
-    - rspec
-```
-
 ## 디렉토리 구조
 
 일반적인 T-Ruby 프로젝트 구조:
 
 ```
 my-project/
-├── trbconfig.yml              # 구성
-├── src/                  # T-Ruby 소스 파일
+├── trbconfig.yml         # 구성
+├── src/                  # T-Ruby 소스 파일 (.trb)
 │   ├── models/
 │   │   ├── user.trb
 │   │   └── post.trb
 │   ├── services/
 │   │   └── auth_service.trb
 │   └── main.trb
-├── types/                # 사용자 정의 타입 정의
-│   └── external.rbs
-├── build/                # 컴파일된 Ruby 출력
+├── build/                # 컴파일 출력 (.rb + .rbs)
 │   ├── models/
 │   │   ├── user.rb
-│   │   └── post.rb
-│   └── ...
-├── sig/                  # 생성된 RBS 파일
-│   ├── models/
 │   │   ├── user.rbs
+│   │   ├── post.rb
 │   │   └── post.rbs
 │   └── ...
 └── test/                 # 테스트 (.rb 또는 .trb 가능)
@@ -288,11 +263,6 @@ output:
 
 compiler:
   strictness: standard
-
-types:
-  external:
-    - rails
-    - activerecord
 ```
 
 `config/application.rb`에 추가:

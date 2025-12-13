@@ -34,10 +34,8 @@ source:
 
 # Output configuration
 output:
-  # Where to write compiled .rb files
+  # Where to write compiled .rb and .rbs files
   ruby_dir: build
-  # Where to write .rbs signature files
-  rbs_dir: sig
   # Preserve source directory structure
   preserve_structure: true
 
@@ -96,15 +94,15 @@ source:
 
 ```yaml
 output:
-  # Directory for compiled Ruby files
+  # Directory for compiled .rb and .rbs files
   ruby_dir: build
 
-  # Directory for RBS signature files
-  rbs_dir: sig
+  # Separate directory for RBS files (optional, defaults to ruby_dir)
+  # rbs_dir: sig
 
   # Preserve source directory structure in output
-  # true:  src/models/user.trb → build/models/user.rb
-  # false: src/models/user.trb → build/user.rb
+  # true:  src/models/user.trb → build/models/user.rb + build/models/user.rbs
+  # false: src/models/user.trb → build/user.rb + build/user.rbs
   preserve_structure: true
 
   # Clean output directory before compilation
@@ -160,48 +158,25 @@ watch:
   on_success: "bundle exec rspec"
 ```
 
-### Type Resolution
-
-```yaml
-types:
-  # Additional type definition paths
-  paths:
-    - types
-    - vendor/types
-
-  # Auto-import standard library types
-  stdlib: true
-
-  # External type definitions
-  external:
-    - rails
-    - rspec
-```
-
 ## Directory Structure
 
 A typical T-Ruby project structure:
 
 ```
 my-project/
-├── trbconfig.yml              # Configuration
-├── src/                  # T-Ruby source files
+├── trbconfig.yml         # Configuration
+├── src/                  # T-Ruby source files (.trb)
 │   ├── models/
 │   │   ├── user.trb
 │   │   └── post.trb
 │   ├── services/
 │   │   └── auth_service.trb
 │   └── main.trb
-├── types/                # Custom type definitions
-│   └── external.rbs
-├── build/                # Compiled Ruby output
+├── build/                # Compiled output (.rb + .rbs)
 │   ├── models/
 │   │   ├── user.rb
-│   │   └── post.rb
-│   └── ...
-├── sig/                  # Generated RBS files
-│   ├── models/
 │   │   ├── user.rbs
+│   │   ├── post.rb
 │   │   └── post.rbs
 │   └── ...
 └── test/                 # Tests (can be .rb or .trb)
@@ -284,11 +259,6 @@ output:
 
 compiler:
   strictness: standard
-
-types:
-  external:
-    - rails
-    - activerecord
 ```
 
 Add to your `config/application.rb`:
