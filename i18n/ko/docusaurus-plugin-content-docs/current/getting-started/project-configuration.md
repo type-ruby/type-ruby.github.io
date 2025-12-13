@@ -13,9 +13,9 @@ description: 프로젝트에서 T-Ruby 구성하기
 
 ## 구성 파일
 
-프로젝트 루트에 `trc.yaml` 파일을 생성합니다:
+프로젝트 루트에 `trbconfig.yml` 파일을 생성합니다:
 
-```yaml title="trc.yaml"
+```yaml title="trbconfig.yml"
 # T-Ruby 구성
 
 # 컴파일러 버전 요구사항
@@ -59,7 +59,7 @@ compiler:
 trc init
 ```
 
-이것은 합리적인 기본값으로 `trc.yaml`을 생성합니다.
+이것은 합리적인 기본값으로 `trbconfig.yml`을 생성합니다.
 
 대화형 설정의 경우:
 
@@ -184,7 +184,7 @@ types:
 
 ```
 my-project/
-├── trc.yaml              # 구성
+├── trbconfig.yml              # 구성
 ├── src/                  # T-Ruby 소스 파일
 │   ├── models/
 │   │   ├── user.trb
@@ -212,7 +212,7 @@ my-project/
 
 환경 변수 또는 여러 구성 파일 사용:
 
-```yaml title="trc.yaml"
+```yaml title="trbconfig.yml"
 # 기본 구성
 
 compiler:
@@ -256,7 +256,7 @@ Rake 태스크 생성:
 require "t-ruby/rake_task"
 
 TRuby::RakeTask.new(:compile) do |t|
-  t.config_file = "trc.yaml"
+  t.config_file = "trbconfig.yml"
 end
 
 # 테스트 실행 전 컴파일
@@ -274,7 +274,7 @@ bundle exec rake test
 
 Rails 프로젝트의 경우, Rails 구조에 맞게 T-Ruby 구성:
 
-```yaml title="trc.yaml"
+```yaml title="trbconfig.yml"
 source:
   include:
     - app/models
@@ -354,13 +354,13 @@ typecheck:
 monorepo/
 ├── packages/
 │   ├── core/
-│   │   ├── trc.yaml
+│   │   ├── trbconfig.yml
 │   │   └── src/
 │   ├── web/
-│   │   ├── trc.yaml
+│   │   ├── trbconfig.yml
 │   │   └── src/
 │   └── api/
-│       ├── trc.yaml
+│       ├── trbconfig.yml
 │       └── src/
 └── trc.workspace.yaml
 ```

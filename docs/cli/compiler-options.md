@@ -16,7 +16,7 @@ T-Ruby's compiler provides extensive options to control compilation, type checki
 Compiler options can be specified in three ways:
 
 1. **Command-line flags**: `trc --strict compile src/`
-2. **Configuration file**: In `trc.yaml` under `compiler:` section
+2. **Configuration file**: In `trbconfig.yml` under `compiler:` section
 3. **Environment variables**: `TRC_STRICT=true trc compile src/`
 
 Command-line flags override configuration file settings.
@@ -1033,14 +1033,14 @@ Variables override config file but are overridden by command-line flags.
 Options are resolved in this order (later overrides earlier):
 
 1. Default values
-2. Configuration file (`trc.yaml`)
+2. Configuration file (`trbconfig.yml`)
 3. Environment variables
 4. Command-line flags
 
 Example:
 
 ```yaml
-# trc.yaml
+# trbconfig.yml
 compiler:
   strictness: standard
 ```
@@ -1099,5 +1099,5 @@ trc compile --strict src/
 ## Next Steps
 
 - [Commands Reference](/docs/cli/commands) - Learn about all CLI commands
-- [Configuration File](/docs/cli/configuration) - Configure via `trc.yaml`
+- [Configuration File](/docs/cli/configuration) - Configure via `trbconfig.yml`
 - [Type Annotations](/docs/learn/basics/type-annotations) - Start writing typed code

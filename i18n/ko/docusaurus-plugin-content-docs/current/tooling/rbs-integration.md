@@ -96,7 +96,7 @@ end
 
 기본적으로 RBS 파일이 생성됩니다. 이를 제어할 수 있습니다:
 
-```yaml title="trc.yaml"
+```yaml title="trbconfig.yml"
 compiler:
   generate_rbs: true  # 기본값
 ```
@@ -115,7 +115,7 @@ trc compile --rbs-only src/
 
 RBS 파일이 작성될 위치 설정:
 
-```yaml title="trc.yaml"
+```yaml title="trbconfig.yml"
 output:
   rbs_dir: sig  # 기본값
 ```
@@ -445,7 +445,7 @@ sig/
     └── external.rbs
 ```
 
-```yaml title="trc.yaml"
+```yaml title="trbconfig.yml"
 output:
   rbs_dir: sig/generated
 
@@ -603,7 +603,7 @@ class User < ApplicationRecord
 end
 ```
 
-```yaml title="trc.yaml"
+```yaml title="trbconfig.yml"
 source:
   include:
     - app/models

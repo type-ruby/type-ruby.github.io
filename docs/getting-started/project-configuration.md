@@ -13,9 +13,9 @@ For larger projects, T-Ruby uses a configuration file to manage compiler options
 
 ## Configuration File
 
-Create a `trc.yaml` file in your project root:
+Create a `trbconfig.yml` file in your project root:
 
-```yaml title="trc.yaml"
+```yaml title="trbconfig.yml"
 # T-Ruby Configuration
 
 # Compiler version requirement
@@ -59,7 +59,7 @@ Use `trc init` to create a configuration file:
 trc init
 ```
 
-This creates a `trc.yaml` with sensible defaults.
+This creates a `trbconfig.yml` with sensible defaults.
 
 For interactive setup:
 
@@ -184,7 +184,7 @@ A typical T-Ruby project structure:
 
 ```
 my-project/
-├── trc.yaml              # Configuration
+├── trbconfig.yml              # Configuration
 ├── src/                  # T-Ruby source files
 │   ├── models/
 │   │   ├── user.trb
@@ -212,7 +212,7 @@ my-project/
 
 Use environment variables or multiple config files:
 
-```yaml title="trc.yaml"
+```yaml title="trbconfig.yml"
 # Base configuration
 
 compiler:
@@ -252,7 +252,7 @@ Create a Rake task:
 require "t-ruby/rake_task"
 
 TRuby::RakeTask.new(:compile) do |t|
-  t.config_file = "trc.yaml"
+  t.config_file = "trbconfig.yml"
 end
 
 # Compile before running tests
@@ -270,7 +270,7 @@ bundle exec rake test
 
 For Rails projects, configure T-Ruby to work with the Rails structure:
 
-```yaml title="trc.yaml"
+```yaml title="trbconfig.yml"
 source:
   include:
     - app/models
@@ -348,13 +348,13 @@ For monorepos with multiple packages:
 monorepo/
 ├── packages/
 │   ├── core/
-│   │   ├── trc.yaml
+│   │   ├── trbconfig.yml
 │   │   └── src/
 │   ├── web/
-│   │   ├── trc.yaml
+│   │   ├── trbconfig.yml
 │   │   └── src/
 │   └── api/
-│       ├── trc.yaml
+│       ├── trbconfig.yml
 │       └── src/
 └── trc.workspace.yaml
 ```

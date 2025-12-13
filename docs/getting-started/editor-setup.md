@@ -88,7 +88,7 @@ Add to your Neovim configuration:
 require('lspconfig').t_ruby_lsp.setup {
   cmd = { "t-ruby-lsp" },
   filetypes = { "truby" },
-  root_dir = require('lspconfig').util.root_pattern("trc.yaml", ".git"),
+  root_dir = require('lspconfig').util.root_pattern("trbconfig.yml", ".git"),
   settings = {
     truby = {
       typeCheck = {

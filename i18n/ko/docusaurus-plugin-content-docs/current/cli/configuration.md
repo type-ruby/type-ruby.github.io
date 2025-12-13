@@ -9,13 +9,13 @@ description: T-Ruby 설정 파일 레퍼런스
 
 # 설정
 
-T-Ruby는 `trc.yaml` 파일을 사용하여 컴파일러 동작, 소스 파일, 출력 위치, 타입 검사 규칙을 설정합니다. 이 레퍼런스는 사용 가능한 모든 설정 옵션을 다룹니다.
+T-Ruby는 `trbconfig.yml` 파일을 사용하여 컴파일러 동작, 소스 파일, 출력 위치, 타입 검사 규칙을 설정합니다. 이 레퍼런스는 사용 가능한 모든 설정 옵션을 다룹니다.
 
 ## 설정 파일
 
-프로젝트 루트에 `trc.yaml`을 배치합니다:
+프로젝트 루트에 `trbconfig.yml`을 배치합니다:
 
-```yaml title="trc.yaml"
+```yaml title="trbconfig.yml"
 # T-Ruby 설정 파일
 version: ">=1.0.0"
 
@@ -708,7 +708,7 @@ types:
   stdlib: true
 ```
 
-**trc.yaml:**
+**trbconfig.yml:**
 ```yaml
 extends: trc.base.yaml
 
@@ -746,9 +746,9 @@ workspace:
         strictness: standard
 ```
 
-각 패키지는 자체 `trc.yaml`을 가집니다:
+각 패키지는 자체 `trbconfig.yml`을 가집니다:
 
-**packages/core/trc.yaml:**
+**packages/core/trbconfig.yml:**
 ```yaml
 source:
   include:
@@ -769,7 +769,7 @@ trc --workspace compile
 
 Rails 애플리케이션을 위한 포괄적인 설정:
 
-```yaml title="trc.yaml"
+```yaml title="trbconfig.yml"
 # Rails 앱을 위한 T-Ruby 설정
 version: ">=1.2.0"
 
@@ -896,7 +896,7 @@ trc config --debug
 
 ```
 Configuration loaded from:
-  - /path/to/trc.yaml
+  - /path/to/trbconfig.yml
   - Environment variables:
     - TRC_STRICTNESS=standard
   - Command line:
@@ -973,7 +973,7 @@ compiler:
 ### 3. 환경별 설정 사용
 
 ```yaml
-# trc.yaml (기본값 - 개발)
+# trbconfig.yml (기본값 - 개발)
 compiler:
   strictness: standard
 
@@ -1001,7 +1001,7 @@ compiler:
 ### 5. 버전 관리에 설정 유지
 
 ```bash
-git add trc.yaml
+git add trbconfig.yml
 git commit -m "Add T-Ruby configuration"
 ```
 

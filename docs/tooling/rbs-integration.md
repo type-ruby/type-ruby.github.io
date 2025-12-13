@@ -90,7 +90,7 @@ end
 
 By default, RBS files are generated. You can control this:
 
-```yaml title="trc.yaml"
+```yaml title="trbconfig.yml"
 compiler:
   generate_rbs: true  # Default
 ```
@@ -109,7 +109,7 @@ trc compile --rbs-only src/
 
 Configure where RBS files are written:
 
-```yaml title="trc.yaml"
+```yaml title="trbconfig.yml"
 output:
   rbs_dir: sig  # Default
 ```
@@ -403,7 +403,7 @@ sig/
     └── external.rbs
 ```
 
-```yaml title="trc.yaml"
+```yaml title="trbconfig.yml"
 output:
   rbs_dir: sig/generated
 
@@ -555,7 +555,7 @@ class User < ApplicationRecord
 end
 ```
 
-```yaml title="trc.yaml"
+```yaml title="trbconfig.yml"
 source:
   include:
     - app/models

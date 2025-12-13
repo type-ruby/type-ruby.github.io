@@ -788,7 +788,7 @@ target :test do
 end
 ```
 
-```yaml title="trc.yaml"
+```yaml title="trbconfig.yml"
 source:
   include:
     - src/app

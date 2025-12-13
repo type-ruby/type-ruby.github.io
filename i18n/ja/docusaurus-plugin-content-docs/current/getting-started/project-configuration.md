@@ -13,9 +13,9 @@ description: プロジェクトでT-Rubyを設定する
 
 ## 設定ファイル
 
-プロジェクトルートに`trc.yaml`ファイルを作成します：
+プロジェクトルートに`trbconfig.yml`ファイルを作成します：
 
-```yaml title="trc.yaml"
+```yaml title="trbconfig.yml"
 # T-Ruby設定
 
 # コンパイラバージョン要件
@@ -59,7 +59,7 @@ compiler:
 trc init
 ```
 
-これにより、適切なデフォルト値で`trc.yaml`が作成されます。
+これにより、適切なデフォルト値で`trbconfig.yml`が作成されます。
 
 対話的なセットアップの場合：
 
@@ -184,7 +184,7 @@ types:
 
 ```
 my-project/
-├── trc.yaml              # 設定
+├── trbconfig.yml              # 設定
 ├── src/                  # T-Rubyソースファイル
 │   ├── models/
 │   │   ├── user.trb
@@ -212,7 +212,7 @@ my-project/
 
 環境変数または複数の設定ファイルを使用：
 
-```yaml title="trc.yaml"
+```yaml title="trbconfig.yml"
 # ベース設定
 
 compiler:
@@ -252,7 +252,7 @@ Rakeタスクを作成：
 require "t-ruby/rake_task"
 
 TRuby::RakeTask.new(:compile) do |t|
-  t.config_file = "trc.yaml"
+  t.config_file = "trbconfig.yml"
 end
 
 # テスト実行前にコンパイル
@@ -270,7 +270,7 @@ bundle exec rake test
 
 Railsプロジェクトの場合、Rails構造に合わせてT-Rubyを設定：
 
-```yaml title="trc.yaml"
+```yaml title="trbconfig.yml"
 source:
   include:
     - app/models
@@ -348,13 +348,13 @@ typecheck:
 monorepo/
 ├── packages/
 │   ├── core/
-│   │   ├── trc.yaml
+│   │   ├── trbconfig.yml
 │   │   └── src/
 │   ├── web/
-│   │   ├── trc.yaml
+│   │   ├── trbconfig.yml
 │   │   └── src/
 │   └── api/
-│       ├── trc.yaml
+│       ├── trbconfig.yml
 │       └── src/
 └── trc.workspace.yaml
 ```

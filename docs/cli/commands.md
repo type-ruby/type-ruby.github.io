@@ -191,7 +191,7 @@ trc watch --debounce 500
 **Watch configuration files too:**
 
 ```bash
-trc watch src/ --include "trc.yaml"
+trc watch src/ --include "trbconfig.yml"
 ```
 
 ### Output
@@ -372,7 +372,7 @@ Initialize a new T-Ruby project with configuration file and directory structure.
 ### Basic Usage
 
 ```bash
-# Create trc.yaml in current directory
+# Create trbconfig.yml in current directory
 trc init
 
 # Interactive setup
@@ -411,7 +411,7 @@ trc init --template basic
 
 Creates:
 ```
-trc.yaml
+trbconfig.yml
 src/
 build/
 sig/
@@ -529,7 +529,7 @@ T-Ruby Project Setup
 ? Create directory structure? Yes
 ? Initialize git repository? Yes
 
-✓ Created trc.yaml
+✓ Created trbconfig.yml
 ✓ Created src/
 ✓ Created build/
 ✓ Created sig/
@@ -583,7 +583,7 @@ trc -h
 trc compile --help
 
 # Use specific config file
-trc --config path/to/trc.yaml
+trc --config path/to/trbconfig.yml
 
 # Set log level (debug, info, warn, error)
 trc --log-level debug
@@ -600,11 +600,11 @@ trc --stack-trace
 
 ## Configuration File
 
-Commands respect the `trc.yaml` configuration file. Command-line options override config file settings.
+Commands respect the `trbconfig.yml` configuration file. Command-line options override config file settings.
 
 Example workflow:
 
-```yaml title="trc.yaml"
+```yaml title="trbconfig.yml"
 source:
   include:
     - src
@@ -623,7 +623,7 @@ compiler:
 Then simply run:
 
 ```bash
-# Uses settings from trc.yaml
+# Uses settings from trbconfig.yml
 trc compile
 trc watch
 trc check
@@ -733,7 +733,7 @@ trc compile . --log-level debug
 **Unexpected output location:**
 ```bash
 # Check your configuration
-cat trc.yaml
+cat trbconfig.yml
 
 # Or specify explicitly
 trc compile src/ --output build/ --rbs-dir sig/
@@ -741,6 +741,6 @@ trc compile src/ --output build/ --rbs-dir sig/
 
 ## Next Steps
 
-- [Configuration Reference](/docs/cli/configuration) - Learn about `trc.yaml` options
+- [Configuration Reference](/docs/cli/configuration) - Learn about `trbconfig.yml` options
 - [Compiler Options](/docs/cli/compiler-options) - Detailed compiler flags and settings
 - [Project Configuration](/docs/getting-started/project-configuration) - Set up your project

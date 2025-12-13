@@ -659,7 +659,7 @@ end
 
 마이그레이션 중 permissive 모드로 시작:
 
-```yaml title="trc.yaml"
+```yaml title="trbconfig.yml"
 compiler:
   strictness: permissive
 
@@ -678,7 +678,7 @@ compiler:
 
 더 많은 타입을 추가하면 엄격도 증가:
 
-```yaml title="trc.yaml"
+```yaml title="trbconfig.yml"
 compiler:
   strictness: standard  # permissive에서 이동
 
@@ -692,7 +692,7 @@ compiler:
 
 완전히 마이그레이션되면:
 
-```yaml title="trc.yaml"
+```yaml title="trbconfig.yml"
 compiler:
   strictness: strict
 
@@ -722,7 +722,7 @@ app/
 
 T-Ruby가 `.trb` 파일만 컴파일하도록 설정:
 
-```yaml title="trc.yaml"
+```yaml title="trbconfig.yml"
 source:
   include:
     - app/models
@@ -789,7 +789,7 @@ bundle exec rake test
 
 ### 1단계: 설정
 - [ ] T-Ruby 설치
-- [ ] `trc.yaml` 설정 생성
+- [ ] `trbconfig.yml` 설정 생성
 - [ ] 감시 모드 설정
 - [ ] 타입 검사를 위한 CI 설정
 
