@@ -34,10 +34,8 @@ source:
 
 # 出力設定
 output:
-  # コンパイルされた.rbファイルの書き込み先
+  # コンパイルされた.rbおよび.rbsファイルの書き込み先
   ruby_dir: build
-  # .rbsシグネチャファイルの書き込み先
-  rbs_dir: sig
   # ソースディレクトリ構造を保持
   preserve_structure: true
 
@@ -96,15 +94,15 @@ source:
 
 ```yaml
 output:
-  # コンパイルされたRubyファイル用ディレクトリ
+  # コンパイルされた.rbおよび.rbsファイル用ディレクトリ
   ruby_dir: build
 
-  # RBSシグネチャファイル用ディレクトリ
-  rbs_dir: sig
+  # RBSファイル用別ディレクトリ（オプション、デフォルトはruby_dir）
+  # rbs_dir: sig
 
   # 出力でソースディレクトリ構造を保持
-  # true:  src/models/user.trb → build/models/user.rb
-  # false: src/models/user.trb → build/user.rb
+  # true:  src/models/user.trb → build/models/user.rb + build/models/user.rbs
+  # false: src/models/user.trb → build/user.rb + build/user.rbs
   preserve_structure: true
 
   # コンパイル前に出力ディレクトリをクリーン
@@ -160,48 +158,25 @@ watch:
   on_success: "bundle exec rspec"
 ```
 
-### 型解決
-
-```yaml
-types:
-  # 追加の型定義パス
-  paths:
-    - types
-    - vendor/types
-
-  # 標準ライブラリ型を自動インポート
-  stdlib: true
-
-  # 外部型定義
-  external:
-    - rails
-    - rspec
-```
-
 ## ディレクトリ構造
 
 典型的なT-Rubyプロジェクト構造：
 
 ```
 my-project/
-├── trbconfig.yml              # 設定
-├── src/                  # T-Rubyソースファイル
+├── trbconfig.yml         # 設定
+├── src/                  # T-Rubyソースファイル（.trb）
 │   ├── models/
 │   │   ├── user.trb
 │   │   └── post.trb
 │   ├── services/
 │   │   └── auth_service.trb
 │   └── main.trb
-├── types/                # カスタム型定義
-│   └── external.rbs
-├── build/                # コンパイルされたRuby出力
+├── build/                # コンパイル出力（.rb + .rbs）
 │   ├── models/
 │   │   ├── user.rb
-│   │   └── post.rb
-│   └── ...
-├── sig/                  # 生成されたRBSファイル
-│   ├── models/
 │   │   ├── user.rbs
+│   │   ├── post.rb
 │   │   └── post.rbs
 │   └── ...
 └── test/                 # テスト（.rbまたは.trb）
@@ -284,11 +259,6 @@ output:
 
 compiler:
   strictness: standard
-
-types:
-  external:
-    - rails
-    - activerecord
 ```
 
 `config/application.rb`に追加：
