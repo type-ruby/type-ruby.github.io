@@ -51,10 +51,10 @@ compiler:
 
 ## プロジェクトの初期化
 
-`trc init`を使用して設定ファイルを作成：
+`trc --init`を使用して設定ファイルを作成：
 
 ```bash
-trc init
+trc --init
 ```
 
 これにより、適切なデフォルト値で`trbconfig.yml`が作成されます。
@@ -62,7 +62,7 @@ trc init
 対話的なセットアップの場合：
 
 ```bash
-trc init --interactive
+trc --init --interactive
 ```
 
 ## 設定オプションリファレンス

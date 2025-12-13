@@ -51,10 +51,10 @@ compiler:
 
 ## Initializing a Project
 
-Use `trc init` to create a configuration file:
+Use `trc --init` to create a configuration file:
 
 ```bash
-trc init
+trc --init
 ```
 
 This creates a `trbconfig.yml` with sensible defaults.
@@ -62,7 +62,7 @@ This creates a `trbconfig.yml` with sensible defaults.
 For interactive setup:
 
 ```bash
-trc init --interactive
+trc --init --interactive
 ```
 
 ## Configuration Options Reference
