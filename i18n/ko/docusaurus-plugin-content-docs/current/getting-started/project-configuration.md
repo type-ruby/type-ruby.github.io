@@ -51,10 +51,10 @@ compiler:
 
 ## 프로젝트 초기화
 
-`trc init`을 사용하여 구성 파일 생성:
+`trc --init`을 사용하여 구성 파일 생성:
 
 ```bash
-trc init
+trc --init
 ```
 
 이것은 합리적인 기본값으로 `trbconfig.yml`을 생성합니다.
@@ -62,7 +62,7 @@ trc init
 대화형 설정의 경우:
 
 ```bash
-trc init --interactive
+trc --init --interactive
 ```
 
 ## 구성 옵션 참조
