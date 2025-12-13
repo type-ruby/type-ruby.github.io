@@ -16,7 +16,7 @@ T-Rubyのコンパイラは、コンパイル、型チェック、コード生�
 コンパイラオプションは3つの方法で指定できます：
 
 1. **コマンドラインフラグ**: `trc --strict compile src/`
-2. **設定ファイル**: `trc.yaml`の`compiler:`セクション
+2. **設定ファイル**: `trbconfig.yml`の`compiler:`セクション
 3. **環境変数**: `TRC_STRICT=true trc compile src/`
 
 コマンドラインフラグは設定ファイルの設定より優先されます。
@@ -1033,14 +1033,14 @@ trc compile src/
 オプションは以下の順序で解決されます（後のものが前のものを上書き）：
 
 1. デフォルト値
-2. 設定ファイル（`trc.yaml`）
+2. 設定ファイル（`trbconfig.yml`）
 3. 環境変数
 4. コマンドラインフラグ
 
 例：
 
 ```yaml
-# trc.yaml
+# trbconfig.yml
 compiler:
   strictness: standard
 ```
@@ -1099,5 +1099,5 @@ trc compile --strict src/
 ## 次のステップ
 
 - [コマンドリファレンス](/docs/cli/commands) - すべてのCLIコマンドを学ぶ
-- [設定ファイル](/docs/cli/configuration) - `trc.yaml`で設定する
+- [設定ファイル](/docs/cli/configuration) - `trbconfig.yml`で設定する
 - [型アノテーション](/docs/learn/basics/type-annotations) - 型付きコードを書き始める

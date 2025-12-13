@@ -609,7 +609,7 @@ end
 
 Start with permissive mode during migration:
 
-```yaml title="trc.yaml"
+```yaml title="trbconfig.yml"
 compiler:
   strictness: permissive
 
@@ -628,7 +628,7 @@ This allows:
 
 As you add more types, increase strictness:
 
-```yaml title="trc.yaml"
+```yaml title="trbconfig.yml"
 compiler:
   strictness: standard  # Move from permissive
 
@@ -642,7 +642,7 @@ compiler:
 
 Once fully migrated:
 
-```yaml title="trc.yaml"
+```yaml title="trbconfig.yml"
 compiler:
   strictness: strict
 
@@ -672,7 +672,7 @@ app/
 
 Configure T-Ruby to only compile `.trb` files:
 
-```yaml title="trc.yaml"
+```yaml title="trbconfig.yml"
 source:
   include:
     - app/models
@@ -739,7 +739,7 @@ bundle exec rake test
 
 ### Phase 1: Setup
 - [ ] Install T-Ruby
-- [ ] Create `trc.yaml` configuration
+- [ ] Create `trbconfig.yml` configuration
 - [ ] Set up watch mode
 - [ ] Configure CI for type checking
 

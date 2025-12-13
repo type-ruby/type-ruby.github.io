@@ -191,7 +191,7 @@ trc watch --debounce 500
 **設定ファイルも監視:**
 
 ```bash
-trc watch src/ --include "trc.yaml"
+trc watch src/ --include "trbconfig.yml"
 ```
 
 ### 出力
@@ -372,7 +372,7 @@ trc check src/ --quiet --max-errors 5
 ### 基本的な使用法
 
 ```bash
-# 現在のディレクトリにtrc.yamlを作成
+# 現在のディレクトリにtrbconfig.ymlを作成
 trc init
 
 # インタラクティブセットアップ
@@ -411,7 +411,7 @@ trc init --template basic
 
 作成:
 ```
-trc.yaml
+trbconfig.yml
 src/
 build/
 sig/
@@ -529,7 +529,7 @@ T-Rubyプロジェクトセットアップ
 ? ディレクトリ構造を作成しますか? Yes
 ? gitリポジトリを初期化しますか? Yes
 
-✓ trc.yamlを作成しました
+✓ trbconfig.ymlを作成しました
 ✓ src/を作成しました
 ✓ build/を作成しました
 ✓ sig/を作成しました
@@ -583,7 +583,7 @@ trc -h
 trc compile --help
 
 # 特定の設定ファイルを使用
-trc --config path/to/trc.yaml
+trc --config path/to/trbconfig.yml
 
 # ログレベルを設定（debug, info, warn, error）
 trc --log-level debug
@@ -600,11 +600,11 @@ trc --stack-trace
 
 ## 設定ファイル
 
-コマンドは`trc.yaml`設定ファイルを尊重します。コマンドラインオプションは設定ファイルの設定を上書きします。
+コマンドは`trbconfig.yml`設定ファイルを尊重します。コマンドラインオプションは設定ファイルの設定を上書きします。
 
 ワークフロー例:
 
-```yaml title="trc.yaml"
+```yaml title="trbconfig.yml"
 source:
   include:
     - src
@@ -623,7 +623,7 @@ compiler:
 その後、単純に実行:
 
 ```bash
-# trc.yamlの設定を使用
+# trbconfig.ymlの設定を使用
 trc compile
 trc watch
 trc check
@@ -733,7 +733,7 @@ trc compile . --log-level debug
 **予期しない出力場所:**
 ```bash
 # 設定を確認
-cat trc.yaml
+cat trbconfig.yml
 
 # または明示的に指定
 trc compile src/ --output build/ --rbs-dir sig/
@@ -741,6 +741,6 @@ trc compile src/ --output build/ --rbs-dir sig/
 
 ## 次のステップ
 
-- [設定リファレンス](/docs/cli/configuration) - `trc.yaml`オプションを学ぶ
+- [設定リファレンス](/docs/cli/configuration) - `trbconfig.yml`オプションを学ぶ
 - [コンパイラオプション](/docs/cli/compiler-options) - 詳細なコンパイラフラグと設定
 - [プロジェクト設定](/docs/getting-started/project-configuration) - プロジェクトをセットアップ

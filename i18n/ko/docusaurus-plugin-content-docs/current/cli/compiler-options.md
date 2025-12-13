@@ -16,7 +16,7 @@ T-Ruby의 컴파일러는 컴파일, 타입 검사, 코드 생성을 제어하�
 컴파일러 옵션은 세 가지 방법으로 지정할 수 있습니다:
 
 1. **명령줄 플래그**: `trc --strict compile src/`
-2. **설정 파일**: `trc.yaml`의 `compiler:` 섹션에서
+2. **설정 파일**: `trbconfig.yml`의 `compiler:` 섹션에서
 3. **환경 변수**: `TRC_STRICT=true trc compile src/`
 
 명령줄 플래그가 설정 파일 설정보다 우선합니다.
@@ -1053,14 +1053,14 @@ trc compile src/
 옵션은 다음 순서로 해결됩니다 (나중 것이 이전 것을 덮어씀):
 
 1. 기본값
-2. 설정 파일 (`trc.yaml`)
+2. 설정 파일 (`trbconfig.yml`)
 3. 환경 변수
 4. 명령줄 플래그
 
 예시:
 
 ```yaml
-# trc.yaml
+# trbconfig.yml
 compiler:
   strictness: standard
 ```
@@ -1119,5 +1119,5 @@ trc compile --strict src/
 ## 다음 단계
 
 - [명령어 레퍼런스](/docs/cli/commands) - 모든 CLI 명령어 알아보기
-- [설정 파일](/docs/cli/configuration) - `trc.yaml`로 설정하기
+- [설정 파일](/docs/cli/configuration) - `trbconfig.yml`로 설정하기
 - [타입 어노테이션](/docs/learn/basics/type-annotations) - 타입이 지정된 코드 작성 시작

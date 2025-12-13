@@ -609,7 +609,7 @@ end
 
 移行中はpermissiveモードで開始：
 
-```yaml title="trc.yaml"
+```yaml title="trbconfig.yml"
 compiler:
   strictness: permissive
 
@@ -628,7 +628,7 @@ compiler:
 
 より多くの型を追加したら厳格さを増加：
 
-```yaml title="trc.yaml"
+```yaml title="trbconfig.yml"
 compiler:
   strictness: standard  # permissiveから移行
 
@@ -642,7 +642,7 @@ compiler:
 
 完全に移行したら：
 
-```yaml title="trc.yaml"
+```yaml title="trbconfig.yml"
 compiler:
   strictness: strict
 
@@ -672,7 +672,7 @@ app/
 
 T-Rubyが`.trb`ファイルのみをコンパイルするように設定：
 
-```yaml title="trc.yaml"
+```yaml title="trbconfig.yml"
 source:
   include:
     - app/models
@@ -739,7 +739,7 @@ bundle exec rake test
 
 ### フェーズ1：セットアップ
 - [ ] T-Rubyをインストール
-- [ ] `trc.yaml`設定を作成
+- [ ] `trbconfig.yml`設定を作成
 - [ ] ウォッチモードをセットアップ
 - [ ] 型チェック用にCIを設定
 

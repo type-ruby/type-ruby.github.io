@@ -9,13 +9,13 @@ description: T-Ruby設定ファイルリファレンス
 
 # 設定
 
-T-Rubyは`trc.yaml`ファイルを使用して、コンパイラの動作、ソースファイル、出力場所、型チェックルールを設定します。このリファレンスでは、利用可能なすべての設定オプションについて説明します。
+T-Rubyは`trbconfig.yml`ファイルを使用して、コンパイラの動作、ソースファイル、出力場所、型チェックルールを設定します。このリファレンスでは、利用可能なすべての設定オプションについて説明します。
 
 ## 設定ファイル
 
-プロジェクトルートに`trc.yaml`を配置します：
+プロジェクトルートに`trbconfig.yml`を配置します：
 
-```yaml title="trc.yaml"
+```yaml title="trbconfig.yml"
 # T-Ruby設定ファイル
 version: ">=1.0.0"
 
@@ -688,7 +688,7 @@ types:
   stdlib: true
 ```
 
-**trc.yaml:**
+**trbconfig.yml:**
 ```yaml
 extends: trc.base.yaml
 
@@ -726,9 +726,9 @@ workspace:
         strictness: standard
 ```
 
-各パッケージは独自の`trc.yaml`を持ちます：
+各パッケージは独自の`trbconfig.yml`を持ちます：
 
-**packages/core/trc.yaml:**
+**packages/core/trbconfig.yml:**
 ```yaml
 source:
   include:
@@ -749,7 +749,7 @@ trc --workspace compile
 
 Railsアプリケーション用の包括的な設定：
 
-```yaml title="trc.yaml"
+```yaml title="trbconfig.yml"
 # Railsアプリ用T-Ruby設定
 version: ">=1.2.0"
 
@@ -876,7 +876,7 @@ trc config --debug
 
 ```
 Configuration loaded from:
-  - /path/to/trc.yaml
+  - /path/to/trbconfig.yml
   - Environment variables:
     - TRC_STRICTNESS=standard
   - Command line:
@@ -953,7 +953,7 @@ compiler:
 ### 3. 環境別設定を使用
 
 ```yaml
-# trc.yaml（デフォルト - 開発）
+# trbconfig.yml（デフォルト - 開発）
 compiler:
   strictness: standard
 
@@ -981,7 +981,7 @@ compiler:
 ### 5. バージョン管理に設定を保持
 
 ```bash
-git add trc.yaml
+git add trbconfig.yml
 git commit -m "Add T-Ruby configuration"
 ```
 
