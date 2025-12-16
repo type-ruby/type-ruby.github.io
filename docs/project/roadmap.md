@@ -203,10 +203,7 @@ def add_id<T: { ... }>(obj: T): T & { id: Integer }
 We welcome community input:
 
 1. **Vote on Features** - Star issues on GitHub to show interest
-2. **Request Features** - Open detailed feature requests
-3. **Contribute Code** - Submit PRs for roadmap items
-4. **Share Feedback** - Tell us what works and what doesn't
-5. **Join Discussions** - Participate in RFC process
+2. **Request Features** - [Open a feature request](https://github.com/type-ruby/t-ruby/issues/new)
 
 ## Get Involved
 
@@ -224,8 +221,6 @@ See our [Contributing Guide](/docs/project/contributing) to get started.
 ## Stay Updated
 
 - **GitHub** - Watch the repository for updates
-- **Twitter** - Follow [@t_ruby](https://twitter.com/t_ruby) for announcements
-- **Discord** - Join our community chat
 
 ---
 
