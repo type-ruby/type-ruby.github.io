@@ -80,133 +80,108 @@ VS Code拡張機能が提供するもの：
 
 ## Neovim
 
-T-Rubyは組み込みLSPクライアントを通じてNeovimをサポートします。
+T-Rubyは[t-ruby-vim](https://github.com/type-ruby/t-ruby-vim)プラグインを通じて公式Neovimサポートを提供します。
 
-### nvim-lspconfigの使用
+### インストール
 
-Neovim設定に追加：
+お好みのプラグインマネージャーを使用：
+
+```lua title="lazy.nvim"
+{
+  'type-ruby/t-ruby-vim',
+  ft = { 'truby' },
+}
+```
+
+```vim title="vim-plug"
+Plug 'type-ruby/t-ruby-vim'
+```
+
+### LSP設定
+
+プラグインは組み込みLSP設定を提供します：
 
 ```lua title="init.lua"
--- t-ruby-lspがなければインストール
--- gem install t-ruby-lsp
+require('t-ruby').setup()
+```
 
-require('lspconfig').t_ruby_lsp.setup {
-  cmd = { "t-ruby-lsp" },
-  filetypes = { "truby" },
-  root_dir = require('lspconfig').util.root_pattern("trbconfig.yml", ".git"),
-  settings = {
-    truby = {
-      typeCheck = {
-        enabled = true
-      }
+またはカスタムオプション付き：
+
+```lua title="init.lua"
+require('t-ruby').setup({
+  cmd = { 'trc', '--lsp' },
+  on_attach = function(client, bufnr)
+    -- on_attach関数
+    local opts = { buffer = bufnr }
+    vim.keymap.set('n', 'gd', vim.lsp.buf.definition, opts)
+    vim.keymap.set('n', 'K', vim.lsp.buf.hover, opts)
+    vim.keymap.set('n', '<leader>rn', vim.lsp.buf.rename, opts)
+  end,
+})
+```
+
+### コマンド
+
+LSP設定後、以下のコマンドが使用可能：
+
+- `:TRubyCompile` - 現在のファイルをコンパイル
+- `:TRubyDecl` - 宣言ファイルを生成
+- `:TRubyLspInfo` - LSPステータスを表示
+
+### coc.nvimの使用
+
+`coc-settings.json`に追加：
+
+```json
+{
+  "languageserver": {
+    "t-ruby": {
+      "command": "trc",
+      "args": ["--lsp"],
+      "filetypes": ["truby"],
+      "rootPatterns": ["trbconfig.yml", ".git/"]
     }
   }
 }
 ```
 
-### Tree-sitterでシンタックスハイライト
-
-シンタックスハイライトのために、T-Ruby tree-sitterパーサーを追加：
-
-```lua title="init.lua"
-require('nvim-treesitter.configs').setup {
-  ensure_installed = { "ruby", "truby" },
-  highlight = {
-    enable = true,
-  },
-}
-```
-
-### ファイルタイプ検出
-
-`.trb`ファイルのファイルタイプ検出を追加：
-
-```lua title="init.lua"
-vim.filetype.add({
-  extension = {
-    trb = "truby",
-  },
-})
-```
-
 ### 推奨プラグイン
 
 - **nvim-lspconfig** - LSP設定
-- **nvim-treesitter** - シンタックスハイライト
 - **nvim-cmp** - オートコンプリート
 - **lspsaga.nvim** - 拡張LSP UI
 
-### 完全なNeovim設定例
+## Vim
 
-```lua title="init.lua"
--- ファイルタイプ検出
-vim.filetype.add({
-  extension = {
-    trb = "truby",
-  },
-})
+T-Rubyは[t-ruby-vim](https://github.com/type-ruby/t-ruby-vim)プラグインを通じて公式Vimサポートを提供します。
 
--- LSP設定
-local lspconfig = require('lspconfig')
+### インストール
 
-lspconfig.t_ruby_lsp.setup {
-  on_attach = function(client, bufnr)
-    -- <c-x><c-o>でトリガーされる補完を有効化
-    vim.bo[bufnr].omnifunc = 'v:lua.vim.lsp.omnifunc'
-
-    -- キーマップ
-    local opts = { buffer = bufnr }
-    vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, opts)
-    vim.keymap.set('n', 'gd', vim.lsp.buf.definition, opts)
-    vim.keymap.set('n', 'K', vim.lsp.buf.hover, opts)
-    vim.keymap.set('n', '<leader>rn', vim.lsp.buf.rename, opts)
-    vim.keymap.set('n', '<leader>ca', vim.lsp.buf.code_action, opts)
-  end,
-}
-
--- 保存時の自動コンパイル
-vim.api.nvim_create_autocmd("BufWritePost", {
-  pattern = "*.trb",
-  callback = function()
-    vim.fn.system("trc " .. vim.fn.expand("%"))
-  end,
-})
+```vim title="vim-plug"
+Plug 'type-ruby/t-ruby-vim'
 ```
 
-## Sublime Text
-
-### パッケージのインストール
-
-1. まだならPackage Controlをインストール
-2. コマンドパレットを開く（`Cmd+Shift+P` / `Ctrl+Shift+P`）
-3. "Package Control: Install Package"を選択
-4. "T-Ruby"を検索してインストール
-
-### 手動インストール
-
-Packagesディレクトリにシンタックスパッケージをクローン：
+または手動でクローン：
 
 ```bash
-cd ~/Library/Application\ Support/Sublime\ Text/Packages/  # macOS
-# または
-cd ~/.config/sublime-text/Packages/  # Linux
-
-git clone https://github.com/type-ruby/sublime-t-ruby.git T-Ruby
+git clone https://github.com/type-ruby/t-ruby-vim ~/.vim/pack/plugins/start/t-ruby-vim
 ```
 
-### 設定
+### 機能
 
-T-Ruby用のビルドシステムを追加：
+- `.trb`および`.d.trb`ファイルのシンタックスハイライト
+- ファイルタイプ検出
 
-```json title="T-Ruby.sublime-build"
-{
-  "cmd": ["trc", "$file"],
-  "file_regex": "^(.+):([0-9]+):([0-9]+): (.+)$",
-  "selector": "source.truby"
-}
+### カスタムキーマッピング
+
+```vim title=".vimrc"
+autocmd FileType truby nnoremap <buffer> <leader>tc :!trc %<CR>
+autocmd FileType truby nnoremap <buffer> <leader>td :!trc --decl %<CR>
 ```
 
 ## JetBrains IDE（RubyMine、IntelliJ）
+
+T-Rubyは[t-ruby-jetbrains](https://github.com/type-ruby/t-ruby-jetbrains)を通じて公式JetBrainsプラグインサポートを提供します。
 
 ### プラグインのインストール
 
@@ -215,94 +190,102 @@ T-Ruby用のビルドシステムを追加：
 3. "T-Ruby"を検索
 4. Installをクリックし、IDEを再起動
 
+### 機能
+
+プラグインが提供するもの：
+
+- `.trb`および`.d.trb`ファイルの**シンタックスハイライト**
+- LSP経由の**リアルタイム診断**
+- 型情報付き**オートコンプリート**
+- **定義へジャンプ**
+
 ### 設定
 
-プラグインが自動的に：
-- `.trb`ファイルをT-Rubyに関連付け
-- シンタックスハイライトを提供
-- 型エラーを表示
+プラグインは`trbconfig.yml`からプロジェクト設定を読み込みます。エディタ固有の設定は**Settings → Tools → T-Ruby**で構成できます：
 
-**Settings → Languages & Frameworks → T-Ruby**で追加設定：
-- 型チェックの有効化/無効化
-- コンパイラパスの設定
-- 出力ディレクトリの設定
+- **trcパス** - T-Rubyコンパイラのパス（デフォルト：`trc`）
+- **LSPを有効化** - Language Server Protocolサポートを有効化
+- **診断を有効化** - リアルタイム診断を有効化
+- **補完を有効化** - コード補完を有効化
+
+:::tip
+VS Codeと同様に、コンパイルオプションはIDE設定ではなく`trbconfig.yml`で構成してください。
+:::
+
+## Sublime Text
+
+:::note[近日公開]
+Sublime Textサポートは計画中ですが、まだ利用できません。`.trb`ファイルをRubyとして扱うことで、汎用シンタックスハイライトを使用できます。
+:::
+
+### 一時的な設定
+
+Rubyハイライトを使用するには、Sublime Text設定に追加：
+
+```json title="Preferences.sublime-settings"
+{
+  "file_associations": {
+    "*.trb": "Ruby"
+  }
+}
+```
 
 ## Emacs
 
-### t-ruby-modeの使用
+:::note[近日公開]
+Emacsサポートは計画中ですが、まだ利用できません。基本的なシンタックスハイライトには`ruby-mode`を使用できます。
+:::
 
-MELPAを通じてインストール：
+### 一時的な設定
 
 ```elisp
-(use-package t-ruby-mode
-  :ensure t
-  :mode "\\.trb\\'"
-  :hook (t-ruby-mode . lsp-deferred))
+(add-to-list 'auto-mode-alist '("\\.trb\\'" . ruby-mode))
 ```
 
-### LSP設定
-
-T-Ruby用のlsp-mode設定：
+LSPサポートには、T-Rubyコンパイラで設定：
 
 ```elisp
 (use-package lsp-mode
   :ensure t
-  :commands lsp
   :config
-  (add-to-list 'lsp-language-id-configuration '(t-ruby-mode . "truby"))
   (lsp-register-client
    (make-lsp-client
-    :new-connection (lsp-stdio-connection '("t-ruby-lsp"))
-    :major-modes '(t-ruby-mode)
+    :new-connection (lsp-stdio-connection '("trc" "--lsp"))
+    :major-modes '(ruby-mode)
     :server-id 't-ruby-lsp)))
-```
-
-## Vim（LSPなし）
-
-LSPなしの基本的なVimサポート：
-
-```vim title=".vimrc"
-" ファイルタイプ検出
-autocmd BufRead,BufNewFile *.trb set filetype=ruby
-
-" 保存時にコンパイル
-autocmd BufWritePost *.trb silent !trc %
-
-" シンタックスハイライト（Rubyハイライトを使用）
-autocmd FileType truby setlocal syntax=ruby
 ```
 
 ## 言語サーバー（LSP）
 
-T-Ruby言語サーバーは任意のLSP互換エディタで使用できます。
+T-Rubyコンパイラには、任意のLSP互換エディタで使用できる組み込み言語サーバーが含まれています。
 
-### インストール
-
-```bash
-gem install t-ruby-lsp
-```
-
-### 手動実行
+### LSPサーバーの実行
 
 ```bash
-t-ruby-lsp --stdio
+trc --lsp
 ```
+
+LSPサーバーはJSON-RPC形式でstdin/stdoutを通じて通信します。
 
 ### 機能
 
-LSPサーバーが提供するもの：
-
 | 機能 | サポート |
 |---------|---------|
-| シンタックスハイライト | セマンティックトークン経由 |
 | エラー診断 | 完全 |
 | ホバー情報 | 完全 |
 | 定義へジャンプ | 完全 |
-| 参照の検索 | 完全 |
 | オートコンプリート | 完全 |
-| コードフォーマット | 完全 |
-| コードアクション | 部分的 |
-| リネーム | 完全 |
+| 参照の検索 | 計画中 |
+| コードフォーマット | 計画中 |
+| リネーム | 計画中 |
+
+### 汎用LSP設定
+
+上記にリストされていないエディタの場合、LSPクライアントを以下を実行するように設定：
+
+```bash
+trc --lsp
+```
 
 ## トラブルシューティング
 
@@ -320,15 +303,14 @@ LSPサーバーが提供するもの：
 
 ### LSPに接続できない
 
-- LSPをインストール：`gem install t-ruby-lsp`
-- エディタ設定でLSPパスを確認
-- エラーのLSPサーバーログを確認
+- `trc`がPATHにあるか確認：`which trc`
+- LSPモードが動作するか確認：`trc --lsp`（入力待ちになるはず）
+- エディタLSPログでエラーを確認
 
 ### 型チェックが遅い
 
-- 遅すぎる場合は「入力時チェック」を無効化
-- 代わりに「保存時チェック」を使用
-- `node_modules`と`vendor`ディレクトリを除外
+- リアルタイムチェックの代わりに「保存時チェック」を使用
+- `trbconfig.yml`で`vendor`および`node_modules`ディレクトリを除外
 
 ## 次のステップ
 

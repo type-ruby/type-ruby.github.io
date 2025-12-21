@@ -80,133 +80,108 @@ For the best Ruby/T-Ruby experience, also install:
 
 ## Neovim
 
-T-Ruby supports Neovim through the built-in LSP client.
+T-Ruby provides official Neovim support through the [t-ruby-vim](https://github.com/type-ruby/t-ruby-vim) plugin.
 
-### Using nvim-lspconfig
+### Installation
 
-Add to your Neovim configuration:
+Using your preferred plugin manager:
+
+```lua title="lazy.nvim"
+{
+  'type-ruby/t-ruby-vim',
+  ft = { 'truby' },
+}
+```
+
+```vim title="vim-plug"
+Plug 'type-ruby/t-ruby-vim'
+```
+
+### LSP Setup
+
+The plugin provides built-in LSP configuration:
 
 ```lua title="init.lua"
--- Install t-ruby-lsp if not present
--- gem install t-ruby-lsp
+require('t-ruby').setup()
+```
 
-require('lspconfig').t_ruby_lsp.setup {
-  cmd = { "t-ruby-lsp" },
-  filetypes = { "truby" },
-  root_dir = require('lspconfig').util.root_pattern("trbconfig.yml", ".git"),
-  settings = {
-    truby = {
-      typeCheck = {
-        enabled = true
-      }
+Or with custom options:
+
+```lua title="init.lua"
+require('t-ruby').setup({
+  cmd = { 'trc', '--lsp' },
+  on_attach = function(client, bufnr)
+    -- Your on_attach function
+    local opts = { buffer = bufnr }
+    vim.keymap.set('n', 'gd', vim.lsp.buf.definition, opts)
+    vim.keymap.set('n', 'K', vim.lsp.buf.hover, opts)
+    vim.keymap.set('n', '<leader>rn', vim.lsp.buf.rename, opts)
+  end,
+})
+```
+
+### Commands
+
+After setting up LSP, the following commands are available:
+
+- `:TRubyCompile` - Compile the current file
+- `:TRubyDecl` - Generate declaration file
+- `:TRubyLspInfo` - Show LSP status
+
+### With coc.nvim
+
+Add to your `coc-settings.json`:
+
+```json
+{
+  "languageserver": {
+    "t-ruby": {
+      "command": "trc",
+      "args": ["--lsp"],
+      "filetypes": ["truby"],
+      "rootPatterns": ["trbconfig.yml", ".git/"]
     }
   }
 }
 ```
 
-### Syntax Highlighting with Tree-sitter
-
-For syntax highlighting, add the T-Ruby tree-sitter parser:
-
-```lua title="init.lua"
-require('nvim-treesitter.configs').setup {
-  ensure_installed = { "ruby", "truby" },
-  highlight = {
-    enable = true,
-  },
-}
-```
-
-### File Type Detection
-
-Add file type detection for `.trb` files:
-
-```lua title="init.lua"
-vim.filetype.add({
-  extension = {
-    trb = "truby",
-  },
-})
-```
-
 ### Recommended Plugins
 
 - **nvim-lspconfig** - LSP configuration
-- **nvim-treesitter** - Syntax highlighting
 - **nvim-cmp** - Autocompletion
 - **lspsaga.nvim** - Enhanced LSP UI
 
-### Complete Neovim Setup Example
+## Vim
 
-```lua title="init.lua"
--- File type detection
-vim.filetype.add({
-  extension = {
-    trb = "truby",
-  },
-})
+T-Ruby provides official Vim support through the [t-ruby-vim](https://github.com/type-ruby/t-ruby-vim) plugin.
 
--- LSP setup
-local lspconfig = require('lspconfig')
+### Installation
 
-lspconfig.t_ruby_lsp.setup {
-  on_attach = function(client, bufnr)
-    -- Enable completion triggered by <c-x><c-o>
-    vim.bo[bufnr].omnifunc = 'v:lua.vim.lsp.omnifunc'
-
-    -- Keymaps
-    local opts = { buffer = bufnr }
-    vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, opts)
-    vim.keymap.set('n', 'gd', vim.lsp.buf.definition, opts)
-    vim.keymap.set('n', 'K', vim.lsp.buf.hover, opts)
-    vim.keymap.set('n', '<leader>rn', vim.lsp.buf.rename, opts)
-    vim.keymap.set('n', '<leader>ca', vim.lsp.buf.code_action, opts)
-  end,
-}
-
--- Autocompile on save
-vim.api.nvim_create_autocmd("BufWritePost", {
-  pattern = "*.trb",
-  callback = function()
-    vim.fn.system("trc " .. vim.fn.expand("%"))
-  end,
-})
+```vim title="vim-plug"
+Plug 'type-ruby/t-ruby-vim'
 ```
 
-## Sublime Text
-
-### Installing the Package
-
-1. Install Package Control if you haven't already
-2. Open Command Palette (`Cmd+Shift+P` / `Ctrl+Shift+P`)
-3. Select "Package Control: Install Package"
-4. Search for "T-Ruby" and install
-
-### Manual Installation
-
-Clone the syntax package to your Packages directory:
+Or clone manually:
 
 ```bash
-cd ~/Library/Application\ Support/Sublime\ Text/Packages/  # macOS
-# or
-cd ~/.config/sublime-text/Packages/  # Linux
-
-git clone https://github.com/type-ruby/sublime-t-ruby.git T-Ruby
+git clone https://github.com/type-ruby/t-ruby-vim ~/.vim/pack/plugins/start/t-ruby-vim
 ```
 
-### Configuration
+### Features
 
-Add a build system for T-Ruby:
+- Syntax highlighting for `.trb` and `.d.trb` files
+- File type detection
 
-```json title="T-Ruby.sublime-build"
-{
-  "cmd": ["trc", "$file"],
-  "file_regex": "^(.+):([0-9]+):([0-9]+): (.+)$",
-  "selector": "source.truby"
-}
+### Custom Key Mappings
+
+```vim title=".vimrc"
+autocmd FileType truby nnoremap <buffer> <leader>tc :!trc %<CR>
+autocmd FileType truby nnoremap <buffer> <leader>td :!trc --decl %<CR>
 ```
 
 ## JetBrains IDEs (RubyMine, IntelliJ)
+
+T-Ruby provides official JetBrains plugin support through [t-ruby-jetbrains](https://github.com/type-ruby/t-ruby-jetbrains).
 
 ### Installing the Plugin
 
@@ -215,94 +190,102 @@ Add a build system for T-Ruby:
 3. Search for "T-Ruby"
 4. Click Install and restart the IDE
 
+### Features
+
+The plugin provides:
+
+- **Syntax highlighting** for `.trb` and `.d.trb` files
+- **Real-time diagnostics** via LSP
+- **Autocomplete** with type information
+- **Go to definition**
+
 ### Configuration
 
-The plugin automatically:
-- Associates `.trb` files with T-Ruby
-- Provides syntax highlighting
-- Shows type errors
+The plugin reads project settings from `trbconfig.yml`. Editor-specific settings can be configured in **Settings → Tools → T-Ruby**:
 
-Additional settings in **Settings → Languages & Frameworks → T-Ruby**:
-- Enable/disable type checking
-- Configure compiler path
-- Set output directory
+- **trc Path** - Path to the T-Ruby compiler (default: `trc`)
+- **Enable LSP** - Enable Language Server Protocol support
+- **Enable Diagnostics** - Enable real-time diagnostics
+- **Enable Completion** - Enable code completion
+
+:::tip
+Like VS Code, compile options should be configured in `trbconfig.yml`, not in IDE settings.
+:::
+
+## Sublime Text
+
+:::note[Coming Soon]
+Sublime Text support is planned but not yet available. You can use generic syntax highlighting by treating `.trb` files as Ruby.
+:::
+
+### Temporary Setup
+
+Add to your Sublime Text settings to use Ruby highlighting:
+
+```json title="Preferences.sublime-settings"
+{
+  "file_associations": {
+    "*.trb": "Ruby"
+  }
+}
+```
 
 ## Emacs
 
-### Using t-ruby-mode
+:::note[Coming Soon]
+Emacs support is planned but not yet available. You can use `ruby-mode` for basic syntax highlighting.
+:::
 
-Install via MELPA:
+### Temporary Setup
 
 ```elisp
-(use-package t-ruby-mode
-  :ensure t
-  :mode "\\.trb\\'"
-  :hook (t-ruby-mode . lsp-deferred))
+(add-to-list 'auto-mode-alist '("\\.trb\\'" . ruby-mode))
 ```
 
-### LSP Configuration
-
-Configure lsp-mode for T-Ruby:
+For LSP support, configure with the T-Ruby compiler:
 
 ```elisp
 (use-package lsp-mode
   :ensure t
-  :commands lsp
   :config
-  (add-to-list 'lsp-language-id-configuration '(t-ruby-mode . "truby"))
   (lsp-register-client
    (make-lsp-client
-    :new-connection (lsp-stdio-connection '("t-ruby-lsp"))
-    :major-modes '(t-ruby-mode)
+    :new-connection (lsp-stdio-connection '("trc" "--lsp"))
+    :major-modes '(ruby-mode)
     :server-id 't-ruby-lsp)))
-```
-
-## Vim (without LSP)
-
-For basic Vim support without LSP:
-
-```vim title=".vimrc"
-" File type detection
-autocmd BufRead,BufNewFile *.trb set filetype=ruby
-
-" Compile on save
-autocmd BufWritePost *.trb silent !trc %
-
-" Syntax highlighting (uses Ruby highlighting)
-autocmd FileType truby setlocal syntax=ruby
 ```
 
 ## Language Server (LSP)
 
-The T-Ruby Language Server can be used with any LSP-compatible editor.
+The T-Ruby compiler includes a built-in Language Server that can be used with any LSP-compatible editor.
 
-### Installation
-
-```bash
-gem install t-ruby-lsp
-```
-
-### Running Manually
+### Running the LSP Server
 
 ```bash
-t-ruby-lsp --stdio
+trc --lsp
 ```
+
+The LSP server communicates via stdin/stdout in JSON-RPC format.
 
 ### Capabilities
 
-The LSP server provides:
-
 | Feature | Support |
 |---------|---------|
-| Syntax highlighting | Via semantic tokens |
 | Error diagnostics | Full |
 | Hover information | Full |
 | Go to definition | Full |
-| Find references | Full |
 | Autocomplete | Full |
-| Code formatting | Full |
-| Code actions | Partial |
-| Rename | Full |
+| Find references | Planned |
+| Code formatting | Planned |
+| Rename | Planned |
+
+### Generic LSP Configuration
+
+For editors not listed above, configure your LSP client to run:
+
+```bash
+trc --lsp
+```
 
 ## Troubleshooting
 
@@ -320,15 +303,14 @@ The LSP server provides:
 
 ### LSP not connecting
 
-- Install the LSP: `gem install t-ruby-lsp`
-- Check LSP path in editor configuration
-- Look at LSP server logs for errors
+- Verify `trc` is in your PATH: `which trc`
+- Check if LSP mode works: `trc --lsp` (should wait for input)
+- Look at editor LSP logs for errors
 
 ### Type checking slow
 
-- Disable "check on type" if too slow
-- Use "check on save" instead
-- Exclude `node_modules` and `vendor` directories
+- Use "check on save" instead of real-time checking
+- Exclude `vendor` and `node_modules` directories in `trbconfig.yml`
 
 ## Next Steps
 

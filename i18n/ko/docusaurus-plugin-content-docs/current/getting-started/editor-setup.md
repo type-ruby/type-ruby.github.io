@@ -80,133 +80,108 @@ VS Code 확장이 제공하는 것들:
 
 ## Neovim
 
-T-Ruby는 내장 LSP 클라이언트를 통해 Neovim을 지원합니다.
+T-Ruby는 [t-ruby-vim](https://github.com/type-ruby/t-ruby-vim) 플러그인을 통해 공식 Neovim 지원을 제공합니다.
 
-### nvim-lspconfig 사용
+### 설치
 
-Neovim 구성에 추가:
+선호하는 플러그인 관리자 사용:
+
+```lua title="lazy.nvim"
+{
+  'type-ruby/t-ruby-vim',
+  ft = { 'truby' },
+}
+```
+
+```vim title="vim-plug"
+Plug 'type-ruby/t-ruby-vim'
+```
+
+### LSP 설정
+
+플러그인은 내장 LSP 구성을 제공합니다:
 
 ```lua title="init.lua"
--- t-ruby-lsp가 없으면 설치
--- gem install t-ruby-lsp
+require('t-ruby').setup()
+```
 
-require('lspconfig').t_ruby_lsp.setup {
-  cmd = { "t-ruby-lsp" },
-  filetypes = { "truby" },
-  root_dir = require('lspconfig').util.root_pattern("trbconfig.yml", ".git"),
-  settings = {
-    truby = {
-      typeCheck = {
-        enabled = true
-      }
+또는 사용자 정의 옵션과 함께:
+
+```lua title="init.lua"
+require('t-ruby').setup({
+  cmd = { 'trc', '--lsp' },
+  on_attach = function(client, bufnr)
+    -- on_attach 함수
+    local opts = { buffer = bufnr }
+    vim.keymap.set('n', 'gd', vim.lsp.buf.definition, opts)
+    vim.keymap.set('n', 'K', vim.lsp.buf.hover, opts)
+    vim.keymap.set('n', '<leader>rn', vim.lsp.buf.rename, opts)
+  end,
+})
+```
+
+### 명령어
+
+LSP 설정 후 다음 명령어를 사용할 수 있습니다:
+
+- `:TRubyCompile` - 현재 파일 컴파일
+- `:TRubyDecl` - 선언 파일 생성
+- `:TRubyLspInfo` - LSP 상태 표시
+
+### coc.nvim 사용
+
+`coc-settings.json`에 추가:
+
+```json
+{
+  "languageserver": {
+    "t-ruby": {
+      "command": "trc",
+      "args": ["--lsp"],
+      "filetypes": ["truby"],
+      "rootPatterns": ["trbconfig.yml", ".git/"]
     }
   }
 }
 ```
 
-### Tree-sitter로 구문 강조
-
-구문 강조를 위해 T-Ruby tree-sitter 파서를 추가:
-
-```lua title="init.lua"
-require('nvim-treesitter.configs').setup {
-  ensure_installed = { "ruby", "truby" },
-  highlight = {
-    enable = true,
-  },
-}
-```
-
-### 파일 타입 감지
-
-`.trb` 파일에 대한 파일 타입 감지 추가:
-
-```lua title="init.lua"
-vim.filetype.add({
-  extension = {
-    trb = "truby",
-  },
-})
-```
-
 ### 권장 플러그인
 
 - **nvim-lspconfig** - LSP 구성
-- **nvim-treesitter** - 구문 강조
 - **nvim-cmp** - 자동완성
 - **lspsaga.nvim** - 향상된 LSP UI
 
-### 완전한 Neovim 설정 예제
+## Vim
 
-```lua title="init.lua"
--- 파일 타입 감지
-vim.filetype.add({
-  extension = {
-    trb = "truby",
-  },
-})
+T-Ruby는 [t-ruby-vim](https://github.com/type-ruby/t-ruby-vim) 플러그인을 통해 공식 Vim 지원을 제공합니다.
 
--- LSP 설정
-local lspconfig = require('lspconfig')
+### 설치
 
-lspconfig.t_ruby_lsp.setup {
-  on_attach = function(client, bufnr)
-    -- <c-x><c-o>로 트리거되는 완성 활성화
-    vim.bo[bufnr].omnifunc = 'v:lua.vim.lsp.omnifunc'
-
-    -- 키맵
-    local opts = { buffer = bufnr }
-    vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, opts)
-    vim.keymap.set('n', 'gd', vim.lsp.buf.definition, opts)
-    vim.keymap.set('n', 'K', vim.lsp.buf.hover, opts)
-    vim.keymap.set('n', '<leader>rn', vim.lsp.buf.rename, opts)
-    vim.keymap.set('n', '<leader>ca', vim.lsp.buf.code_action, opts)
-  end,
-}
-
--- 저장 시 자동 컴파일
-vim.api.nvim_create_autocmd("BufWritePost", {
-  pattern = "*.trb",
-  callback = function()
-    vim.fn.system("trc " .. vim.fn.expand("%"))
-  end,
-})
+```vim title="vim-plug"
+Plug 'type-ruby/t-ruby-vim'
 ```
 
-## Sublime Text
-
-### 패키지 설치
-
-1. Package Control을 아직 설치하지 않았다면 설치
-2. 명령 팔레트 열기 (`Cmd+Shift+P` / `Ctrl+Shift+P`)
-3. "Package Control: Install Package" 선택
-4. "T-Ruby" 검색 후 설치
-
-### 수동 설치
-
-Packages 디렉토리에 구문 패키지 클론:
+또는 수동으로 클론:
 
 ```bash
-cd ~/Library/Application\ Support/Sublime\ Text/Packages/  # macOS
-# 또는
-cd ~/.config/sublime-text/Packages/  # Linux
-
-git clone https://github.com/type-ruby/sublime-t-ruby.git T-Ruby
+git clone https://github.com/type-ruby/t-ruby-vim ~/.vim/pack/plugins/start/t-ruby-vim
 ```
 
-### 구성
+### 기능
 
-T-Ruby용 빌드 시스템 추가:
+- `.trb` 및 `.d.trb` 파일의 구문 강조
+- 파일 타입 감지
 
-```json title="T-Ruby.sublime-build"
-{
-  "cmd": ["trc", "$file"],
-  "file_regex": "^(.+):([0-9]+):([0-9]+): (.+)$",
-  "selector": "source.truby"
-}
+### 사용자 정의 키 매핑
+
+```vim title=".vimrc"
+autocmd FileType truby nnoremap <buffer> <leader>tc :!trc %<CR>
+autocmd FileType truby nnoremap <buffer> <leader>td :!trc --decl %<CR>
 ```
 
 ## JetBrains IDE (RubyMine, IntelliJ)
+
+T-Ruby는 [t-ruby-jetbrains](https://github.com/type-ruby/t-ruby-jetbrains)를 통해 공식 JetBrains 플러그인 지원을 제공합니다.
 
 ### 플러그인 설치
 
@@ -215,94 +190,102 @@ T-Ruby용 빌드 시스템 추가:
 3. "T-Ruby" 검색
 4. Install 클릭 후 IDE 재시작
 
+### 기능
+
+플러그인이 제공하는 것들:
+
+- `.trb` 및 `.d.trb` 파일의 **구문 강조**
+- LSP를 통한 **실시간 진단**
+- 타입 정보가 있는 **자동완성**
+- **정의로 이동**
+
 ### 구성
 
-플러그인이 자동으로:
-- `.trb` 파일을 T-Ruby와 연결
-- 구문 강조 제공
-- 타입 오류 표시
+플러그인은 `trbconfig.yml`에서 프로젝트 설정을 읽습니다. 에디터 전용 설정은 **Settings → Tools → T-Ruby**에서 구성할 수 있습니다:
 
-**Settings → Languages & Frameworks → T-Ruby**에서 추가 설정:
-- 타입 검사 활성화/비활성화
-- 컴파일러 경로 구성
-- 출력 디렉토리 설정
+- **trc 경로** - T-Ruby 컴파일러 경로 (기본값: `trc`)
+- **LSP 활성화** - Language Server Protocol 지원 활성화
+- **진단 활성화** - 실시간 진단 활성화
+- **완성 활성화** - 코드 완성 활성화
+
+:::tip
+VS Code와 마찬가지로 컴파일 옵션은 IDE 설정이 아닌 `trbconfig.yml`에서 구성해야 합니다.
+:::
+
+## Sublime Text
+
+:::note[출시 예정]
+Sublime Text 지원은 계획되어 있지만 아직 사용할 수 없습니다. `.trb` 파일을 Ruby로 처리하여 일반 구문 강조를 사용할 수 있습니다.
+:::
+
+### 임시 설정
+
+Ruby 강조를 사용하려면 Sublime Text 설정에 추가:
+
+```json title="Preferences.sublime-settings"
+{
+  "file_associations": {
+    "*.trb": "Ruby"
+  }
+}
+```
 
 ## Emacs
 
-### t-ruby-mode 사용
+:::note[출시 예정]
+Emacs 지원은 계획되어 있지만 아직 사용할 수 없습니다. 기본 구문 강조를 위해 `ruby-mode`를 사용할 수 있습니다.
+:::
 
-MELPA를 통해 설치:
+### 임시 설정
 
 ```elisp
-(use-package t-ruby-mode
-  :ensure t
-  :mode "\\.trb\\'"
-  :hook (t-ruby-mode . lsp-deferred))
+(add-to-list 'auto-mode-alist '("\\.trb\\'" . ruby-mode))
 ```
 
-### LSP 구성
-
-T-Ruby용 lsp-mode 구성:
+LSP 지원을 위해 T-Ruby 컴파일러로 구성:
 
 ```elisp
 (use-package lsp-mode
   :ensure t
-  :commands lsp
   :config
-  (add-to-list 'lsp-language-id-configuration '(t-ruby-mode . "truby"))
   (lsp-register-client
    (make-lsp-client
-    :new-connection (lsp-stdio-connection '("t-ruby-lsp"))
-    :major-modes '(t-ruby-mode)
+    :new-connection (lsp-stdio-connection '("trc" "--lsp"))
+    :major-modes '(ruby-mode)
     :server-id 't-ruby-lsp)))
-```
-
-## Vim (LSP 없이)
-
-LSP 없이 기본 Vim 지원:
-
-```vim title=".vimrc"
-" 파일 타입 감지
-autocmd BufRead,BufNewFile *.trb set filetype=ruby
-
-" 저장 시 컴파일
-autocmd BufWritePost *.trb silent !trc %
-
-" 구문 강조 (Ruby 강조 사용)
-autocmd FileType truby setlocal syntax=ruby
 ```
 
 ## 언어 서버 (LSP)
 
-T-Ruby 언어 서버는 모든 LSP 호환 에디터에서 사용할 수 있습니다.
+T-Ruby 컴파일러에는 모든 LSP 호환 에디터에서 사용할 수 있는 내장 언어 서버가 포함되어 있습니다.
 
-### 설치
-
-```bash
-gem install t-ruby-lsp
-```
-
-### 수동 실행
+### LSP 서버 실행
 
 ```bash
-t-ruby-lsp --stdio
+trc --lsp
 ```
+
+LSP 서버는 JSON-RPC 형식으로 stdin/stdout을 통해 통신합니다.
 
 ### 기능
 
-LSP 서버가 제공하는 것들:
-
 | 기능 | 지원 |
 |---------|---------|
-| 구문 강조 | 시맨틱 토큰 통해 |
 | 오류 진단 | 전체 |
 | 호버 정보 | 전체 |
 | 정의로 이동 | 전체 |
-| 참조 찾기 | 전체 |
 | 자동완성 | 전체 |
-| 코드 포맷 | 전체 |
-| 코드 액션 | 부분 |
-| 이름 변경 | 전체 |
+| 참조 찾기 | 계획됨 |
+| 코드 포맷 | 계획됨 |
+| 이름 변경 | 계획됨 |
+
+### 일반 LSP 구성
+
+위에 나열되지 않은 에디터의 경우 LSP 클라이언트를 다음과 같이 실행하도록 구성:
+
+```bash
+trc --lsp
+```
 
 ## 문제 해결
 
@@ -320,15 +303,14 @@ LSP 서버가 제공하는 것들:
 
 ### LSP 연결 안 됨
 
-- LSP 설치: `gem install t-ruby-lsp`
-- 에디터 구성에서 LSP 경로 확인
-- 오류에 대한 LSP 서버 로그 확인
+- `trc`가 PATH에 있는지 확인: `which trc`
+- LSP 모드가 작동하는지 확인: `trc --lsp` (입력 대기해야 함)
+- 에디터 LSP 로그에서 오류 확인
 
 ### 타입 검사가 느림
 
-- 너무 느리면 "입력 시 검사" 비활성화
-- 대신 "저장 시 검사" 사용
-- `node_modules`와 `vendor` 디렉토리 제외
+- 실시간 검사 대신 "저장 시 검사" 사용
+- `trbconfig.yml`에서 `vendor` 및 `node_modules` 디렉토리 제외
 
 ## 다음 단계
 
