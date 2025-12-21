@@ -25,45 +25,50 @@ VS Codeは最も完全なT-Ruby開発体験を提供します。
 またはコマンドラインからインストール：
 
 ```bash
-code --install-extension type-ruby.t-ruby-vscode
+code --install-extension t-ruby.t-ruby
 ```
 
 ### 機能
 
 VS Code拡張機能が提供するもの：
 
-- `.trb`ファイルの**シンタックスハイライト**
-- 入力中の**型エラーハイライト**
+- `.trb`および`.d.trb`ファイルの**シンタックスハイライト**
+- **リアルタイム診断** - 入力中に型エラーを表示
 - 型情報付き**オートコンプリート**
 - 型を表示する**ホバー情報**
 - 関数とクラスの**定義へジャンプ**
-- **保存時フォーマット**（オプション）
+
+### コマンド
+
+拡張機能が提供するコマンド（コマンドパレットからアクセス可能）：
+
+- **T-Ruby: Compile Current File** - 現在の`.trb`ファイルをコンパイル
+- **T-Ruby: Generate Declaration File** - `.d.trb`宣言ファイルを生成
+- **T-Ruby: Restart Language Server** - LSPサーバーを再起動
 
 ### 設定
 
-VS Code設定（`settings.json`）に追加：
+拡張機能はプロジェクトルートの`trbconfig.yml`からプロジェクト設定を読み込みます。エディタ固有の設定はVS Code設定（`settings.json`）で構成できます：
 
 ```json title=".vscode/settings.json"
 {
-  // 入力中の型チェックを有効化
-  "t-ruby.typeCheck.enabled": true,
-
-  // インライン型ヒントを表示
-  "t-ruby.inlayHints.enabled": true,
-
-  // 保存時に.trbファイルをフォーマット
-  "t-ruby.format.onSave": true,
-
   // trcコンパイラのパス（PATHにない場合）
-  "t-ruby.compilerPath": "/usr/local/bin/trc",
+  "t-ruby.lspPath": "trc",
 
-  // 保存時にコンパイル
-  "t-ruby.compile.onSave": true,
+  // Language Server Protocolサポートを有効化
+  "t-ruby.enableLSP": true,
 
-  // 出力ディレクトリ
-  "t-ruby.compile.outputDir": "build"
+  // リアルタイム診断を有効化
+  "t-ruby.diagnostics.enable": true,
+
+  // オートコンプリート候補を有効化
+  "t-ruby.completion.enable": true
 }
 ```
+
+:::tip
+出力ディレクトリや厳格度レベルなどのコンパイルオプションは、VS Code設定ではなく[`trbconfig.yml`](/docs/getting-started/project-configuration)で構成してください。これにより、すべてのエディタとCI/CDパイプラインで一貫した動作が保証されます。
+:::
 
 ### 推奨拡張機能
 

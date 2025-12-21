@@ -25,45 +25,50 @@ VS Code offers the most complete T-Ruby development experience.
 Or install from the command line:
 
 ```bash
-code --install-extension type-ruby.t-ruby-vscode
+code --install-extension t-ruby.t-ruby
 ```
 
 ### Features
 
 The VS Code extension provides:
 
-- **Syntax highlighting** for `.trb` files
-- **Type error highlighting** as you type
+- **Syntax highlighting** for `.trb` and `.d.trb` files
+- **Real-time diagnostics** - type errors as you type
 - **Autocomplete** with type information
 - **Hover information** showing types
 - **Go to definition** for functions and classes
-- **Format on save** (optional)
+
+### Commands
+
+The extension provides the following commands (accessible via Command Palette):
+
+- **T-Ruby: Compile Current File** - Compile the active `.trb` file
+- **T-Ruby: Generate Declaration File** - Generate `.d.trb` declaration file
+- **T-Ruby: Restart Language Server** - Restart the LSP server
 
 ### Configuration
 
-Add to your VS Code settings (`settings.json`):
+The extension reads project settings from `trbconfig.yml` in your project root. Editor-specific settings can be configured in VS Code settings (`settings.json`):
 
 ```json title=".vscode/settings.json"
 {
-  // Enable type checking as you type
-  "t-ruby.typeCheck.enabled": true,
-
-  // Show type hints inline
-  "t-ruby.inlayHints.enabled": true,
-
-  // Format .trb files on save
-  "t-ruby.format.onSave": true,
-
   // Path to trc compiler (if not in PATH)
-  "t-ruby.compilerPath": "/usr/local/bin/trc",
+  "t-ruby.lspPath": "trc",
 
-  // Compile on save
-  "t-ruby.compile.onSave": true,
+  // Enable Language Server Protocol support
+  "t-ruby.enableLSP": true,
 
-  // Output directory
-  "t-ruby.compile.outputDir": "build"
+  // Enable real-time diagnostics
+  "t-ruby.diagnostics.enable": true,
+
+  // Enable autocomplete suggestions
+  "t-ruby.completion.enable": true
 }
 ```
+
+:::tip
+Compile options like output directory and strictness level should be configured in [`trbconfig.yml`](/docs/getting-started/project-configuration), not in VS Code settings. This ensures consistent behavior across all editors and CI/CD pipelines.
+:::
 
 ### Recommended Extensions
 

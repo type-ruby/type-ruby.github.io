@@ -25,45 +25,50 @@ VS Code는 가장 완벽한 T-Ruby 개발 경험을 제공합니다.
 또는 명령줄에서 설치:
 
 ```bash
-code --install-extension type-ruby.t-ruby-vscode
+code --install-extension t-ruby.t-ruby
 ```
 
 ### 기능
 
 VS Code 확장이 제공하는 것들:
 
-- `.trb` 파일의 **구문 강조**
-- 입력 중 **타입 오류 강조**
+- `.trb` 및 `.d.trb` 파일의 **구문 강조**
+- **실시간 진단** - 입력 중 타입 오류 표시
 - 타입 정보가 있는 **자동완성**
 - 타입을 보여주는 **호버 정보**
 - 함수와 클래스의 **정의로 이동**
-- **저장 시 포맷** (선택 사항)
+
+### 명령어
+
+확장이 제공하는 명령어 (명령 팔레트에서 접근 가능):
+
+- **T-Ruby: Compile Current File** - 현재 `.trb` 파일 컴파일
+- **T-Ruby: Generate Declaration File** - `.d.trb` 선언 파일 생성
+- **T-Ruby: Restart Language Server** - LSP 서버 재시작
 
 ### 구성
 
-VS Code 설정(`settings.json`)에 추가:
+확장은 프로젝트 루트의 `trbconfig.yml`에서 프로젝트 설정을 읽습니다. 에디터 전용 설정은 VS Code 설정(`settings.json`)에서 구성할 수 있습니다:
 
 ```json title=".vscode/settings.json"
 {
-  // 입력 중 타입 검사 활성화
-  "t-ruby.typeCheck.enabled": true,
-
-  // 인라인 타입 힌트 표시
-  "t-ruby.inlayHints.enabled": true,
-
-  // 저장 시 .trb 파일 포맷
-  "t-ruby.format.onSave": true,
-
   // trc 컴파일러 경로 (PATH에 없는 경우)
-  "t-ruby.compilerPath": "/usr/local/bin/trc",
+  "t-ruby.lspPath": "trc",
 
-  // 저장 시 컴파일
-  "t-ruby.compile.onSave": true,
+  // Language Server Protocol 지원 활성화
+  "t-ruby.enableLSP": true,
 
-  // 출력 디렉토리
-  "t-ruby.compile.outputDir": "build"
+  // 실시간 진단 활성화
+  "t-ruby.diagnostics.enable": true,
+
+  // 자동완성 제안 활성화
+  "t-ruby.completion.enable": true
 }
 ```
+
+:::tip
+출력 디렉토리나 엄격도 수준 같은 컴파일 옵션은 VS Code 설정이 아닌 [`trbconfig.yml`](/docs/getting-started/project-configuration)에서 구성해야 합니다. 이렇게 하면 모든 에디터와 CI/CD 파이프라인에서 일관된 동작을 보장합니다.
+:::
 
 ### 권장 확장
 
