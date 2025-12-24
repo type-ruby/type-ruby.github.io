@@ -32,8 +32,8 @@
 <div class="language-bash codeBlockContainer_WMw_ theme-code-block" style="--prism-color:#F8F8F2;--prism-background-color:#282A36"><div class="codeBlockContent_wTBs"><pre tabindex="0" class="prism-code language-bash codeBlock_Nmz_ thin-scrollbar" style="color:#F8F8F2;background-color:#282A36"><code class="codeBlockLines_Uft3"><span class="token-line" style="color:#F8F8F2"><span class="token plain">trc greet.trb</span><br></span></code></pre></div></div>
 <p>詳細については、<a class="" href="https://type-ruby.github.io/ja/docs/introduction/what-is-t-ruby">ドキュメント</a>をご覧ください！</p>]]></content>
         <author>
-            <name>T-Ruby チーム</name>
-            <uri>https://github.com/type-ruby</uri>
+            <name>Yonghyun Kim</name>
+            <uri>https://github.com/yhk1038</uri>
         </author>
         <category label="announcement" term="announcement"/>
     </entry>

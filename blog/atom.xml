@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?><?xml-stylesheet type="text/xsl" href="atom.xsl"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+    <id>https://type-ruby.github.io/blog</id>
+    <title>T-Ruby Blog</title>
+    <updated>2025-12-24T00:00:00.000Z</updated>
+    <generator>https://github.com/jpmonette/feed</generator>
+    <link rel="alternate" href="https://type-ruby.github.io/blog"/>
+    <subtitle>T-Ruby Blog</subtitle>
+    <icon>https://type-ruby.github.io/img/logo.svg</icon>
+    <rights>Copyright 2025 T-Ruby.</rights>
+    <entry>
+        <title type="html"><![CDATA[Welcome to the T-Ruby Blog]]></title>
+        <id>https://type-ruby.github.io/blog/welcome</id>
+        <link href="https://type-ruby.github.io/blog/welcome"/>
+        <updated>2025-12-24T00:00:00.000Z</updated>
+        <summary type="html"><![CDATA[Welcome to the official T-Ruby blog! This is where we'll share tutorials, technical deep-dives, and insights about type-safe Ruby development.]]></summary>
+        <content type="html"><![CDATA[<p>Welcome to the official T-Ruby blog! This is where we'll share tutorials, technical deep-dives, and insights about type-safe Ruby development.</p>
+<h2 class="anchor anchorTargetStickyNavbar__9bU" id="what-youll-find-here">What You'll Find Here<a href="https://type-ruby.github.io/blog/welcome#what-youll-find-here" class="hash-link" aria-label="Direct link to What You'll Find Here" title="Direct link to What You'll Find Here" translate="no">​</a></h2>
+<p>This blog will be your go-to resource for:</p>
+<h3 class="anchor anchorTargetStickyNavbar__9bU" id="tutorials">Tutorials<a href="https://type-ruby.github.io/blog/welcome#tutorials" class="hash-link" aria-label="Direct link to Tutorials" title="Direct link to Tutorials" translate="no">​</a></h3>
+<p>Step-by-step guides to help you get the most out of T-Ruby. From basic type annotations to advanced generic patterns, we'll cover it all.</p>
+<h3 class="anchor anchorTargetStickyNavbar__9bU" id="technical-deep-dives">Technical Deep-Dives<a href="https://type-ruby.github.io/blog/welcome#technical-deep-dives" class="hash-link" aria-label="Direct link to Technical Deep-Dives" title="Direct link to Technical Deep-Dives" translate="no">​</a></h3>
+<p>Explore the internals of T-Ruby's type system. Learn how type inference works, how RBS files are generated, and the design decisions behind the project.</p>
+<h3 class="anchor anchorTargetStickyNavbar__9bU" id="best-practices">Best Practices<a href="https://type-ruby.github.io/blog/welcome#best-practices" class="hash-link" aria-label="Direct link to Best Practices" title="Direct link to Best Practices" translate="no">​</a></h3>
+<p>Real-world patterns and practices for writing type-safe Ruby code. We'll share examples from actual projects and discuss common pitfalls to avoid.</p>
+<h3 class="anchor anchorTargetStickyNavbar__9bU" id="community-highlights">Community Highlights<a href="https://type-ruby.github.io/blog/welcome#community-highlights" class="hash-link" aria-label="Direct link to Community Highlights" title="Direct link to Community Highlights" translate="no">​</a></h3>
+<p>Showcasing interesting projects and contributions from the T-Ruby community.</p>
+<h2 class="anchor anchorTargetStickyNavbar__9bU" id="stay-updated">Stay Updated<a href="https://type-ruby.github.io/blog/welcome#stay-updated" class="hash-link" aria-label="Direct link to Stay Updated" title="Direct link to Stay Updated" translate="no">​</a></h2>
+<p>Follow our <a class="" href="https://type-ruby.github.io/news">News</a> section for release announcements and project updates. For in-depth content, bookmark this blog and check back regularly.</p>
+<p>We're excited to share this journey with you. Happy typing!</p>]]></content>
+        <author>
+            <name>Yonghyun Kim</name>
+            <uri>https://github.com/yhk1038</uri>
+        </author>
+        <category label="announcement" term="announcement"/>
+    </entry>
+</feed>

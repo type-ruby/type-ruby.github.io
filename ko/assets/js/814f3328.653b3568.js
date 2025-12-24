@@ -1,0 +1,1 @@
+"use strict";(globalThis.webpackChunkt_ruby_docs=globalThis.webpackChunkt_ruby_docs||[]).push([[7472],{5513:e=>{e.exports=JSON.parse('{"title":"Recent Posts","items":[{"title":"T-Ruby \ube14\ub85c\uadf8\uc5d0 \uc624\uc2e0 \uac83\uc744 \ud658\uc601\ud569\ub2c8\ub2e4","permalink":"/ko/blog/welcome","unlisted":false,"date":"2025-12-24T00:00:00.000Z"}]}')}}]);

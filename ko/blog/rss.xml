@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?><?xml-stylesheet type="text/xsl" href="rss.xsl"?>
+<rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+    <channel>
+        <title>T-Ruby Blog</title>
+        <link>https://type-ruby.github.io/ko/blog</link>
+        <description>T-Ruby Blog</description>
+        <lastBuildDate>Wed, 24 Dec 2025 00:00:00 GMT</lastBuildDate>
+        <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
+        <generator>https://github.com/jpmonette/feed</generator>
+        <language>ko</language>
+        <copyright>Copyright 2025 T-Ruby.</copyright>
+        <item>
+            <title><![CDATA[T-Ruby 블로그에 오신 것을 환영합니다]]></title>
+            <link>https://type-ruby.github.io/ko/blog/welcome</link>
+            <guid>https://type-ruby.github.io/ko/blog/welcome</guid>
+            <pubDate>Wed, 24 Dec 2025 00:00:00 GMT</pubDate>
+            <description><![CDATA[공식 T-Ruby 블로그에 오신 것을 환영합니다! 이곳에서 튜토리얼, 기술 심층 분석, 타입 안전 Ruby 개발에 대한 인사이트를 공유할 예정입니다.]]></description>
+            <content:encoded><![CDATA[<p>공식 T-Ruby 블로그에 오신 것을 환영합니다! 이곳에서 튜토리얼, 기술 심층 분석, 타입 안전 Ruby 개발에 대한 인사이트를 공유할 예정입니다.</p>
+<h2 class="anchor anchorTargetStickyNavbar__9bU" id="이-블로그에서-다루는-내용">이 블로그에서 다루는 내용<a href="https://type-ruby.github.io/ko/blog/welcome#%EC%9D%B4-%EB%B8%94%EB%A1%9C%EA%B7%B8%EC%97%90%EC%84%9C-%EB%8B%A4%EB%A3%A8%EB%8A%94-%EB%82%B4%EC%9A%A9" class="hash-link" aria-label="이 블로그에서 다루는 내용으로 직접 링크" title="이 블로그에서 다루는 내용으로 직접 링크" translate="no">​</a></h2>
+<p>이 블로그는 다음과 같은 콘텐츠를 제공합니다:</p>
+<h3 class="anchor anchorTargetStickyNavbar__9bU" id="튜토리얼">튜토리얼<a href="https://type-ruby.github.io/ko/blog/welcome#%ED%8A%9C%ED%86%A0%EB%A6%AC%EC%96%BC" class="hash-link" aria-label="튜토리얼으로 직접 링크" title="튜토리얼으로 직접 링크" translate="no">​</a></h3>
+<p>T-Ruby를 최대한 활용할 수 있도록 도와주는 단계별 가이드. 기본 타입 어노테이션부터 고급 제네릭 패턴까지 모두 다룹니다.</p>
+<h3 class="anchor anchorTargetStickyNavbar__9bU" id="기술-심층-분석">기술 심층 분석<a href="https://type-ruby.github.io/ko/blog/welcome#%EA%B8%B0%EC%88%A0-%EC%8B%AC%EC%B8%B5-%EB%B6%84%EC%84%9D" class="hash-link" aria-label="기술 심층 분석으로 직접 링크" title="기술 심층 분석으로 직접 링크" translate="no">​</a></h3>
+<p>T-Ruby 타입 시스템의 내부를 탐구합니다. 타입 추론의 작동 방식, RBS 파일 생성 방법, 프로젝트의 설계 결정에 대해 알아봅니다.</p>
+<h3 class="anchor anchorTargetStickyNavbar__9bU" id="베스트-프랙티스">베스트 프랙티스<a href="https://type-ruby.github.io/ko/blog/welcome#%EB%B2%A0%EC%8A%A4%ED%8A%B8-%ED%94%84%EB%9E%99%ED%8B%B0%EC%8A%A4" class="hash-link" aria-label="베스트 프랙티스으로 직접 링크" title="베스트 프랙티스으로 직접 링크" translate="no">​</a></h3>
+<p>타입 안전 Ruby 코드를 작성하기 위한 실제 패턴과 사례. 실제 프로젝트의 예제를 공유하고 피해야 할 일반적인 함정에 대해 논의합니다.</p>
+<h3 class="anchor anchorTargetStickyNavbar__9bU" id="커뮤니티-하이라이트">커뮤니티 하이라이트<a href="https://type-ruby.github.io/ko/blog/welcome#%EC%BB%A4%EB%AE%A4%EB%8B%88%ED%8B%B0-%ED%95%98%EC%9D%B4%EB%9D%BC%EC%9D%B4%ED%8A%B8" class="hash-link" aria-label="커뮤니티 하이라이트으로 직접 링크" title="커뮤니티 하이라이트으로 직접 링크" translate="no">​</a></h3>
+<p>T-Ruby 커뮤니티의 흥미로운 프로젝트와 기여를 소개합니다.</p>
+<h2 class="anchor anchorTargetStickyNavbar__9bU" id="최신-소식-받기">최신 소식 받기<a href="https://type-ruby.github.io/ko/blog/welcome#%EC%B5%9C%EC%8B%A0-%EC%86%8C%EC%8B%9D-%EB%B0%9B%EA%B8%B0" class="hash-link" aria-label="최신 소식 받기으로 직접 링크" title="최신 소식 받기으로 직접 링크" translate="no">​</a></h2>
+<p>릴리스 공지 및 프로젝트 업데이트는 <a class="" href="https://type-ruby.github.io/ko/news">뉴스</a> 섹션을 확인하세요. 심층 콘텐츠를 위해 이 블로그를 북마크하고 정기적으로 방문해 주세요.</p>
+<p>이 여정을 함께하게 되어 기쁩니다. 즐거운 타이핑 되세요!</p>]]></content:encoded>
+            <category>announcement</category>
+        </item>
+    </channel>
+</rss>
