@@ -11,7 +11,7 @@
 
 <link rel="alternate" type="application/rss+xml" href="/news/rss.xml" title="T-Ruby RSS Feed">
 <link rel="alternate" type="application/atom+xml" href="/news/atom.xml" title="T-Ruby Atom Feed"><link rel="stylesheet" href="/assets/css/styles.d1cb372b.css">
-<script src="/assets/js/runtime~main.aad8f51d.js" defer="defer"></script>
+<script src="/assets/js/runtime~main.82a2710a.js" defer="defer"></script>
 <script src="/assets/js/main.48cf94ff.js" defer="defer"></script>
 </head>
 <body class="navigation-with-keyboard">
@@ -29,7 +29,7 @@
 <div class="language-trb codeBlockContainer_WMw_ theme-code-block" style="--prism-color:#F8F8F2;--prism-background-color:#282A36"><div class="codeBlockContent_wTBs"><pre tabindex="0" class="prism-code language-trb codeBlock_Nmz_ thin-scrollbar" style="color:#F8F8F2;background-color:#282A36"><code class="codeBlockLines_Uft3"><span class="token-line" style="color:#F8F8F2"><span class="token plain"># Reading files</span><br></span><span class="token-line" style="color:#F8F8F2"><span class="token plain">def read_config(path: String): String | nil</span><br></span><span class="token-line" style="color:#F8F8F2"><span class="token plain">  return nil unless File.exist?(path)</span><br></span><span class="token-line" style="color:#F8F8F2"><span class="token plain">  File.read(path)</span><br></span><span class="token-line" style="color:#F8F8F2"><span class="token plain">end</span><br></span><span class="token-line" style="color:#F8F8F2"><span class="token plain" style="display:inline-block"></span><br></span><span class="token-line" style="color:#F8F8F2"><span class="token plain"># Writing files</span><br></span><span class="token-line" style="color:#F8F8F2"><span class="token plain">def save_data(path: String, content: String): void</span><br></span><span class="token-line" style="color:#F8F8F2"><span class="token plain">  File.write(path, content)</span><br></span><span class="token-line" style="color:#F8F8F2"><span class="token plain">end</span><br></span><span class="token-line" style="color:#F8F8F2"><span class="token plain" style="display:inline-block"></span><br></span><span class="token-line" style="color:#F8F8F2"><span class="token plain"># File operations</span><br></span><span class="token-line" style="color:#F8F8F2"><span class="token plain">def process_file(path: String): Array&lt;String&gt;</span><br></span><span class="token-line" style="color:#F8F8F2"><span class="token plain">  File.readlines(path).map(&amp;:strip)</span><br></span><span class="token-line" style="color:#F8F8F2"><span class="token plain">end</span><br></span></code></pre></div></div>
 <p><strong>Type Signatures:</strong></p>
 <ul>
-<li class=""><code>File.exist?(path: String): Bool</code></li>
+<li class=""><code>File.exist?(path: String): Boolean</code></li>
 <li class=""><code>File.read(path: String): String</code></li>
 <li class=""><code>File.write(path: String, content: String): Integer</code></li>
 <li class=""><code>File.readlines(path: String): Array&lt;String&gt;</code></li>
@@ -38,8 +38,8 @@
 <li class=""><code>File.delete(*paths: String): Integer</code></li>
 <li class=""><code>File.rename(old: String, new: String): Integer</code></li>
 <li class=""><code>File.size(path: String): Integer</code></li>
-<li class=""><code>File.directory?(path: String): Bool</code></li>
-<li class=""><code>File.file?(path: String): Bool</code></li>
+<li class=""><code>File.directory?(path: String): Boolean</code></li>
+<li class=""><code>File.file?(path: String): Boolean</code></li>
 </ul>
 <h3 class="anchor anchorTargetStickyNavbar__9bU" id="dir">Dir<a href="#dir" class="hash-link" aria-label="Direct link to Dir" title="Direct link to Dir" translate="no">​</a></h3>
 <p>Directory operations.</p>
@@ -48,7 +48,7 @@
 <ul>
 <li class=""><code>Dir.entries(path: String): Array&lt;String&gt;</code></li>
 <li class=""><code>Dir.glob(pattern: String): Array&lt;String&gt;</code></li>
-<li class=""><code>Dir.exist?(path: String): Bool</code></li>
+<li class=""><code>Dir.exist?(path: String): Boolean</code></li>
 <li class=""><code>Dir.mkdir(path: String): void</code></li>
 <li class=""><code>Dir.rmdir(path: String): void</code></li>
 <li class=""><code>Dir.pwd: String</code></li>
@@ -80,7 +80,7 @@
 </ul>
 <h3 class="anchor anchorTargetStickyNavbar__9bU" id="typed-json">Typed JSON<a href="#typed-json" class="hash-link" aria-label="Direct link to Typed JSON" title="Direct link to Typed JSON" translate="no">​</a></h3>
 <p>For type-safe JSON operations, define explicit types:</p>
-<div class="language-trb codeBlockContainer_WMw_ theme-code-block" style="--prism-color:#F8F8F2;--prism-background-color:#282A36"><div class="codeBlockContent_wTBs"><pre tabindex="0" class="prism-code language-trb codeBlock_Nmz_ thin-scrollbar" style="color:#F8F8F2;background-color:#282A36"><code class="codeBlockLines_Uft3"><span class="token-line" style="color:#F8F8F2"><span class="token plain">type JSONPrimitive = String | Integer | Float | Bool | nil</span><br></span><span class="token-line" style="color:#F8F8F2"><span class="token plain">type JSONArray = Array&lt;JSONValue&gt;</span><br></span><span class="token-line" style="color:#F8F8F2"><span class="token plain">type JSONObject = Hash&lt;String, JSONValue&gt;</span><br></span><span class="token-line" style="color:#F8F8F2"><span class="token plain">type JSONValue = JSONPrimitive | JSONArray | JSONObject</span><br></span><span class="token-line" style="color:#F8F8F2"><span class="token plain" style="display:inline-block"></span><br></span><span class="token-line" style="color:#F8F8F2"><span class="token plain">def parse_json(source: String): JSONValue</span><br></span><span class="token-line" style="color:#F8F8F2"><span class="token plain">  JSON.parse(source) as JSONValue</span><br></span><span class="token-line" style="color:#F8F8F2"><span class="token plain">end</span><br></span><span class="token-line" style="color:#F8F8F2"><span class="token plain" style="display:inline-block"></span><br></span><span class="token-line" style="color:#F8F8F2"><span class="token plain">def parse_object(source: String): JSONObject</span><br></span><span class="token-line" style="color:#F8F8F2"><span class="token plain">  result = JSON.parse(source)</span><br></span><span class="token-line" style="color:#F8F8F2"><span class="token plain">  result.is_a?(Hash) ? result : {}</span><br></span><span class="token-line" style="color:#F8F8F2"><span class="token plain">end</span><br></span></code></pre></div></div>
+<div class="language-trb codeBlockContainer_WMw_ theme-code-block" style="--prism-color:#F8F8F2;--prism-background-color:#282A36"><div class="codeBlockContent_wTBs"><pre tabindex="0" class="prism-code language-trb codeBlock_Nmz_ thin-scrollbar" style="color:#F8F8F2;background-color:#282A36"><code class="codeBlockLines_Uft3"><span class="token-line" style="color:#F8F8F2"><span class="token plain">type JSONPrimitive = String | Integer | Float | Boolean | nil</span><br></span><span class="token-line" style="color:#F8F8F2"><span class="token plain">type JSONArray = Array&lt;JSONValue&gt;</span><br></span><span class="token-line" style="color:#F8F8F2"><span class="token plain">type JSONObject = Hash&lt;String, JSONValue&gt;</span><br></span><span class="token-line" style="color:#F8F8F2"><span class="token plain">type JSONValue = JSONPrimitive | JSONArray | JSONObject</span><br></span><span class="token-line" style="color:#F8F8F2"><span class="token plain" style="display:inline-block"></span><br></span><span class="token-line" style="color:#F8F8F2"><span class="token plain">def parse_json(source: String): JSONValue</span><br></span><span class="token-line" style="color:#F8F8F2"><span class="token plain">  JSON.parse(source) as JSONValue</span><br></span><span class="token-line" style="color:#F8F8F2"><span class="token plain">end</span><br></span><span class="token-line" style="color:#F8F8F2"><span class="token plain" style="display:inline-block"></span><br></span><span class="token-line" style="color:#F8F8F2"><span class="token plain">def parse_object(source: String): JSONObject</span><br></span><span class="token-line" style="color:#F8F8F2"><span class="token plain">  result = JSON.parse(source)</span><br></span><span class="token-line" style="color:#F8F8F2"><span class="token plain">  result.is_a?(Hash) ? result : {}</span><br></span><span class="token-line" style="color:#F8F8F2"><span class="token plain">end</span><br></span></code></pre></div></div>
 <h2 class="anchor anchorTargetStickyNavbar__9bU" id="yaml">YAML<a href="#yaml" class="hash-link" aria-label="Direct link to YAML" title="Direct link to YAML" translate="no">​</a></h2>
 <p>YAML parsing and generation.</p>
 <div class="language-trb codeBlockContainer_WMw_ theme-code-block" style="--prism-color:#F8F8F2;--prism-background-color:#282A36"><div class="codeBlockContent_wTBs"><pre tabindex="0" class="prism-code language-trb codeBlock_Nmz_ thin-scrollbar" style="color:#F8F8F2;background-color:#282A36"><code class="codeBlockLines_Uft3"><span class="token-line" style="color:#F8F8F2"><span class="token plain">require &#x27;yaml&#x27;</span><br></span><span class="token-line" style="color:#F8F8F2"><span class="token plain" style="display:inline-block"></span><br></span><span class="token-line" style="color:#F8F8F2"><span class="token plain"># Load YAML</span><br></span><span class="token-line" style="color:#F8F8F2"><span class="token plain">def load_yaml(path: String): Any</span><br></span><span class="token-line" style="color:#F8F8F2"><span class="token plain">  YAML.load_file(path)</span><br></span><span class="token-line" style="color:#F8F8F2"><span class="token plain">end</span><br></span><span class="token-line" style="color:#F8F8F2"><span class="token plain" style="display:inline-block"></span><br></span><span class="token-line" style="color:#F8F8F2"><span class="token plain"># Generate YAML</span><br></span><span class="token-line" style="color:#F8F8F2"><span class="token plain">def save_yaml(path: String, data: Any): void</span><br></span><span class="token-line" style="color:#F8F8F2"><span class="token plain">  File.write(path, YAML.dump(data))</span><br></span><span class="token-line" style="color:#F8F8F2"><span class="token plain">end</span><br></span><span class="token-line" style="color:#F8F8F2"><span class="token plain" style="display:inline-block"></span><br></span><span class="token-line" style="color:#F8F8F2"><span class="token plain"># Typed YAML loading</span><br></span><span class="token-line" style="color:#F8F8F2"><span class="token plain">def load_config(path: String): Hash&lt;String, Any&gt;</span><br></span><span class="token-line" style="color:#F8F8F2"><span class="token plain">  YAML.load_file(path) as Hash&lt;String, Any&gt;</span><br></span><span class="token-line" style="color:#F8F8F2"><span class="token plain">end</span><br></span></code></pre></div></div>
@@ -147,9 +147,9 @@
 <ul>
 <li class=""><code>Pathname.new(path: String): Pathname</code></li>
 <li class=""><code>Pathname#/(other: String): Pathname</code></li>
-<li class=""><code>Pathname#exist?: Bool</code></li>
-<li class=""><code>Pathname#directory?: Bool</code></li>
-<li class=""><code>Pathname#file?: Bool</code></li>
+<li class=""><code>Pathname#exist?: Boolean</code></li>
+<li class=""><code>Pathname#directory?: Boolean</code></li>
+<li class=""><code>Pathname#file?: Boolean</code></li>
 <li class=""><code>Pathname#children: Array&lt;Pathname&gt;</code></li>
 <li class=""><code>Pathname#basename: Pathname</code></li>
 <li class=""><code>Pathname#dirname: Pathname</code></li>
@@ -176,9 +176,9 @@
 <li class=""><code>Set.new(enum: Array&lt;T&gt;?): Set&lt;T&gt;</code></li>
 <li class=""><code>Set#add(item: T): Set&lt;T&gt;</code></li>
 <li class=""><code>Set#delete(item: T): Set&lt;T&gt;</code></li>
-<li class=""><code>Set#include?(item: T): Bool</code></li>
+<li class=""><code>Set#include?(item: T): Boolean</code></li>
 <li class=""><code>Set#size: Integer</code></li>
-<li class=""><code>Set#empty?: Bool</code></li>
+<li class=""><code>Set#empty?: Boolean</code></li>
 <li class=""><code>Set#to_a: Array&lt;T&gt;</code></li>
 <li class=""><code>Set#&amp;(other: Set&lt;T&gt;): Set&lt;T&gt;</code> - Intersection</li>
 <li class=""><code>Set#|(other: Set&lt;T&gt;): Set&lt;T&gt;</code> - Union</li>

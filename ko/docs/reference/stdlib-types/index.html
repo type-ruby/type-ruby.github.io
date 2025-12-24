@@ -11,7 +11,7 @@
 
 <link rel="alternate" type="application/rss+xml" href="/ko/news/rss.xml" title="T-Ruby RSS Feed">
 <link rel="alternate" type="application/atom+xml" href="/ko/news/atom.xml" title="T-Ruby Atom Feed"><link rel="stylesheet" href="/ko/assets/css/styles.d1cb372b.css">
-<script src="/ko/assets/js/runtime~main.dce3a127.js" defer="defer"></script>
+<script src="/ko/assets/js/runtime~main.9c42845d.js" defer="defer"></script>
 <script src="/ko/assets/js/main.adaf5561.js" defer="defer"></script>
 </head>
 <body class="navigation-with-keyboard">
@@ -30,7 +30,7 @@
 <div class="language-trb codeBlockContainer_WMw_ theme-code-block" style="--prism-color:#F8F8F2;--prism-background-color:#282A36"><div class="codeBlockContent_wTBs"><pre tabindex="0" class="prism-code language-trb codeBlock_Nmz_ thin-scrollbar" style="color:#F8F8F2;background-color:#282A36"><code class="codeBlockLines_Uft3"><span class="token-line" style="color:#F8F8F2"><span class="token plain"># 파일 읽기</span><br></span><span class="token-line" style="color:#F8F8F2"><span class="token plain">def read_config(path: String): String | nil</span><br></span><span class="token-line" style="color:#F8F8F2"><span class="token plain">  return nil unless File.exist?(path)</span><br></span><span class="token-line" style="color:#F8F8F2"><span class="token plain">  File.read(path)</span><br></span><span class="token-line" style="color:#F8F8F2"><span class="token plain">end</span><br></span><span class="token-line" style="color:#F8F8F2"><span class="token plain" style="display:inline-block"></span><br></span><span class="token-line" style="color:#F8F8F2"><span class="token plain"># 파일 쓰기</span><br></span><span class="token-line" style="color:#F8F8F2"><span class="token plain">def save_data(path: String, content: String): void</span><br></span><span class="token-line" style="color:#F8F8F2"><span class="token plain">  File.write(path, content)</span><br></span><span class="token-line" style="color:#F8F8F2"><span class="token plain">end</span><br></span><span class="token-line" style="color:#F8F8F2"><span class="token plain" style="display:inline-block"></span><br></span><span class="token-line" style="color:#F8F8F2"><span class="token plain"># 파일 작업</span><br></span><span class="token-line" style="color:#F8F8F2"><span class="token plain">def process_file(path: String): Array&lt;String&gt;</span><br></span><span class="token-line" style="color:#F8F8F2"><span class="token plain">  File.readlines(path).map(&amp;:strip)</span><br></span><span class="token-line" style="color:#F8F8F2"><span class="token plain">end</span><br></span></code></pre></div></div>
 <p><strong>타입 시그니처:</strong></p>
 <ul>
-<li class=""><code>File.exist?(path: String): Bool</code></li>
+<li class=""><code>File.exist?(path: String): Boolean</code></li>
 <li class=""><code>File.read(path: String): String</code></li>
 <li class=""><code>File.write(path: String, content: String): Integer</code></li>
 <li class=""><code>File.readlines(path: String): Array&lt;String&gt;</code></li>
@@ -39,8 +39,8 @@
 <li class=""><code>File.delete(*paths: String): Integer</code></li>
 <li class=""><code>File.rename(old: String, new: String): Integer</code></li>
 <li class=""><code>File.size(path: String): Integer</code></li>
-<li class=""><code>File.directory?(path: String): Bool</code></li>
-<li class=""><code>File.file?(path: String): Bool</code></li>
+<li class=""><code>File.directory?(path: String): Boolean</code></li>
+<li class=""><code>File.file?(path: String): Boolean</code></li>
 </ul>
 <h3 class="anchor anchorTargetStickyNavbar__9bU" id="dir">Dir<a href="#dir" class="hash-link" aria-label="Dir으로 직접 링크" title="Dir으로 직접 링크" translate="no">​</a></h3>
 <p>디렉토리 작업.</p>
@@ -50,7 +50,7 @@
 <ul>
 <li class=""><code>Dir.entries(path: String): Array&lt;String&gt;</code></li>
 <li class=""><code>Dir.glob(pattern: String): Array&lt;String&gt;</code></li>
-<li class=""><code>Dir.exist?(path: String): Bool</code></li>
+<li class=""><code>Dir.exist?(path: String): Boolean</code></li>
 <li class=""><code>Dir.mkdir(path: String): void</code></li>
 <li class=""><code>Dir.rmdir(path: String): void</code></li>
 <li class=""><code>Dir.pwd: String</code></li>
@@ -85,7 +85,7 @@
 <h3 class="anchor anchorTargetStickyNavbar__9bU" id="타입이-지정된-json">타입이 지정된 JSON<a href="#타입이-지정된-json" class="hash-link" aria-label="타입이 지정된 JSON으로 직접 링크" title="타입이 지정된 JSON으로 직접 링크" translate="no">​</a></h3>
 <p>타입 안전한 JSON 작업을 위해 명시적 타입을 정의하세요:</p>
 <a href="https://github.com/type-ruby/t-ruby/blob/main/spec/docs_site/pages/reference/stdlib_types_spec.rb#L69" target="_blank" rel="noopener noreferrer" style="text-decoration:none"><span style="display:inline-flex;align-items:center;gap:3px;padding:2px 6px;border-radius:3px;font-size:10px;font-weight:500;background-color:rgba(34, 197, 94, 0.1);color:#16a34a;border:1px solid rgba(34, 197, 94, 0.2);cursor:pointer;text-decoration:none;transition:opacity 0.2s" title="View test: spec/docs_site/pages/reference/stdlib_types_spec.rb:69"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-badge-check" aria-hidden="true"><path d="M3.85 8.62a4 4 0 0 1 4.78-4.77 4 4 0 0 1 6.74 0 4 4 0 0 1 4.78 4.78 4 4 0 0 1 0 6.74 4 4 0 0 1-4.77 4.78 4 4 0 0 1-6.75 0 4 4 0 0 1-4.78-4.77 4 4 0 0 1 0-6.76Z"></path><path d="m9 12 2 2 4-4"></path></svg><span>Verified</span><svg xmlns="http://www.w3.org/2000/svg" width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-external-link" aria-hidden="true" style="margin-left:1px;opacity:0.7"><path d="M15 3h6v6"></path><path d="M10 14 21 3"></path><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path></svg></span></a>
-<div class="language-trb codeBlockContainer_WMw_ theme-code-block" style="--prism-color:#F8F8F2;--prism-background-color:#282A36"><div class="codeBlockContent_wTBs"><pre tabindex="0" class="prism-code language-trb codeBlock_Nmz_ thin-scrollbar" style="color:#F8F8F2;background-color:#282A36"><code class="codeBlockLines_Uft3"><span class="token-line" style="color:#F8F8F2"><span class="token plain">type JSONPrimitive = String | Integer | Float | Bool | nil</span><br></span><span class="token-line" style="color:#F8F8F2"><span class="token plain">type JSONArray = Array&lt;JSONValue&gt;</span><br></span><span class="token-line" style="color:#F8F8F2"><span class="token plain">type JSONObject = Hash&lt;String, JSONValue&gt;</span><br></span><span class="token-line" style="color:#F8F8F2"><span class="token plain">type JSONValue = JSONPrimitive | JSONArray | JSONObject</span><br></span><span class="token-line" style="color:#F8F8F2"><span class="token plain" style="display:inline-block"></span><br></span><span class="token-line" style="color:#F8F8F2"><span class="token plain">def parse_json(source: String): JSONValue</span><br></span><span class="token-line" style="color:#F8F8F2"><span class="token plain">  JSON.parse(source) as JSONValue</span><br></span><span class="token-line" style="color:#F8F8F2"><span class="token plain">end</span><br></span><span class="token-line" style="color:#F8F8F2"><span class="token plain" style="display:inline-block"></span><br></span><span class="token-line" style="color:#F8F8F2"><span class="token plain">def parse_object(source: String): JSONObject</span><br></span><span class="token-line" style="color:#F8F8F2"><span class="token plain">  result = JSON.parse(source)</span><br></span><span class="token-line" style="color:#F8F8F2"><span class="token plain">  result.is_a?(Hash) ? result : {}</span><br></span><span class="token-line" style="color:#F8F8F2"><span class="token plain">end</span><br></span></code></pre></div></div>
+<div class="language-trb codeBlockContainer_WMw_ theme-code-block" style="--prism-color:#F8F8F2;--prism-background-color:#282A36"><div class="codeBlockContent_wTBs"><pre tabindex="0" class="prism-code language-trb codeBlock_Nmz_ thin-scrollbar" style="color:#F8F8F2;background-color:#282A36"><code class="codeBlockLines_Uft3"><span class="token-line" style="color:#F8F8F2"><span class="token plain">type JSONPrimitive = String | Integer | Float | Boolean | nil</span><br></span><span class="token-line" style="color:#F8F8F2"><span class="token plain">type JSONArray = Array&lt;JSONValue&gt;</span><br></span><span class="token-line" style="color:#F8F8F2"><span class="token plain">type JSONObject = Hash&lt;String, JSONValue&gt;</span><br></span><span class="token-line" style="color:#F8F8F2"><span class="token plain">type JSONValue = JSONPrimitive | JSONArray | JSONObject</span><br></span><span class="token-line" style="color:#F8F8F2"><span class="token plain" style="display:inline-block"></span><br></span><span class="token-line" style="color:#F8F8F2"><span class="token plain">def parse_json(source: String): JSONValue</span><br></span><span class="token-line" style="color:#F8F8F2"><span class="token plain">  JSON.parse(source) as JSONValue</span><br></span><span class="token-line" style="color:#F8F8F2"><span class="token plain">end</span><br></span><span class="token-line" style="color:#F8F8F2"><span class="token plain" style="display:inline-block"></span><br></span><span class="token-line" style="color:#F8F8F2"><span class="token plain">def parse_object(source: String): JSONObject</span><br></span><span class="token-line" style="color:#F8F8F2"><span class="token plain">  result = JSON.parse(source)</span><br></span><span class="token-line" style="color:#F8F8F2"><span class="token plain">  result.is_a?(Hash) ? result : {}</span><br></span><span class="token-line" style="color:#F8F8F2"><span class="token plain">end</span><br></span></code></pre></div></div>
 <h2 class="anchor anchorTargetStickyNavbar__9bU" id="yaml">YAML<a href="#yaml" class="hash-link" aria-label="YAML으로 직접 링크" title="YAML으로 직접 링크" translate="no">​</a></h2>
 <p>YAML 파싱과 생성.</p>
 <a href="https://github.com/type-ruby/t-ruby/blob/main/spec/docs_site/pages/reference/stdlib_types_spec.rb#L80" target="_blank" rel="noopener noreferrer" style="text-decoration:none"><span style="display:inline-flex;align-items:center;gap:3px;padding:2px 6px;border-radius:3px;font-size:10px;font-weight:500;background-color:rgba(34, 197, 94, 0.1);color:#16a34a;border:1px solid rgba(34, 197, 94, 0.2);cursor:pointer;text-decoration:none;transition:opacity 0.2s" title="View test: spec/docs_site/pages/reference/stdlib_types_spec.rb:80"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-badge-check" aria-hidden="true"><path d="M3.85 8.62a4 4 0 0 1 4.78-4.77 4 4 0 0 1 6.74 0 4 4 0 0 1 4.78 4.78 4 4 0 0 1 0 6.74 4 4 0 0 1-4.77 4.78 4 4 0 0 1-6.75 0 4 4 0 0 1-4.78-4.77 4 4 0 0 1 0-6.76Z"></path><path d="m9 12 2 2 4-4"></path></svg><span>Verified</span><svg xmlns="http://www.w3.org/2000/svg" width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-external-link" aria-hidden="true" style="margin-left:1px;opacity:0.7"><path d="M15 3h6v6"></path><path d="M10 14 21 3"></path><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path></svg></span></a>
@@ -158,9 +158,9 @@
 <ul>
 <li class=""><code>Pathname.new(path: String): Pathname</code></li>
 <li class=""><code>Pathname#/(other: String): Pathname</code></li>
-<li class=""><code>Pathname#exist?: Bool</code></li>
-<li class=""><code>Pathname#directory?: Bool</code></li>
-<li class=""><code>Pathname#file?: Bool</code></li>
+<li class=""><code>Pathname#exist?: Boolean</code></li>
+<li class=""><code>Pathname#directory?: Boolean</code></li>
+<li class=""><code>Pathname#file?: Boolean</code></li>
 <li class=""><code>Pathname#children: Array&lt;Pathname&gt;</code></li>
 <li class=""><code>Pathname#basename: Pathname</code></li>
 <li class=""><code>Pathname#dirname: Pathname</code></li>
@@ -189,9 +189,9 @@
 <li class=""><code>Set.new(enum: Array&lt;T&gt;?): Set&lt;T&gt;</code></li>
 <li class=""><code>Set#add(item: T): Set&lt;T&gt;</code></li>
 <li class=""><code>Set#delete(item: T): Set&lt;T&gt;</code></li>
-<li class=""><code>Set#include?(item: T): Bool</code></li>
+<li class=""><code>Set#include?(item: T): Boolean</code></li>
 <li class=""><code>Set#size: Integer</code></li>
-<li class=""><code>Set#empty?: Bool</code></li>
+<li class=""><code>Set#empty?: Boolean</code></li>
 <li class=""><code>Set#to_a: Array&lt;T&gt;</code></li>
 <li class=""><code>Set#&amp;(other: Set&lt;T&gt;): Set&lt;T&gt;</code> - 교집합</li>
 <li class=""><code>Set#|(other: Set&lt;T&gt;): Set&lt;T&gt;</code> - 합집합</li>
