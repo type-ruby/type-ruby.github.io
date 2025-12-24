@@ -1,7 +1,7 @@
 ---
 slug: introducing-t-ruby
 title: T-Ruby のご紹介
-authors: [t-ruby-team]
+authors: [yhk1038]
 tags: [announcement]
 ---
 
