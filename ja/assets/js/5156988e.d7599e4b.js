@@ -1,1 +1,0 @@
-"use strict";(globalThis.webpackChunkt_ruby_docs=globalThis.webpackChunkt_ruby_docs||[]).push([[1650],{6680:a=>{a.exports=JSON.parse('{"tags":[{"label":"announcement","permalink":"/ja/blog/tags/announcement","count":1}]}')}}]);

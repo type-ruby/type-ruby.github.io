@@ -1,1 +1,0 @@
-"use strict";(globalThis.webpackChunkt_ruby_docs=globalThis.webpackChunkt_ruby_docs||[]).push([[2635],{2763:e=>{e.exports=JSON.parse('{"title":"Recent News","items":[{"title":"T-Ruby \uc18c\uac1c","permalink":"/ko/news/introducing-t-ruby","unlisted":false,"date":"2025-12-24T00:00:00.000Z"}]}')}}]);
