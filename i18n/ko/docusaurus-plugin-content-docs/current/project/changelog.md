@@ -14,6 +14,42 @@ T-Ruby의 모든 주목할 만한 변경 사항은 이 파일에 문서화됩니
 형식은 [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)를 기반으로 하며,
 이 프로젝트는 [시맨틱 버저닝](https://semver.org/spec/v2.0.0.html)을 따릅니다.
 
+## [0.0.39] - 2025-12-24
+
+### 추가됨
+
+#### 타입 추론 엔진
+- **TypeScript 스타일 타입 추론** - 명시적 어노테이션 없이 자동 반환 타입 추론
+- **BodyParser** - 메서드 본문 IR 노드 생성을 위한 새 파서
+- **TypeEnv** - 변수 타입 추적을 위한 스코프 체인 관리
+- **ASTTypeInferrer** - 지연 평가와 캐싱을 사용한 표현식 타입 추론
+- **리터럴 추론** - `"hello"` → `String`, `42` → `Integer`, `true` → `bool`
+- **메서드 호출 추적** - `str.upcase` → `String`, `arr.length` → `Integer`
+- **암묵적 반환 처리** - Ruby의 마지막 표현식을 반환 타입으로
+- **조건문 타입 추론** - `if`/`else` 분기에서 유니온 타입
+- **200개 이상의 내장 메서드 타입** - 일반적인 Ruby 메서드 반환 타입
+
+#### 특별 처리
+- **`initialize` 메서드** - 항상 `void` 반환 (RBS 규칙)
+- **도달 불가능 코드 감지** - 무조건적 `return` 이후 코드 무시
+
+### 예제
+
+이전 (명시적 어노테이션 필요):
+```ruby
+def greet(name: String): String
+  "Hello, #{name}!"
+end
+```
+
+이후 (추론이 자동으로 동작):
+```ruby
+def greet(name: String)
+  "Hello, #{name}!"
+end
+# RBS: def greet: (name: String) -> String
+```
+
 ## [미공개]
 
 ### 계획됨

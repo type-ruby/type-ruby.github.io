@@ -14,6 +14,42 @@ All notable changes to T-Ruby will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.0.39] - 2025-12-24
+
+### Added
+
+#### Type Inference Engine
+- **TypeScript-style type inference** - Automatic return type inference without explicit annotations
+- **BodyParser** - New parser for method body IR node generation
+- **TypeEnv** - Scope chain management for variable type tracking
+- **ASTTypeInferrer** - Expression type inference with lazy evaluation and caching
+- **Literal inference** - `"hello"` → `String`, `42` → `Integer`, `true` → `bool`
+- **Method call tracking** - `str.upcase` → `String`, `arr.length` → `Integer`
+- **Implicit return handling** - Ruby's last expression as return type
+- **Conditional type inference** - Union types from `if`/`else` branches
+- **200+ built-in method types** - Common Ruby method return types
+
+#### Special Handling
+- **`initialize` method** - Always returns `void` (RBS convention)
+- **Unreachable code detection** - Ignores code after unconditional `return`
+
+### Example
+
+Before (explicit annotation required):
+```ruby
+def greet(name: String): String
+  "Hello, #{name}!"
+end
+```
+
+After (inference works automatically):
+```ruby
+def greet(name: String)
+  "Hello, #{name}!"
+end
+# RBS: def greet: (name: String) -> String
+```
+
 ## [Unreleased]
 
 ### Planned
@@ -275,6 +311,7 @@ T-Ruby is released under the MIT License. See LICENSE file for details.
 
 | Version | Release Date | Status | Highlights |
 |---------|--------------|--------|------------|
+| [0.0.39](#0039---2025-12-24) | 2025-12-24 | Alpha | TypeScript-style type inference |
 | [0.1.0-alpha](#010-alpha---2025-12-09) | 2025-12-09 | Alpha | Initial release, core features |
 | 0.2.0 | TBD | Planned | LSP, tuples, tooling |
 | 0.3.0 | TBD | Planned | Rails types, advanced features |
