@@ -42,7 +42,7 @@ end
 ```
 
 **Type Signatures:**
-- `File.exist?(path: String): Bool`
+- `File.exist?(path: String): Boolean`
 - `File.read(path: String): String`
 - `File.write(path: String, content: String): Integer`
 - `File.readlines(path: String): Array<String>`
@@ -51,8 +51,8 @@ end
 - `File.delete(*paths: String): Integer`
 - `File.rename(old: String, new: String): Integer`
 - `File.size(path: String): Integer`
-- `File.directory?(path: String): Bool`
-- `File.file?(path: String): Bool`
+- `File.directory?(path: String): Boolean`
+- `File.file?(path: String): Boolean`
 
 ### Dir
 
@@ -78,7 +78,7 @@ end
 **Type Signatures:**
 - `Dir.entries(path: String): Array<String>`
 - `Dir.glob(pattern: String): Array<String>`
-- `Dir.exist?(path: String): Bool`
+- `Dir.exist?(path: String): Boolean`
 - `Dir.mkdir(path: String): void`
 - `Dir.rmdir(path: String): void`
 - `Dir.pwd: String`
@@ -153,7 +153,7 @@ end
 For type-safe JSON operations, define explicit types:
 
 ```trb
-type JSONPrimitive = String | Integer | Float | Bool | nil
+type JSONPrimitive = String | Integer | Float | Boolean | nil
 type JSONArray = Array<JSONValue>
 type JSONObject = Hash<String, JSONValue>
 type JSONValue = JSONPrimitive | JSONArray | JSONObject
@@ -363,9 +363,9 @@ end
 **Type Signatures:**
 - `Pathname.new(path: String): Pathname`
 - `Pathname#/(other: String): Pathname`
-- `Pathname#exist?: Bool`
-- `Pathname#directory?: Bool`
-- `Pathname#file?: Bool`
+- `Pathname#exist?: Boolean`
+- `Pathname#directory?: Boolean`
+- `Pathname#file?: Boolean`
 - `Pathname#children: Array<Pathname>`
 - `Pathname#basename: Pathname`
 - `Pathname#dirname: Pathname`
@@ -432,9 +432,9 @@ end
 - `Set.new(enum: Array<T>?): Set<T>`
 - `Set#add(item: T): Set<T>`
 - `Set#delete(item: T): Set<T>`
-- `Set#include?(item: T): Bool`
+- `Set#include?(item: T): Boolean`
 - `Set#size: Integer`
-- `Set#empty?: Bool`
+- `Set#empty?: Boolean`
 - `Set#to_a: Array<T>`
 - `Set#&(other: Set<T>): Set<T>` - Intersection
 - `Set#|(other: Set<T>): Set<T>` - Union

@@ -29,7 +29,7 @@ id: String | Integer = "user-123"
 id: String | Integer = 456
 
 # Multiple types
-value: String | Integer | Float | Bool = 3.14
+value: String | Integer | Float | Boolean = 3.14
 
 # With nil (optional type)
 name: String | nil = nil
@@ -37,7 +37,7 @@ user: User | nil = find_user(123)
 
 # In collections
 mixed: Array<String | Integer> = ["Alice", 1, "Bob", 2]
-config: Hash<Symbol, String | Integer | Bool> = {
+config: Hash<Symbol, String | Integer | Boolean> = {
   host: "localhost",
   port: 3000,
   debug: true
@@ -218,7 +218,7 @@ def pair<K, V>(key: K, value: V): Hash<K, V>
 end
 
 # Generic with constraints
-def find<T>(items: Array<T>, predicate: Proc<T, Bool>): T | nil
+def find<T>(items: Array<T>, predicate: Proc<T, Boolean>): T | nil
   items.find { |item| predicate.call(item) }
 end
 ```
@@ -340,7 +340,7 @@ scores: Hash<String, Integer> = { "Alice" => 100 }
 config: Hash<Symbol, String> = { host: "localhost" }
 
 # Union value types
-data: Hash<String, String | Integer | Bool> = {
+data: Hash<String, String | Integer | Boolean> = {
   "name" => "Alice",
   "age" => 30,
   "active" => true
@@ -668,10 +668,10 @@ name: String? = nil
 
 ```trb
 # ❌ Too many options
-value: String | Integer | Float | Bool | Symbol | nil | Array<String>
+value: String | Integer | Float | Boolean | Symbol | nil | Array<String>
 
 # ✅ Use type alias
-type PrimitiveValue = String | Integer | Float | Bool
+type PrimitiveValue = String | Integer | Float | Boolean
 type OptionalPrimitive = PrimitiveValue?
 ```
 

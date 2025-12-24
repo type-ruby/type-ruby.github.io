@@ -40,15 +40,15 @@ Type guards are expressions that allow T-Ruby to narrow types. The most common t
 The `is_a?` method checks if a value is an instance of a particular type:
 
 ```trb title="is_a_guard.trb"
-def format_value(value: String | Integer | Bool): String
+def format_value(value: String | Integer | Boolean): String
   if value.is_a?(String)
     # value is String here
     "Text: #{value}"
   elsif value.is_a?(Integer)
     # value is Integer here
     "Number: #{value}"
-  elsif value.is_a?(Bool)
-    # value is Bool here
+  elsif value.is_a?(Boolean)
+    # value is Boolean here
     "Boolean: #{value}"
   else
     "Unknown"
@@ -235,7 +235,7 @@ display2: String = get_display_name(nil)  # "Anonymous"
 ```trb title="and_narrowing.trb"
 def process_and(
   value: String | nil,
-  flag: Bool
+  flag: Boolean
 ): String
   if !value.nil? && flag
     # value is String here (not nil)
@@ -368,8 +368,8 @@ Here's a comprehensive example using type narrowing:
 class FormValidator
   def validate_field(
     name: String,
-    value: String | Integer | Bool | nil,
-    required: Bool
+    value: String | Integer | Boolean | nil,
+    required: Boolean
   ): String | nil
     # Early return if required field is missing
     if required && value.nil?
@@ -391,7 +391,7 @@ class FormValidator
       return "#{name} must be positive" if value < 0
       return "#{name} is too large" if value > 1000
     end
-    # value is Bool here (if it wasn't String or Integer)
+    # value is Boolean here (if it wasn't String or Integer)
 
     # No errors
     nil

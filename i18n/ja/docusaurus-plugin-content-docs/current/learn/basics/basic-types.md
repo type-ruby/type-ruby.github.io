@@ -18,7 +18,7 @@ T-Rubyには以下の基本型が含まれます：
 - `String` - テキストデータ
 - `Integer` - 整数
 - `Float` - 小数点数
-- `Bool` - trueまたはfalse値
+- `Boolean` - trueまたはfalse値
 - `Symbol` - 不変識別子
 - `nil` - 値の不在
 
@@ -127,11 +127,11 @@ end
 abs_value: Integer = absolute_value(-42)
 # 42を返す
 
-def is_even(n: Integer): Bool
+def is_even(n: Integer): Boolean
   n.even?
 end
 
-check: Bool = is_even(10)
+check: Boolean = is_even(10)
 # trueを返す
 ```
 
@@ -226,51 +226,51 @@ sum: Float = add_numbers(5, 2.5)
 # 7.5を返す
 ```
 
-## Bool
+## Boolean
 
-`Bool`型はブール値：`true`または`false`を表します。T-Rubyは`Boolean`ではなく`Bool`を型名として使用します。
+`Boolean`型はブール値：`true`または`false`を表します。T-Rubyは`Boolean`ではなく`Boolean`を型名として使用します。
 
 ### 基本的なBoolean使用
 
 ```trb title="booleans.trb"
 # Boolean変数
-is_active: Bool = true
-has_permission: Bool = false
+is_active: Boolean = true
+has_permission: Boolean = false
 
 # 比較からのBoolean
-is_adult: Bool = age >= 18
-is_valid: Bool = count > 0
+is_adult: Boolean = age >= 18
+is_valid: Boolean = count > 0
 ```
 
 ### Boolean論理
 
 ```trb title="boolean_logic.trb"
-def can_access(is_logged_in: Bool, has_permission: Bool): Bool
+def can_access(is_logged_in: Boolean, has_permission: Boolean): Boolean
   is_logged_in && has_permission
 end
 
-access: Bool = can_access(true, true)
+access: Boolean = can_access(true, true)
 # trueを返す
 
-def should_notify(is_important: Bool, is_urgent: Bool): Bool
+def should_notify(is_important: Boolean, is_urgent: Boolean): Boolean
   is_important || is_urgent
 end
 
-notify: Bool = should_notify(false, true)
+notify: Boolean = should_notify(false, true)
 # trueを返す
 
-def toggle(flag: Bool): Bool
+def toggle(flag: Boolean): Boolean
   !flag
 end
 
-flipped: Bool = toggle(true)
+flipped: Boolean = toggle(true)
 # falseを返す
 ```
 
 ### 条件文でのBooleans
 
 ```trb title="boolean_conditionals.trb"
-def get_status(is_complete: Bool): String
+def get_status(is_complete: Boolean): String
   if is_complete
     "完了"
   else
@@ -281,8 +281,8 @@ end
 status: String = get_status(true)
 # "完了"を返す
 
-def check_eligibility(age: Integer, has_license: Bool): String
-  can_drive: Bool = age >= 16 && has_license
+def check_eligibility(age: Integer, has_license: Boolean): String
+  can_drive: Boolean = age >= 16 && has_license
 
   if can_drive
     "運転資格あり"
@@ -292,21 +292,21 @@ def check_eligibility(age: Integer, has_license: Bool): String
 end
 ```
 
-### Truthiness vs Bool
+### Truthiness vs Boolean
 
-Rubyでは多くの値が「truthy」または「falsy」ですが、`Bool`型は`true`または`false`のみを受け入れます：
+Rubyでは多くの値が「truthy」または「falsy」ですが、`Boolean`型は`true`または`false`のみを受け入れます：
 
 ```trb title="bool_strict.trb"
 # これは正しい
-flag: Bool = true
+flag: Boolean = true
 
 # これらはエラーになる：
-# flag: Bool = 1        # エラー: IntegerはBoolではない
-# flag: Bool = "yes"    # エラー: StringはBoolではない
-# flag: Bool = nil      # エラー: nilはBoolではない
+# flag: Boolean = 1        # エラー: IntegerはBooleanではない
+# flag: Boolean = "yes"    # エラー: StringはBooleanではない
+# flag: Boolean = nil      # エラー: nilはBooleanではない
 
-# truthy値をBoolに変換するには：
-def to_bool(value: String | nil): Bool
+# truthy値をBooleanに変換するには：
+def to_bool(value: String | nil): Boolean
   !value.nil? && !value.empty?
 end
 ```
@@ -339,11 +339,11 @@ options = create_options(:production)
 
 ```trb title="symbol_vs_string.trb"
 # 同じシンボルは常にメモリ内の同じオブジェクト
-def are_same_symbol(a: Symbol, b: Symbol): Bool
+def are_same_symbol(a: Symbol, b: Symbol): Boolean
   a.object_id == b.object_id
 end
 
-same: Bool = are_same_symbol(:active, :active)
+same: Boolean = are_same_symbol(:active, :active)
 # trueを返す
 
 # SymbolとString間の変換
@@ -445,7 +445,7 @@ def describe_float(num: Float): String
   num.to_s
 end
 
-def describe_bool(flag: Bool): String
+def describe_bool(flag: Boolean): String
   flag.to_s
 end
 
@@ -525,7 +525,7 @@ T-Rubyの基本型はRubyの基本型を反映しています：
 - **String**: テキストデータ（`"hello"`）
 - **Integer**: 整数（`42`）
 - **Float**: 小数点数（`3.14`）
-- **Bool**: ブール値（`true`, `false`）
+- **Boolean**: ブール値（`true`, `false`）
 - **Symbol**: 不変識別子（`:active`）
 - **nil**: 値の不在（`nil`）
 

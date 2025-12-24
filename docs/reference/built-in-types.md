@@ -32,8 +32,8 @@ TEXT
 - `downcase: String` - Converts to lowercase
 - `strip: String` - Removes leading/trailing whitespace
 - `split(delimiter: String): Array<String>` - Splits into array
-- `include?(substring: String): Bool` - Checks if contains substring
-- `empty?: Bool` - Checks if string is empty
+- `include?(substring: String): Boolean` - Checks if contains substring
+- `empty?: Boolean` - Checks if string is empty
 
 ### Integer
 
@@ -48,8 +48,8 @@ large: Integer = 1_000_000
 
 **Common Methods:**
 - `abs: Integer` - Absolute value
-- `even?: Bool` - Checks if even
-- `odd?: Bool` - Checks if odd
+- `even?: Boolean` - Checks if even
+- `odd?: Boolean` - Checks if odd
 - `to_s: String` - Converts to string
 - `to_f: Float` - Converts to float
 - `times(&block: Proc<Integer, void>): void` - Iterates n times
@@ -74,17 +74,17 @@ scientific: Float = 2.998e8
 - `to_s: String` - Converts to string
 - `to_i: Integer` - Converts to integer
 
-### Bool
+### Boolean
 
 Represents boolean values: `true` or `false`.
 
 ```trb
-active: Bool = true
-disabled: Bool = false
-is_valid: Bool = count > 0
+active: Boolean = true
+disabled: Boolean = false
+is_valid: Boolean = count > 0
 ```
 
-**Note:** T-Ruby uses `Bool` (not `Boolean`) as the type name. Only `true` and `false` are valid boolean values. Unlike Ruby's truthiness system, `Bool` does not accept truthy values like `1`, `"yes"`, or empty strings.
+**Note:** T-Ruby uses `Boolean` (not `Boolean`) as the type name. Only `true` and `false` are valid boolean values. Unlike Ruby's truthiness system, `Boolean` does not accept truthy values like `1`, `"yes"`, or empty strings.
 
 ### Symbol
 
@@ -118,7 +118,7 @@ result: User | nil = find_user(123)
 ```
 
 **Methods:**
-- `nil?: Bool` - Always returns `true` for nil
+- `nil?: Boolean` - Always returns `true` for nil
 
 ## Special Types
 
@@ -216,16 +216,16 @@ items: Array<String> = []
 **Common Methods:**
 - `length: Integer` - Returns array length
 - `size: Integer` - Alias for length
-- `empty?: Bool` - Checks if empty
+- `empty?: Boolean` - Checks if empty
 - `first: T | nil` - Returns first element
 - `last: T | nil` - Returns last element
 - `push(item: T): Array<T>` - Adds element to end
 - `pop: T | nil` - Removes and returns last element
 - `shift: T | nil` - Removes and returns first element
 - `unshift(item: T): Array<T>` - Adds element to beginning
-- `include?(item: T): Bool` - Checks if contains element
+- `include?(item: T): Boolean` - Checks if contains element
 - `map<U>(&block: Proc<T, U>): Array<U>` - Transforms elements
-- `select(&block: Proc<T, Bool>): Array<T>` - Filters elements
+- `select(&block: Proc<T, Boolean>): Array<T>` - Filters elements
 - `each(&block: Proc<T, void>): void` - Iterates over elements
 - `reverse: Array<T>` - Returns reversed array
 - `sort: Array<T>` - Returns sorted array
@@ -257,9 +257,9 @@ cache: Hash<String, Any> = {}
 **Common Methods:**
 - `length: Integer` - Returns number of pairs
 - `size: Integer` - Alias for length
-- `empty?: Bool` - Checks if empty
-- `key?(key: K): Bool` - Checks if key exists
-- `value?(value: V): Bool` - Checks if value exists
+- `empty?: Boolean` - Checks if empty
+- `key?(key: K): Boolean` - Checks if key exists
+- `value?(value: V): Boolean` - Checks if value exists
 - `keys: Array<K>` - Returns array of keys
 - `values: Array<V>` - Returns array of values
 - `fetch(key: K): V` - Gets value (raises if not found)
@@ -282,8 +282,8 @@ unique_ids: Set<Integer> = Set.new([1, 2, 3, 2, 1])  # {1, 2, 3}
 **Common Methods:**
 - `add(item: T): Set<T>` - Adds element
 - `delete(item: T): Set<T>` - Removes element
-- `include?(item: T): Bool` - Checks membership
-- `empty?: Bool` - Checks if empty
+- `include?(item: T): Boolean` - Checks membership
+- `empty?: Boolean` - Checks if empty
 - `size: Integer` - Returns number of elements
 - `to_a: Array<T>` - Converts to array
 
@@ -303,7 +303,7 @@ letters: Range = 'a'..'z'
 **Common Methods:**
 - `to_a: Array` - Converts to array
 - `each(&block: Proc<Any, void>): void` - Iterates over range
-- `include?(value: Any): Bool` - Checks if value in range
+- `include?(value: Any): Boolean` - Checks if value in range
 - `first: Any` - Returns first value
 - `last: Any` - Returns last value
 
@@ -487,7 +487,7 @@ Represents a regular expression pattern.
 pattern: Regexp = /\d+/
 email_pattern: Regexp = /^[\w+\-.]+@[a-z\d\-]+(\.[a-z\d\-]+)*\.[a-z]+$/i
 
-def validate_email(email: String, pattern: Regexp): Bool
+def validate_email(email: String, pattern: Regexp): Boolean
   email.match?(pattern)
 end
 ```
@@ -589,7 +589,7 @@ end
 | `String` | Primitive | Text data | `"hello"` |
 | `Integer` | Primitive | Whole numbers | `42` |
 | `Float` | Primitive | Decimals | `3.14` |
-| `Bool` | Primitive | True/false | `true` |
+| `Boolean` | Primitive | True/false | `true` |
 | `Symbol` | Primitive | Identifiers | `:active` |
 | `nil` | Primitive | No value | `nil` |
 | `Array<T>` | Collection | Ordered list | `[1, 2, 3]` |
@@ -622,7 +622,7 @@ true.to_s         # "true"
 # To Integer
 "123".to_i        # 123
 3.14.to_i         # 3 (truncates)
-true.to_i         # Error: Bool has no to_i
+true.to_i         # Error: Boolean has no to_i
 
 # To Float
 "3.14".to_f       # 3.14
@@ -648,15 +648,15 @@ All types support type checking methods:
 value: String | Integer = get_value()
 
 # Class checking
-value.is_a?(String)    # Bool
-value.is_a?(Integer)   # Bool
-value.kind_of?(String) # Bool (alias)
+value.is_a?(String)    # Boolean
+value.is_a?(Integer)   # Boolean
+value.kind_of?(String) # Boolean (alias)
 
 # Instance checking
-value.instance_of?(String)  # Bool (exact class)
+value.instance_of?(String)  # Boolean (exact class)
 
 # Nil checking
-value.nil?             # Bool
+value.nil?             # Boolean
 
 # Type methods
 value.class            # Class

@@ -113,7 +113,7 @@ def reverse<T>(arr: Array<T>): Array<T>
 end
 
 # 조건부로 배열 필터링
-def filter<T>(arr: Array<T>, &block: Proc<T, Bool>): Array<T>
+def filter<T>(arr: Array<T>, &block: Proc<T, Boolean>): Array<T>
   arr.select { |item| block.call(item) }
 end
 
@@ -212,7 +212,7 @@ container1 = Container.new("hello")  # Container<String>
 container2 = Container.new(42)       # Container<Integer>
 
 # 또는 명시적으로 타입 지정
-container3 = Container<Bool>.new(true)
+container3 = Container<Boolean>.new(true)
 ```
 
 ### 제네릭 스택 예제
@@ -241,7 +241,7 @@ class Stack<T>
     @items.last
   end
 
-  def empty?: Bool
+  def empty?: Boolean
     @items.empty?
   end
 
@@ -331,7 +331,7 @@ class Collection<T>
     @items.push(item)
   end
 
-  def remove(item: T): Bool
+  def remove(item: T): Boolean
     if index = @items.index(item)
       @items.delete_at(index)
       true
@@ -340,7 +340,7 @@ class Collection<T>
     end
   end
 
-  def contains?(item: T): Bool
+  def contains?(item: T): Boolean
     @items.include?(item)
   end
 
@@ -356,7 +356,7 @@ class Collection<T>
     Collection<U>.new(@items.map { |item| block.call(item) })
   end
 
-  def filter(&block: Proc<T, Bool>): Collection<T>
+  def filter(&block: Proc<T, Boolean>): Collection<T>
     Collection.new(@items.select { |item| block.call(item) })
   end
 
@@ -439,7 +439,7 @@ class Cache<K, V>
     @store[key] || []
   end
 
-  def has_key?(key: K): Bool
+  def has_key?(key: K): Boolean
     @store.key?(key)
   end
 end
@@ -489,7 +489,7 @@ def head<T>(arr: Array<T>): T | nil
 end
 
 # 덜 좋음: 너무 많은 책임
-def process<T>(arr: Array<T>, flag: Bool, count: Integer): Array<T> | Hash<Integer, T>
+def process<T>(arr: Array<T>, flag: Boolean, count: Integer): Array<T> | Hash<Integer, T>
   # 너무 복잡함, 제네릭 동작을 이해하기 어려움
 end
 ```
@@ -520,11 +520,11 @@ class Option<T>
     @value = value
   end
 
-  def is_some?: Bool
+  def is_some?: Boolean
     !@value.nil?
   end
 
-  def is_none?: Bool
+  def is_none?: Boolean
     @value.nil?
   end
 
@@ -577,11 +577,11 @@ class Result<T, E>
     result
   end
 
-  def ok?: Bool
+  def ok?: Boolean
     !@value.nil?
   end
 
-  def err?: Bool
+  def err?: Boolean
     !@error.nil?
   end
 

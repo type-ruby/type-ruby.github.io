@@ -76,44 +76,6 @@ bundle install
 rake install
 ```
 
-## Platform-Specific Notes
-
-### macOS
-
-T-Ruby works out of the box on macOS. If you use Homebrew:
-
-```bash
-# Install Ruby if needed
-brew install ruby
-
-# Then install T-Ruby
-gem install t-ruby
-```
-
-### Linux
-
-Most Linux distributions work without issues. On Ubuntu/Debian:
-
-```bash
-# Install Ruby if needed
-sudo apt-get update
-sudo apt-get install ruby ruby-dev
-
-# Install T-Ruby
-gem install t-ruby
-```
-
-### Windows
-
-T-Ruby supports Windows via RubyInstaller:
-
-1. Download and install [RubyInstaller](https://rubyinstaller.org/)
-2. Open a command prompt and run:
-
-```bash
-gem install t-ruby
-```
-
 ## Verify Installation
 
 After installation, verify everything works:

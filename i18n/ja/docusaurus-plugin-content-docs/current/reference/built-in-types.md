@@ -32,8 +32,8 @@ TEXT
 - `downcase: String` - 小文字に変換
 - `strip: String` - 前後の空白を削除
 - `split(delimiter: String): Array<String>` - 配列に分割
-- `include?(substring: String): Bool` - 部分文字列を含むかチェック
-- `empty?: Bool` - 文字列が空かチェック
+- `include?(substring: String): Boolean` - 部分文字列を含むかチェック
+- `empty?: Boolean` - 文字列が空かチェック
 
 ### Integer
 
@@ -48,8 +48,8 @@ large: Integer = 1_000_000
 
 **一般的なメソッド:**
 - `abs: Integer` - 絶対値
-- `even?: Bool` - 偶数かチェック
-- `odd?: Bool` - 奇数かチェック
+- `even?: Boolean` - 偶数かチェック
+- `odd?: Boolean` - 奇数かチェック
 - `to_s: String` - 文字列に変換
 - `to_f: Float` - 浮動小数点に変換
 - `times(&block: Proc<Integer, void>): void` - n回繰り返す
@@ -74,17 +74,17 @@ scientific: Float = 2.998e8
 - `to_s: String` - 文字列に変換
 - `to_i: Integer` - 整数に変換
 
-### Bool
+### Boolean
 
 ブール値：`true`または`false`を表します。
 
 ```trb
-active: Bool = true
-disabled: Bool = false
-is_valid: Bool = count > 0
+active: Boolean = true
+disabled: Boolean = false
+is_valid: Boolean = count > 0
 ```
 
-**注意:** T-Rubyは型名として`Bool`を使用します（`Boolean`ではありません）。`true`と`false`のみが有効なブール値です。RubyのtruthyシステムとBが異なり、`Bool`は`1`、`"yes"`、空文字列などのtruthy値を受け入れません。
+**注意:** T-Rubyは型名として`Boolean`を使用します（`Boolean`ではありません）。`true`と`false`のみが有効なブール値です。RubyのtruthyシステムとBが異なり、`Boolean`は`1`、`"yes"`、空文字列などのtruthy値を受け入れません。
 
 ### Symbol
 
@@ -118,7 +118,7 @@ result: User | nil = find_user(123)
 ```
 
 **メソッド:**
-- `nil?: Bool` - nilに対して常に`true`を返す
+- `nil?: Boolean` - nilに対して常に`true`を返す
 
 ## 特殊型
 
@@ -216,16 +216,16 @@ items: Array<String> = []
 **一般的なメソッド:**
 - `length: Integer` - 配列の長さを返す
 - `size: Integer` - lengthのエイリアス
-- `empty?: Bool` - 空かチェック
+- `empty?: Boolean` - 空かチェック
 - `first: T | nil` - 最初の要素を返す
 - `last: T | nil` - 最後の要素を返す
 - `push(item: T): Array<T>` - 末尾に要素を追加
 - `pop: T | nil` - 最後の要素を削除して返す
 - `shift: T | nil` - 最初の要素を削除して返す
 - `unshift(item: T): Array<T>` - 先頭に要素を追加
-- `include?(item: T): Bool` - 要素を含むかチェック
+- `include?(item: T): Boolean` - 要素を含むかチェック
 - `map<U>(&block: Proc<T, U>): Array<U>` - 要素を変換
-- `select(&block: Proc<T, Bool>): Array<T>` - 要素をフィルタ
+- `select(&block: Proc<T, Boolean>): Array<T>` - 要素をフィルタ
 - `each(&block: Proc<T, void>): void` - 要素を反復
 - `reverse: Array<T>` - 反転した配列を返す
 - `sort: Array<T>` - ソートされた配列を返す
@@ -257,9 +257,9 @@ cache: Hash<String, Any> = {}
 **一般的なメソッド:**
 - `length: Integer` - ペアの数を返す
 - `size: Integer` - lengthのエイリアス
-- `empty?: Bool` - 空かチェック
-- `key?(key: K): Bool` - キーが存在するかチェック
-- `value?(value: V): Bool` - 値が存在するかチェック
+- `empty?: Boolean` - 空かチェック
+- `key?(key: K): Boolean` - キーが存在するかチェック
+- `value?(value: V): Boolean` - 値が存在するかチェック
 - `keys: Array<K>` - キーの配列を返す
 - `values: Array<V>` - 値の配列を返す
 - `fetch(key: K): V` - 値を取得（見つからない場合は例外）
@@ -282,8 +282,8 @@ unique_ids: Set<Integer> = Set.new([1, 2, 3, 2, 1])  # {1, 2, 3}
 **一般的なメソッド:**
 - `add(item: T): Set<T>` - 要素を追加
 - `delete(item: T): Set<T>` - 要素を削除
-- `include?(item: T): Bool` - メンバーシップをチェック
-- `empty?: Bool` - 空かチェック
+- `include?(item: T): Boolean` - メンバーシップをチェック
+- `empty?: Boolean` - 空かチェック
 - `size: Integer` - 要素数を返す
 - `to_a: Array<T>` - 配列に変換
 
@@ -303,7 +303,7 @@ letters: Range = 'a'..'z'
 **一般的なメソッド:**
 - `to_a: Array` - 配列に変換
 - `each(&block: Proc<Any, void>): void` - 範囲を反復
-- `include?(value: Any): Bool` - 値が範囲内かチェック
+- `include?(value: Any): Boolean` - 値が範囲内かチェック
 - `first: Any` - 最初の値を返す
 - `last: Any` - 最後の値を返す
 
@@ -487,7 +487,7 @@ moment: DateTime = DateTime.now
 pattern: Regexp = /\d+/
 email_pattern: Regexp = /^[\w+\-.]+@[a-z\d\-]+(\.[a-z\d\-]+)*\.[a-z]+$/i
 
-def validate_email(email: String, pattern: Regexp): Bool
+def validate_email(email: String, pattern: Regexp): Boolean
   email.match?(pattern)
 end
 ```
@@ -589,7 +589,7 @@ end
 | `String` | プリミティブ | テキストデータ | `"hello"` |
 | `Integer` | プリミティブ | 整数 | `42` |
 | `Float` | プリミティブ | 小数 | `3.14` |
-| `Bool` | プリミティブ | True/false | `true` |
+| `Boolean` | プリミティブ | True/false | `true` |
 | `Symbol` | プリミティブ | 識別子 | `:active` |
 | `nil` | プリミティブ | 値なし | `nil` |
 | `Array<T>` | コレクション | 順序付きリスト | `[1, 2, 3]` |
@@ -622,7 +622,7 @@ true.to_s         # "true"
 # Integerへ
 "123".to_i        # 123
 3.14.to_i         # 3（切り捨て）
-true.to_i         # エラー: Boolにto_iはない
+true.to_i         # エラー: Booleanにto_iはない
 
 # Floatへ
 "3.14".to_f       # 3.14
@@ -648,15 +648,15 @@ true.to_i         # エラー: Boolにto_iはない
 value: String | Integer = get_value()
 
 # クラスチェック
-value.is_a?(String)    # Bool
-value.is_a?(Integer)   # Bool
-value.kind_of?(String) # Bool（エイリアス）
+value.is_a?(String)    # Boolean
+value.is_a?(Integer)   # Boolean
+value.kind_of?(String) # Boolean（エイリアス）
 
 # インスタンスチェック
-value.instance_of?(String)  # Bool（正確なクラス）
+value.instance_of?(String)  # Boolean（正確なクラス）
 
 # Nilチェック
-value.nil?             # Bool
+value.nil?             # Boolean
 
 # 型メソッド
 value.class            # Class

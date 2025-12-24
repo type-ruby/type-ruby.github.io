@@ -33,7 +33,7 @@ id: String | Integer = "user-123"
 id: String | Integer = 456
 
 # 여러 타입
-value: String | Integer | Float | Bool = 3.14
+value: String | Integer | Float | Boolean = 3.14
 
 # nil과 함께 (선택적 타입)
 name: String | nil = nil
@@ -41,7 +41,7 @@ user: User | nil = find_user(123)
 
 # 컬렉션에서
 mixed: Array<String | Integer> = ["Alice", 1, "Bob", 2]
-config: Hash<Symbol, String | Integer | Bool> = {
+config: Hash<Symbol, String | Integer | Boolean> = {
   host: "localhost",
   port: 3000,
   debug: true
@@ -240,7 +240,7 @@ def pair<K, V>(key: K, value: V): Hash<K, V>
 end
 
 # 제약이 있는 제네릭
-def find<T>(items: Array<T>, predicate: Proc<T, Bool>): T | nil
+def find<T>(items: Array<T>, predicate: Proc<T, Boolean>): T | nil
   items.find { |item| predicate.call(item) }
 end
 ```
@@ -374,7 +374,7 @@ scores: Hash<String, Integer> = { "Alice" => 100 }
 config: Hash<Symbol, String> = { host: "localhost" }
 
 # 유니온 값 타입
-data: Hash<String, String | Integer | Bool> = {
+data: Hash<String, String | Integer | Boolean> = {
   "name" => "Alice",
   "age" => 30,
   "active" => true
@@ -740,10 +740,10 @@ name: String? = nil
 
 ```trb
 # ❌ 너무 많은 옵션
-value: String | Integer | Float | Bool | Symbol | nil | Array<String>
+value: String | Integer | Float | Boolean | Symbol | nil | Array<String>
 
 # ✅ 타입 별칭 사용
-type PrimitiveValue = String | Integer | Float | Bool
+type PrimitiveValue = String | Integer | Float | Boolean
 type OptionalPrimitive = PrimitiveValue?
 ```
 

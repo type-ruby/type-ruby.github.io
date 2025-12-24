@@ -21,7 +21,7 @@ T-Rubyには毎日使用するいくつかの組み込みジェネリック型�
 # 明示的に型付けされた配列
 numbers: Array<Integer> = [1, 2, 3, 4, 5]
 names: Array<String> = ["Alice", "Bob", "Charlie"]
-flags: Array<Bool> = [true, false, true]
+flags: Array<Boolean> = [true, false, true]
 
 # 型推論も動作
 inferred_numbers = [1, 2, 3]  # Array<Integer>
@@ -54,7 +54,7 @@ popped: Integer | nil = numbers.pop      # 最後を削除して返す
 shifted: Integer | nil = numbers.shift   # 最初を削除して返す
 
 # 内容の確認
-contains_three: Bool = numbers.include?(3)  # true
+contains_three: Boolean = numbers.include?(3)  # true
 index: Integer | nil = numbers.index(3)     # 2
 ```
 
@@ -222,8 +222,8 @@ ages["Alice"] = 31  # 既存を更新
 removed: Integer | nil = ages.delete("Bob")  # 25を返す
 
 # キーの確認
-has_alice: Bool = ages.key?("Alice")      # true
-has_bob: Bool = ages.key?("Bob")          # false（削除済み）
+has_alice: Boolean = ages.key?("Alice")      # true
+has_bob: Boolean = ages.key?("Bob")          # false（削除済み）
 
 # キーと値の取得
 keys: Array<String> = ages.keys           # ["Alice", "Charlie"]
@@ -315,7 +315,7 @@ numbers.add(3)  # 既に存在、重複なし
 numbers.delete(2)
 
 # メンバーシップの確認
-contains_three: Bool = numbers.include?(3)  # true
+contains_three: Boolean = numbers.include?(3)  # true
 
 # セット演算
 set1: Set<Integer> = Set.new([1, 2, 3, 4])
@@ -339,7 +339,7 @@ one_to_ten: Range<Integer> = 1..10      # 包含: 1, 2, ..., 10
 one_to_nine: Range<Integer> = 1...10    # 排他: 1, 2, ..., 9
 
 # 範囲が値を含むか確認
-includes_five: Bool = one_to_ten.include?(5)  # true
+includes_five: Boolean = one_to_ten.include?(5)  # true
 
 # 配列に変換
 numbers: Array<Integer> = (1..5).to_a   # [1, 2, 3, 4, 5]

@@ -145,7 +145,7 @@ def divide: (Float a, Float b) -> (Float | nil)
 ```trb title="formatter.trb"
 def format(
   text: String,
-  uppercase: Bool = false,
+  uppercase: Boolean = false,
   prefix: String? = nil
 ): String
   result = uppercase ? text.upcase : text
@@ -156,7 +156,7 @@ end
 ```rbs title="sig/formatter.rbs"
 def format: (
   String text,
-  ?Bool uppercase,
+  ?Boolean uppercase,
   ?String? prefix
 ) -> String
 ```
@@ -539,13 +539,13 @@ RailsモデルでRBSを使用：
 class User < ApplicationRecord
   @name: String
   @email: String
-  @admin: Bool
+  @admin: Boolean
 
   def self.find_by_email(email: String): User | nil
     find_by(email: email)
   end
 
-  def admin?: Bool
+  def admin?: Boolean
     @admin
   end
 

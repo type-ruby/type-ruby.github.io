@@ -70,7 +70,7 @@ count: Integer = 42
 price: Float = 19.99
 
 # Boolean変数
-is_active: Bool = true
+is_active: Boolean = true
 ```
 
 ### なぜ変数にアノテーションを付けるのか？
@@ -147,7 +147,7 @@ def get_age(): Integer
 end
 
 # Booleanを返す
-def is_adult?(age: Integer): Bool
+def is_adult?(age: Integer): Boolean
   age >= 18
 end
 
@@ -181,7 +181,7 @@ result: Float = divide(10, 3)
 def calculate_discount(
   original_price: Float,
   discount_percent: Integer,
-  is_member: Bool = false
+  is_member: Boolean = false
 ): Float
   discount = original_price * (discount_percent / 100.0)
 
@@ -282,7 +282,7 @@ sum: Integer = x + y  # 必要な場合のみ結果にアノテーション
 
 ```trb title="inconsistent_return.trb"
 # これはエラーを引き起こす - 一貫性のない戻り値
-def get_value(flag: Bool): String
+def get_value(flag: Boolean): String
   if flag
     return "yes"
   else

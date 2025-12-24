@@ -44,15 +44,15 @@ end
 <ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/everyday_types/type_narrowing_spec.rb" line={36} />
 
 ```trb title="is_a_guard.trb"
-def format_value(value: String | Integer | Bool): String
+def format_value(value: String | Integer | Boolean): String
   if value.is_a?(String)
     # 여기서 value는 String
     "텍스트: #{value}"
   elsif value.is_a?(Integer)
     # 여기서 value는 Integer
     "숫자: #{value}"
-  elsif value.is_a?(Bool)
-    # 여기서 value는 Bool
+  elsif value.is_a?(Boolean)
+    # 여기서 value는 Boolean
     "부울: #{value}"
   else
     "알 수 없음"
@@ -257,7 +257,7 @@ display2: String = get_display_name(nil)  # "익명"
 ```trb title="and_narrowing.trb"
 def process_and(
   value: String | nil,
-  flag: Bool
+  flag: Boolean
 ): String
   if !value.nil? && flag
     # 여기서 value는 String (nil이 아님)
@@ -402,8 +402,8 @@ end
 class FormValidator
   def validate_field(
     name: String,
-    value: String | Integer | Bool | nil,
-    required: Bool
+    value: String | Integer | Boolean | nil,
+    required: Boolean
   ): String | nil
     # 필수 필드가 누락되면 조기 반환
     if required && value.nil?
@@ -425,7 +425,7 @@ class FormValidator
       return "#{name}은(는) 양수여야 합니다" if value < 0
       return "#{name}이(가) 너무 큽니다" if value > 1000
     end
-    # String이나 Integer가 아니면 여기서 value는 Bool
+    # String이나 Integer가 아니면 여기서 value는 Boolean
 
     # 오류 없음
     nil

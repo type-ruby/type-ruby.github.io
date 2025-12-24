@@ -73,7 +73,7 @@ This is an alpha release. APIs may change, and breaking changes can occur. Not r
 ### Added
 
 #### Type System
-- **Basic Types** - `String`, `Integer`, `Float`, `Bool`, `Symbol`, `nil`
+- **Basic Types** - `String`, `Integer`, `Float`, `Boolean`, `Symbol`, `nil`
 - **Special Types** - `Any`, `void`, `never`, `self`
 - **Union Types** - Combine multiple types with `|` operator
 - **Optional Types** - Shorthand `T?` for `T | nil`
@@ -239,7 +239,7 @@ class User
     "Hello, my name is #{@name}"
   end
 
-  def adult?: Bool
+  def adult?: Boolean
     @age >= 18
   end
 end

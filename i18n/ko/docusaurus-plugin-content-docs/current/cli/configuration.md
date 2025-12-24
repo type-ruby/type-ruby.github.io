@@ -43,13 +43,13 @@ compiler:
 
 ```bash
 # 기본값으로 생성
-trc init
+trc --init
 
 # 대화형 설정
-trc init --interactive
+trc --init --interactive
 
 # 템플릿 사용
-trc init --template rails
+trc --init --template rails
 ```
 
 ## 설정 섹션

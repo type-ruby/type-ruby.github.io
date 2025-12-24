@@ -161,13 +161,13 @@ interface Serializable
 end
 
 interface Validatable
-  def valid?: Bool
+  def valid?: Boolean
   def errors: Array<String>
 end
 
 interface Persistable
-  def save: Bool
-  def delete: Bool
+  def save: Boolean
+  def delete: Boolean
 end
 
 # 必要に応じて機能を結合
@@ -196,7 +196,7 @@ class Article
     Article.new("Title", "Content")
   end
 
-  def valid?: Bool
+  def valid?: Boolean
     @errors = []
     @errors.push("Title cannot be empty") if @title.empty?
     @errors.push("Content cannot be empty") if @content.empty?
@@ -207,13 +207,13 @@ class Article
     @errors
   end
 
-  def save: Bool
+  def save: Boolean
     return false unless valid?
     # データベースに保存
     true
   end
 
-  def delete: Bool
+  def delete: Boolean
     # データベースから削除
     true
   end
@@ -239,7 +239,7 @@ interface Timestamped
 end
 
 interface SoftDeletable
-  def deleted?: Bool
+  def deleted?: Boolean
   def deleted_at: Time | nil
 end
 
@@ -291,7 +291,7 @@ interface Event
 end
 
 interface Cancellable
-  def cancelled?: Bool
+  def cancelled?: Boolean
   def cancel: void
 end
 
@@ -329,7 +329,7 @@ class NetworkRequestEvent
 
   @event_type: String
   @timestamp: Time
-  @cancelled: Bool
+  @cancelled: Boolean
 
   def initialize: void
     @event_type = "network_request"
@@ -345,7 +345,7 @@ class NetworkRequestEvent
     @timestamp
   end
 
-  def cancelled?: Bool
+  def cancelled?: Boolean
     @cancelled
   end
 
@@ -359,7 +359,7 @@ class CriticalAlertEvent
 
   @event_type: String
   @timestamp: Time
-  @cancelled: Bool
+  @cancelled: Boolean
   @priority: Integer
 
   def initialize(priority: Integer): void
@@ -377,7 +377,7 @@ class CriticalAlertEvent
     @timestamp
   end
 
-  def cancelled?: Bool
+  def cancelled?: Boolean
     @cancelled
   end
 
@@ -415,7 +415,7 @@ end
 
 ```trb
 # 交差制約を持つジェネリック型
-def process<T: Serializable & Validatable>(item: T): Bool
+def process<T: Serializable & Validatable>(item: T): Boolean
   if item.valid?
     json = item.to_json
     # APIに送信
@@ -434,7 +434,7 @@ class ValidatedCollection<T: Identifiable & Validatable>
     @items = []
   end
 
-  def add(item: T): Bool
+  def add(item: T): Boolean
     if item.valid?
       @items.push(item)
       true
@@ -565,8 +565,8 @@ interface Entity
   def name: String
   def created_at: Time
   def updated_at: Time
-  def save: Bool
-  def delete: Bool
+  def save: Boolean
+  def delete: Boolean
   # 責任が多すぎる
 end
 ```
@@ -625,7 +625,7 @@ interface Buildable
 end
 
 interface Validatable
-  def valid?: Bool
+  def valid?: Boolean
 end
 
 interface Resettable
@@ -654,7 +654,7 @@ class FormBuilder
     self
   end
 
-  def valid?: Bool
+  def valid?: Boolean
     @errors = []
     @errors.push("No fields") if @fields.empty?
     @errors.empty?
@@ -675,7 +675,7 @@ interface State
 end
 
 interface Transitionable
-  def can_transition_to?(state: String): Bool
+  def can_transition_to?(state: String): Boolean
   def transition_to(state: String): void
 end
 
@@ -701,7 +701,7 @@ class WorkflowState
     @name
   end
 
-  def can_transition_to?(state: String): Bool
+  def can_transition_to?(state: String): Boolean
     @allowed_transitions.include?(state)
   end
 

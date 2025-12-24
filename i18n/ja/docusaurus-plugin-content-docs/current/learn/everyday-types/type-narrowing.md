@@ -40,15 +40,15 @@ end
 `is_a?`メソッドは、値が特定の型のインスタンスかどうかをチェックします：
 
 ```trb title="is_a_guard.trb"
-def format_value(value: String | Integer | Bool): String
+def format_value(value: String | Integer | Boolean): String
   if value.is_a?(String)
     # ここでvalueはString
     "テキスト: #{value}"
   elsif value.is_a?(Integer)
     # ここでvalueはInteger
     "数値: #{value}"
-  elsif value.is_a?(Bool)
-    # ここでvalueはBool
+  elsif value.is_a?(Boolean)
+    # ここでvalueはBoolean
     "ブール: #{value}"
   else
     "不明"
@@ -235,7 +235,7 @@ display2: String = get_display_name(nil)  # "匿名"
 ```trb title="and_narrowing.trb"
 def process_and(
   value: String | nil,
-  flag: Bool
+  flag: Boolean
 ): String
   if !value.nil? && flag
     # ここでvalueはString（nilではない）
@@ -368,8 +368,8 @@ end
 class FormValidator
   def validate_field(
     name: String,
-    value: String | Integer | Bool | nil,
-    required: Bool
+    value: String | Integer | Boolean | nil,
+    required: Boolean
   ): String | nil
     # 必須フィールドが欠落している場合の早期リターン
     if required && value.nil?
@@ -391,7 +391,7 @@ class FormValidator
       return "#{name}は正の数である必要があります" if value < 0
       return "#{name}は大きすぎます" if value > 1000
     end
-    # StringでもIntegerでもなければ、ここでvalueはBool
+    # StringでもIntegerでもなければ、ここでvalueはBoolean
 
     # エラーなし
     nil

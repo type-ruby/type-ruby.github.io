@@ -70,7 +70,7 @@ count: Integer = 42
 price: Float = 19.99
 
 # Boolean variable
-is_active: Bool = true
+is_active: Boolean = true
 ```
 
 ### Why Annotate Variables?
@@ -147,7 +147,7 @@ def get_age(): Integer
 end
 
 # Returns a Boolean
-def is_adult?(age: Integer): Bool
+def is_adult?(age: Integer): Boolean
   age >= 18
 end
 
@@ -181,7 +181,7 @@ Here's a comprehensive example showing all annotation types together:
 def calculate_discount(
   original_price: Float,
   discount_percent: Integer,
-  is_member: Bool = false
+  is_member: Boolean = false
 ): Float
   discount = original_price * (discount_percent / 100.0)
 
@@ -282,7 +282,7 @@ If a method can return different types based on conditions, use a union type (co
 
 ```trb title="inconsistent_return.trb"
 # This will cause an error - inconsistent returns
-def get_value(flag: Bool): String
+def get_value(flag: Boolean): String
   if flag
     return "yes"
   else

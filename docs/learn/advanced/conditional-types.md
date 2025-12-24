@@ -230,9 +230,9 @@ type Result = ToArray<StringOrNumber>
 # Another example
 type BoxedType<T> = T extends any ? { value: T } : never
 
-type Mixed = String | Integer | Bool
+type Mixed = String | Integer | Boolean
 type Boxed = BoxedType<Mixed>
-# Result: { value: String } | { value: Integer } | { value: Bool }
+# Result: { value: String } | { value: Integer } | { value: Boolean }
 ```
 
 ### Preventing Distribution
@@ -346,7 +346,7 @@ end
 
 ```trb
 # Conditionally add error field based on success status
-type APIResponse<T, Success extends Bool> =
+type APIResponse<T, Success extends Boolean> =
   Success extends true
     ? { success: true, data: T }
     : { success: false, error: String }
@@ -402,8 +402,8 @@ type Compose<F, G> =
 
 # Usage
 type F = Proc<String, Integer>  # String -> Integer
-type G = Proc<Integer, Bool>    # Integer -> Bool
-type Composed = Compose<F, G>   # String -> Bool
+type G = Proc<Integer, Boolean>    # Integer -> Boolean
+type Composed = Compose<F, G>   # String -> Boolean
 ```
 
 ## Best Practices

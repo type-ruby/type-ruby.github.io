@@ -29,7 +29,7 @@ count = 42
 # T-Ruby는 price가 Float임을 추론
 price = 19.99
 
-# T-Ruby는 active가 Bool임을 추론
+# T-Ruby는 active가 Boolean임을 추론
 active = true
 ```
 
@@ -62,7 +62,7 @@ age = 25
 # Float 리터럴 → Float 타입
 temperature = 98.6
 
-# Boolean 리터럴 → Bool 타입
+# Boolean 리터럴 → Boolean 타입
 is_valid = false
 
 # Symbol 리터럴 → Symbol 타입

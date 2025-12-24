@@ -90,11 +90,11 @@ class Account
     @status
   end
 
-  def is_active(): Bool
+  def is_active(): Boolean
     @status == "active"
   end
 
-  def can_use(): Bool
+  def can_use(): Boolean
     @status == "active" || @status == "pending"
   end
 end
@@ -175,7 +175,7 @@ class DataLoader
     @error = nil
   end
 
-  def can_load(): Bool
+  def can_load(): Boolean
     @state == :idle || @state == :error
   end
 end
@@ -257,13 +257,13 @@ def is_valid(): true
 end
 ```
 
-### 부울 리터럴 vs Bool 타입
+### 부울 리터럴 vs Boolean 타입
 
 <ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/everyday_types/literal_types_spec.rb" line={124} />
 
 ```trb title="bool_vs_literal.trb"
-# Bool 타입 - true 또는 false가 될 수 있음
-flag: Bool = true  # false도 가능
+# Boolean 타입 - true 또는 false가 될 수 있음
+flag: Boolean = true  # false도 가능
 
 # true 리터럴 - true만 될 수 있음
 enabled: true = true  # false가 될 수 없음
@@ -271,8 +271,8 @@ enabled: true = true  # false가 될 수 없음
 # false 리터럴 - false만 될 수 있음
 disabled: false = false  # true가 될 수 없음
 
-# Bool은 (true | false)와 동일함
-value: true | false = true  # Bool과 같음
+# Boolean은 (true | false)와 동일함
+value: true | false = true  # Boolean과 같음
 ```
 
 ## 리터럴 타입 결합하기
@@ -375,7 +375,7 @@ class Logger
 
   private
 
-  def should_log?(level: LogLevel): Bool
+  def should_log?(level: LogLevel): Boolean
     level_priority = get_priority(level)
     current_priority = get_priority(@level)
 
@@ -516,7 +516,7 @@ class AppConfig
     @environment: Environment = "development"
     @log_format: LogFormat = "colored"
     @cache_strategy: CacheStrategy = "memory"
-    @debug: Bool = false
+    @debug: Boolean = false
   end
 
   def set_environment(env: Environment)
@@ -551,7 +551,7 @@ class AppConfig
     @cache_strategy = strategy
   end
 
-  def get_config(): Hash<Symbol, String | Bool>
+  def get_config(): Hash<Symbol, String | Boolean>
     {
       environment: @environment,
       log_format: @log_format,
@@ -560,11 +560,11 @@ class AppConfig
     }
   end
 
-  def is_production(): Bool
+  def is_production(): Boolean
     @environment == "production"
   end
 
-  def is_development(): Bool
+  def is_development(): Boolean
     @environment == "development"
   end
 end
@@ -686,11 +686,11 @@ type Weekday = "monday" | "tuesday" | "wednesday" | "thursday" | "friday"
 type Weekend = "saturday" | "sunday"
 type Day = Weekday | Weekend
 
-def is_weekend(day: Day): Bool
+def is_weekend(day: Day): Boolean
   day == "saturday" || day == "sunday"
 end
 
-def is_weekday(day: Day): Bool
+def is_weekday(day: Day): Boolean
   !is_weekend(day)
 end
 ```

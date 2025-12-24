@@ -244,7 +244,7 @@ def set_value(hash: Hash<Symbol, Integer>, key: Symbol, value: Integer)
   hash[key] = value
 end
 
-def has_key(hash: Hash<String, Integer>, key: String): Bool
+def has_key(hash: Hash<String, Integer>, key: String): Boolean
   hash.key?(key)
 end
 
@@ -256,7 +256,7 @@ end
 config: Hash<Symbol, String> = { mode: "production", version: "1.0" }
 
 value: String | nil = get_value(config, :mode)  # "production"
-exists: Bool = has_key({ "a" => 1 }, "a")  # true
+exists: Boolean = has_key({ "a" => 1 }, "a")  # true
 count: Integer = hash_size(config)  # 2
 ```
 
@@ -399,7 +399,7 @@ sum: Integer = sum_numbers_from_mixed(mixed)  # 142
 
 ```trb title="hash_unions.trb"
 # 混合値型を持つハッシュ
-def create_config(): Hash<Symbol, String | Integer | Bool>
+def create_config(): Hash<Symbol, String | Integer | Boolean>
   {
     host: "localhost",
     port: 3000,
@@ -409,13 +409,13 @@ def create_config(): Hash<Symbol, String | Integer | Bool>
 end
 
 def get_config_value(
-  config: Hash<Symbol, String | Integer | Bool>,
+  config: Hash<Symbol, String | Integer | Boolean>,
   key: Symbol
-): String | Integer | Bool | nil
+): String | Integer | Boolean | nil
   config[key]
 end
 
-def get_port(config: Hash<Symbol, String | Integer | Bool>): Integer | nil
+def get_port(config: Hash<Symbol, String | Integer | Boolean>): Integer | nil
   port = config[:port]
   if port.is_a?(Integer)
     port

@@ -1,7 +1,7 @@
 ---
 sidebar_position: 1
 title: インストール
-description: T-RubyコンパイラとCLIツールのインストール
+description: T-Rubyのインストール方法
 ---
 
 <DocsBadge />
@@ -9,128 +9,149 @@ description: T-RubyコンパイラとCLIツールのインストール
 
 # インストール
 
-このガイドでは、T-Rubyコンパイラをシステムにインストールするさまざまな方法を説明します。
+このガイドでは、T-Rubyをシステムにインストールする方法を説明します。T-RubyにはRuby 3.0以上が必要です。
 
 ## 前提条件
 
-- Ruby 3.0以上
-- Node.js 18以上（npmパッケージを使用する場合）
+T-Rubyをインストールする前に、以下が必要です：
 
-## npmでのインストール（推奨）
+- **Ruby 3.0+** がインストール済み ([ruby-lang.org](https://www.ruby-lang.org/ja/downloads/))
+- **RubyGems** (Rubyに付属)
+- ターミナル/コマンドプロンプト
 
-最も素早く始める方法はnpmを使うことです：
-
-```bash
-npm install -g t-ruby
-```
-
-インストールの確認：
+Rubyのインストールを確認するには：
 
 ```bash
-trc --version
+ruby --version
+# 出力例: ruby 3.x.x ...
 ```
 
 ## RubyGemsでのインストール
 
-Ruby gemsを好む場合：
+T-Rubyをインストールする最も簡単な方法はRubyGemsを使用することです：
 
 ```bash
 gem install t-ruby
 ```
 
-## ソースからのビルド
+これにより`trc`コンパイラがシステムにグローバルにインストールされます。
 
-開発バージョンや貢献のためにソースからビルドできます：
+インストールの確認：
 
 ```bash
-# リポジトリをクローン
+trc --version
+# 出力例: trc x.x.x
+```
+
+## Bundlerでのインストール
+
+プロジェクト固有のインストールには、`Gemfile`にT-Rubyを追加します：
+
+```ruby title="Gemfile"
+group :development do
+  gem 't-ruby'
+end
+```
+
+その後、実行：
+
+```bash
+bundle install
+```
+
+コンパイラを実行するには`bundle exec trc`を使用します：
+
+```bash
+bundle exec trc --version
+```
+
+## ソースからのインストール
+
+最新の開発バージョンを使用するには：
+
+```bash
 git clone https://github.com/type-ruby/t-ruby.git
 cd t-ruby
-
-# 依存関係をインストール
 bundle install
-npm install
-
-# ビルド
-npm run build
-
-# グローバルインストール（オプション）
-npm link
-```
-
-## プロジェクトのセットアップ
-
-既存のプロジェクトにT-Rubyを追加する最良の方法：
-
-```bash
-cd my-project
-npm init -y  # package.jsonがない場合
-npm install --save-dev t-ruby
-```
-
-その後、`package.json`にスクリプトを追加：
-
-```json
-{
-  "scripts": {
-    "build": "trc src/**/*.trb",
-    "check": "trc --check src/**/*.trb",
-    "watch": "trc --watch src/**/*.trb"
-  }
-}
+rake install
 ```
 
 ## インストールの確認
 
-インストールが正常に行われたか確認するには：
+インストール後、すべてが動作するか確認します：
 
 ```bash
 # バージョン確認
 trc --version
 
-# ヘルプを見る
+# ヘルプを表示
 trc --help
 
-# テストコンパイル
-echo 'def add(a: Integer, b: Integer): Integer
-  a + b
-end' > test.trb
+# テストファイルを作成
+echo 'def greet(name: String): String; "Hello, #{name}!"; end' > test.trb
 
+# コンパイル
 trc test.trb
 
 # 出力を確認
-cat test.rb
+cat build/test.rb
+```
+
+## T-Rubyの更新
+
+最新バージョンに更新するには：
+
+```bash
+gem update t-ruby
+```
+
+## アンインストール
+
+T-Rubyを削除するには：
+
+```bash
+gem uninstall t-ruby
 ```
 
 ## トラブルシューティング
 
-### Node.jsが見つからない
+### "Command not found: trc"
 
-npmでインストールしたのに`trc`コマンドが見つからない場合、npmのグローバルbinディレクトリがPATHに入っているか確認してください：
+gemのバイナリパスがPATHに含まれていない可能性があります。以下で確認してください：
 
 ```bash
-# npmグローバルbinの場所を確認
-npm bin -g
-
-# そのパスをPATHに追加（例）
-export PATH="$PATH:$(npm bin -g)"
+gem environment | grep "EXECUTABLE DIRECTORY"
 ```
 
-### 権限エラー
+そのディレクトリをシェルのPATHに追加してください。
 
-Linux/macOSで権限エラーが発生する場合、npmグローバルインストール設定を確認してください：
+### Linux/macOSでの権限エラー
+
+権限エラーが発生した場合、以下のいずれかを試してください：
+
+1. Rubyバージョンマネージャーを使用 (rbenv, rvm)
+2. `sudo gem install t-ruby`を使用（非推奨）
+3. ホームディレクトリにインストールするようgemを設定
+
+### ビルドエラー
+
+コンパイルが失敗した場合、開発ツールがインストールされているか確認してください：
 
 ```bash
-# npm prefixを確認
-npm config get prefix
+# macOS
+xcode-select --install
 
-# 権限なしでインストールするにはprefixを変更
-npm config set prefix ~/.npm-global
-export PATH="$PATH:~/.npm-global/bin"
+# Ubuntu/Debian
+sudo apt-get install build-essential
+
+# Fedora
+sudo dnf groupinstall "Development Tools"
 ```
 
 ## 次のステップ
 
-- [クイックスタート](/docs/getting-started/quick-start) - 最初のプログラムを書く
-- [エディタ設定](/docs/getting-started/editor-setup) - IDE サポートの設定
-- [プロジェクト設定](/docs/getting-started/project-configuration) - T-Rubyプロジェクトの設定オプション
+T-Rubyがインストールされたので、コードを書いてみましょう：
+
+- [クイックスタート](/docs/getting-started/quick-start) - 5分で始める
+- [最初の.trbファイル](/docs/getting-started/first-trb-file) - 詳細なガイド
+- [エディタ設定](/docs/getting-started/editor-setup) - IDEの設定

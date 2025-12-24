@@ -73,7 +73,7 @@ T-Rubyの最初のアルファリリースです！このリリースには、�
 ### 追加
 
 #### 型システム
-- **基本型** - `String`、`Integer`、`Float`、`Bool`、`Symbol`、`nil`
+- **基本型** - `String`、`Integer`、`Float`、`Boolean`、`Symbol`、`nil`
 - **特殊型** - `Any`、`void`、`never`、`self`
 - **ユニオン型** - `|`演算子で複数の型を結合
 - **オプショナル型** - `T | nil`の省略形`T?`
@@ -239,7 +239,7 @@ class User
     "Hello, my name is #{@name}"
   end
 
-  def adult?: Bool
+  def adult?: Boolean
     @age >= 18
   end
 end

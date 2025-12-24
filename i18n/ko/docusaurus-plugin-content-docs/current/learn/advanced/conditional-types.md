@@ -256,9 +256,9 @@ type Result = ToArray<StringOrNumber>
 # 또 다른 예제
 type BoxedType<T> = T extends any ? { value: T } : never
 
-type Mixed = String | Integer | Bool
+type Mixed = String | Integer | Boolean
 type Boxed = BoxedType<Mixed>
-# 결과: { value: String } | { value: Integer } | { value: Bool }
+# 결과: { value: String } | { value: Integer } | { value: Boolean }
 ```
 
 ### 분배 방지
@@ -384,7 +384,7 @@ end
 
 ```trb
 # 성공 상태에 따라 조건부로 오류 필드 추가
-type APIResponse<T, Success extends Bool> =
+type APIResponse<T, Success extends Boolean> =
   Success extends true
     ? { success: true, data: T }
     : { success: false, error: String }
@@ -446,8 +446,8 @@ type Compose<F, G> =
 
 # 사용법
 type F = Proc<String, Integer>  # String -> Integer
-type G = Proc<Integer, Bool>    # Integer -> Bool
-type Composed = Compose<F, G>   # String -> Bool
+type G = Proc<Integer, Boolean>    # Integer -> Boolean
+type Composed = Compose<F, G>   # String -> Boolean
 ```
 
 ## 모범 사례

@@ -21,7 +21,7 @@ The most commonly used generic type is `Array<T>`, representing an array of elem
 # Explicitly typed arrays
 numbers: Array<Integer> = [1, 2, 3, 4, 5]
 names: Array<String> = ["Alice", "Bob", "Charlie"]
-flags: Array<Bool> = [true, false, true]
+flags: Array<Boolean> = [true, false, true]
 
 # Type inference works too
 inferred_numbers = [1, 2, 3]  # Array<Integer>
@@ -54,7 +54,7 @@ popped: Integer | nil = numbers.pop      # Removes and returns last
 shifted: Integer | nil = numbers.shift   # Removes and returns first
 
 # Checking contents
-contains_three: Bool = numbers.include?(3)  # true
+contains_three: Boolean = numbers.include?(3)  # true
 index: Integer | nil = numbers.index(3)     # 2
 ```
 
@@ -222,8 +222,8 @@ ages["Alice"] = 31  # Update existing
 removed: Integer | nil = ages.delete("Bob")  # Returns 25
 
 # Checking keys
-has_alice: Bool = ages.key?("Alice")      # true
-has_bob: Bool = ages.key?("Bob")          # false (deleted)
+has_alice: Boolean = ages.key?("Alice")      # true
+has_bob: Boolean = ages.key?("Bob")          # false (deleted)
 
 # Getting keys and values
 keys: Array<String> = ages.keys           # ["Alice", "Charlie"]
@@ -315,7 +315,7 @@ numbers.add(3)  # Already exists, no duplicate
 numbers.delete(2)
 
 # Checking membership
-contains_three: Bool = numbers.include?(3)  # true
+contains_three: Boolean = numbers.include?(3)  # true
 
 # Set operations
 set1: Set<Integer> = Set.new([1, 2, 3, 4])
@@ -339,7 +339,7 @@ one_to_ten: Range<Integer> = 1..10      # Inclusive: 1, 2, ..., 10
 one_to_nine: Range<Integer> = 1...10    # Exclusive: 1, 2, ..., 9
 
 # Check if range includes a value
-includes_five: Bool = one_to_ten.include?(5)  # true
+includes_five: Boolean = one_to_ten.include?(5)  # true
 
 # Convert to array
 numbers: Array<Integer> = (1..5).to_a   # [1, 2, 3, 4, 5]

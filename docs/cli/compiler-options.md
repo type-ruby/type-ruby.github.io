@@ -601,14 +601,14 @@ trc check --warnings src/
 
 ## Init Options
 
-(For `trc init` command)
+(For `trc --init` command)
 
 ### --template
 
 Use project template.
 
 ```bash
-trc init --template rails
+trc --init --template rails
 ```
 
 Templates:
@@ -622,7 +622,7 @@ Templates:
 Interactive project setup.
 
 ```bash
-trc init --interactive
+trc --init --interactive
 ```
 
 Prompts for all configuration options.
@@ -632,8 +632,8 @@ Prompts for all configuration options.
 Accept all defaults without prompting.
 
 ```bash
-trc init --yes
-trc init -y
+trc --init --yes
+trc --init -y
 ```
 
 ### --name
@@ -641,7 +641,7 @@ trc init -y
 Set project name.
 
 ```bash
-trc init --name my-awesome-project
+trc --init --name my-awesome-project
 ```
 
 ### --create-dirs
@@ -649,7 +649,7 @@ trc init --name my-awesome-project
 Create directory structure.
 
 ```bash
-trc init --create-dirs
+trc --init --create-dirs
 ```
 
 Creates `src/`, `build/`, `sig/` directories.
@@ -659,7 +659,7 @@ Creates `src/`, `build/`, `sig/` directories.
 Initialize git repository.
 
 ```bash
-trc init --git
+trc --init --git
 ```
 
 Creates `.git/` and `.gitignore`.

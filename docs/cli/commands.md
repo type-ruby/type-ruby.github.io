@@ -373,32 +373,32 @@ Initialize a new T-Ruby project with configuration file and directory structure.
 
 ```bash
 # Create trbconfig.yml in current directory
-trc init
+trc --init
 
 # Interactive setup
-trc init --interactive
+trc --init --interactive
 
 # Use a template
-trc init --template rails
+trc --init --template rails
 ```
 
 ### Options
 
 ```bash
 # Skip prompts and use defaults
-trc init --yes
+trc --init --yes
 
 # Specify project name
-trc init --name my-project
+trc --init --name my-project
 
 # Choose template (basic, rails, gem, sinatra)
-trc init --template rails
+trc --init --template rails
 
 # Create directory structure
-trc init --create-dirs
+trc --init --create-dirs
 
 # Initialize git repository
-trc init --git
+trc --init --git
 ```
 
 ### Templates
@@ -406,7 +406,7 @@ trc init --git
 **Basic (default):**
 
 ```bash
-trc init --template basic
+trc --init --template basic
 ```
 
 Creates:
@@ -420,7 +420,7 @@ sig/
 **Rails:**
 
 ```bash
-trc init --template rails
+trc --init --template rails
 ```
 
 Creates configuration for Rails projects:
@@ -448,7 +448,7 @@ types:
 **Gem:**
 
 ```bash
-trc init --template gem
+trc --init --template gem
 ```
 
 Creates configuration for gem development:
@@ -472,7 +472,7 @@ compiler:
 **Sinatra:**
 
 ```bash
-trc init --template sinatra
+trc --init --template sinatra
 ```
 
 Creates configuration for Sinatra apps:
@@ -497,7 +497,7 @@ types:
 ### Interactive Mode
 
 ```bash
-trc init --interactive
+trc --init --interactive
 ```
 
 Guides you through setup:
@@ -548,14 +548,14 @@ Your T-Ruby project is ready! Try:
 ```bash
 mkdir my-project
 cd my-project
-trc init --yes --create-dirs
+trc --init --yes --create-dirs
 ```
 
 **Rails project setup:**
 
 ```bash
 cd my-rails-app
-trc init --template rails --interactive
+trc --init --template rails --interactive
 ```
 
 **Gem development:**
@@ -563,7 +563,7 @@ trc init --template rails --interactive
 ```bash
 bundle gem my_gem
 cd my_gem
-trc init --template gem --create-dirs
+trc --init --template gem --create-dirs
 ```
 
 ## Global Options

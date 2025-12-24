@@ -384,7 +384,7 @@ type FormFields<T> = {
   [K in keyof T]: {
     value: T[K],
     error: String | nil,
-    touched: Bool
+    touched: Boolean
   }
 }
 
@@ -405,8 +405,8 @@ type LoginForm = {
 
 type LoginFields = FormFields<LoginForm>
 # {
-#   username: { value: String, error: String | nil, touched: Bool },
-#   password: { value: String, error: String | nil, touched: Bool }
+#   username: { value: String, error: String | nil, touched: Boolean },
+#   password: { value: String, error: String | nil, touched: Boolean }
 # }
 
 type LoginHandlers = FormHandlers<LoginForm>
@@ -435,7 +435,7 @@ type DBModel<T> = {
   [K in keyof T]: {
     value: T[K],
     column_name: String,
-    dirty: Bool
+    dirty: Boolean
   }
 }
 
@@ -473,7 +473,7 @@ type EventHandlers<T> = {
 
 # 모든 속성에 대한 검증자 생성
 type Validators<T> = {
-  [K in keyof T]: (value: T[K]) => Bool
+  [K in keyof T]: (value: T[K]) => Boolean
 }
 
 # 모든 속성에 대한 직렬화기 생성
@@ -496,9 +496,9 @@ type ProductHandlers = EventHandlers<Product>
 
 type ProductValidators = Validators<Product>
 # {
-#   name: (value: String) => Bool,
-#   price: (value: Float) => Bool,
-#   stock: (value: Integer) => Bool
+#   name: (value: String) => Boolean,
+#   price: (value: Float) => Boolean,
+#   stock: (value: Integer) => Boolean
 # }
 ```
 
@@ -535,7 +535,7 @@ type NestedUser = {
     name: String,
     settings: {
       theme: String,
-      notifications: Bool
+      notifications: Boolean
     }
   }
 }
@@ -686,14 +686,14 @@ type Repository<T> = {
   find_all: () => Array<T>,
   save: (entity: T) => T,
   update: (id: Integer, data: Partial<T>) => T | nil,
-  delete: (id: Integer) => Bool
+  delete: (id: Integer) => Boolean
 }
 
 type CRUDHandlers<T> = {
   create: (data: Omit<T, "id">) => T,
   read: (id: Integer) => T | nil,
   update: (id: Integer, data: Partial<T>) => T | nil,
-  delete: (id: Integer) => Bool
+  delete: (id: Integer) => Boolean
 }
 ```
 

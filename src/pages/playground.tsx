@@ -1,3 +1,4 @@
+import type {ReactNode} from 'react';
 import React, {useState, useCallback, useEffect} from 'react';
 import Layout from '@theme/Layout';
 import Heading from '@theme/Heading';
@@ -27,7 +28,7 @@ def concat(str1: String, str2: String): String
   str1 + str2
 end
 
-def is_valid(flag: Bool): Bool
+def is_valid(flag: Boolean): Boolean
   !flag
 end
 
@@ -155,7 +156,7 @@ interface TRubyCompiler {
   compile(code: string): CompileResult | Promise<CompileResult>;
 }
 
-function PlaygroundContent(): JSX.Element {
+function PlaygroundContent(): ReactNode {
   const [code, setCode] = useState(EXAMPLES['hello-world'].code);
   const [selectedExample, setSelectedExample] = useState<ExampleKey>('hello-world');
   const [activeTab, setActiveTab] = useState<OutputTab>('ruby');
@@ -397,7 +398,7 @@ function PlaygroundContent(): JSX.Element {
   );
 }
 
-export default function Playground(): JSX.Element {
+export default function Playground(): ReactNode {
   return (
     <Layout
       title={translate({id: 'playground.layout.title', message: 'Playground'})}

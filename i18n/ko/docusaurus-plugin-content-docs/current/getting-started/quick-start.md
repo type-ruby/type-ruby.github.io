@@ -11,15 +11,37 @@ description: 첫 T-Ruby 프로그램 작성하기
 
 5분 만에 T-Ruby의 기본을 배워봅시다!
 
+## 프로젝트 초기화
+
+프로젝트 루트에 `trbconfig.yml`을 생성하여 소스 및 출력 디렉토리를 설정합니다. `trc --init`으로 생성할 수 있습니다:
+
+```bash
+mkdir my-project && cd my-project
+trc --init
+```
+
+다음 파일들이 생성됩니다:
+- `trbconfig.yml` - [컴파일러 설정](/docs/cli/configuration)
+- `src/` - .trb 파일을 위한 소스 디렉토리
+- `build/` - 컴파일된 파일을 위한 출력 디렉토리
+
+## 감시 모드 실행
+
+감시 모드를 실행하면 파일 저장 시 자동으로 컴파일됩니다:
+
+```bash
+trc --watch
+```
+
+이 터미널은 열어둔 채로 다음 단계를 진행하세요.
+
 ## 첫 번째 T-Ruby 파일
 
-`hello.trb` 파일을 만들어 봅시다:
+새 터미널을 열고 `src/hello.trb` 파일을 만들어 봅시다:
 
 <ExampleBadge status="pass" testFile="spec/docs_site/pages/getting_started/quick_start_spec.rb" line={25} />
 
-```trb
-# hello.trb
-
+```trb title="src/hello.trb"
 # 타입이 지정된 함수
 def greet(name: String): String
   "안녕하세요, #{name}!"
@@ -36,15 +58,7 @@ id: String | Integer = "user-123"
 nickname: String? = nil
 ```
 
-## 컴파일하기
-
-T-Ruby 파일을 컴파일합니다:
-
-```bash
-trc hello.trb
-```
-
-이렇게 하면 두 개의 파일이 생성됩니다:
+파일을 저장하면 감시 모드가 자동으로 컴파일합니다. `build/` 디렉토리에 두 개의 파일이 생성됩니다:
 - `hello.rb` - 순수 Ruby 코드
 - `hello.rbs` - RBS 타입 정의
 
@@ -53,7 +67,7 @@ trc hello.trb
 생성된 Ruby 파일을 실행합니다:
 
 ```bash
-ruby hello.rb
+ruby build/hello.rb
 # 출력: 안녕하세요, 세계!
 ```
 
@@ -68,7 +82,7 @@ T-Ruby는 Ruby의 기본 타입을 모두 지원합니다:
 name: String = "홍길동"
 age: Integer = 25
 height: Float = 175.5
-is_active: Bool = true
+is_active: Boolean = true
 role: Symbol = :admin
 
 # 컬렉션
@@ -133,26 +147,10 @@ class User
     @email
   end
 
-  def adult?: Bool
+  def adult?: Boolean
     @age.nil? ? false : @age >= 18
   end
 end
-```
-
-## 타입 검사만 하기
-
-파일을 생성하지 않고 타입 오류만 확인하려면:
-
-```bash
-trc --check hello.trb
-```
-
-## 감시 모드
-
-개발 중에 파일 변경을 자동으로 감지하려면:
-
-```bash
-trc --watch src/**/*.trb
 ```
 
 ## 다음 단계

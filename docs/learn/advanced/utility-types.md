@@ -227,8 +227,8 @@ Excludes types from a union:
 ```trb
 type Exclude<T, U> = T extends U ? never : T
 
-type AllTypes = String | Integer | Float | Bool
-type NumericOnly = Exclude<AllTypes, String | Bool>
+type AllTypes = String | Integer | Float | Boolean
+type NumericOnly = Exclude<AllTypes, String | Boolean>
 # Integer | Float
 
 type Status = "pending" | "approved" | "rejected" | "cancelled"
@@ -256,7 +256,7 @@ Extracts types from a union:
 ```trb
 type Extract<T, U> = T extends U ? T : never
 
-type AllTypes = String | Integer | Float | Bool
+type AllTypes = String | Integer | Float | Boolean
 type NumericOnly = Extract<AllTypes, Integer | Float>
 # Integer | Float
 
@@ -360,11 +360,11 @@ type StringToInt = Record<String, Integer>
 # { [key: String]: Integer }
 
 # Specific string literal keys
-type StatusMap = Record<"pending" | "approved" | "rejected", Bool>
+type StatusMap = Record<"pending" | "approved" | "rejected", Boolean>
 # {
-#   pending: Bool,
-#   approved: Bool,
-#   rejected: Bool
+#   pending: Boolean,
+#   approved: Boolean,
+#   rejected: Boolean
 # }
 
 # Usage examples
@@ -449,7 +449,7 @@ type User = {
     email: String,
     settings: {
       theme: String,
-      notifications: Bool
+      notifications: Boolean
     }
   }
 }
@@ -483,8 +483,8 @@ type Config = {
     name: String,
     version: String,
     features: {
-      auth: Bool,
-      api: Bool
+      auth: Boolean,
+      api: Boolean
     }
   }
 }
@@ -614,7 +614,7 @@ type PrivateFields = Difference<User, PublicFields>
 Type-level if-else:
 
 ```trb
-type If<Condition extends Bool, Then, Else> =
+type If<Condition extends Boolean, Then, Else> =
   Condition extends true ? Then : Else
 
 # Usage
@@ -662,14 +662,14 @@ type Promisify<T> = {
 type UserService = {
   find: Proc<Integer, User>,
   create: Proc<String, String, User>,
-  delete: Proc<Integer, Bool>
+  delete: Proc<Integer, Boolean>
 }
 
 type AsyncUserService = Promisify<UserService>
 # {
 #   find: Proc<Integer, Promise<User>>,
 #   create: Proc<String, String, Promise<User>>,
-#   delete: Proc<Integer, Promise<Bool>>
+#   delete: Proc<Integer, Promise<Boolean>>
 # }
 ```
 
@@ -714,9 +714,9 @@ end
 type FormState<T> = {
   values: T,
   errors: Partial<Record<keyof T, String>>,
-  touched: Partial<Record<keyof T, Bool>>,
-  dirty: Bool,
-  valid: Bool
+  touched: Partial<Record<keyof T, Boolean>>,
+  dirty: Boolean,
+  valid: Boolean
 }
 
 type LoginForm = {
@@ -728,9 +728,9 @@ type LoginFormState = FormState<LoginForm>
 # {
 #   values: { username: String, password: String },
 #   errors: { username?: String, password?: String },
-#   touched: { username?: Bool, password?: Bool },
-#   dirty: Bool,
-#   valid: Bool
+#   touched: { username?: Boolean, password?: Boolean },
+#   dirty: Boolean,
+#   valid: Boolean
 # }
 ```
 
@@ -742,7 +742,7 @@ type Repository<T> = {
   find_all: Proc<Array<T>>,
   create: Proc<Omit<T, "id">, T>,
   update: Proc<Integer, Partial<T>, Nullable<T>>,
-  delete: Proc<Integer, Bool>
+  delete: Proc<Integer, Boolean>
 }
 
 type User = {
@@ -796,8 +796,8 @@ type User = FullEntity<{ name: String, email: String }>
 type FormState<T> = {
   values: T,
   errors: Partial<Record<keyof T, String>>,
-  touched: Partial<Record<keyof T, Bool>>,
-  submitting: Bool
+  touched: Partial<Record<keyof T, Boolean>>,
+  submitting: Boolean
 }
 ```
 

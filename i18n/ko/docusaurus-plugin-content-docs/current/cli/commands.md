@@ -373,32 +373,32 @@ trc check src/ --quiet --max-errors 5
 
 ```bash
 # 현재 디렉토리에 trbconfig.yml 생성
-trc init
+trc --init
 
 # 대화형 설정
-trc init --interactive
+trc --init --interactive
 
 # 템플릿 사용
-trc init --template rails
+trc --init --template rails
 ```
 
 ### 옵션
 
 ```bash
 # 프롬프트 없이 기본값 사용
-trc init --yes
+trc --init --yes
 
 # 프로젝트 이름 지정
-trc init --name my-project
+trc --init --name my-project
 
 # 템플릿 선택 (basic, rails, gem, sinatra)
-trc init --template rails
+trc --init --template rails
 
 # 디렉토리 구조 생성
-trc init --create-dirs
+trc --init --create-dirs
 
 # git 저장소 초기화
-trc init --git
+trc --init --git
 ```
 
 ### 템플릿
@@ -406,7 +406,7 @@ trc init --git
 **Basic (기본값):**
 
 ```bash
-trc init --template basic
+trc --init --template basic
 ```
 
 생성됨:
@@ -420,7 +420,7 @@ sig/
 **Rails:**
 
 ```bash
-trc init --template rails
+trc --init --template rails
 ```
 
 Rails 프로젝트용 설정 생성:
@@ -448,7 +448,7 @@ types:
 **Gem:**
 
 ```bash
-trc init --template gem
+trc --init --template gem
 ```
 
 gem 개발용 설정 생성:
@@ -472,7 +472,7 @@ compiler:
 **Sinatra:**
 
 ```bash
-trc init --template sinatra
+trc --init --template sinatra
 ```
 
 Sinatra 앱용 설정 생성:
@@ -497,7 +497,7 @@ types:
 ### 대화형 모드
 
 ```bash
-trc init --interactive
+trc --init --interactive
 ```
 
 설정을 안내합니다:
@@ -548,14 +548,14 @@ T-Ruby 프로젝트가 준비되었습니다! 시도해보세요:
 ```bash
 mkdir my-project
 cd my-project
-trc init --yes --create-dirs
+trc --init --yes --create-dirs
 ```
 
 **Rails 프로젝트 설정:**
 
 ```bash
 cd my-rails-app
-trc init --template rails --interactive
+trc --init --template rails --interactive
 ```
 
 **Gem 개발:**
@@ -563,7 +563,7 @@ trc init --template rails --interactive
 ```bash
 bundle gem my_gem
 cd my_gem
-trc init --template gem --create-dirs
+trc --init --template gem --create-dirs
 ```
 
 ## 전역 옵션

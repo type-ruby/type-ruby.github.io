@@ -11,13 +11,35 @@ description: 最初のT-Rubyプログラムを書く
 
 5分でT-Rubyの基本を学びましょう！
 
+## プロジェクト初期化
+
+プロジェクトルートに`trbconfig.yml`を作成してソースと出力ディレクトリを設定します。`trc --init`で生成できます：
+
+```bash
+mkdir my-project && cd my-project
+trc --init
+```
+
+以下のファイルが作成されます：
+- `trbconfig.yml` - [コンパイラ設定](/docs/cli/configuration)
+- `src/` - .trbファイル用のソースディレクトリ
+- `build/` - コンパイル済みファイル用の出力ディレクトリ
+
+## ウォッチモード実行
+
+ウォッチモードを実行すると、ファイル保存時に自動的にコンパイルされます：
+
+```bash
+trc --watch
+```
+
+このターミナルは開いたまま、次のステップに進んでください。
+
 ## 最初のT-Rubyファイル
 
-`hello.trb`ファイルを作成しましょう：
+新しいターミナルを開いて、`src/hello.trb`ファイルを作成しましょう：
 
-```trb
-# hello.trb
-
+```trb title="src/hello.trb"
 # 型付き関数
 def greet(name: String): String
   "こんにちは、#{name}さん！"
@@ -34,15 +56,7 @@ id: String | Integer = "user-123"
 nickname: String? = nil
 ```
 
-## コンパイル
-
-T-Rubyファイルをコンパイルします：
-
-```bash
-trc hello.trb
-```
-
-これにより2つのファイルが生成されます：
+ファイルを保存すると、ウォッチモードが自動的にコンパイルします。`build/`ディレクトリに2つのファイルが生成されます：
 - `hello.rb` - 純粋なRubyコード
 - `hello.rbs` - RBS型定義
 
@@ -51,7 +65,7 @@ trc hello.trb
 生成されたRubyファイルを実行します：
 
 ```bash
-ruby hello.rb
+ruby build/hello.rb
 # 出力: こんにちは、世界さん！
 ```
 
@@ -64,7 +78,7 @@ T-RubyはRubyの基本型をすべてサポートしています：
 name: String = "田中太郎"
 age: Integer = 25
 height: Float = 175.5
-is_active: Bool = true
+is_active: Boolean = true
 role: Symbol = :admin
 
 # コレクション
@@ -125,26 +139,10 @@ class User
     @email
   end
 
-  def adult?: Bool
+  def adult?: Boolean
     @age.nil? ? false : @age >= 18
   end
 end
-```
-
-## 型チェックのみ
-
-ファイルを生成せずに型エラーのみを確認するには：
-
-```bash
-trc --check hello.trb
-```
-
-## ウォッチモード
-
-開発中にファイル変更を自動検出するには：
-
-```bash
-trc --watch src/**/*.trb
 ```
 
 ## 次のステップ

@@ -18,7 +18,7 @@ T-Ruby型構文の包括的なクイックリファレンスガイドです。�
 | `String` | テキストデータ | `name: String = "Alice"` |
 | `Integer` | 整数 | `count: Integer = 42` |
 | `Float` | 小数 | `price: Float = 19.99` |
-| `Bool` | ブール値 | `active: Bool = true` |
+| `Boolean` | ブール値 | `active: Boolean = true` |
 | `Symbol` | 不変識別子 | `status: Symbol = :active` |
 | `nil` | 値の不在 | `value: nil = nil` |
 | `Any` | 任意の型（可能なら避ける） | `data: Any = "anything"` |
@@ -80,7 +80,7 @@ end
 | 構文 | 説明 | 例 |
 |------|------|-----|
 | `A \| B` | 型AまたはB | `String \| Integer` |
-| `A \| B \| C` | 複数の型のいずれか | `String \| Integer \| Bool` |
+| `A \| B \| C` | 複数の型のいずれか | `String \| Integer \| Boolean` |
 | `T \| nil` | オプション型 | `String \| nil` |
 | `T?` | `T \| nil`の省略形 | `String?` |
 
@@ -94,7 +94,7 @@ name: String | nil = nil
 name: String? = nil  # 省略形
 
 # 複数の型
-value: String | Integer | Bool = true
+value: String | Integer | Boolean = true
 
 # ユニオン戻り型を持つ関数
 def find_user(id: Integer): User | nil
@@ -177,7 +177,7 @@ type EmailAddress = String
 
 # ユニオン型エイリアス
 type ID = String | Integer
-type JSONValue = String | Integer | Float | Bool | nil
+type JSONValue = String | Integer | Float | Boolean | nil
 
 # コレクションエイリアス
 type StringList = Array<String>
@@ -254,13 +254,13 @@ end
 # 複数のメソッドを持つインターフェース
 interface Comparable
   def <=>(other: self): Integer
-  def ==(other: self): Bool
+  def ==(other: self): Boolean
 end
 
 # ジェネリックインターフェース
 interface Collection<T>
   def add(item: T): void
-  def remove(item: T): Bool
+  def remove(item: T): Boolean
   def size: Integer
 end
 
@@ -350,7 +350,7 @@ def get_length(text: String | nil): Integer
 end
 
 # 複数のチェック
-def describe(value: String | Integer | Bool): String
+def describe(value: String | Integer | Boolean): String
   if value.is_a?(String)
     "String: #{value}"
   elsif value.is_a?(Integer)
@@ -452,7 +452,7 @@ def create_user(
   name: String,
   email: String,
   age: Integer = 18,
-  active: Bool = true
+  active: Boolean = true
 ): User
   User.new(name, email, age, active)
 end
@@ -461,7 +461,7 @@ end
 ### Result型パターン
 
 ```trb
-type Result<T, E> = { success: Bool, value: T | nil, error: E | nil }
+type Result<T, E> = { success: Boolean, value: T | nil, error: E | nil }
 
 def divide(a: Float, b: Float): Result<Float, String>
   if b == 0

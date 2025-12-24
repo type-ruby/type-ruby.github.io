@@ -34,8 +34,8 @@ TEXT
 - `downcase: String` - 소문자로 변환
 - `strip: String` - 앞뒤 공백 제거
 - `split(delimiter: String): Array<String>` - 배열로 분리
-- `include?(substring: String): Bool` - 부분 문자열 포함 여부 확인
-- `empty?: Bool` - 문자열이 비어 있는지 확인
+- `include?(substring: String): Boolean` - 부분 문자열 포함 여부 확인
+- `empty?: Boolean` - 문자열이 비어 있는지 확인
 
 ### Integer
 
@@ -52,8 +52,8 @@ large: Integer = 1_000_000
 
 **일반 메서드:**
 - `abs: Integer` - 절대값
-- `even?: Bool` - 짝수인지 확인
-- `odd?: Bool` - 홀수인지 확인
+- `even?: Boolean` - 짝수인지 확인
+- `odd?: Boolean` - 홀수인지 확인
 - `to_s: String` - 문자열로 변환
 - `to_f: Float` - 실수로 변환
 - `times(&block: Proc<Integer, void>): void` - n번 반복
@@ -80,19 +80,19 @@ scientific: Float = 2.998e8
 - `to_s: String` - 문자열로 변환
 - `to_i: Integer` - 정수로 변환
 
-### Bool
+### Boolean
 
 불리언 값: `true` 또는 `false`를 나타냅니다.
 
 <ExampleBadge status="pass" testFile="spec/docs_site/pages/reference/built_in_types_spec.rb" line={58} />
 
 ```trb
-active: Bool = true
-disabled: Bool = false
-is_valid: Bool = count > 0
+active: Boolean = true
+disabled: Boolean = false
+is_valid: Boolean = count > 0
 ```
 
-**참고:** T-Ruby는 타입 이름으로 `Bool`을 사용합니다(`Boolean` 아님). `true`와 `false`만 유효한 불리언 값입니다. Ruby의 truthy 시스템과 달리, `Bool`은 `1`, `"yes"`, 빈 문자열과 같은 truthy 값을 허용하지 않습니다.
+**참고:** T-Ruby는 타입 이름으로 `Boolean`을 사용합니다(`Boolean` 아님). `true`와 `false`만 유효한 불리언 값입니다. Ruby의 truthy 시스템과 달리, `Boolean`은 `1`, `"yes"`, 빈 문자열과 같은 truthy 값을 허용하지 않습니다.
 
 ### Symbol
 
@@ -130,7 +130,7 @@ result: User | nil = find_user(123)
 ```
 
 **메서드:**
-- `nil?: Bool` - nil에 대해 항상 `true` 반환
+- `nil?: Boolean` - nil에 대해 항상 `true` 반환
 
 ## 특수 타입
 
@@ -238,16 +238,16 @@ items: Array<String> = []
 **일반 메서드:**
 - `length: Integer` - 배열 길이 반환
 - `size: Integer` - length의 별칭
-- `empty?: Bool` - 비어 있는지 확인
+- `empty?: Boolean` - 비어 있는지 확인
 - `first: T | nil` - 첫 번째 요소 반환
 - `last: T | nil` - 마지막 요소 반환
 - `push(item: T): Array<T>` - 끝에 요소 추가
 - `pop: T | nil` - 마지막 요소 제거 및 반환
 - `shift: T | nil` - 첫 번째 요소 제거 및 반환
 - `unshift(item: T): Array<T>` - 시작에 요소 추가
-- `include?(item: T): Bool` - 요소 포함 여부 확인
+- `include?(item: T): Boolean` - 요소 포함 여부 확인
 - `map<U>(&block: Proc<T, U>): Array<U>` - 요소 변환
-- `select(&block: Proc<T, Bool>): Array<T>` - 요소 필터링
+- `select(&block: Proc<T, Boolean>): Array<T>` - 요소 필터링
 - `each(&block: Proc<T, void>): void` - 요소 반복
 - `reverse: Array<T>` - 뒤집힌 배열 반환
 - `sort: Array<T>` - 정렬된 배열 반환
@@ -281,9 +281,9 @@ cache: Hash<String, Any> = {}
 **일반 메서드:**
 - `length: Integer` - 쌍의 수 반환
 - `size: Integer` - length의 별칭
-- `empty?: Bool` - 비어 있는지 확인
-- `key?(key: K): Bool` - 키 존재 여부 확인
-- `value?(value: V): Bool` - 값 존재 여부 확인
+- `empty?: Boolean` - 비어 있는지 확인
+- `key?(key: K): Boolean` - 키 존재 여부 확인
+- `value?(value: V): Boolean` - 값 존재 여부 확인
 - `keys: Array<K>` - 키 배열 반환
 - `values: Array<V>` - 값 배열 반환
 - `fetch(key: K): V` - 값 가져오기 (없으면 예외)
@@ -308,8 +308,8 @@ unique_ids: Set<Integer> = Set.new([1, 2, 3, 2, 1])  # {1, 2, 3}
 **일반 메서드:**
 - `add(item: T): Set<T>` - 요소 추가
 - `delete(item: T): Set<T>` - 요소 제거
-- `include?(item: T): Bool` - 멤버십 확인
-- `empty?: Bool` - 비어 있는지 확인
+- `include?(item: T): Boolean` - 멤버십 확인
+- `empty?: Boolean` - 비어 있는지 확인
 - `size: Integer` - 요소 수 반환
 - `to_a: Array<T>` - 배열로 변환
 
@@ -331,7 +331,7 @@ letters: Range = 'a'..'z'
 **일반 메서드:**
 - `to_a: Array` - 배열로 변환
 - `each(&block: Proc<Any, void>): void` - 범위 반복
-- `include?(value: Any): Bool` - 값이 범위 내에 있는지 확인
+- `include?(value: Any): Boolean` - 값이 범위 내에 있는지 확인
 - `first: Any` - 첫 번째 값 반환
 - `last: Any` - 마지막 값 반환
 
@@ -545,7 +545,7 @@ moment: DateTime = DateTime.now
 pattern: Regexp = /\d+/
 email_pattern: Regexp = /^[\w+\-.]+@[a-z\d\-]+(\.[a-z\d\-]+)*\.[a-z]+$/i
 
-def validate_email(email: String, pattern: Regexp): Bool
+def validate_email(email: String, pattern: Regexp): Boolean
   email.match?(pattern)
 end
 ```
@@ -661,7 +661,7 @@ end
 | `String` | 프리미티브 | 텍스트 데이터 | `"hello"` |
 | `Integer` | 프리미티브 | 정수 | `42` |
 | `Float` | 프리미티브 | 소수 | `3.14` |
-| `Bool` | 프리미티브 | True/false | `true` |
+| `Boolean` | 프리미티브 | True/false | `true` |
 | `Symbol` | 프리미티브 | 식별자 | `:active` |
 | `nil` | 프리미티브 | 값 없음 | `nil` |
 | `Array<T>` | 컬렉션 | 순서 있는 목록 | `[1, 2, 3]` |
@@ -696,7 +696,7 @@ true.to_s         # "true"
 # Integer로
 "123".to_i        # 123
 3.14.to_i         # 3 (버림)
-true.to_i         # 오류: Bool에는 to_i 없음
+true.to_i         # 오류: Boolean에는 to_i 없음
 
 # Float으로
 "3.14".to_f       # 3.14
@@ -724,15 +724,15 @@ true.to_i         # 오류: Bool에는 to_i 없음
 value: String | Integer = get_value()
 
 # 클래스 검사
-value.is_a?(String)    # Bool
-value.is_a?(Integer)   # Bool
-value.kind_of?(String) # Bool (별칭)
+value.is_a?(String)    # Boolean
+value.is_a?(Integer)   # Boolean
+value.kind_of?(String) # Boolean (별칭)
 
 # 인스턴스 검사
-value.instance_of?(String)  # Bool (정확한 클래스)
+value.instance_of?(String)  # Boolean (정확한 클래스)
 
 # Nil 검사
-value.nil?             # Bool
+value.nil?             # Boolean
 
 # 타입 메서드
 value.class            # Class

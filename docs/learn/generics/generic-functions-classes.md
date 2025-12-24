@@ -103,7 +103,7 @@ def reverse<T>(arr: Array<T>): Array<T>
 end
 
 # Filter an array with a predicate
-def filter<T>(arr: Array<T>, &block: Proc<T, Bool>): Array<T>
+def filter<T>(arr: Array<T>, &block: Proc<T, Boolean>): Array<T>
   arr.select { |item| block.call(item) }
 end
 
@@ -196,7 +196,7 @@ container1 = Container.new("hello")  # Container<String>
 container2 = Container.new(42)       # Container<Integer>
 
 # Or explicitly specify the type
-container3 = Container<Bool>.new(true)
+container3 = Container<Boolean>.new(true)
 ```
 
 ### Generic Stack Example
@@ -223,7 +223,7 @@ class Stack<T>
     @items.last
   end
 
-  def empty?: Bool
+  def empty?: Boolean
     @items.empty?
   end
 
@@ -309,7 +309,7 @@ class Collection<T>
     @items.push(item)
   end
 
-  def remove(item: T): Bool
+  def remove(item: T): Boolean
     if index = @items.index(item)
       @items.delete_at(index)
       true
@@ -318,7 +318,7 @@ class Collection<T>
     end
   end
 
-  def contains?(item: T): Bool
+  def contains?(item: T): Boolean
     @items.include?(item)
   end
 
@@ -334,7 +334,7 @@ class Collection<T>
     Collection<U>.new(@items.map { |item| block.call(item) })
   end
 
-  def filter(&block: Proc<T, Bool>): Collection<T>
+  def filter(&block: Proc<T, Boolean>): Collection<T>
     Collection.new(@items.select { |item| block.call(item) })
   end
 
@@ -413,7 +413,7 @@ class Cache<K, V>
     @store[key] || []
   end
 
-  def has_key?(key: K): Bool
+  def has_key?(key: K): Boolean
     @store.key?(key)
   end
 end
@@ -459,7 +459,7 @@ def head<T>(arr: Array<T>): T | nil
 end
 
 # Less good: Too many responsibilities
-def process<T>(arr: Array<T>, flag: Bool, count: Integer): Array<T> | Hash<Integer, T>
+def process<T>(arr: Array<T>, flag: Boolean, count: Integer): Array<T> | Hash<Integer, T>
   # Too complex, hard to understand the generic behavior
 end
 ```
@@ -486,11 +486,11 @@ class Option<T>
     @value = value
   end
 
-  def is_some?: Bool
+  def is_some?: Boolean
     !@value.nil?
   end
 
-  def is_none?: Bool
+  def is_none?: Boolean
     @value.nil?
   end
 
@@ -541,11 +541,11 @@ class Result<T, E>
     result
   end
 
-  def ok?: Bool
+  def ok?: Boolean
     !@value.nil?
   end
 
-  def err?: Bool
+  def err?: Boolean
     !@error.nil?
   end
 

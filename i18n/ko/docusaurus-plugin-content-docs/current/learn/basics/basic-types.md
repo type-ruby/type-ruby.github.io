@@ -18,7 +18,7 @@ T-Ruby에는 다음 기본 타입이 포함됩니다:
 - `String` - 텍스트 데이터
 - `Integer` - 정수
 - `Float` - 소수점 숫자
-- `Bool` - true 또는 false 값
+- `Boolean` - true 또는 false 값
 - `Symbol` - 불변 식별자
 - `nil` - 값의 부재
 
@@ -139,11 +139,11 @@ end
 abs_value: Integer = absolute_value(-42)
 # 42 반환
 
-def is_even(n: Integer): Bool
+def is_even(n: Integer): Boolean
   n.even?
 end
 
-check: Bool = is_even(10)
+check: Boolean = is_even(10)
 # true 반환
 ```
 
@@ -248,9 +248,9 @@ sum: Float = add_numbers(5, 2.5)
 # 7.5 반환
 ```
 
-## Bool
+## Boolean
 
-`Bool` 타입은 부울 값: `true` 또는 `false`를 나타냅니다. T-Ruby는 `Boolean`이 아닌 `Bool`을 타입 이름으로 사용합니다.
+`Boolean` 타입은 부울 값: `true` 또는 `false`를 나타냅니다. T-Ruby는 `Boolean`이 아닌 `Boolean`을 타입 이름으로 사용합니다.
 
 ### 기본 Boolean 사용
 
@@ -258,12 +258,12 @@ sum: Float = add_numbers(5, 2.5)
 
 ```trb title="booleans.trb"
 # Boolean 변수
-is_active: Bool = true
-has_permission: Bool = false
+is_active: Boolean = true
+has_permission: Boolean = false
 
 # 비교에서의 Boolean
-is_adult: Bool = age >= 18
-is_valid: Bool = count > 0
+is_adult: Boolean = age >= 18
+is_valid: Boolean = count > 0
 ```
 
 ### Boolean 논리
@@ -271,25 +271,25 @@ is_valid: Bool = count > 0
 <ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/basics/basic_types_spec.rb" line={157} />
 
 ```trb title="boolean_logic.trb"
-def can_access(is_logged_in: Bool, has_permission: Bool): Bool
+def can_access(is_logged_in: Boolean, has_permission: Boolean): Boolean
   is_logged_in && has_permission
 end
 
-access: Bool = can_access(true, true)
+access: Boolean = can_access(true, true)
 # true 반환
 
-def should_notify(is_important: Bool, is_urgent: Bool): Bool
+def should_notify(is_important: Boolean, is_urgent: Boolean): Boolean
   is_important || is_urgent
 end
 
-notify: Bool = should_notify(false, true)
+notify: Boolean = should_notify(false, true)
 # true 반환
 
-def toggle(flag: Bool): Bool
+def toggle(flag: Boolean): Boolean
   !flag
 end
 
-flipped: Bool = toggle(true)
+flipped: Boolean = toggle(true)
 # false 반환
 ```
 
@@ -298,7 +298,7 @@ flipped: Bool = toggle(true)
 <ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/basics/basic_types_spec.rb" line={168} />
 
 ```trb title="boolean_conditionals.trb"
-def get_status(is_complete: Bool): String
+def get_status(is_complete: Boolean): String
   if is_complete
     "완료"
   else
@@ -309,8 +309,8 @@ end
 status: String = get_status(true)
 # "완료" 반환
 
-def check_eligibility(age: Integer, has_license: Bool): String
-  can_drive: Bool = age >= 16 && has_license
+def check_eligibility(age: Integer, has_license: Boolean): String
+  can_drive: Boolean = age >= 16 && has_license
 
   if can_drive
     "운전 가능"
@@ -320,23 +320,23 @@ def check_eligibility(age: Integer, has_license: Bool): String
 end
 ```
 
-### Truthiness vs Bool
+### Truthiness vs Boolean
 
-Ruby에서 많은 값이 "truthy" 또는 "falsy"이지만, `Bool` 타입은 `true` 또는 `false`만 받습니다:
+Ruby에서 많은 값이 "truthy" 또는 "falsy"이지만, `Boolean` 타입은 `true` 또는 `false`만 받습니다:
 
 <ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/basics/basic_types_spec.rb" line={179} />
 
 ```trb title="bool_strict.trb"
 # 이것은 올바름
-flag: Bool = true
+flag: Boolean = true
 
 # 이것들은 오류가 됨:
-# flag: Bool = 1        # 오류: Integer는 Bool이 아님
-# flag: Bool = "yes"    # 오류: String은 Bool이 아님
-# flag: Bool = nil      # 오류: nil은 Bool이 아님
+# flag: Boolean = 1        # 오류: Integer는 Boolean이 아님
+# flag: Boolean = "yes"    # 오류: String은 Boolean이 아님
+# flag: Boolean = nil      # 오류: nil은 Boolean이 아님
 
-# truthy 값을 Bool로 변환하려면:
-def to_bool(value: String | nil): Bool
+# truthy 값을 Boolean로 변환하려면:
+def to_bool(value: String | nil): Boolean
   !value.nil? && !value.empty?
 end
 ```
@@ -373,11 +373,11 @@ options = create_options(:production)
 
 ```trb title="symbol_vs_string.trb"
 # 같은 심볼은 항상 메모리에서 같은 객체
-def are_same_symbol(a: Symbol, b: Symbol): Bool
+def are_same_symbol(a: Symbol, b: Symbol): Boolean
   a.object_id == b.object_id
 end
 
-same: Bool = are_same_symbol(:active, :active)
+same: Boolean = are_same_symbol(:active, :active)
 # true 반환
 
 # Symbol과 String 간 변환
@@ -489,7 +489,7 @@ def describe_float(num: Float): String
   num.to_s
 end
 
-def describe_bool(flag: Bool): String
+def describe_bool(flag: Boolean): String
   flag.to_s
 end
 
@@ -573,7 +573,7 @@ T-Ruby의 기본 타입은 Ruby의 기본 타입을 반영합니다:
 - **String**: 텍스트 데이터 (`"hello"`)
 - **Integer**: 정수 (`42`)
 - **Float**: 소수점 숫자 (`3.14`)
-- **Bool**: 부울 값 (`true`, `false`)
+- **Boolean**: 부울 값 (`true`, `false`)
 - **Symbol**: 불변 식별자 (`:active`)
 - **nil**: 값의 부재 (`nil`)
 

@@ -100,7 +100,7 @@ T-Ruby is currently in **active development**. While core features are stable an
 
 ### Type System Enhancements
 
-- [ ] Tuple types (`[String, Integer, Bool]`)
+- [ ] Tuple types (`[String, Integer, Boolean]`)
 - [ ] Recursive type aliases
 - [ ] Variance annotations (`in`, `out`)
 - [ ] Conditional types (`T extends U ? X : Y`)

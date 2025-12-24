@@ -621,14 +621,14 @@ trc check --warnings src/
 
 ## 초기화 옵션
 
-(`trc init` 명령용)
+(`trc --init` 명령용)
 
 ### --template
 
 프로젝트 템플릿을 사용합니다.
 
 ```bash
-trc init --template rails
+trc --init --template rails
 ```
 
 템플릿:
@@ -642,7 +642,7 @@ trc init --template rails
 대화형 프로젝트 설정.
 
 ```bash
-trc init --interactive
+trc --init --interactive
 ```
 
 모든 설정 옵션을 프롬프트합니다.
@@ -652,8 +652,8 @@ trc init --interactive
 프롬프트 없이 모든 기본값을 수락합니다.
 
 ```bash
-trc init --yes
-trc init -y
+trc --init --yes
+trc --init -y
 ```
 
 ### --name
@@ -661,7 +661,7 @@ trc init -y
 프로젝트 이름을 설정합니다.
 
 ```bash
-trc init --name my-awesome-project
+trc --init --name my-awesome-project
 ```
 
 ### --create-dirs
@@ -669,7 +669,7 @@ trc init --name my-awesome-project
 디렉토리 구조를 생성합니다.
 
 ```bash
-trc init --create-dirs
+trc --init --create-dirs
 ```
 
 `src/`, `build/`, `sig/` 디렉토리를 생성합니다.
@@ -679,7 +679,7 @@ trc init --create-dirs
 git 저장소를 초기화합니다.
 
 ```bash
-trc init --git
+trc --init --git
 ```
 
 `.git/`과 `.gitignore`를 생성합니다.

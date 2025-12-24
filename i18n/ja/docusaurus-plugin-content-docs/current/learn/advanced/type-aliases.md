@@ -24,34 +24,34 @@ description: カスタム型名の作成
 
 ```trb
 # 複雑な型がすべての場所で繰り返される
-def find_user(id: Integer): Hash<Symbol, String | Integer | Bool> | nil
+def find_user(id: Integer): Hash<Symbol, String | Integer | Boolean> | nil
   # ...
 end
 
-def update_user(id: Integer, data: Hash<Symbol, String | Integer | Bool>): Bool
+def update_user(id: Integer, data: Hash<Symbol, String | Integer | Boolean>): Boolean
   # ...
 end
 
-def create_user(data: Hash<Symbol, String | Integer | Bool>): Integer
+def create_user(data: Hash<Symbol, String | Integer | Boolean>): Integer
   # ...
 end
 
 # これが何を表すか理解しにくい
-users: Array<Hash<Symbol, String | Integer | Bool>> = []
+users: Array<Hash<Symbol, String | Integer | Boolean>> = []
 ```
 
 ### 型エイリアス使用
 
 ```trb
 # 一度定義
-type UserData = Hash<Symbol, String | Integer | Bool>
+type UserData = Hash<Symbol, String | Integer | Boolean>
 
 # どこでも使用 - はるかに明確！
 def find_user(id: Integer): UserData | nil
   # ...
 end
 
-def update_user(id: Integer, data: UserData): Bool
+def update_user(id: Integer, data: UserData): Boolean
   # ...
 end
 
@@ -85,7 +85,7 @@ email: EmailAddress = "alice@example.com"
 product_price: Price = 29.99
 
 # エイリアスを使用する関数
-def send_email(to: EmailAddress, subject: String, body: String): Bool
+def send_email(to: EmailAddress, subject: String, body: String): Boolean
   # ...
 end
 
@@ -121,7 +121,7 @@ end
 
 # さらなる例
 type ID = Integer | String
-type JSONValue = String | Integer | Float | Bool | nil
+type JSONValue = String | Integer | Float | Boolean | nil
 type Result = :success | :error | :pending
 ```
 
@@ -208,11 +208,11 @@ to_string: Transformer<Integer, String> = ->(n: Integer): String { n.to_s }
 to_length: Transformer<String, Integer> = ->(s: String): Integer { s.length }
 
 # ジェネリックバリデータ型
-type Validator<T> = Proc<T, Bool>
+type Validator<T> = Proc<T, Boolean>
 
 # 使用法
-positive_validator: Validator<Integer> = ->(n: Integer): Bool { n > 0 }
-email_validator: Validator<String> = ->(s: String): Bool { s.include?("@") }
+positive_validator: Validator<Integer> = ->(n: Integer): Boolean { n > 0 }
+email_validator: Validator<String> = ->(s: String): Boolean { s.include?("@") }
 ```
 
 ### 部分適用ジェネリックエイリアス
@@ -221,7 +221,7 @@ email_validator: Validator<String> = ->(s: String): Bool { s.include?("@") }
 
 ```trb
 # 基本ジェネリック型
-type Response<T, E> = { success: Bool, data: T | nil, error: E | nil }
+type Response<T, E> = { success: Boolean, data: T | nil, error: E | nil }
 
 # 部分適用 - エラー型を固定
 type APIResponse<T> = Response<T, String>
@@ -319,14 +319,14 @@ end
 
 ```trb
 # JSON型
-type JSONPrimitive = String | Integer | Float | Bool | nil
+type JSONPrimitive = String | Integer | Float | Boolean | nil
 type JSONArray = Array<JSONValue>
 type JSONObject = Hash<String, JSONValue>
 type JSONValue = JSONPrimitive | JSONArray | JSONObject
 
 # APIレスポンス型
 type APIError = Hash<Symbol, String | Integer>
-type APISuccess<T> = Hash<Symbol, Bool | T>
+type APISuccess<T> = Hash<Symbol, Boolean | T>
 type APIResult<T> = APISuccess<T> | APIError
 
 # JSON型の使用
@@ -349,7 +349,7 @@ end
 
 ```trb
 # 一般的な関数シグネチャ
-type Predicate<T> = Proc<T, Bool>
+type Predicate<T> = Proc<T, Boolean>
 type Mapper<T, U> = Proc<T, U>
 type Consumer<T> = Proc<T, void>
 type Supplier<T> = Proc<T>
@@ -370,7 +370,7 @@ end
 
 # 使用法
 numbers = [1, 2, 3, 4, 5]
-is_even: Predicate<Integer> = ->(n: Integer): Bool { n.even? }
+is_even: Predicate<Integer> = ->(n: Integer): Boolean { n.even? }
 evens = filter(numbers, is_even)  # [2, 4]
 
 to_string: Mapper<Integer, String> = ->(n: Integer): String { n.to_s }
@@ -440,7 +440,7 @@ type JSONValue =
   | String
   | Integer
   | Float
-  | Bool
+  | Boolean
   | nil
   | Array<JSONValue>
   | Hash<String, JSONValue>
@@ -584,7 +584,7 @@ name: Nullable<String> = user&.name
 
 ```trb
 # 失敗する可能性のある操作のための結果型
-type Result<T, E> = { success: Bool, value: T | nil, error: E | nil }
+type Result<T, E> = { success: Boolean, value: T | nil, error: E | nil }
 type SimpleResult<T> = T | Error
 
 # 使用法
@@ -601,7 +601,7 @@ end
 
 ```trb
 # 設定ビルダー
-type Config = Hash<Symbol, String | Integer | Bool>
+type Config = Hash<Symbol, String | Integer | Boolean>
 type ConfigBuilder = Proc<Config, Config>
 
 # 使用法

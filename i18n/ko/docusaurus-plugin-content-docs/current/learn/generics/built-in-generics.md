@@ -23,7 +23,7 @@ T-Ruby에는 매일 사용하게 될 여러 내장 제네릭 타입이 있습니
 # 명시적으로 타입이 지정된 배열
 numbers: Array<Integer> = [1, 2, 3, 4, 5]
 names: Array<String> = ["Alice", "Bob", "Charlie"]
-flags: Array<Bool> = [true, false, true]
+flags: Array<Boolean> = [true, false, true]
 
 # 타입 추론도 작동
 inferred_numbers = [1, 2, 3]  # Array<Integer>
@@ -58,7 +58,7 @@ popped: Integer | nil = numbers.pop      # 마지막 제거 및 반환
 shifted: Integer | nil = numbers.shift   # 첫 번째 제거 및 반환
 
 # 내용 확인
-contains_three: Bool = numbers.include?(3)  # true
+contains_three: Boolean = numbers.include?(3)  # true
 index: Integer | nil = numbers.index(3)     # 2
 ```
 
@@ -238,8 +238,8 @@ ages["Alice"] = 31  # 기존 값 업데이트
 removed: Integer | nil = ages.delete("Bob")  # 25 반환
 
 # 키 확인
-has_alice: Bool = ages.key?("Alice")      # true
-has_bob: Bool = ages.key?("Bob")          # false (삭제됨)
+has_alice: Boolean = ages.key?("Alice")      # true
+has_bob: Boolean = ages.key?("Bob")          # false (삭제됨)
 
 # 키와 값 가져오기
 keys: Array<String> = ages.keys           # ["Alice", "Charlie"]
@@ -337,7 +337,7 @@ numbers.add(3)  # 이미 존재, 중복 없음
 numbers.delete(2)
 
 # 멤버십 확인
-contains_three: Bool = numbers.include?(3)  # true
+contains_three: Boolean = numbers.include?(3)  # true
 
 # 셋 연산
 set1: Set<Integer> = Set.new([1, 2, 3, 4])
@@ -363,7 +363,7 @@ one_to_ten: Range<Integer> = 1..10      # 포함: 1, 2, ..., 10
 one_to_nine: Range<Integer> = 1...10    # 제외: 1, 2, ..., 9
 
 # 범위가 값을 포함하는지 확인
-includes_five: Bool = one_to_ten.include?(5)  # true
+includes_five: Boolean = one_to_ten.include?(5)  # true
 
 # 배열로 변환
 numbers: Array<Integer> = (1..5).to_a   # [1, 2, 3, 4, 5]

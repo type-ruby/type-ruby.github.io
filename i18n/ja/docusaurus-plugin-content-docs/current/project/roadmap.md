@@ -100,7 +100,7 @@ T-Rubyは現在**活発な開発**状態です。コア機能は安定してお�
 
 ### 型システムの強化
 
-- [ ] タプル型（`[String, Integer, Bool]`）
+- [ ] タプル型（`[String, Integer, Boolean]`）
 - [ ] 再帰的型エイリアス
 - [ ] 変性アノテーション（`in`、`out`）
 - [ ] 条件付き型（`T extends U ? X : Y`）

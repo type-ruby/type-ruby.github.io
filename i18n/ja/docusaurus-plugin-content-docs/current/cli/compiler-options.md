@@ -601,14 +601,14 @@ trc check --warnings src/
 
 ## 初期化オプション
 
-（`trc init`コマンド用）
+（`trc --init`コマンド用）
 
 ### --template
 
 プロジェクトテンプレートを使用します。
 
 ```bash
-trc init --template rails
+trc --init --template rails
 ```
 
 テンプレート：
@@ -622,7 +622,7 @@ trc init --template rails
 対話型プロジェクトセットアップ。
 
 ```bash
-trc init --interactive
+trc --init --interactive
 ```
 
 すべての設定オプションをプロンプトします。
@@ -632,8 +632,8 @@ trc init --interactive
 プロンプトなしですべてのデフォルトを受け入れます。
 
 ```bash
-trc init --yes
-trc init -y
+trc --init --yes
+trc --init -y
 ```
 
 ### --name
@@ -641,7 +641,7 @@ trc init -y
 プロジェクト名を設定します。
 
 ```bash
-trc init --name my-awesome-project
+trc --init --name my-awesome-project
 ```
 
 ### --create-dirs
@@ -649,7 +649,7 @@ trc init --name my-awesome-project
 ディレクトリ構造を作成します。
 
 ```bash
-trc init --create-dirs
+trc --init --create-dirs
 ```
 
 `src/`, `build/`, `sig/`ディレクトリを作成します。
@@ -659,7 +659,7 @@ trc init --create-dirs
 gitリポジトリを初期化します。
 
 ```bash
-trc init --git
+trc --init --git
 ```
 
 `.git/`と`.gitignore`を作成します。

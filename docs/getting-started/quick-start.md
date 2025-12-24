@@ -11,18 +11,35 @@ description: Get started with T-Ruby in 5 minutes
 
 Let's get you writing typed Ruby in under 5 minutes. This guide assumes you've already [installed T-Ruby](/docs/getting-started/installation).
 
-## Step 1: Create a Project Directory
+## Step 1: Initialize a Project
+
+Create a `trbconfig.yml` in your project root to configure source and output directories. You can generate one with `trc --init`:
 
 ```bash
-mkdir my-truby-project
-cd my-truby-project
+mkdir my-project && cd my-project
+trc --init
 ```
 
-## Step 2: Write Your First T-Ruby File
+This creates:
+- `trbconfig.yml` - [compiler configuration](/docs/cli/configuration)
+- `src/` - source directory for .trb files
+- `build/` - output directory for compiled files
 
-Create a file called `hello.trb`:
+## Step 2: Start Watch Mode
 
-```trb title="hello.trb"
+Run watch mode for automatic compilation when files change:
+
+```bash
+trc --watch
+```
+
+Keep this terminal open and continue to the next step.
+
+## Step 3: Write Your First T-Ruby File
+
+Open a new terminal and create a file called `src/hello.trb`:
+
+```trb title="src/hello.trb"
 # A simple typed function
 def greet(name: String): String
   "Hello, #{name}!"
@@ -38,21 +55,9 @@ puts greet("World")
 puts add(5, 3)
 ```
 
-## Step 3: Compile
-
-Run the T-Ruby compiler:
-
-```bash
-trc hello.trb
-```
-
-This creates two files in the `build/` directory:
-
-```
-build/
-├── hello.rb    # Compiled Ruby code
-└── hello.rbs   # Type signatures
-```
+When you save the file, watch mode automatically compiles it. Two files are created in the `build/` directory:
+- `hello.rb` - compiled Ruby code
+- `hello.rbs` - type signatures
 
 ## Step 4: Run Your Code
 
@@ -120,16 +125,6 @@ Error: hello.trb:6:12
 
 The code won't compile until you fix the type error.
 
-## Using Watch Mode
-
-For development, use watch mode to automatically recompile on changes:
-
-```bash
-trc watch .
-```
-
-Now every time you save a `.trb` file, it's automatically compiled.
-
 ## Quick Reference
 
 Here's a summary of the commands you'll use most:
@@ -141,7 +136,7 @@ Here's a summary of the commands you'll use most:
 | `trc .` | Compile all .trb files in current directory |
 | `trc watch .` | Watch and auto-compile on changes |
 | `trc check file.trb` | Type-check without generating output |
-| `trc init` | Initialize a new T-Ruby project |
+| `trc --init` | Initialize a new T-Ruby project |
 
 ## What's Next?
 
@@ -164,7 +159,7 @@ class User
   @id: UserId
   @name: String
   @email: String
-  @active: Bool
+  @active: Boolean
 
   def initialize(id: UserId, name: String, email: String): void
     @id = id
@@ -181,7 +176,7 @@ class User
     @active = false
   end
 
-  def active?: Bool
+  def active?: Boolean
     @active
   end
 end

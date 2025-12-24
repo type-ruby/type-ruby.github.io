@@ -18,7 +18,7 @@ T-Ruby includes the following basic types:
 - `String` - Text data
 - `Integer` - Whole numbers
 - `Float` - Decimal numbers
-- `Bool` - True or false values
+- `Boolean` - True or false values
 - `Symbol` - Immutable identifiers
 - `nil` - The absence of a value
 
@@ -127,11 +127,11 @@ end
 abs_value: Integer = absolute_value(-42)
 # Returns 42
 
-def is_even(n: Integer): Bool
+def is_even(n: Integer): Boolean
   n.even?
 end
 
-check: Bool = is_even(10)
+check: Boolean = is_even(10)
 # Returns true
 ```
 
@@ -226,51 +226,51 @@ sum: Float = add_numbers(5, 2.5)
 # Returns 7.5
 ```
 
-## Bool
+## Boolean
 
-The `Bool` type represents boolean values: `true` or `false`. Note that T-Ruby uses `Bool` (not `Boolean`) as the type name.
+The `Boolean` type represents boolean values: `true` or `false`. Note that T-Ruby uses `Boolean` (not `Boolean`) as the type name.
 
 ### Basic Boolean Usage
 
 ```trb title="booleans.trb"
 # Boolean variables
-is_active: Bool = true
-has_permission: Bool = false
+is_active: Boolean = true
+has_permission: Boolean = false
 
 # Boolean from comparison
-is_adult: Bool = age >= 18
-is_valid: Bool = count > 0
+is_adult: Boolean = age >= 18
+is_valid: Boolean = count > 0
 ```
 
 ### Boolean Logic
 
 ```trb title="boolean_logic.trb"
-def can_access(is_logged_in: Bool, has_permission: Bool): Bool
+def can_access(is_logged_in: Boolean, has_permission: Boolean): Boolean
   is_logged_in && has_permission
 end
 
-access: Bool = can_access(true, true)
+access: Boolean = can_access(true, true)
 # Returns true
 
-def should_notify(is_important: Bool, is_urgent: Bool): Bool
+def should_notify(is_important: Boolean, is_urgent: Boolean): Boolean
   is_important || is_urgent
 end
 
-notify: Bool = should_notify(false, true)
+notify: Boolean = should_notify(false, true)
 # Returns true
 
-def toggle(flag: Bool): Bool
+def toggle(flag: Boolean): Boolean
   !flag
 end
 
-flipped: Bool = toggle(true)
+flipped: Boolean = toggle(true)
 # Returns false
 ```
 
 ### Booleans in Conditionals
 
 ```trb title="boolean_conditionals.trb"
-def get_status(is_complete: Bool): String
+def get_status(is_complete: Boolean): String
   if is_complete
     "Done"
   else
@@ -281,8 +281,8 @@ end
 status: String = get_status(true)
 # Returns "Done"
 
-def check_eligibility(age: Integer, has_license: Bool): String
-  can_drive: Bool = age >= 16 && has_license
+def check_eligibility(age: Integer, has_license: Boolean): String
+  can_drive: Boolean = age >= 16 && has_license
 
   if can_drive
     "Eligible to drive"
@@ -292,21 +292,21 @@ def check_eligibility(age: Integer, has_license: Bool): String
 end
 ```
 
-### Truthiness vs Bool
+### Truthiness vs Boolean
 
-In Ruby, many values are "truthy" or "falsy", but the `Bool` type only accepts `true` or `false`:
+In Ruby, many values are "truthy" or "falsy", but the `Boolean` type only accepts `true` or `false`:
 
 ```trb title="bool_strict.trb"
 # This is correct
-flag: Bool = true
+flag: Boolean = true
 
 # These would be errors:
-# flag: Bool = 1        # Error: Integer is not Bool
-# flag: Bool = "yes"    # Error: String is not Bool
-# flag: Bool = nil      # Error: nil is not Bool
+# flag: Boolean = 1        # Error: Integer is not Boolean
+# flag: Boolean = "yes"    # Error: String is not Boolean
+# flag: Boolean = nil      # Error: nil is not Boolean
 
-# To convert truthy values to Bool:
-def to_bool(value: String | nil): Bool
+# To convert truthy values to Boolean:
+def to_bool(value: String | nil): Boolean
   !value.nil? && !value.empty?
 end
 ```
@@ -339,11 +339,11 @@ Symbols are similar to strings but are immutable and optimized for use as identi
 
 ```trb title="symbol_vs_string.trb"
 # Same symbol is always the same object in memory
-def are_same_symbol(a: Symbol, b: Symbol): Bool
+def are_same_symbol(a: Symbol, b: Symbol): Boolean
   a.object_id == b.object_id
 end
 
-same: Bool = are_same_symbol(:active, :active)
+same: Boolean = are_same_symbol(:active, :active)
 # Returns true
 
 # Converting between Symbol and String
@@ -462,7 +462,7 @@ def describe_float(num: Float): String
   num.to_s
 end
 
-def describe_bool(flag: Bool): String
+def describe_bool(flag: Boolean): String
   flag.to_s
 end
 
@@ -575,17 +575,17 @@ half_precise: Float = calculate_half_precise(5)
 # Returns 2.5
 ```
 
-### Bool vs Truthiness
+### Boolean vs Truthiness
 
 ```trb title="bool_pitfall.trb"
 # In Ruby, all values except false and nil are truthy
-# But Bool type only accepts true or false
+# But Boolean type only accepts true or false
 
 # This is wrong:
-# flag: Bool = "yes"  # Error!
+# flag: Boolean = "yes"  # Error!
 
-# Convert to Bool explicitly:
-def to_bool(value: String): Bool
+# Convert to Boolean explicitly:
+def to_bool(value: String): Boolean
   value == "yes"
 end
 ```
@@ -607,7 +607,7 @@ T-Ruby's basic types mirror Ruby's fundamental types:
 - **String**: Text data (`"hello"`)
 - **Integer**: Whole numbers (`42`)
 - **Float**: Decimal numbers (`3.14`)
-- **Bool**: Boolean values (`true`, `false`)
+- **Boolean**: Boolean values (`true`, `false`)
 - **Symbol**: Immutable identifiers (`:active`)
 - **nil**: Absence of value (`nil`)
 

@@ -73,7 +73,7 @@ T-Ruby의 첫 알파 릴리스입니다! 이 릴리스에는 핵심 타입 시�
 ### 추가됨
 
 #### 타입 시스템
-- **기본 타입** - `String`, `Integer`, `Float`, `Bool`, `Symbol`, `nil`
+- **기본 타입** - `String`, `Integer`, `Float`, `Boolean`, `Symbol`, `nil`
 - **특수 타입** - `Any`, `void`, `never`, `self`
 - **유니온 타입** - `|` 연산자로 여러 타입 결합
 - **선택적 타입** - `T | nil`의 단축형 `T?`
@@ -241,7 +241,7 @@ class User
     "Hello, my name is #{@name}"
   end
 
-  def adult?: Bool
+  def adult?: Boolean
     @age >= 18
   end
 end

@@ -18,7 +18,7 @@ T-Ruby의 원시 타입은 다음과 같습니다:
 - `String` - 텍스트 및 문자 데이터
 - `Integer` - 정수
 - `Float` - 부동소수점 숫자
-- `Bool` - 부울 값 (true/false)
+- `Boolean` - 부울 값 (true/false)
 - `Symbol` - 불변 식별자
 - `nil` - null 값
 
@@ -76,21 +76,21 @@ formatted: String = format_username("  John Doe! ")
 <ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/everyday_types/primitives_spec.rb" line={47} />
 
 ```trb title="string_compare.trb"
-def are_equal(a: String, b: String): Bool
+def are_equal(a: String, b: String): Boolean
   a == b
 end
 
-def starts_with_hello(text: String): Bool
+def starts_with_hello(text: String): Boolean
   text.start_with?("Hello")
 end
 
-def contains_word(text: String, word: String): Bool
+def contains_word(text: String, word: String): Boolean
   text.include?(word)
 end
 
-check1: Bool = are_equal("hello", "hello")  # true
-check2: Bool = starts_with_hello("Hello, world!")  # true
-check3: Bool = contains_word("Ruby is great", "great")  # true
+check1: Boolean = are_equal("hello", "hello")  # true
+check2: Boolean = starts_with_hello("Hello, world!")  # true
+check3: Boolean = contains_word("Ruby is great", "great")  # true
 ```
 
 ### String 길이와 인덱싱
@@ -197,15 +197,15 @@ parts: Array<Integer> = divide_with_remainder(17, 5)
 <ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/everyday_types/primitives_spec.rb" line={102} />
 
 ```trb title="integer_compare.trb"
-def is_positive(n: Integer): Bool
+def is_positive(n: Integer): Boolean
   n > 0
 end
 
-def is_even(n: Integer): Bool
+def is_even(n: Integer): Boolean
   n % 2 == 0
 end
 
-def is_in_range(n: Integer, min: Integer, max: Integer): Bool
+def is_in_range(n: Integer, min: Integer, max: Integer): Boolean
   n >= min && n <= max
 end
 
@@ -217,9 +217,9 @@ def max(a: Integer, b: Integer): Integer
   end
 end
 
-check1: Bool = is_positive(5)  # true
-check2: Bool = is_even(7)  # false
-check3: Bool = is_in_range(5, 1, 10)  # true
+check1: Boolean = is_positive(5)  # true
+check2: Boolean = is_even(7)  # false
+check3: Boolean = is_in_range(5, 1, 10)  # true
 maximum: Integer = max(10, 20)  # 20
 ```
 
@@ -312,11 +312,11 @@ ceiled: Integer = ceil_value(3.2)  # 4
 <ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/everyday_types/primitives_spec.rb" line={146} />
 
 ```trb title="float_compare.trb"
-def approximately_equal(a: Float, b: Float, epsilon: Float = 0.0001): Bool
+def approximately_equal(a: Float, b: Float, epsilon: Float = 0.0001): Boolean
   (a - b).abs < epsilon
 end
 
-def is_close_to_zero(value: Float): Bool
+def is_close_to_zero(value: Float): Boolean
   value.abs < 0.0001
 end
 
@@ -324,10 +324,10 @@ end
 result1 = 0.1 + 0.2  # 부동소수점 정밀도로 인해 정확히 0.3이 아닐 수 있음
 
 # 근사 비교 사용
-check: Bool = approximately_equal(0.1 + 0.2, 0.3)  # true
+check: Boolean = approximately_equal(0.1 + 0.2, 0.3)  # true
 
 # 0 확인
-is_zero: Bool = is_close_to_zero(0.0000001)  # true
+is_zero: Boolean = is_close_to_zero(0.0000001)  # true
 ```
 
 ### Float 특수 값
@@ -335,11 +335,11 @@ is_zero: Bool = is_close_to_zero(0.0000001)  # true
 <ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/everyday_types/primitives_spec.rb" line={157} />
 
 ```trb title="float_special.trb"
-def is_infinite(value: Float): Bool
+def is_infinite(value: Float): Boolean
   value.infinite? != nil
 end
 
-def is_nan(value: Float): Bool
+def is_nan(value: Float): Boolean
   value.nan?
 end
 
@@ -353,39 +353,39 @@ positive_infinity: Float = 1.0 / 0.0  # Infinity
 negative_infinity: Float = -1.0 / 0.0  # -Infinity
 not_a_number: Float = 0.0 / 0.0  # NaN
 
-check1: Bool = is_infinite(positive_infinity)  # true
-check2: Bool = is_nan(not_a_number)  # true
+check1: Boolean = is_infinite(positive_infinity)  # true
+check2: Boolean = is_nan(not_a_number)  # true
 ```
 
-## Bool 원시 타입 다루기
+## Boolean 원시 타입 다루기
 
-Bool 타입은 엄격한 타입 검사를 갖춘 true/false 값을 나타냅니다.
+Boolean 타입은 엄격한 타입 검사를 갖춘 true/false 값을 나타냅니다.
 
 ### Boolean 연산
 
 <ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/everyday_types/primitives_spec.rb" line={168} />
 
 ```trb title="bool_ops.trb"
-def and_operation(a: Bool, b: Bool): Bool
+def and_operation(a: Boolean, b: Boolean): Boolean
   a && b
 end
 
-def or_operation(a: Bool, b: Bool): Bool
+def or_operation(a: Boolean, b: Boolean): Boolean
   a || b
 end
 
-def not_operation(a: Bool): Bool
+def not_operation(a: Boolean): Boolean
   !a
 end
 
-def xor_operation(a: Bool, b: Bool): Bool
+def xor_operation(a: Boolean, b: Boolean): Boolean
   (a || b) && !(a && b)
 end
 
-result1: Bool = and_operation(true, false)  # false
-result2: Bool = or_operation(true, false)  # true
-result3: Bool = not_operation(true)  # false
-result4: Bool = xor_operation(true, false)  # true
+result1: Boolean = and_operation(true, false)  # false
+result2: Boolean = or_operation(true, false)  # true
+result3: Boolean = not_operation(true)  # false
+result4: Boolean = xor_operation(true, false)  # true
 ```
 
 ### 비교에서의 Boolean
@@ -393,56 +393,56 @@ result4: Bool = xor_operation(true, false)  # true
 <ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/everyday_types/primitives_spec.rb" line={179} />
 
 ```trb title="bool_from_compare.trb"
-def is_valid_age(age: Integer): Bool
+def is_valid_age(age: Integer): Boolean
   age >= 0 && age <= 150
 end
 
-def is_valid_email(email: String): Bool
+def is_valid_email(email: String): Boolean
   email.include?("@") && email.include?(".")
 end
 
-def all_positive(numbers: Array<Integer>): Bool
+def all_positive(numbers: Array<Integer>): Boolean
   numbers.all? { |n| n > 0 }
 end
 
-def any_even(numbers: Array<Integer>): Bool
+def any_even(numbers: Array<Integer>): Boolean
   numbers.any? { |n| n % 2 == 0 }
 end
 
-valid1: Bool = is_valid_age(25)  # true
-valid2: Bool = is_valid_email("user@example.com")  # true
-check1: Bool = all_positive([1, 2, 3])  # true
-check2: Bool = any_even([1, 3, 5, 6])  # true
+valid1: Boolean = is_valid_age(25)  # true
+valid2: Boolean = is_valid_email("user@example.com")  # true
+check1: Boolean = all_positive([1, 2, 3])  # true
+check2: Boolean = any_even([1, 3, 5, 6])  # true
 ```
 
-### Bool vs Truthy 값
+### Boolean vs Truthy 값
 
-T-Ruby의 Bool 타입은 엄격합니다 - `true`와 `false`만 유효합니다:
+T-Ruby의 Boolean 타입은 엄격합니다 - `true`와 `false`만 유효합니다:
 
 <ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/everyday_types/primitives_spec.rb" line={190} />
 
 ```trb title="bool_strict.trb"
-# 이것은 Bool 값입니다
-flag1: Bool = true
-flag2: Bool = false
+# 이것은 Boolean 값입니다
+flag1: Boolean = true
+flag2: Boolean = false
 
 # 이것은 타입 오류가 됩니다:
-# flag3: Bool = 1  # 오류!
-# flag4: Bool = "yes"  # 오류!
-# flag5: Bool = nil  # 오류!
+# flag3: Boolean = 1  # 오류!
+# flag4: Boolean = "yes"  # 오류!
+# flag5: Boolean = nil  # 오류!
 
-# truthy 값을 Bool로 변환
-def to_bool(value: String | nil): Bool
+# truthy 값을 Boolean로 변환
+def to_bool(value: String | nil): Boolean
   !value.nil? && value != ""
 end
 
-def is_present(value: String | nil): Bool
+def is_present(value: String | nil): Boolean
   value != nil && value.length > 0
 end
 
-converted1: Bool = to_bool("hello")  # true
-converted2: Bool = to_bool(nil)  # false
-present: Bool = is_present("")  # false
+converted1: Boolean = to_bool("hello")  # true
+converted2: Boolean = to_bool(nil)  # false
+present: Boolean = is_present("")  # false
 ```
 
 ## Symbol 원시 타입 다루기
@@ -542,11 +542,11 @@ normalized: Symbol = normalize_key("status")  # :status
 <ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/everyday_types/primitives_spec.rb" line={234} />
 
 ```trb title="nil_checks.trb"
-def is_nil(value: String | nil): Bool
+def is_nil(value: String | nil): Boolean
   value.nil?
 end
 
-def has_value(value: String | nil): Bool
+def has_value(value: String | nil): Boolean
   !value.nil?
 end
 
@@ -558,8 +558,8 @@ def get_or_default(value: String | nil, default: String): String
   end
 end
 
-check1: Bool = is_nil(nil)  # true
-check2: Bool = has_value("hello")  # true
+check1: Boolean = is_nil(nil)  # true
+check2: Boolean = has_value("hello")  # true
 result: String = get_or_default(nil, "default")  # "default"
 ```
 
@@ -600,7 +600,7 @@ def float_to_string(f: Float): String
   f.to_s
 end
 
-def bool_to_string(b: Bool): String
+def bool_to_string(b: Boolean): String
   b.to_s
 end
 
@@ -728,7 +728,7 @@ history: Array<String> = calc.get_history()
 - **String**: 풍부한 조작 메서드를 가진 불변 텍스트
 - **Integer**: 자르기 나눗셈을 가진 정수
 - **Float**: 정밀도에 주의가 필요한 소수점 숫자
-- **Bool**: 엄격한 true/false 값 (truthy/falsy가 아님)
+- **Boolean**: 엄격한 true/false 값 (truthy/falsy가 아님)
 - **Symbol**: 상수와 키를 위한 불변 식별자
 - **nil**: 값의 부재를 나타냄
 

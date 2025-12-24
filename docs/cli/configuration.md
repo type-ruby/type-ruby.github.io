@@ -43,13 +43,13 @@ Generate a configuration file:
 
 ```bash
 # Create with defaults
-trc init
+trc --init
 
 # Interactive setup
-trc init --interactive
+trc --init --interactive
 
 # Use template
-trc init --template rails
+trc --init --template rails
 ```
 
 ## Configuration Sections

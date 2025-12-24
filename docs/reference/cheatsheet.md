@@ -18,7 +18,7 @@ A comprehensive quick reference guide for T-Ruby type syntax. Bookmark this page
 | `String` | Text data | `name: String = "Alice"` |
 | `Integer` | Whole numbers | `count: Integer = 42` |
 | `Float` | Decimal numbers | `price: Float = 19.99` |
-| `Bool` | Boolean values | `active: Bool = true` |
+| `Boolean` | Boolean values | `active: Boolean = true` |
 | `Symbol` | Immutable identifiers | `status: Symbol = :active` |
 | `nil` | Absence of value | `value: nil = nil` |
 | `Any` | Any type (avoid when possible) | `data: Any = "anything"` |
@@ -80,7 +80,7 @@ end
 | Syntax | Description | Example |
 |--------|-------------|---------|
 | `A \| B` | Either type A or B | `String \| Integer` |
-| `A \| B \| C` | One of multiple types | `String \| Integer \| Bool` |
+| `A \| B \| C` | One of multiple types | `String \| Integer \| Boolean` |
 | `T \| nil` | Optional type | `String \| nil` |
 | `T?` | Shorthand for `T \| nil` | `String?` |
 
@@ -94,7 +94,7 @@ name: String | nil = nil
 name: String? = nil  # Shorthand
 
 # Multiple types
-value: String | Integer | Bool = true
+value: String | Integer | Boolean = true
 
 # Function with union return type
 def find_user(id: Integer): User | nil
@@ -177,7 +177,7 @@ type EmailAddress = String
 
 # Union type alias
 type ID = String | Integer
-type JSONValue = String | Integer | Float | Bool | nil
+type JSONValue = String | Integer | Float | Boolean | nil
 
 # Collection alias
 type StringList = Array<String>
@@ -254,13 +254,13 @@ end
 # Interface with multiple methods
 interface Comparable
   def <=>(other: self): Integer
-  def ==(other: self): Bool
+  def ==(other: self): Boolean
 end
 
 # Generic interface
 interface Collection<T>
   def add(item: T): void
-  def remove(item: T): Bool
+  def remove(item: T): Boolean
   def size: Integer
 end
 
@@ -350,7 +350,7 @@ def get_length(text: String | nil): Integer
 end
 
 # Multiple checks
-def describe(value: String | Integer | Bool): String
+def describe(value: String | Integer | Boolean): String
   if value.is_a?(String)
     "String: #{value}"
   elsif value.is_a?(Integer)
@@ -452,7 +452,7 @@ def create_user(
   name: String,
   email: String,
   age: Integer = 18,
-  active: Bool = true
+  active: Boolean = true
 ): User
   User.new(name, email, age, active)
 end
@@ -461,7 +461,7 @@ end
 ### Result Type Pattern
 
 ```trb
-type Result<T, E> = { success: Bool, value: T | nil, error: E | nil }
+type Result<T, E> = { success: Boolean, value: T | nil, error: E | nil }
 
 def divide(a: Float, b: Float): Result<Float, String>
   if b == 0

@@ -373,32 +373,32 @@ trc check src/ --quiet --max-errors 5
 
 ```bash
 # 現在のディレクトリにtrbconfig.ymlを作成
-trc init
+trc --init
 
 # インタラクティブセットアップ
-trc init --interactive
+trc --init --interactive
 
 # テンプレートを使用
-trc init --template rails
+trc --init --template rails
 ```
 
 ### オプション
 
 ```bash
 # プロンプトをスキップしてデフォルトを使用
-trc init --yes
+trc --init --yes
 
 # プロジェクト名を指定
-trc init --name my-project
+trc --init --name my-project
 
 # テンプレートを選択（basic, rails, gem, sinatra）
-trc init --template rails
+trc --init --template rails
 
 # ディレクトリ構造を作成
-trc init --create-dirs
+trc --init --create-dirs
 
 # gitリポジトリを初期化
-trc init --git
+trc --init --git
 ```
 
 ### テンプレート
@@ -406,7 +406,7 @@ trc init --git
 **Basic（デフォルト）:**
 
 ```bash
-trc init --template basic
+trc --init --template basic
 ```
 
 作成:
@@ -420,7 +420,7 @@ sig/
 **Rails:**
 
 ```bash
-trc init --template rails
+trc --init --template rails
 ```
 
 Railsプロジェクト用の設定を作成:
@@ -448,7 +448,7 @@ types:
 **Gem:**
 
 ```bash
-trc init --template gem
+trc --init --template gem
 ```
 
 gem開発用の設定を作成:
@@ -472,7 +472,7 @@ compiler:
 **Sinatra:**
 
 ```bash
-trc init --template sinatra
+trc --init --template sinatra
 ```
 
 Sinatraアプリ用の設定を作成:
@@ -497,7 +497,7 @@ types:
 ### インタラクティブモード
 
 ```bash
-trc init --interactive
+trc --init --interactive
 ```
 
 セットアップをガイドします:
@@ -548,14 +548,14 @@ T-Rubyプロジェクトの準備ができました！試してみてくださ�
 ```bash
 mkdir my-project
 cd my-project
-trc init --yes --create-dirs
+trc --init --yes --create-dirs
 ```
 
 **Railsプロジェクトのセットアップ:**
 
 ```bash
 cd my-rails-app
-trc init --template rails --interactive
+trc --init --template rails --interactive
 ```
 
 **Gem開発:**
@@ -563,7 +563,7 @@ trc init --template rails --interactive
 ```bash
 bundle gem my_gem
 cd my_gem
-trc init --template gem --create-dirs
+trc --init --template gem --create-dirs
 ```
 
 ## グローバルオプション

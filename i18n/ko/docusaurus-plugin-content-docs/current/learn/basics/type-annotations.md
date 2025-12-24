@@ -78,7 +78,7 @@ count: Integer = 42
 price: Float = 19.99
 
 # Boolean 변수
-is_active: Bool = true
+is_active: Boolean = true
 ```
 
 ### 왜 변수에 어노테이션을 달아야 하나요?
@@ -165,7 +165,7 @@ def get_age(): Integer
 end
 
 # Boolean 반환
-def is_adult?(age: Integer): Bool
+def is_adult?(age: Integer): Boolean
   age >= 18
 end
 
@@ -203,7 +203,7 @@ result: Float = divide(10, 3)
 def calculate_discount(
   original_price: Float,
   discount_percent: Integer,
-  is_member: Bool = false
+  is_member: Boolean = false
 ): Float
   discount = original_price * (discount_percent / 100.0)
 
@@ -314,7 +314,7 @@ sum: Integer = x + y  # 필요할 때만 결과에 어노테이션
 
 ```trb title="inconsistent_return.trb"
 # 이것은 오류를 발생시킴 - 일관성 없는 반환
-def get_value(flag: Bool): String
+def get_value(flag: Boolean): String
   if flag
     return "yes"
   else

@@ -25,7 +25,7 @@ name: String | nil = "Alice"
 id: String | Integer = "user-123"
 
 # 이것은 세 가지 타입 중 하나가 될 수 있음
-value: String | Integer | Bool = true
+value: String | Integer | Boolean = true
 ```
 
 ## Union 타입을 사용하는 이유
@@ -75,7 +75,7 @@ formatted2: String = format_id("abc")  # "ABC"
 <ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/everyday_types/union_types_spec.rb" line={58} />
 
 ```trb title="different_returns.trb"
-def parse_value(input: String): String | Integer | Bool
+def parse_value(input: String): String | Integer | Boolean
   if input == "true" || input == "false"
     input == "true"
   elsif input.to_i.to_s == input
@@ -86,7 +86,7 @@ def parse_value(input: String): String | Integer | Bool
 end
 
 result1 = parse_value("42")  # 42 (Integer)
-result2 = parse_value("true")  # true (Bool)
+result2 = parse_value("true")  # true (Boolean)
 result3 = parse_value("hello")  # "hello" (String)
 ```
 
@@ -145,12 +145,12 @@ union에 두 개 이상의 타입이 있을 때:
 <ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/everyday_types/union_types_spec.rb" line={91} />
 
 ```trb title="multiple_checks.trb"
-def describe_value(value: String | Integer | Bool): String
+def describe_value(value: String | Integer | Boolean): String
   if value.is_a?(String)
     "텍스트: #{value}"
   elsif value.is_a?(Integer)
     "숫자: #{value}"
-  elsif value.is_a?(Bool)
+  elsif value.is_a?(Boolean)
     "부울: #{value}"
   else
     "알 수 없음"
@@ -211,7 +211,7 @@ strings: Array<String> = get_strings(mixed)  # ["Alice", "Bob", "Charlie"]
 
 ```trb title="union_hashes.trb"
 # 다른 값 타입을 가진 해시
-def create_config(): Hash<Symbol, String | Integer | Bool>
+def create_config(): Hash<Symbol, String | Integer | Boolean>
   {
     host: "localhost",
     port: 3000,
@@ -222,7 +222,7 @@ def create_config(): Hash<Symbol, String | Integer | Bool>
 end
 
 def get_string_value(
-  config: Hash<Symbol, String | Integer | Bool>,
+  config: Hash<Symbol, String | Integer | Boolean>,
   key: Symbol
 ): String | nil
   value = config[key]
@@ -235,7 +235,7 @@ def get_string_value(
 end
 
 def get_integer_value(
-  config: Hash<Symbol, String | Integer | Bool>,
+  config: Hash<Symbol, String | Integer | Boolean>,
   key: Symbol
 ): Integer | nil
   value = config[key]
@@ -321,7 +321,7 @@ def to_integer(value: String | Integer): Integer
   end
 end
 
-def to_string(value: String | Integer | Bool): String
+def to_string(value: String | Integer | Boolean): String
   if value.is_a?(String)
     value
   else
@@ -422,10 +422,10 @@ union 타입을 사용하는 종합적인 예제입니다:
 ```trb title="config_system.trb"
 class ConfigManager
   def initialize()
-    @config: Hash<String, String | Integer | Bool | nil> = {}
+    @config: Hash<String, String | Integer | Boolean | nil> = {}
   end
 
-  def set(key: String, value: String | Integer | Bool | nil)
+  def set(key: String, value: String | Integer | Boolean | nil)
     @config[key] = value
   end
 
@@ -449,10 +449,10 @@ class ConfigManager
     end
   end
 
-  def get_bool(key: String): Bool | nil
+  def get_bool(key: String): Boolean | nil
     value = @config[key]
 
-    if value.is_a?(Bool)
+    if value.is_a?(Boolean)
       value
     else
       nil
@@ -469,7 +469,7 @@ class ConfigManager
     value || default
   end
 
-  def get_bool_or_default(key: String, default: Bool): Bool
+  def get_bool_or_default(key: String, default: Boolean): Boolean
     value = get_bool(key)
     if value.nil?
       default
@@ -478,7 +478,7 @@ class ConfigManager
     end
   end
 
-  def to_hash(): Hash<String, String | Integer | Bool | nil>
+  def to_hash(): Hash<String, String | Integer | Boolean | nil>
     @config.dup
   end
 
@@ -518,7 +518,7 @@ host: String = config.get_string_or_default("host", "0.0.0.0")
 port: Integer = config.get_integer_or_default("port", 8080)
 # 3000
 
-debug: Bool = config.get_bool_or_default("debug", false)
+debug: Boolean = config.get_bool_or_default("debug", false)
 # true
 
 timeout: Integer = config.get_integer_or_default("timeout", 30)
@@ -526,7 +526,7 @@ timeout: Integer = config.get_integer_or_default("timeout", 30)
 
 # 문자열에서 파싱
 config.parse_and_set("max_connections", "100")  # Integer로 저장
-config.parse_and_set("enable_ssl", "true")  # Bool로 저장
+config.parse_and_set("enable_ssl", "true")  # Boolean로 저장
 config.parse_and_set("environment", "production")  # String으로 저장
 ```
 
@@ -546,7 +546,7 @@ end
 
 # 피해야 함 - 처리할 타입이 너무 많음
 def process_complex(
-  value: String | Integer | Float | Bool | Symbol | nil
+  value: String | Integer | Float | Boolean | Symbol | nil
 ): String
   # 너무 많은 분기가 필요함
 end

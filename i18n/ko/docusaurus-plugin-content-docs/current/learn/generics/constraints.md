@@ -399,7 +399,7 @@ class SortedList<T: Comparable>
     @items.sort! { |a, b| a <=> b }
   end
 
-  def remove(item: T): Bool
+  def remove(item: T): Boolean
     if index = @items.index(item)
       @items.delete_at(index)
       true
@@ -468,7 +468,7 @@ class Repository<T: Entity>
     @items.values
   end
 
-  def delete(id: Integer): Bool
+  def delete(id: Integer): Boolean
     !!@items.delete(id)
   end
 end
@@ -611,11 +611,11 @@ end
 
 ```trb
 interface Validatable
-  def valid?: Bool
+  def valid?: Boolean
   def errors: Array<String>
 end
 
-def save_if_valid<T: Validatable>(item: T): Bool
+def save_if_valid<T: Validatable>(item: T): Boolean
   if item.valid?
     # 저장 로직
     true

@@ -43,13 +43,13 @@ compiler:
 
 ```bash
 # デフォルトで作成
-trc init
+trc --init
 
 # 対話型セットアップ
-trc init --interactive
+trc --init --interactive
 
 # テンプレートを使用
-trc init --template rails
+trc --init --template rails
 ```
 
 ## 設定セクション

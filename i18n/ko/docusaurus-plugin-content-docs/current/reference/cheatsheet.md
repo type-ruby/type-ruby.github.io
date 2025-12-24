@@ -18,7 +18,7 @@ T-Ruby 타입 구문에 대한 포괄적인 빠른 참조 가이드입니다. �
 | `String` | 텍스트 데이터 | `name: String = "Alice"` |
 | `Integer` | 정수 | `count: Integer = 42` |
 | `Float` | 소수 | `price: Float = 19.99` |
-| `Bool` | 불리언 값 | `active: Bool = true` |
+| `Boolean` | 불리언 값 | `active: Boolean = true` |
 | `Symbol` | 불변 식별자 | `status: Symbol = :active` |
 | `nil` | 값의 부재 | `value: nil = nil` |
 | `Any` | 모든 타입 (가능하면 피하세요) | `data: Any = "anything"` |
@@ -84,7 +84,7 @@ end
 | 구문 | 설명 | 예시 |
 |------|------|------|
 | `A \| B` | 타입 A 또는 B | `String \| Integer` |
-| `A \| B \| C` | 여러 타입 중 하나 | `String \| Integer \| Bool` |
+| `A \| B \| C` | 여러 타입 중 하나 | `String \| Integer \| Boolean` |
 | `T \| nil` | 선택적 타입 | `String \| nil` |
 | `T?` | `T \| nil`의 약어 | `String?` |
 
@@ -100,7 +100,7 @@ name: String | nil = nil
 name: String? = nil  # 약어
 
 # 여러 타입
-value: String | Integer | Bool = true
+value: String | Integer | Boolean = true
 
 # 유니온 반환 타입이 있는 함수
 def find_user(id: Integer): User | nil
@@ -191,7 +191,7 @@ type EmailAddress = String
 
 # 유니온 타입 별칭
 type ID = String | Integer
-type JSONValue = String | Integer | Float | Bool | nil
+type JSONValue = String | Integer | Float | Boolean | nil
 
 # 컬렉션 별칭
 type StringList = Array<String>
@@ -272,13 +272,13 @@ end
 # 여러 메서드가 있는 인터페이스
 interface Comparable
   def <=>(other: self): Integer
-  def ==(other: self): Bool
+  def ==(other: self): Boolean
 end
 
 # 제네릭 인터페이스
 interface Collection<T>
   def add(item: T): void
-  def remove(item: T): Bool
+  def remove(item: T): Boolean
   def size: Integer
 end
 
@@ -374,7 +374,7 @@ def get_length(text: String | nil): Integer
 end
 
 # 여러 검사
-def describe(value: String | Integer | Bool): String
+def describe(value: String | Integer | Boolean): String
   if value.is_a?(String)
     "String: #{value}"
   elsif value.is_a?(Integer)
@@ -486,7 +486,7 @@ def create_user(
   name: String,
   email: String,
   age: Integer = 18,
-  active: Bool = true
+  active: Boolean = true
 ): User
   User.new(name, email, age, active)
 end
@@ -497,7 +497,7 @@ end
 <ExampleBadge status="pass" testFile="spec/docs_site/pages/reference/cheatsheet_spec.rb" line={212} />
 
 ```trb
-type Result<T, E> = { success: Bool, value: T | nil, error: E | nil }
+type Result<T, E> = { success: Boolean, value: T | nil, error: E | nil }
 
 def divide(a: Float, b: Float): Result<Float, String>
   if b == 0

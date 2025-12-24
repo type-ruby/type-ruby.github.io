@@ -27,7 +27,7 @@ count = 42
 # T-RubyはpriceがFloatであることを推論
 price = 19.99
 
-# T-RubyはactiveがBoolであることを推論
+# T-RubyはactiveがBooleanであることを推論
 active = true
 ```
 
@@ -56,7 +56,7 @@ age = 25
 # Floatリテラル → Float型
 temperature = 98.6
 
-# Booleanリテラル → Bool型
+# Booleanリテラル → Boolean型
 is_valid = false
 
 # Symbolリテラル → Symbol型

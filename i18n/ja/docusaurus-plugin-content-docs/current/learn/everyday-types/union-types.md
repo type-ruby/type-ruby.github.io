@@ -23,7 +23,7 @@ name: String | nil = "Alice"
 id: String | Integer = "user-123"
 
 # これは3つの型のいずれかになりうる
-value: String | Integer | Bool = true
+value: String | Integer | Boolean = true
 ```
 
 ## Union型を使用する理由
@@ -67,7 +67,7 @@ formatted2: String = format_id("abc")  # "ABC"
 関数が条件に基づいて異なる型を返す可能性がある場合：
 
 ```trb title="different_returns.trb"
-def parse_value(input: String): String | Integer | Bool
+def parse_value(input: String): String | Integer | Boolean
   if input == "true" || input == "false"
     input == "true"
   elsif input.to_i.to_s == input
@@ -78,7 +78,7 @@ def parse_value(input: String): String | Integer | Bool
 end
 
 result1 = parse_value("42")  # 42 (Integer)
-result2 = parse_value("true")  # true (Bool)
+result2 = parse_value("true")  # true (Boolean)
 result3 = parse_value("hello")  # "hello" (String)
 ```
 
@@ -131,12 +131,12 @@ end
 Unionに2つ以上の型がある場合：
 
 ```trb title="multiple_checks.trb"
-def describe_value(value: String | Integer | Bool): String
+def describe_value(value: String | Integer | Boolean): String
   if value.is_a?(String)
     "テキスト: #{value}"
   elsif value.is_a?(Integer)
     "数値: #{value}"
-  elsif value.is_a?(Bool)
+  elsif value.is_a?(Boolean)
     "ブール: #{value}"
   else
     "不明"
@@ -193,7 +193,7 @@ strings: Array<String> = get_strings(mixed)  # ["Alice", "Bob", "Charlie"]
 
 ```trb title="union_hashes.trb"
 # 異なる値型を持つハッシュ
-def create_config(): Hash<Symbol, String | Integer | Bool>
+def create_config(): Hash<Symbol, String | Integer | Boolean>
   {
     host: "localhost",
     port: 3000,
@@ -204,7 +204,7 @@ def create_config(): Hash<Symbol, String | Integer | Bool>
 end
 
 def get_string_value(
-  config: Hash<Symbol, String | Integer | Bool>,
+  config: Hash<Symbol, String | Integer | Boolean>,
   key: Symbol
 ): String | nil
   value = config[key]
@@ -217,7 +217,7 @@ def get_string_value(
 end
 
 def get_integer_value(
-  config: Hash<Symbol, String | Integer | Bool>,
+  config: Hash<Symbol, String | Integer | Boolean>,
   key: Symbol
 ): Integer | nil
   value = config[key]
@@ -297,7 +297,7 @@ def to_integer(value: String | Integer): Integer
   end
 end
 
-def to_string(value: String | Integer | Bool): String
+def to_string(value: String | Integer | Boolean): String
   if value.is_a?(String)
     value
   else
@@ -390,10 +390,10 @@ Union型を使用した包括的な例です：
 ```trb title="config_system.trb"
 class ConfigManager
   def initialize()
-    @config: Hash<String, String | Integer | Bool | nil> = {}
+    @config: Hash<String, String | Integer | Boolean | nil> = {}
   end
 
-  def set(key: String, value: String | Integer | Bool | nil)
+  def set(key: String, value: String | Integer | Boolean | nil)
     @config[key] = value
   end
 
@@ -417,10 +417,10 @@ class ConfigManager
     end
   end
 
-  def get_bool(key: String): Bool | nil
+  def get_bool(key: String): Boolean | nil
     value = @config[key]
 
-    if value.is_a?(Bool)
+    if value.is_a?(Boolean)
       value
     else
       nil
@@ -437,7 +437,7 @@ class ConfigManager
     value || default
   end
 
-  def get_bool_or_default(key: String, default: Bool): Bool
+  def get_bool_or_default(key: String, default: Boolean): Boolean
     value = get_bool(key)
     if value.nil?
       default
@@ -446,7 +446,7 @@ class ConfigManager
     end
   end
 
-  def to_hash(): Hash<String, String | Integer | Bool | nil>
+  def to_hash(): Hash<String, String | Integer | Boolean | nil>
     @config.dup
   end
 
@@ -486,7 +486,7 @@ host: String = config.get_string_or_default("host", "0.0.0.0")
 port: Integer = config.get_integer_or_default("port", 8080)
 # 3000
 
-debug: Bool = config.get_bool_or_default("debug", false)
+debug: Boolean = config.get_bool_or_default("debug", false)
 # true
 
 timeout: Integer = config.get_integer_or_default("timeout", 30)
@@ -494,7 +494,7 @@ timeout: Integer = config.get_integer_or_default("timeout", 30)
 
 # 文字列からパース
 config.parse_and_set("max_connections", "100")  # Integerとして保存
-config.parse_and_set("enable_ssl", "true")  # Boolとして保存
+config.parse_and_set("enable_ssl", "true")  # Booleanとして保存
 config.parse_and_set("environment", "production")  # Stringとして保存
 ```
 
@@ -512,7 +512,7 @@ end
 
 # 避ける - 処理する型が多すぎる
 def process_complex(
-  value: String | Integer | Float | Bool | Symbol | nil
+  value: String | Integer | Float | Boolean | Symbol | nil
 ): String
   # 分岐が多すぎる
 end

@@ -62,7 +62,7 @@ end
 설정 초기화:
 
 ```bash
-trc init
+trc --init
 ```
 
 ### 2단계: 시작점 선택
@@ -217,7 +217,7 @@ class Product
   @id: Integer
   @name: String
   @price: Float
-  @in_stock: Bool
+  @in_stock: Boolean
 
   attr_accessor :id, :name, :price, :in_stock
 
@@ -225,7 +225,7 @@ class Product
     id: Integer,
     name: String,
     price: Float,
-    in_stock: Bool = true
+    in_stock: Boolean = true
   ): void
     @id = id
     @name = name
@@ -838,7 +838,7 @@ bundle exec rake test
 
 ```trb
 type UserId = Integer
-type UserAttributes = Hash<String, String | Integer | Bool>
+type UserAttributes = Hash<String, String | Integer | Boolean>
 type UserList = Array<User>
 ```
 
@@ -964,7 +964,7 @@ class Article < ApplicationRecord
 
   validates :title, :content, presence: true
 
-  def published?: Bool
+  def published?: Boolean
     !@published_at.nil?
   end
 

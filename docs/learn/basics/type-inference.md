@@ -27,7 +27,7 @@ count = 42
 # T-Ruby infers that price is a Float
 price = 19.99
 
-# T-Ruby infers that active is a Bool
+# T-Ruby infers that active is a Boolean
 active = true
 ```
 
@@ -56,7 +56,7 @@ age = 25
 # Float literal → Float type
 temperature = 98.6
 
-# Boolean literal → Bool type
+# Boolean literal → Boolean type
 is_valid = false
 
 # Symbol literal → Symbol type
