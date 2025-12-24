@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?><?xml-stylesheet type="text/xsl" href="atom.xsl"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+    <id>https://type-ruby.github.io/ko/news</id>
+    <title>T-Ruby Blog</title>
+    <updated>2025-12-24T00:00:00.000Z</updated>
+    <generator>https://github.com/jpmonette/feed</generator>
+    <link rel="alternate" href="https://type-ruby.github.io/ko/news"/>
+    <subtitle>T-Ruby Blog</subtitle>
+    <icon>https://type-ruby.github.io/ko/img/logo.svg</icon>
+    <rights>Copyright 2025 T-Ruby.</rights>
+    <entry>
+        <title type="html"><![CDATA[T-Ruby 소개]]></title>
+        <id>https://type-ruby.github.io/ko/news/introducing-t-ruby</id>
+        <link href="https://type-ruby.github.io/ko/news/introducing-t-ruby"/>
+        <updated>2025-12-24T00:00:00.000Z</updated>
+        <summary type="html"><![CDATA[Ruby를 위한 TypeScript 스타일 정적 타입 시스템, T-Ruby를 소개합니다.]]></summary>
+        <content type="html"><![CDATA[<p>Ruby를 위한 TypeScript 스타일 정적 타입 시스템, T-Ruby를 소개합니다.</p>
+<p>T-Ruby는 TypeScript 개발자에게 익숙한 개발 경험을 Ruby 개발자에게 제공하여, 코드에 직접 타입 어노테이션을 추가하고 런타임 전에 타입 오류를 감지할 수 있게 합니다.</p>
+<h2 class="anchor anchorTargetStickyNavbar__9bU" id="주요-기능">주요 기능<a href="https://type-ruby.github.io/ko/news/introducing-t-ruby#%EC%A3%BC%EC%9A%94-%EA%B8%B0%EB%8A%A5" class="hash-link" aria-label="주요 기능으로 직접 링크" title="주요 기능으로 직접 링크" translate="no">​</a></h2>
+<ul>
+<li class=""><strong>TypeScript 스타일 문법</strong>: TypeScript 개발자에게 익숙한 타입 어노테이션 문법</li>
+<li class=""><strong>점진적 타이핑</strong>: 기존 Ruby 코드베이스에 점진적으로 타입 추가 가능</li>
+<li class=""><strong>RBS 생성</strong>: <code>.rbs</code> 시그니처 파일 자동 생성</li>
+<li class=""><strong>제로 런타임 오버헤드</strong>: 컴파일 시 타입이 제거됨</li>
+</ul>
+<h2 class="anchor anchorTargetStickyNavbar__9bU" id="시작하기">시작하기<a href="https://type-ruby.github.io/ko/news/introducing-t-ruby#%EC%8B%9C%EC%9E%91%ED%95%98%EA%B8%B0" class="hash-link" aria-label="시작하기으로 직접 링크" title="시작하기으로 직접 링크" translate="no">​</a></h2>
+<p>T-Ruby를 설치하고 Ruby 코드에 타입을 추가해보세요:</p>
+<div class="language-bash codeBlockContainer_WMw_ theme-code-block" style="--prism-color:#F8F8F2;--prism-background-color:#282A36"><div class="codeBlockContent_wTBs"><pre tabindex="0" class="prism-code language-bash codeBlock_Nmz_ thin-scrollbar" style="color:#F8F8F2;background-color:#282A36"><code class="codeBlockLines_Uft3"><span class="token-line" style="color:#F8F8F2"><span class="token plain">gem </span><span class="token function" style="color:rgb(80, 250, 123)">install</span><span class="token plain"> t-ruby</span><br></span></code></pre></div></div>
+<p>첫 번째 <code>.trb</code> 파일을 작성합니다:</p>
+<div class="language-ruby codeBlockContainer_WMw_ theme-code-block" style="--prism-color:#F8F8F2;--prism-background-color:#282A36"><div class="codeBlockContent_wTBs"><pre tabindex="0" class="prism-code language-ruby codeBlock_Nmz_ thin-scrollbar" style="color:#F8F8F2;background-color:#282A36"><code class="codeBlockLines_Uft3"><span class="token-line" style="color:#F8F8F2"><span class="token keyword" style="color:rgb(189, 147, 249);font-style:italic">def</span><span class="token plain"> </span><span class="token method-definition function" style="color:rgb(80, 250, 123)">greet</span><span class="token punctuation" style="color:rgb(248, 248, 242)">(</span><span class="token symbol" style="color:rgb(248, 248, 242)">name</span><span class="token operator">:</span><span class="token plain"> </span><span class="token builtin" style="color:rgb(189, 147, 249)">String</span><span class="token punctuation" style="color:rgb(248, 248, 242)">)</span><span class="token operator">:</span><span class="token plain"> </span><span class="token builtin" style="color:rgb(189, 147, 249)">String</span><span class="token plain"></span><br></span><span class="token-line" style="color:#F8F8F2"><span class="token plain">  </span><span class="token string-literal string" style="color:rgb(255, 121, 198)">"Hello, </span><span class="token string-literal interpolation delimiter punctuation" style="color:rgb(248, 248, 242)">#{</span><span class="token string-literal interpolation content">name</span><span class="token string-literal interpolation delimiter punctuation" style="color:rgb(248, 248, 242)">}</span><span class="token string-literal string" style="color:rgb(255, 121, 198)">!"</span><span class="token plain"></span><br></span><span class="token-line" style="color:#F8F8F2"><span class="token plain"></span><span class="token keyword" style="color:rgb(189, 147, 249);font-style:italic">end</span><br></span></code></pre></div></div>
+<p>Ruby로 컴파일:</p>
+<div class="language-bash codeBlockContainer_WMw_ theme-code-block" style="--prism-color:#F8F8F2;--prism-background-color:#282A36"><div class="codeBlockContent_wTBs"><pre tabindex="0" class="prism-code language-bash codeBlock_Nmz_ thin-scrollbar" style="color:#F8F8F2;background-color:#282A36"><code class="codeBlockLines_Uft3"><span class="token-line" style="color:#F8F8F2"><span class="token plain">trc greet.trb</span><br></span></code></pre></div></div>
+<p>더 자세한 내용은 <a class="" href="https://type-ruby.github.io/ko/docs/introduction/what-is-t-ruby">문서</a>를 확인하세요!</p>]]></content>
+        <author>
+            <name>T-Ruby 팀</name>
+            <uri>https://github.com/type-ruby</uri>
+        </author>
+        <category label="announcement" term="announcement"/>
+    </entry>
+</feed>

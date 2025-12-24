@@ -1,0 +1,1 @@
+"use strict";(globalThis.webpackChunkt_ruby_docs=globalThis.webpackChunkt_ruby_docs||[]).push([[1227],{5031:u=>{u.exports=JSON.parse('{"authors":[{"name":"T-Ruby \ud300","url":"https://github.com/type-ruby","imageURL":"/ko/img/logo.svg","key":"t-ruby-team","page":null,"count":1}]}')}}]);

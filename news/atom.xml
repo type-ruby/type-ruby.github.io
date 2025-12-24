@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?><?xml-stylesheet type="text/xsl" href="atom.xsl"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+    <id>https://type-ruby.github.io/news</id>
+    <title>T-Ruby Blog</title>
+    <updated>2025-12-24T00:00:00.000Z</updated>
+    <generator>https://github.com/jpmonette/feed</generator>
+    <link rel="alternate" href="https://type-ruby.github.io/news"/>
+    <subtitle>T-Ruby Blog</subtitle>
+    <icon>https://type-ruby.github.io/img/logo.svg</icon>
+    <rights>Copyright 2025 T-Ruby.</rights>
+    <entry>
+        <title type="html"><![CDATA[Introducing T-Ruby]]></title>
+        <id>https://type-ruby.github.io/news/introducing-t-ruby</id>
+        <link href="https://type-ruby.github.io/news/introducing-t-ruby"/>
+        <updated>2025-12-24T00:00:00.000Z</updated>
+        <summary type="html"><![CDATA[We're excited to introduce T-Ruby, a TypeScript-style static type system for Ruby.]]></summary>
+        <content type="html"><![CDATA[<p>We're excited to introduce T-Ruby, a TypeScript-style static type system for Ruby.</p>
+<p>T-Ruby brings the familiar TypeScript development experience to Ruby developers, allowing you to add type annotations directly in your code and catch type errors before runtime.</p>
+<h2 class="anchor anchorTargetStickyNavbar__9bU" id="key-features">Key Features<a href="https://type-ruby.github.io/news/introducing-t-ruby#key-features" class="hash-link" aria-label="Direct link to Key Features" title="Direct link to Key Features" translate="no">​</a></h2>
+<ul>
+<li class=""><strong>TypeScript-style syntax</strong>: Familiar type annotation syntax for TypeScript developers</li>
+<li class=""><strong>Gradual typing</strong>: Add types incrementally to your existing Ruby codebase</li>
+<li class=""><strong>RBS generation</strong>: Automatically generate <code>.rbs</code> signature files</li>
+<li class=""><strong>Zero runtime overhead</strong>: Types are stripped at compile time</li>
+</ul>
+<h2 class="anchor anchorTargetStickyNavbar__9bU" id="getting-started">Getting Started<a href="https://type-ruby.github.io/news/introducing-t-ruby#getting-started" class="hash-link" aria-label="Direct link to Getting Started" title="Direct link to Getting Started" translate="no">​</a></h2>
+<p>Install T-Ruby and start adding types to your Ruby code:</p>
+<div class="language-bash codeBlockContainer_WMw_ theme-code-block" style="--prism-color:#F8F8F2;--prism-background-color:#282A36"><div class="codeBlockContent_wTBs"><pre tabindex="0" class="prism-code language-bash codeBlock_Nmz_ thin-scrollbar" style="color:#F8F8F2;background-color:#282A36"><code class="codeBlockLines_Uft3"><span class="token-line" style="color:#F8F8F2"><span class="token plain">gem </span><span class="token function" style="color:rgb(80, 250, 123)">install</span><span class="token plain"> t-ruby</span><br></span></code></pre></div></div>
+<p>Create your first <code>.trb</code> file:</p>
+<div class="language-ruby codeBlockContainer_WMw_ theme-code-block" style="--prism-color:#F8F8F2;--prism-background-color:#282A36"><div class="codeBlockContent_wTBs"><pre tabindex="0" class="prism-code language-ruby codeBlock_Nmz_ thin-scrollbar" style="color:#F8F8F2;background-color:#282A36"><code class="codeBlockLines_Uft3"><span class="token-line" style="color:#F8F8F2"><span class="token keyword" style="color:rgb(189, 147, 249);font-style:italic">def</span><span class="token plain"> </span><span class="token method-definition function" style="color:rgb(80, 250, 123)">greet</span><span class="token punctuation" style="color:rgb(248, 248, 242)">(</span><span class="token symbol" style="color:rgb(248, 248, 242)">name</span><span class="token operator">:</span><span class="token plain"> </span><span class="token builtin" style="color:rgb(189, 147, 249)">String</span><span class="token punctuation" style="color:rgb(248, 248, 242)">)</span><span class="token operator">:</span><span class="token plain"> </span><span class="token builtin" style="color:rgb(189, 147, 249)">String</span><span class="token plain"></span><br></span><span class="token-line" style="color:#F8F8F2"><span class="token plain">  </span><span class="token string-literal string" style="color:rgb(255, 121, 198)">"Hello, </span><span class="token string-literal interpolation delimiter punctuation" style="color:rgb(248, 248, 242)">#{</span><span class="token string-literal interpolation content">name</span><span class="token string-literal interpolation delimiter punctuation" style="color:rgb(248, 248, 242)">}</span><span class="token string-literal string" style="color:rgb(255, 121, 198)">!"</span><span class="token plain"></span><br></span><span class="token-line" style="color:#F8F8F2"><span class="token plain"></span><span class="token keyword" style="color:rgb(189, 147, 249);font-style:italic">end</span><br></span></code></pre></div></div>
+<p>Compile to Ruby:</p>
+<div class="language-bash codeBlockContainer_WMw_ theme-code-block" style="--prism-color:#F8F8F2;--prism-background-color:#282A36"><div class="codeBlockContent_wTBs"><pre tabindex="0" class="prism-code language-bash codeBlock_Nmz_ thin-scrollbar" style="color:#F8F8F2;background-color:#282A36"><code class="codeBlockLines_Uft3"><span class="token-line" style="color:#F8F8F2"><span class="token plain">trc greet.trb</span><br></span></code></pre></div></div>
+<p>Check out our <a class="" href="https://type-ruby.github.io/docs/introduction/what-is-t-ruby">documentation</a> to learn more!</p>]]></content>
+        <author>
+            <name>T-Ruby Team</name>
+            <uri>https://github.com/type-ruby</uri>
+        </author>
+        <category label="announcement" term="announcement"/>
+    </entry>
+</feed>

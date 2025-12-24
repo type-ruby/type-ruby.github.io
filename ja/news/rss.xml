@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?><?xml-stylesheet type="text/xsl" href="rss.xsl"?>
+<rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+    <channel>
+        <title>T-Ruby Blog</title>
+        <link>https://type-ruby.github.io/ja/news</link>
+        <description>T-Ruby Blog</description>
+        <lastBuildDate>Wed, 24 Dec 2025 00:00:00 GMT</lastBuildDate>
+        <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
+        <generator>https://github.com/jpmonette/feed</generator>
+        <language>ja</language>
+        <copyright>Copyright 2025 T-Ruby.</copyright>
+        <item>
+            <title><![CDATA[T-Ruby のご紹介]]></title>
+            <link>https://type-ruby.github.io/ja/news/introducing-t-ruby</link>
+            <guid>https://type-ruby.github.io/ja/news/introducing-t-ruby</guid>
+            <pubDate>Wed, 24 Dec 2025 00:00:00 GMT</pubDate>
+            <description><![CDATA[Ruby 向けの TypeScript スタイル静的型システム、T-Ruby をご紹介します。]]></description>
+            <content:encoded><![CDATA[<p>Ruby 向けの TypeScript スタイル静的型システム、T-Ruby をご紹介します。</p>
+<p>T-Ruby は、TypeScript 開発者にとって馴染みのある開発体験を Ruby 開発者に提供し、コードに直接型アノテーションを追加して、ランタイム前に型エラーを検出できるようにします。</p>
+<h2 class="anchor anchorTargetStickyNavbar__9bU" id="主な機能">主な機能<a href="https://type-ruby.github.io/ja/news/introducing-t-ruby#%E4%B8%BB%E3%81%AA%E6%A9%9F%E8%83%BD" class="hash-link" aria-label="主な機能への直接リンク" title="主な機能への直接リンク" translate="no">​</a></h2>
+<ul>
+<li class=""><strong>TypeScript スタイルの構文</strong>: TypeScript 開発者に馴染みのある型アノテーション構文</li>
+<li class=""><strong>段階的な型付け</strong>: 既存の Ruby コードベースに段階的に型を追加可能</li>
+<li class=""><strong>RBS 生成</strong>: <code>.rbs</code> シグネチャファイルの自動生成</li>
+<li class=""><strong>ゼロランタイムオーバーヘッド</strong>: コンパイル時に型が削除される</li>
+</ul>
+<h2 class="anchor anchorTargetStickyNavbar__9bU" id="はじめに">はじめに<a href="https://type-ruby.github.io/ja/news/introducing-t-ruby#%E3%81%AF%E3%81%98%E3%82%81%E3%81%AB" class="hash-link" aria-label="はじめにへの直接リンク" title="はじめにへの直接リンク" translate="no">​</a></h2>
+<p>T-Ruby をインストールして、Ruby コードに型を追加しましょう：</p>
+<div class="language-bash codeBlockContainer_WMw_ theme-code-block" style="--prism-color:#F8F8F2;--prism-background-color:#282A36"><div class="codeBlockContent_wTBs"><pre tabindex="0" class="prism-code language-bash codeBlock_Nmz_ thin-scrollbar" style="color:#F8F8F2;background-color:#282A36"><code class="codeBlockLines_Uft3"><span class="token-line" style="color:#F8F8F2"><span class="token plain">gem </span><span class="token function" style="color:rgb(80, 250, 123)">install</span><span class="token plain"> t-ruby</span><br></span></code></pre></div></div>
+<p>最初の <code>.trb</code> ファイルを作成します：</p>
+<div class="language-ruby codeBlockContainer_WMw_ theme-code-block" style="--prism-color:#F8F8F2;--prism-background-color:#282A36"><div class="codeBlockContent_wTBs"><pre tabindex="0" class="prism-code language-ruby codeBlock_Nmz_ thin-scrollbar" style="color:#F8F8F2;background-color:#282A36"><code class="codeBlockLines_Uft3"><span class="token-line" style="color:#F8F8F2"><span class="token keyword" style="color:rgb(189, 147, 249);font-style:italic">def</span><span class="token plain"> </span><span class="token method-definition function" style="color:rgb(80, 250, 123)">greet</span><span class="token punctuation" style="color:rgb(248, 248, 242)">(</span><span class="token symbol" style="color:rgb(248, 248, 242)">name</span><span class="token operator">:</span><span class="token plain"> </span><span class="token builtin" style="color:rgb(189, 147, 249)">String</span><span class="token punctuation" style="color:rgb(248, 248, 242)">)</span><span class="token operator">:</span><span class="token plain"> </span><span class="token builtin" style="color:rgb(189, 147, 249)">String</span><span class="token plain"></span><br></span><span class="token-line" style="color:#F8F8F2"><span class="token plain">  </span><span class="token string-literal string" style="color:rgb(255, 121, 198)">"Hello, </span><span class="token string-literal interpolation delimiter punctuation" style="color:rgb(248, 248, 242)">#{</span><span class="token string-literal interpolation content">name</span><span class="token string-literal interpolation delimiter punctuation" style="color:rgb(248, 248, 242)">}</span><span class="token string-literal string" style="color:rgb(255, 121, 198)">!"</span><span class="token plain"></span><br></span><span class="token-line" style="color:#F8F8F2"><span class="token plain"></span><span class="token keyword" style="color:rgb(189, 147, 249);font-style:italic">end</span><br></span></code></pre></div></div>
+<p>Ruby にコンパイル：</p>
+<div class="language-bash codeBlockContainer_WMw_ theme-code-block" style="--prism-color:#F8F8F2;--prism-background-color:#282A36"><div class="codeBlockContent_wTBs"><pre tabindex="0" class="prism-code language-bash codeBlock_Nmz_ thin-scrollbar" style="color:#F8F8F2;background-color:#282A36"><code class="codeBlockLines_Uft3"><span class="token-line" style="color:#F8F8F2"><span class="token plain">trc greet.trb</span><br></span></code></pre></div></div>
+<p>詳細については、<a class="" href="https://type-ruby.github.io/ja/docs/introduction/what-is-t-ruby">ドキュメント</a>をご覧ください！</p>]]></content:encoded>
+            <category>announcement</category>
+        </item>
+    </channel>
+</rss>

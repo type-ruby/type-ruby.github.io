@@ -1,0 +1,1 @@
+"use strict";(globalThis.webpackChunkt_ruby_docs=globalThis.webpackChunkt_ruby_docs||[]).push([[7016],{7091:s=>{s.exports=JSON.parse('{"name":"docusaurus-plugin-content-blog","id":"news"}')}}]);
