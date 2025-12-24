@@ -55,6 +55,29 @@ const config: Config = {
     ],
   ],
 
+  plugins: [
+    [
+      '@docusaurus/plugin-content-blog',
+      {
+        id: 'news',
+        path: './news',
+        routeBasePath: 'news',
+        blogTitle: 'T-Ruby News',
+        blogDescription: 'Release notes, announcements, and project updates',
+        blogSidebarTitle: 'Recent News',
+        blogSidebarCount: 10,
+        postsPerPage: 10,
+        showReadingTime: false,
+        editUrl: 'https://github.com/type-ruby/t-ruby.github.io/tree/main/',
+        feedOptions: {
+          type: ['rss', 'atom'],
+          xslt: true,
+          copyright: `Copyright ${new Date().getFullYear()} T-Ruby.`,
+        },
+      },
+    ],
+  ],
+
   themeConfig: {
     image: 'img/t-ruby-social-card.png',
     colorMode: {
@@ -77,6 +100,11 @@ const config: Config = {
         {
           to: '/playground',
           label: 'Playground',
+          position: 'left',
+        },
+        {
+          to: '/news',
+          label: 'News',
           position: 'left',
         },
         {
@@ -116,6 +144,10 @@ const config: Config = {
             {
               label: 'Playground',
               to: '/playground',
+            },
+            {
+              label: 'News',
+              to: '/news',
             },
             {
               label: 'Type Cheatsheet',
