@@ -1,7 +1,7 @@
 ---
 slug: introducing-t-ruby
 title: T-Ruby 소개
-authors: [t-ruby-team]
+authors: [yhk1038]
 tags: [announcement]
 ---
 

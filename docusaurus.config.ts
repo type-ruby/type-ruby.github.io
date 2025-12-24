@@ -22,19 +22,19 @@ const config: Config = {
 
   i18n: {
     defaultLocale: 'en',
-    locales: ['en', 'ko', 'ja'],
+    locales: ['en', 'ja', 'ko'],
     localeConfigs: {
       en: {
         htmlLang: 'en-US',
         label: 'English',
       },
-      ko: {
-        htmlLang: 'ko-KR',
-        label: '한국어',
-      },
       ja: {
         htmlLang: 'ja-JP',
         label: '日本語',
+      },
+      ko: {
+        htmlLang: 'ko-KR',
+        label: '한국어',
       },
     },
   },
@@ -47,7 +47,20 @@ const config: Config = {
           sidebarPath: './sidebars.ts',
           editUrl: 'https://github.com/type-ruby/t-ruby.github.io/tree/main/',
         },
-        blog: false,
+        blog: {
+          showReadingTime: true,
+          blogTitle: 'T-Ruby Blog',
+          blogDescription: 'Tutorials, technical articles, and best practices for T-Ruby',
+          blogSidebarTitle: 'Recent Posts',
+          blogSidebarCount: 5,
+          postsPerPage: 10,
+          editUrl: 'https://github.com/type-ruby/t-ruby.github.io/tree/main/',
+          feedOptions: {
+            type: ['rss', 'atom'],
+            xslt: true,
+            copyright: `Copyright ${new Date().getFullYear()} T-Ruby.`,
+          },
+        },
         theme: {
           customCss: './src/css/custom.css',
         },
@@ -103,6 +116,11 @@ const config: Config = {
           position: 'left',
         },
         {
+          to: '/blog',
+          label: 'Blog',
+          position: 'left',
+        },
+        {
           to: '/news',
           label: 'News',
           position: 'left',
@@ -144,6 +162,10 @@ const config: Config = {
             {
               label: 'Playground',
               to: '/playground',
+            },
+            {
+              label: 'Blog',
+              to: '/blog',
             },
             {
               label: 'News',
