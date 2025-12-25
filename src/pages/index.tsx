@@ -246,10 +246,11 @@ function QuickStartSection() {
             <div className={styles.stepNumber}>1</div>
             <div className={styles.stepContent}>
               <Heading as="h3">
-                <Translate id="homepage.quickStart.step1.title">Install T-Ruby</Translate>
+                <Translate id="homepage.quickStart.step1.title">Initialize project</Translate>
               </Heading>
               <CodeBlock language="bash">
-                gem install t-ruby
+{`gem install t-ruby
+trc --init`}
               </CodeBlock>
             </div>
           </div>
@@ -258,14 +259,10 @@ function QuickStartSection() {
             <div className={styles.stepNumber}>2</div>
             <div className={styles.stepContent}>
               <Heading as="h3">
-                <Translate id="homepage.quickStart.step2.title">Create a .trb file</Translate>
+                <Translate id="homepage.quickStart.step2.title">Start watch mode</Translate>
               </Heading>
-              <CodeBlock language="ruby" title="hello.trb">
-{`def greet(name: String): String
-  "Hello, #{name}!"
-end
-
-puts greet("World")`}
+              <CodeBlock language="bash">
+                trc --watch
               </CodeBlock>
             </div>
           </div>
@@ -274,11 +271,12 @@ puts greet("World")`}
             <div className={styles.stepNumber}>3</div>
             <div className={styles.stepContent}>
               <Heading as="h3">
-                <Translate id="homepage.quickStart.step3.title">Compile and run</Translate>
+                <Translate id="homepage.quickStart.step3.title">Write typed Ruby</Translate>
               </Heading>
-              <CodeBlock language="bash">
-{`trc hello.trb
-ruby build/hello.rb`}
+              <CodeBlock language="ruby" title="src/hello.trb">
+{`def greet(name: String): String
+  "Hello, #{name}!"
+end`}
               </CodeBlock>
             </div>
           </div>

@@ -292,15 +292,15 @@
     "description": "Quick start title"
   },
   "homepage.quickStart.step1.title": {
-    "message": "T-Rubyをインストール",
+    "message": "プロジェクトを初期化",
     "description": "Step 1 title"
   },
   "homepage.quickStart.step2.title": {
-    "message": ".trbファイルを作成",
+    "message": "ウォッチモードを開始",
     "description": "Step 2 title"
   },
   "homepage.quickStart.step3.title": {
-    "message": "コンパイルして実行",
+    "message": "型付きRubyを書く",
     "description": "Step 3 title"
   },
   "homepage.quickStart.cta": {

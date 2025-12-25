@@ -292,15 +292,15 @@
     "description": "Quick start title"
   },
   "homepage.quickStart.step1.title": {
-    "message": "T-Ruby 설치",
+    "message": "프로젝트 초기화",
     "description": "Step 1 title"
   },
   "homepage.quickStart.step2.title": {
-    "message": ".trb 파일 생성",
+    "message": "감시 모드 시작",
     "description": "Step 2 title"
   },
   "homepage.quickStart.step3.title": {
-    "message": "컴파일 및 실행",
+    "message": "타입이 있는 Ruby 작성",
     "description": "Step 3 title"
   },
   "homepage.quickStart.cta": {
