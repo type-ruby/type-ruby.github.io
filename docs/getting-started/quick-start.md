@@ -142,7 +142,7 @@ Here's a summary of the commands you'll use most:
 
 You've written and compiled your first T-Ruby code! Here's where to go next:
 
-1. **[Your First .trb File](/docs/getting-started/first-trb-file)** - A deeper dive into T-Ruby files
+1. **[Understanding .trb Files](/docs/getting-started/understanding-trb-files)** - A deeper dive into T-Ruby files
 2. **[Editor Setup](/docs/getting-started/editor-setup)** - Get syntax highlighting and autocomplete
 3. **[Basic Types](/docs/learn/basics/basic-types)** - Learn the type system
 

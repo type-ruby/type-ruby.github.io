@@ -212,12 +212,28 @@
     "description": "Hero title line 1"
   },
   "homepage.hero.titleHighlight": {
-    "message": "TypeScript 방식으로",
-    "description": "Hero title line 2 highlighted"
+    "message": "타입 문법을 갖춘 Ruby입니다.",
+    "description": "Hero title highlighted text"
   },
   "homepage.hero.subtitle2": {
-    "message": "타입 어노테이션이 있는 .trb 파일을 작성하세요. 런타임 오버헤드 없이 표준 .rb 파일로 컴파일됩니다.",
+    "message": "타입 어노테이션이 있는 .trb 파일을 작성하세요.<br />표준 .rb 파일과 .rbs로 컴파일됩니다.<br />타입스크립트처럼요.",
     "description": "Hero subtitle"
+  },
+  "homepage.hero.versionNotice": {
+    "message": "T-Ruby {version} 현재 사용 가능합니다",
+    "description": "Version notice with version number"
+  },
+  "homepage.whatIs.rubyMore.description": {
+    "message": "T-Ruby는 Ruby에 추가적인 문법을 더해 강력하게 확장합니다. <strong>이는 정적 타입뿐 아니라 컴파일 타임을 의미합니다.</strong>",
+    "description": "Ruby and More description"
+  },
+  "homepage.whatIs.trust.description": {
+    "message": "T-Ruby 코드는 Ruby와 RBS로 변환되므로, <strong>Ruby, RBS가 동작하는 모든 생태계에서의 동작을 보장합니다.</strong>",
+    "description": "A Result You Can Trust description"
+  },
+  "homepage.whatIs.scale.description": {
+    "message": "T-Ruby를 통해 Ruby로 작성된 제품의 타입 안정성을 확보하세요. <strong>큰 규모에서도 안전한 상태를 유지할 수 있습니다.</strong>",
+    "description": "Safety at Scale description"
   },
   "homepage.install.command": {
     "message": "gem install t-ruby",
@@ -264,7 +280,7 @@
     "description": "Feature description"
   },
   "homepage.codeShowcase.title": {
-    "message": "실제 동작 보기",
+    "message": "예시",
     "description": "Code showcase title"
   },
   "homepage.codeShowcase.subtitle": {
@@ -292,15 +308,15 @@
     "description": "Quick start title"
   },
   "homepage.quickStart.step1.title": {
-    "message": "T-Ruby 설치",
+    "message": "프로젝트 초기화",
     "description": "Step 1 title"
   },
   "homepage.quickStart.step2.title": {
-    "message": ".trb 파일 생성",
+    "message": "감시 모드 시작",
     "description": "Step 2 title"
   },
   "homepage.quickStart.step3.title": {
-    "message": "컴파일 및 실행",
+    "message": "타입이 있는 Ruby 작성",
     "description": "Step 3 title"
   },
   "homepage.quickStart.cta": {
@@ -322,6 +338,10 @@
   "homepage.tooling.editors.vscode": {
     "message": "VS Code 확장",
     "description": "VS Code extension"
+  },
+  "homepage.tooling.editors.jetbrains": {
+    "message": "JetBrains 플러그인",
+    "description": "JetBrains plugin"
   },
   "homepage.tooling.editors.neovim": {
     "message": "Neovim 플러그인",
@@ -362,6 +382,66 @@
   "homepage.tooling.ecosystem.gems": {
     "message": "모든 gem 작동",
     "description": "All gems work"
+  },
+  "homepage.existingMethods.title": {
+    "message": "기존 방법들",
+    "description": "Existing methods section title"
+  },
+  "homepage.existingMethods.subtitle": {
+    "message": "기존 Ruby 타이핑 솔루션과 비교하고, T-Ruby가 어떻게 다른지 확인하세요.",
+    "description": "Existing methods section subtitle"
+  },
+  "homepage.existingMethods.howToUse": {
+    "message": "사용 방법",
+    "description": "How to use label"
+  },
+  "homepage.existingMethods.limitations": {
+    "message": "한계점",
+    "description": "Limitations label"
+  },
+  "homepage.existingMethods.vsTRuby": {
+    "message": "T-Ruby의 접근 방식",
+    "description": "T-Ruby approach label"
+  },
+  "homepage.contribute.title": {
+    "message": "함께 만들어가요",
+    "description": "Contribute section title"
+  },
+  "homepage.contribute.subtitle": {
+    "message": "T-Ruby는 오픈소스 프로젝트입니다. 여러분의 참여가 큰 힘이 됩니다.",
+    "description": "Contribute section subtitle"
+  },
+  "homepage.contribute.experimental": {
+    "message": "아직 실험 단계입니다. 핵심 컴파일러는 작동하지만, 개선할 부분이 많습니다.",
+    "description": "Experimental stage notice"
+  },
+  "homepage.contribute.feedback": {
+    "message": "피드백과 제안은 언제든 환영합니다!",
+    "description": "Feedback welcome notice"
+  },
+  "homepage.contribute.star.title": {
+    "message": "GitHub에서 Star 주기",
+    "description": "Star card title"
+  },
+  "homepage.contribute.star.description": {
+    "message": "응원을 보내주시고 더 많은 분들이 T-Ruby를 발견할 수 있도록 도와주세요",
+    "description": "Star card description"
+  },
+  "homepage.contribute.issue.title": {
+    "message": "이슈 제보하기",
+    "description": "Issue card title"
+  },
+  "homepage.contribute.issue.description": {
+    "message": "버그를 발견하셨거나 새로운 기능을 제안하고 싶으신가요? 알려주세요",
+    "description": "Issue card description"
+  },
+  "homepage.contribute.pr.title": {
+    "message": "코드 기여하기",
+    "description": "PR card title"
+  },
+  "homepage.contribute.pr.description": {
+    "message": "Pull Request를 제출하여 타입 안전한 Ruby의 미래를 함께 만들어가세요",
+    "description": "PR card description"
   },
   "homepage.layout.title": {
     "message": "타입 안전한 Ruby",

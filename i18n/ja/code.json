@@ -212,12 +212,28 @@
     "description": "Hero title line 1"
   },
   "homepage.hero.titleHighlight": {
-    "message": "TypeScriptの方法で",
-    "description": "Hero title line 2 highlighted"
+    "message": "型構文を持つRubyです。",
+    "description": "Hero title highlighted text"
   },
   "homepage.hero.subtitle2": {
-    "message": "型アノテーション付きの.trbファイルを書きましょう。ランタイムオーバーヘッドなしで標準の.rbファイルにコンパイルします。",
+    "message": "型アノテーション付きの.trbファイルを書きましょう。<br />標準の.rbファイルと.rbsにコンパイルします。<br />TypeScriptのように。",
     "description": "Hero subtitle"
+  },
+  "homepage.hero.versionNotice": {
+    "message": "T-Ruby {version} が利用可能です",
+    "description": "Version notice with version number"
+  },
+  "homepage.whatIs.rubyMore.description": {
+    "message": "T-Rubyは追加の構文でRubyを強力に拡張します。<strong>これは静的型だけでなくコンパイルタイムを意味します。</strong>",
+    "description": "Ruby and More description"
+  },
+  "homepage.whatIs.trust.description": {
+    "message": "T-RubyコードはRubyとRBSに変換されるため、<strong>Ruby、RBSが動作するすべてのエコシステムでの動作を保証します。</strong>",
+    "description": "A Result You Can Trust description"
+  },
+  "homepage.whatIs.scale.description": {
+    "message": "T-Rubyを通じてRubyで作成された製品の型安全性を確保しましょう。<strong>大規模でも安全な状態を維持できます。</strong>",
+    "description": "Safety at Scale description"
   },
   "homepage.install.command": {
     "message": "gem install t-ruby",
@@ -264,7 +280,7 @@
     "description": "Feature description"
   },
   "homepage.codeShowcase.title": {
-    "message": "実際の動作を見る",
+    "message": "例",
     "description": "Code showcase title"
   },
   "homepage.codeShowcase.subtitle": {
@@ -292,15 +308,15 @@
     "description": "Quick start title"
   },
   "homepage.quickStart.step1.title": {
-    "message": "T-Rubyをインストール",
+    "message": "プロジェクトを初期化",
     "description": "Step 1 title"
   },
   "homepage.quickStart.step2.title": {
-    "message": ".trbファイルを作成",
+    "message": "ウォッチモードを開始",
     "description": "Step 2 title"
   },
   "homepage.quickStart.step3.title": {
-    "message": "コンパイルして実行",
+    "message": "型付きRubyを書く",
     "description": "Step 3 title"
   },
   "homepage.quickStart.cta": {
@@ -322,6 +338,10 @@
   "homepage.tooling.editors.vscode": {
     "message": "VS Code拡張機能",
     "description": "VS Code extension"
+  },
+  "homepage.tooling.editors.jetbrains": {
+    "message": "JetBrainsプラグイン",
+    "description": "JetBrains plugin"
   },
   "homepage.tooling.editors.neovim": {
     "message": "Neovimプラグイン",
@@ -362,6 +382,66 @@
   "homepage.tooling.ecosystem.gems": {
     "message": "すべてのgemが動作",
     "description": "All gems work"
+  },
+  "homepage.existingMethods.title": {
+    "message": "既存の方法",
+    "description": "Existing methods section title"
+  },
+  "homepage.existingMethods.subtitle": {
+    "message": "既存のRuby型付けソリューションと比較して、T-Rubyの違いを確認してください。",
+    "description": "Existing methods section subtitle"
+  },
+  "homepage.existingMethods.howToUse": {
+    "message": "使い方",
+    "description": "How to use label"
+  },
+  "homepage.existingMethods.limitations": {
+    "message": "制限事項",
+    "description": "Limitations label"
+  },
+  "homepage.existingMethods.vsTRuby": {
+    "message": "T-Rubyのアプローチ",
+    "description": "T-Ruby approach label"
+  },
+  "homepage.contribute.title": {
+    "message": "一緒に作りましょう",
+    "description": "Contribute section title"
+  },
+  "homepage.contribute.subtitle": {
+    "message": "T-Rubyはオープンソースプロジェクトです。あなたの参加が大きな力になります。",
+    "description": "Contribute section subtitle"
+  },
+  "homepage.contribute.experimental": {
+    "message": "まだ実験段階です。コアコンパイラは動作しますが、改善すべき点がたくさんあります。",
+    "description": "Experimental stage notice"
+  },
+  "homepage.contribute.feedback": {
+    "message": "フィードバックや提案はいつでも歓迎します！",
+    "description": "Feedback welcome notice"
+  },
+  "homepage.contribute.star.title": {
+    "message": "GitHubでStarする",
+    "description": "Star card title"
+  },
+  "homepage.contribute.star.description": {
+    "message": "応援してくださり、より多くの方がT-Rubyを見つけられるようにしてください",
+    "description": "Star card description"
+  },
+  "homepage.contribute.issue.title": {
+    "message": "Issue報告",
+    "description": "Issue card title"
+  },
+  "homepage.contribute.issue.description": {
+    "message": "バグを発見しましたか？新機能を提案したいですか？お知らせください",
+    "description": "Issue card description"
+  },
+  "homepage.contribute.pr.title": {
+    "message": "コード貢献",
+    "description": "PR card title"
+  },
+  "homepage.contribute.pr.description": {
+    "message": "プルリクエストを送って、型安全なRubyの未来を一緒に作りましょう",
+    "description": "PR card description"
   },
   "homepage.layout.title": {
     "message": "型安全なRuby",

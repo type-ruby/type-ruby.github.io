@@ -1,13 +1,13 @@
 ---
 sidebar_position: 3
-title: Your First .trb File
-description: Create and compile your first T-Ruby file
+title: Understanding .trb Files
+description: Learn how T-Ruby files work
 ---
 
 <DocsBadge />
 
 
-# Your First .trb File
+# Understanding .trb Files
 
 This guide takes you through creating a T-Ruby file step by step, explaining each concept as we go.
 

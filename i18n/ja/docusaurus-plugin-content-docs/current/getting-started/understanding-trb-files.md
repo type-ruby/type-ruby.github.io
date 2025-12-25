@@ -1,13 +1,13 @@
 ---
 sidebar_position: 3
-title: 最初の.trbファイル
-description: 最初のT-Rubyファイルの作成とコンパイル
+title: .trbファイルを理解する
+description: T-Rubyファイルの仕組みを学ぶ
 ---
 
 <DocsBadge />
 
 
-# 最初の.trbファイル
+# .trbファイルを理解する
 
 このガイドでは、T-Rubyファイルをステップバイステップで作成しながら、各概念を説明します。
 

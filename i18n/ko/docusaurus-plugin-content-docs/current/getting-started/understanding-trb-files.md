@@ -1,13 +1,13 @@
 ---
 sidebar_position: 3
-title: 첫 번째 .trb 파일
-description: 첫 번째 T-Ruby 파일 생성 및 컴파일
+title: .trb 파일 이해하기
+description: T-Ruby 파일의 작동 방식 알아보기
 ---
 
 <DocsBadge />
 
 
-# 첫 번째 .trb 파일
+# .trb 파일 이해하기
 
 이 가이드는 T-Ruby 파일을 단계별로 생성하면서 각 개념을 설명합니다.
 

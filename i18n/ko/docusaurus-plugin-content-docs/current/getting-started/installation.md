@@ -153,5 +153,5 @@ sudo dnf groupinstall "Development Tools"
 T-Ruby가 설치되었으니, 이제 코드를 작성해봅시다:
 
 - [빠른 시작](/docs/getting-started/quick-start) - 5분 만에 시작하기
-- [첫 번째 .trb 파일](/docs/getting-started/first-trb-file) - 상세한 안내
+- [.trb 파일 이해하기](/docs/getting-started/understanding-trb-files) - 상세한 안내
 - [에디터 설정](/docs/getting-started/editor-setup) - IDE 설정

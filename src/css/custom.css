@@ -235,6 +235,19 @@ div[class*='codeBlockTitle'] {
 
 [data-theme='dark'] .footer {
   background: #0d1117;
+  color: #999;
+  transition: all 200ms ease;
+}
+
+.footer__copyright a {
+  /*color: var(--ifm-color-primary);*/
+  color: #d3d3d3;
+  text-decoration: none;
+}
+
+.footer__copyright a:hover {
+  text-decoration: underline;
+  color: #fff;
 }
 
 /* Responsive */

@@ -149,6 +149,6 @@ end
 
 おめでとうございます！T-Rubyの基本を学びました。さらに詳しく学ぶには：
 
-- [最初の.trbファイル](/docs/getting-started/first-trb-file) - 詳細な最初のファイルガイド
+- [.trbファイルを理解する](/docs/getting-started/understanding-trb-files) - 詳細な最初のファイルガイド
 - [エディタ設定](/docs/getting-started/editor-setup) - VS Codeなどのエディタ設定
 - [基本構文](/docs/learn/basics/type-annotations) - T-Ruby構文を詳しく学ぶ

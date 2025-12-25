@@ -19,7 +19,7 @@ const sidebars: SidebarsConfig = {
       items: [
         'getting-started/installation',
         'getting-started/quick-start',
-        'getting-started/first-trb-file',
+        'getting-started/understanding-trb-files',
         'getting-started/editor-setup',
         'getting-started/project-configuration',
       ],
