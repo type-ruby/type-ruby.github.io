@@ -157,6 +157,6 @@ end
 
 축하합니다! T-Ruby의 기본을 배웠습니다. 더 자세히 알아보려면:
 
-- [첫 번째 .trb 파일](/docs/getting-started/first-trb-file) - 상세한 첫 파일 가이드
+- [.trb 파일 이해하기](/docs/getting-started/understanding-trb-files) - 상세한 첫 파일 가이드
 - [에디터 설정](/docs/getting-started/editor-setup) - VS Code 등 에디터 설정
 - [기본 문법](/docs/learn/basics/type-annotations) - T-Ruby 문법 자세히 배우기

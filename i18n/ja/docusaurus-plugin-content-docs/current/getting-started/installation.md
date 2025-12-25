@@ -153,5 +153,5 @@ sudo dnf groupinstall "Development Tools"
 T-Rubyがインストールされたので、コードを書いてみましょう：
 
 - [クイックスタート](/docs/getting-started/quick-start) - 5分で始める
-- [最初の.trbファイル](/docs/getting-started/first-trb-file) - 詳細なガイド
+- [.trbファイルを理解する](/docs/getting-started/understanding-trb-files) - 詳細なガイド
 - [エディタ設定](/docs/getting-started/editor-setup) - IDEの設定
