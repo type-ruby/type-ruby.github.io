@@ -714,6 +714,14 @@ function ContributeSection() {
           <Translate id="homepage.contribute.subtitle">
             T-Ruby is an open source project. Your contribution makes a difference.
           </Translate>
+          <br />
+          <Translate id="homepage.contribute.experimental">
+            It's still experimental. The core compiler works, but there's much to improve.
+          </Translate>
+          <br />
+          <Translate id="homepage.contribute.feedback">
+            Feedback and suggestions are always welcome!
+          </Translate>
         </p>
 
         <div className={styles.contributeGrid}>

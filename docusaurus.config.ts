@@ -199,7 +199,7 @@ const config: Config = {
           ],
         },
       ],
-      copyright: `Copyright © ${new Date().getFullYear()} <a href="https://github.com/yonghyun421" target="_blank" rel="noopener noreferrer">Fred</a> & <a href="https://github.com/type-ruby" target="_blank" rel="noopener noreferrer">T-Ruby</a>.`,
+      copyright: `Copyright © ${new Date().getFullYear()} <a href="https://github.com/yhk1038" target="_blank" rel="noopener noreferrer">Fred</a> & <a href="https://github.com/type-ruby" target="_blank" rel="noopener noreferrer">T-Ruby</a>. Built with <a href="https://docusaurus.io" target="_blank" rel="noopener noreferrer">Docusaurus</a>.`,
     },
     prism: {
       theme: prismThemes.github,

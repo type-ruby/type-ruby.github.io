@@ -411,6 +411,14 @@
     "message": "T-Ruby는 오픈소스 프로젝트입니다. 여러분의 참여가 큰 힘이 됩니다.",
     "description": "Contribute section subtitle"
   },
+  "homepage.contribute.experimental": {
+    "message": "아직 실험 단계입니다. 핵심 컴파일러는 작동하지만, 개선할 부분이 많습니다.",
+    "description": "Experimental stage notice"
+  },
+  "homepage.contribute.feedback": {
+    "message": "피드백과 제안은 언제든 환영합니다!",
+    "description": "Feedback welcome notice"
+  },
   "homepage.contribute.star.title": {
     "message": "GitHub에서 Star 주기",
     "description": "Star card title"

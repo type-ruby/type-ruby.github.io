@@ -411,6 +411,14 @@
     "message": "T-Rubyはオープンソースプロジェクトです。あなたの参加が大きな力になります。",
     "description": "Contribute section subtitle"
   },
+  "homepage.contribute.experimental": {
+    "message": "まだ実験段階です。コアコンパイラは動作しますが、改善すべき点がたくさんあります。",
+    "description": "Experimental stage notice"
+  },
+  "homepage.contribute.feedback": {
+    "message": "フィードバックや提案はいつでも歓迎します！",
+    "description": "Feedback welcome notice"
+  },
   "homepage.contribute.star.title": {
     "message": "GitHubでStarする",
     "description": "Star card title"
