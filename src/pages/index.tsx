@@ -39,14 +39,12 @@ function HeroBanner() {
           </a>
         </div>
         <Heading as="h1" className={styles.heroTitle}>
-          <Translate id="homepage.hero.title2">Type-safe Ruby,</Translate><br />
-          <span className={styles.heroHighlight}>
-            <Translate id="homepage.hero.titleHighlight">the TypeScript way</Translate>
-          </span>
+          T-Ruby is Ruby<br />
+          <span className={styles.heroHighlight}>with syntax for types.</span>
         </Heading>
         <p className={styles.heroSubtitle}>
           <Translate id="homepage.hero.subtitle2">
-            Write .trb files with type annotations. Compile to standard .rb files with zero runtime overhead.
+            Write .trb files with type annotations. Compile to standard .rb and .rbs files. Just like TypeScript.
           </Translate>
         </p>
 

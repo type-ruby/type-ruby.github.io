@@ -4,7 +4,7 @@ import type * as Preset from '@docusaurus/preset-classic';
 
 const config: Config = {
   title: 'T-Ruby',
-  tagline: 'Type-safe Ruby, the TypeScript way',
+  tagline: 'Ruby with syntax for types.',
   favicon: 'img/logo.svg',
 
   future: {

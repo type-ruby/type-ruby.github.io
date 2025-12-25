@@ -212,11 +212,11 @@
     "description": "Hero title line 1"
   },
   "homepage.hero.titleHighlight": {
-    "message": "TypeScriptの方法で",
-    "description": "Hero title line 2 highlighted"
+    "message": "型構文を持つRubyです。",
+    "description": "Hero title highlighted text"
   },
   "homepage.hero.subtitle2": {
-    "message": "型アノテーション付きの.trbファイルを書きましょう。ランタイムオーバーヘッドなしで標準の.rbファイルにコンパイルします。",
+    "message": "型アノテーション付きの.trbファイルを書きましょう。標準の.rbファイルと.rbsにコンパイルします。TypeScriptのように。",
     "description": "Hero subtitle"
   },
   "homepage.install.command": {
