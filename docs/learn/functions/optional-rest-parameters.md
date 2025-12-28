@@ -130,15 +130,28 @@ team3 = create_team("Gamma", "Charlie", true, "Dave", "Eve", "Frank")
 
 ## Keyword Arguments
 
-Ruby's keyword arguments can also be typed. These provide more clarity than positional arguments:
+In T-Ruby, keyword arguments are defined using the `**{ }` syntax. Unlike positional arguments, they are passed by name when calling.
 
-```trb title="keyword.trb"
-def create_post(
+:::info Positional vs Keyword Arguments
+
+| Definition | Call Style |
+|------------|------------|
+| `(x: String, y: Integer)` | `foo("hi", 10)` - positional |
+| `(**{ x: String, y: Integer })` | `foo(x: "hi", y: 10)` - keyword |
+
+:::
+
+### Inline Type Style
+
+Define types directly inside `**{ }`. Default values use `= value` syntax:
+
+```trb title="keyword_inline.trb"
+def create_post(**{
   title: String,
   content: String,
   published: Boolean = false,
   tags: Array<String> = []
-): Post
+}): Post
   Post.new(
     title: title,
     content: content,
@@ -160,6 +173,43 @@ post2 = create_post(
   tags: ["ruby", "programming"]
 )
 ```
+
+### Interface Reference Style
+
+Define a separate interface and reference it. Default values use Ruby-style `: value` (no equals sign):
+
+```trb title="keyword_interface.trb"
+interface PostOptions
+  title: String
+  content: String
+  published?: Boolean    # ? marks optional
+  tags?: Array<String>
+end
+
+def create_post(**{ title:, content:, published: false, tags: [] }: PostOptions): Post
+  Post.new(
+    title: title,
+    content: content,
+    published: published,
+    tags: tags
+  )
+end
+
+# Call style is the same
+post = create_post(title: "Hello", content: "World")
+```
+
+:::tip Choosing Between Inline and Interface
+
+| Aspect | Inline Type | Interface Reference |
+|--------|-------------|---------------------|
+| Type definition | Inside `**{ }` | Separate interface |
+| Default value syntax | `= value` | `: value` (no equals) |
+| Optional marking | Implied by default value | `?` suffix |
+| Reusability | Single method | Shared across methods |
+
+**Recommendation**: Use inline for single-method use, interface for reuse across multiple methods
+:::
 
 ## Keyword Rest Parameters
 
@@ -194,15 +244,15 @@ The type annotation `**conditions: Hash<Symbol, String | Integer>` means "zero o
 
 ## Required Keyword Arguments
 
-In Ruby, you can make keyword arguments required by omitting the default value:
+Keyword arguments without default values are required:
 
 ```trb title="required_kwargs.trb"
-def register_user(
+def register_user(**{
   email: String,
   password: String,
   name: String = "Anonymous",
   age: Integer
-): User
+}): User
   # email, password, and age are required
   # name is optional with default
   User.new(email: email, password: password, name: name, age: age)
@@ -230,17 +280,18 @@ You can combine all parameter types, but they must follow this order:
 1. Required positional parameters
 2. Optional positional parameters
 3. Rest parameter (`*args`)
-4. Required keyword arguments
-5. Optional keyword arguments
-6. Keyword rest parameter (`**kwargs`)
+4. Keyword arguments (`**{ ... }`)
+5. Keyword rest parameter (`**kwargs`)
 
 ```trb title="all_types.trb"
 def complex_function(
   required_pos: String,                    # 1. Required positional
   optional_pos: Integer = 0,               # 2. Optional positional
   *rest_args: Array<String>,               # 3. Rest parameter
-  required_kw: Boolean,                    # 4. Required keyword
-  optional_kw: String = "default",         # 5. Optional keyword
+  **{
+    required_kw: Boolean,                  # 4. Required keyword
+    optional_kw: String = "default"        # 5. Optional keyword
+  },
   **rest_kwargs: Hash<Symbol, String | Integer>  # 6. Keyword rest
 ): Hash<String, String | Integer | Boolean>
   {
@@ -287,14 +338,14 @@ class HTTPRequestBuilder
     urls.map { |url| make_request("DELETE", url, nil, {}) }
   end
 
-  # Keyword arguments with defaults
-  def request(
+  # Keyword arguments (inline type)
+  def request(**{
     method: String,
     url: String,
     body: String? = nil,
     timeout: Integer = 30,
     retry_count: Integer = 3
-  ): Response
+  }): Response
     make_request(method, url, body, {}, timeout, retry_count)
   end
 
@@ -436,25 +487,28 @@ logger.debug(
 
 ## Common Patterns
 
-### Builder Methods with Defaults
+### Builder Methods with Defaults (Keyword Arguments)
 
 ```trb title="builder_pattern.trb"
-def build_email(
+def build_email(**{
   to: String,
   subject: String,
   from: String = "noreply@example.com",
   reply_to: String? = nil,
   cc: Array<String> = [],
   bcc: Array<String> = []
-): Email
+}): Email
   Email.new(to, subject, from, reply_to, cc, bcc)
 end
+
+# Call with keyword arguments
+email = build_email(to: "alice@example.com", subject: "Hello")
 ```
 
-### Variadic Factory Functions
+### Variadic Factory Functions (Rest + Keyword Arguments)
 
 ```trb title="factory.trb"
-def create_users(*names: Array<String>, role: String = "user"): Array<User>
+def create_users(*names: Array<String>, **{ role: String = "user" }): Array<User>
   names.map { |name| User.new(name: name, role: role) }
 end
 
@@ -479,9 +533,18 @@ config = merge_config(
 
 Optional and rest parameters give your functions flexibility while maintaining type safety:
 
-- **Optional parameters** (`param: Type = default`) have default values
-- **Rest parameters** (`*args: Array<Type>`) collect multiple arguments into an array
-- **Keyword rest** (`**kwargs: Hash<Symbol, Type>`) collects keyword arguments into a hash
+| Syntax | Description | Call Example |
+|--------|-------------|--------------|
+| `(x: Type)` | Positional argument | `foo("hi")` |
+| `(x: Type = default)` | Optional positional | `foo()` or `foo("hi")` |
+| `(*args: Array<Type>)` | Rest parameter | `foo("a", "b", "c")` |
+| `(**{ x: Type })` | Keyword argument | `foo(x: "hi")` |
+| `(**kwargs: Hash<Symbol, Type>)` | Keyword rest | `foo(a: 1, b: 2)` |
+
+**Key Points:**
+- **Positional arguments** `(x: Type)`: passed by order
+- **Keyword arguments** `(**{ x: Type })`: passed by name
+- **Keyword rest** `(**kwargs: Hash<Symbol, Type>)`: collects arbitrary keyword arguments into a hash
 - T-Ruby ensures type safety for all parameter variations
 
 Master these patterns to write flexible, type-safe APIs that are pleasant to use.

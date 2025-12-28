@@ -130,15 +130,28 @@ team3 = create_team("Gamma", "Charlie", true, "Dave", "Eve", "Frank")
 
 ## キーワード引数
 
-Rubyのキーワード引数も型を指定できます。位置引数よりも明確性を提供します：
+T-Rubyでは、キーワード引数は `**{ }` 構文を使用して定義します。位置引数とは異なり、呼び出し時に名前で引数を渡します。
 
-```trb title="keyword.trb"
-def create_post(
+:::info 位置引数 vs キーワード引数
+
+| 定義 | 呼び出し方法 |
+|------|-------------|
+| `(x: String, y: Integer)` | `foo("hi", 10)` - 位置引数 |
+| `(**{ x: String, y: Integer })` | `foo(x: "hi", y: 10)` - キーワード引数 |
+
+:::
+
+### インライン型方式
+
+型を `**{ }` 内に直接定義します。デフォルト値は `= value` 形式で指定します：
+
+```trb title="keyword_inline.trb"
+def create_post(**{
   title: String,
   content: String,
   published: Boolean = false,
   tags: Array<String> = []
-): Post
+}): Post
   Post.new(
     title: title,
     content: content,
@@ -160,6 +173,43 @@ post2 = create_post(
   tags: ["ruby", "programming"]
 )
 ```
+
+### Interface参照方式
+
+別途interfaceを定義して参照します。デフォルト値はRubyスタイル `: value`（等号なし）で指定します：
+
+```trb title="keyword_interface.trb"
+interface PostOptions
+  title: String
+  content: String
+  published?: Boolean    # ? でoptionalを表示
+  tags?: Array<String>
+end
+
+def create_post(**{ title:, content:, published: false, tags: [] }: PostOptions): Post
+  Post.new(
+    title: title,
+    content: content,
+    published: published,
+    tags: tags
+  )
+end
+
+# 呼び出し方法は同じ
+post = create_post(title: "Hello", content: "World")
+```
+
+:::tip インライン vs Interface の選択基準
+
+| 項目 | インライン型 | interface参照 |
+|------|------------|---------------|
+| 型定義の場所 | `**{ }` 内に直接 | 別途interface |
+| デフォルト値構文 | `= value` | `: value`（等号なし） |
+| Optional表示 | デフォルト値で暗示 | `?` 接尾辞 |
+| 再利用性 | 単一メソッド | 複数メソッドで共有 |
+
+**推奨**: 単一メソッドでのみ使用するならインライン、複数箇所で再利用するならinterface
+:::
 
 ## キーワード残余パラメータ
 
@@ -194,15 +244,15 @@ config = create_config(
 
 ## 必須キーワード引数
 
-Rubyでは、デフォルト値を省略することでキーワード引数を必須にできます：
+デフォルト値のないキーワード引数は必須です：
 
 ```trb title="required_kwargs.trb"
-def register_user(
+def register_user(**{
   email: String,
   password: String,
   name: String = "Anonymous",
   age: Integer
-): User
+}): User
   # email、password、ageは必須
   # nameはデフォルト値付きのオプショナル
   User.new(email: email, password: password, name: name, age: age)
@@ -230,17 +280,18 @@ user2 = register_user(
 1. 必須位置パラメータ
 2. オプショナル位置パラメータ
 3. 残余パラメータ (`*args`)
-4. 必須キーワード引数
-5. オプショナルキーワード引数
-6. キーワード残余パラメータ (`**kwargs`)
+4. キーワード引数 (`**{ ... }`)
+5. キーワード残余パラメータ (`**kwargs`)
 
 ```trb title="all_types.trb"
 def complex_function(
   required_pos: String,                    # 1. 必須位置
   optional_pos: Integer = 0,               # 2. オプショナル位置
   *rest_args: Array<String>,               # 3. 残余パラメータ
-  required_kw: Boolean,                    # 4. 必須キーワード
-  optional_kw: String = "default",         # 5. オプショナルキーワード
+  **{
+    required_kw: Boolean,                  # 4. 必須キーワード
+    optional_kw: String = "default"        # 5. オプショナルキーワード
+  },
   **rest_kwargs: Hash<Symbol, String | Integer>  # 6. キーワード残余
 ): Hash<String, String | Integer | Boolean>
   {
@@ -287,14 +338,14 @@ class HTTPRequestBuilder
     urls.map { |url| make_request("DELETE", url, nil, {}) }
   end
 
-  # デフォルト値付きキーワード引数
-  def request(
+  # キーワード引数（インライン型）
+  def request(**{
     method: String,
     url: String,
     body: String? = nil,
     timeout: Integer = 30,
     retry_count: Integer = 3
-  ): Response
+  }): Response
     make_request(method, url, body, {}, timeout, retry_count)
   end
 
@@ -436,25 +487,28 @@ logger.debug(
 
 ## 一般的なパターン
 
-### デフォルト付きビルダーメソッド
+### デフォルト付きビルダーメソッド（キーワード引数）
 
 ```trb title="builder_pattern.trb"
-def build_email(
+def build_email(**{
   to: String,
   subject: String,
   from: String = "noreply@example.com",
   reply_to: String? = nil,
   cc: Array<String> = [],
   bcc: Array<String> = []
-): Email
+}): Email
   Email.new(to, subject, from, reply_to, cc, bcc)
 end
+
+# キーワード引数で呼び出し
+email = build_email(to: "alice@example.com", subject: "Hello")
 ```
 
-### 可変ファクトリ関数
+### 可変ファクトリ関数（残余 + キーワード引数）
 
 ```trb title="factory.trb"
-def create_users(*names: Array<String>, role: String = "user"): Array<User>
+def create_users(*names: Array<String>, **{ role: String = "user" }): Array<User>
   names.map { |name| User.new(name: name, role: role) }
 end
 
@@ -479,9 +533,18 @@ config = merge_config(
 
 オプショナルパラメータと残余パラメータは、型安全性を維持しながら関数に柔軟性を提供します：
 
-- **オプショナルパラメータ** (`param: Type = default`) はデフォルト値を持ちます
-- **残余パラメータ** (`*args: Array<Type>`) は複数の引数を配列に収集します
-- **キーワード残余** (`**kwargs: Hash<Symbol, Type>`) はキーワード引数をハッシュに収集します
+| 文法 | 説明 | 呼び出し例 |
+|------|------|----------|
+| `(x: Type)` | 位置引数 | `foo("hi")` |
+| `(x: Type = default)` | オプショナル位置引数 | `foo()` または `foo("hi")` |
+| `(*args: Array<Type>)` | 残余パラメータ | `foo("a", "b", "c")` |
+| `(**{ x: Type })` | キーワード引数 | `foo(x: "hi")` |
+| `(**kwargs: Hash<Symbol, Type>)` | キーワード残余 | `foo(a: 1, b: 2)` |
+
+**重要なポイント：**
+- **位置引数** `(x: Type)`: 順序で渡す
+- **キーワード引数** `(**{ x: Type })`: 名前で渡す
+- **キーワード残余** `(**kwargs: Hash<Symbol, Type>)`: 任意のキーワード引数をハッシュに収集
 - T-Rubyはすべてのパラメータのバリエーションに対して型安全性を保証します
 
 これらのパターンをマスターして、使いやすい柔軟で型安全なAPIを作成しましょう。
