@@ -189,7 +189,7 @@
 }
 
 .whatIsItem p strong {
-  color: initial;
+  color: var(--ifm-font-color-base);
   font-weight: 900;
 }
 
