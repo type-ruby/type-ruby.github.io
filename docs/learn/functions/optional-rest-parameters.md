@@ -68,15 +68,15 @@ send_email("bob@example.com", "Meeting", "team@example.com")
 Rest parameters collect multiple arguments into an array. Type the array's element type:
 
 ```trb title="rest.trb"
-def sum(*numbers: Integer): Integer
+def sum(*numbers: Array<Integer>): Integer
   numbers.reduce(0, :+)
 end
 
-def concat_strings(*strings: String): String
+def concat_strings(*strings: Array<String>): String
   strings.join(" ")
 end
 
-def log_messages(level: String, *messages: String): void
+def log_messages(level: String, *messages: Array<String>): void
   messages.each do |msg|
     puts "[#{level}] #{msg}"
   end
@@ -96,7 +96,7 @@ log_messages("INFO", "App started", "Database connected", "Ready")
 # [INFO] Ready
 ```
 
-The type annotation `*numbers: Integer` means "zero or more Integer arguments collected into an array".
+The type annotation `*numbers: Array<Integer>` means "zero or more Integer arguments collected into an array".
 
 ## Combining Optional and Rest Parameters
 
@@ -107,7 +107,7 @@ def create_team(
   name: String,
   leader: String,
   active: Boolean = true,
-  *members: String
+  *members: Array<String>
 ): Team
   Team.new(
     name: name,
@@ -166,12 +166,12 @@ post2 = create_post(
 Use double splat `**` to collect keyword arguments into a hash:
 
 ```trb title="keyword_rest.trb"
-def build_query(table: String, **conditions: String | Integer): String
+def build_query(table: String, **conditions: Hash<Symbol, String | Integer>): String
   where_clause = conditions.map { |k, v| "#{k} = #{v}" }.join(" AND ")
   "SELECT * FROM #{table} WHERE #{where_clause}"
 end
 
-def create_config(env: String, **options: String | Integer | Boolean): Config
+def create_config(env: String, **options: Hash<Symbol, String | Integer | Boolean>): Config
   Config.new(environment: env, options: options)
 end
 
@@ -190,7 +190,7 @@ config = create_config(
 )
 ```
 
-The type annotation `**conditions: String | Integer` means "zero or more keyword arguments with String or Integer values collected into a hash".
+The type annotation `**conditions: Hash<Symbol, String | Integer>` means "zero or more keyword arguments with String or Integer values collected into a hash".
 
 ## Required Keyword Arguments
 
@@ -238,10 +238,10 @@ You can combine all parameter types, but they must follow this order:
 def complex_function(
   required_pos: String,                    # 1. Required positional
   optional_pos: Integer = 0,               # 2. Optional positional
-  *rest_args: String,                      # 3. Rest parameter
+  *rest_args: Array<String>,               # 3. Rest parameter
   required_kw: Boolean,                    # 4. Required keyword
   optional_kw: String = "default",         # 5. Optional keyword
-  **rest_kwargs: String | Integer          # 6. Keyword rest
+  **rest_kwargs: Hash<Symbol, String | Integer>  # 6. Keyword rest
 ): Hash<String, String | Integer | Boolean>
   {
     "required_pos" => required_pos,
@@ -283,7 +283,7 @@ class HTTPRequestBuilder
   end
 
   # Required + rest parameters
-  def delete(*urls: String): Array<Response>
+  def delete(*urls: Array<String>): Array<Response>
     urls.map { |url| make_request("DELETE", url, nil, {}) }
   end
 
@@ -302,7 +302,7 @@ class HTTPRequestBuilder
   def custom_request(
     method: String,
     url: String,
-    **headers: String
+    **headers: Hash<Symbol, String>
   ): Response
     make_request(method, url, nil, headers)
   end
@@ -373,18 +373,18 @@ class Logger
   end
 
   # Multiple messages with rest parameter
-  def log_many(level: String, *messages: String): void
+  def log_many(level: String, *messages: Array<String>): void
     messages.each { |msg| log(msg, level) }
   end
 
   # Structured logging with keyword rest
-  def log_structured(message: String, **metadata: String | Integer | Boolean): void
+  def log_structured(message: String, **metadata: Hash<Symbol, String | Integer | Boolean>): void
     meta_str = metadata.map { |k, v| "#{k}=#{v}" }.join(" ")
     puts "[INFO] #{message} | #{meta_str}"
   end
 
   # Flexible debug logging
-  def debug(*messages: String, **context: String | Integer): void
+  def debug(*messages: Array<String>, **context: Hash<Symbol, String | Integer>): void
     messages.each do |msg|
       ctx_str = context.empty? ? "" : " (#{context.map { |k, v| "#{k}=#{v}" }.join(", ")})"
       puts "[DEBUG] #{msg}#{ctx_str}"
@@ -454,7 +454,7 @@ end
 ### Variadic Factory Functions
 
 ```trb title="factory.trb"
-def create_users(*names: String, role: String = "user"): Array<User>
+def create_users(*names: Array<String>, role: String = "user"): Array<User>
   names.map { |name| User.new(name: name, role: role) }
 end
 
@@ -464,7 +464,7 @@ users = create_users("Alice", "Bob", "Charlie", role: "admin")
 ### Configuration Merging
 
 ```trb title="config.trb"
-def merge_config(base: Hash<String, String>, **overrides: String): Hash<String, String>
+def merge_config(base: Hash<String, String>, **overrides: Hash<Symbol, String>): Hash<String, String>
   base.merge(overrides)
 end
 
@@ -480,8 +480,8 @@ config = merge_config(
 Optional and rest parameters give your functions flexibility while maintaining type safety:
 
 - **Optional parameters** (`param: Type = default`) have default values
-- **Rest parameters** (`*args: Type`) collect multiple arguments into an array
-- **Keyword rest** (`**kwargs: Type`) collects keyword arguments into a hash
+- **Rest parameters** (`*args: Array<Type>`) collect multiple arguments into an array
+- **Keyword rest** (`**kwargs: Hash<Symbol, Type>`) collects keyword arguments into a hash
 - T-Ruby ensures type safety for all parameter variations
 
 Master these patterns to write flexible, type-safe APIs that are pleasant to use.

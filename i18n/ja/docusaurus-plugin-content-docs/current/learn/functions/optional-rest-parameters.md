@@ -68,15 +68,15 @@ send_email("bob@example.com", "Meeting", "team@example.com")
 残余パラメータは複数の引数を配列に収集します。配列の要素型を指定します：
 
 ```trb title="rest.trb"
-def sum(*numbers: Integer): Integer
+def sum(*numbers: Array<Integer>): Integer
   numbers.reduce(0, :+)
 end
 
-def concat_strings(*strings: String): String
+def concat_strings(*strings: Array<String>): String
   strings.join(" ")
 end
 
-def log_messages(level: String, *messages: String): void
+def log_messages(level: String, *messages: Array<String>): void
   messages.each do |msg|
     puts "[#{level}] #{msg}"
   end
@@ -96,7 +96,7 @@ log_messages("INFO", "App started", "Database connected", "Ready")
 # [INFO] Ready
 ```
 
-型アノテーション `*numbers: Integer` は「配列に収集される0個以上のInteger引数」を意味します。
+型アノテーション `*numbers: Array<Integer>` は「配列に収集される0個以上のInteger引数」を意味します。
 
 ## オプショナルパラメータと残余パラメータの組み合わせ
 
@@ -107,7 +107,7 @@ def create_team(
   name: String,
   leader: String,
   active: Boolean = true,
-  *members: String
+  *members: Array<String>
 ): Team
   Team.new(
     name: name,
@@ -166,12 +166,12 @@ post2 = create_post(
 ダブルスプラット `**` を使用してキーワード引数をハッシュに収集します：
 
 ```trb title="keyword_rest.trb"
-def build_query(table: String, **conditions: String | Integer): String
+def build_query(table: String, **conditions: Hash<Symbol, String | Integer>): String
   where_clause = conditions.map { |k, v| "#{k} = #{v}" }.join(" AND ")
   "SELECT * FROM #{table} WHERE #{where_clause}"
 end
 
-def create_config(env: String, **options: String | Integer | Boolean): Config
+def create_config(env: String, **options: Hash<Symbol, String | Integer | Boolean>): Config
   Config.new(environment: env, options: options)
 end
 
@@ -190,7 +190,7 @@ config = create_config(
 )
 ```
 
-型アノテーション `**conditions: String | Integer` は「ハッシュに収集されるStringまたはInteger値を持つ0個以上のキーワード引数」を意味します。
+型アノテーション `**conditions: Hash<Symbol, String | Integer>` は「ハッシュに収集されるStringまたはInteger値を持つ0個以上のキーワード引数」を意味します。
 
 ## 必須キーワード引数
 
@@ -238,10 +238,10 @@ user2 = register_user(
 def complex_function(
   required_pos: String,                    # 1. 必須位置
   optional_pos: Integer = 0,               # 2. オプショナル位置
-  *rest_args: String,                      # 3. 残余パラメータ
+  *rest_args: Array<String>,               # 3. 残余パラメータ
   required_kw: Boolean,                    # 4. 必須キーワード
   optional_kw: String = "default",         # 5. オプショナルキーワード
-  **rest_kwargs: String | Integer          # 6. キーワード残余
+  **rest_kwargs: Hash<Symbol, String | Integer>  # 6. キーワード残余
 ): Hash<String, String | Integer | Boolean>
   {
     "required_pos" => required_pos,
@@ -283,7 +283,7 @@ class HTTPRequestBuilder
   end
 
   # 必須 + 残余パラメータ
-  def delete(*urls: String): Array<Response>
+  def delete(*urls: Array<String>): Array<Response>
     urls.map { |url| make_request("DELETE", url, nil, {}) }
   end
 
@@ -302,7 +302,7 @@ class HTTPRequestBuilder
   def custom_request(
     method: String,
     url: String,
-    **headers: String
+    **headers: Hash<Symbol, String>
   ): Response
     make_request(method, url, nil, headers)
   end
@@ -373,18 +373,18 @@ class Logger
   end
 
   # 残余パラメータで複数メッセージ
-  def log_many(level: String, *messages: String): void
+  def log_many(level: String, *messages: Array<String>): void
     messages.each { |msg| log(msg, level) }
   end
 
   # キーワード残余で構造化ロギング
-  def log_structured(message: String, **metadata: String | Integer | Boolean): void
+  def log_structured(message: String, **metadata: Hash<Symbol, String | Integer | Boolean>): void
     meta_str = metadata.map { |k, v| "#{k}=#{v}" }.join(" ")
     puts "[INFO] #{message} | #{meta_str}"
   end
 
   # 柔軟なデバッグロギング
-  def debug(*messages: String, **context: String | Integer): void
+  def debug(*messages: Array<String>, **context: Hash<Symbol, String | Integer>): void
     messages.each do |msg|
       ctx_str = context.empty? ? "" : " (#{context.map { |k, v| "#{k}=#{v}" }.join(", ")})"
       puts "[DEBUG] #{msg}#{ctx_str}"
@@ -454,7 +454,7 @@ end
 ### 可変ファクトリ関数
 
 ```trb title="factory.trb"
-def create_users(*names: String, role: String = "user"): Array<User>
+def create_users(*names: Array<String>, role: String = "user"): Array<User>
   names.map { |name| User.new(name: name, role: role) }
 end
 
@@ -464,7 +464,7 @@ users = create_users("Alice", "Bob", "Charlie", role: "admin")
 ### 設定のマージ
 
 ```trb title="config.trb"
-def merge_config(base: Hash<String, String>, **overrides: String): Hash<String, String>
+def merge_config(base: Hash<String, String>, **overrides: Hash<Symbol, String>): Hash<String, String>
   base.merge(overrides)
 end
 
@@ -480,8 +480,8 @@ config = merge_config(
 オプショナルパラメータと残余パラメータは、型安全性を維持しながら関数に柔軟性を提供します：
 
 - **オプショナルパラメータ** (`param: Type = default`) はデフォルト値を持ちます
-- **残余パラメータ** (`*args: Type`) は複数の引数を配列に収集します
-- **キーワード残余** (`**kwargs: Type`) はキーワード引数をハッシュに収集します
+- **残余パラメータ** (`*args: Array<Type>`) は複数の引数を配列に収集します
+- **キーワード残余** (`**kwargs: Hash<Symbol, Type>`) はキーワード引数をハッシュに収集します
 - T-Rubyはすべてのパラメータのバリエーションに対して型安全性を保証します
 
 これらのパターンをマスターして、使いやすい柔軟で型安全なAPIを作成しましょう。
