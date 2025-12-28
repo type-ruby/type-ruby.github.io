@@ -60,13 +60,18 @@ def greet(name: String, greeting: String = "Hello"): String
 end
 
 # 残余パラメータ
-def sum(*numbers: Integer): Integer
+def sum(*numbers: Array<Integer>): Integer
   numbers.sum
 end
 
-# キーワード引数
-def create_user(name: String, email: String, age: Integer = 18): Hash
+# キーワード引数（変数名なし = 分割代入）
+def create_user({ name: String, email: String, age: Integer = 18 }): Hash
   { name: name, email: email, age: age }
+end
+
+# Hashリテラル（変数名あり）
+def process(config: { host: String, port: Integer }): String
+  "#{config[:host]}:#{config[:port]}"
 end
 
 # 戻り値なし

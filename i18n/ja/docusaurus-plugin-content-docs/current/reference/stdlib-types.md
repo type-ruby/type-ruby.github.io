@@ -48,7 +48,7 @@ end
 - `File.readlines(path: String): Array<String>`
 - `File.open(path: String, mode: String): File`
 - `File.open(path: String, mode: String, &block: Proc<File, void>): void`
-- `File.delete(*paths: String): Integer`
+- `File.delete(*paths: Array<String>): Integer`
 - `File.rename(old: String, new: String): Integer`
 - `File.size(path: String): Integer`
 - `File.directory?(path: String): Boolean`

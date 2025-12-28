@@ -130,23 +130,28 @@ team3 = create_team("Gamma", "Charlie", true, "Dave", "Eve", "Frank")
 
 ## Keyword Arguments
 
-In T-Ruby, keyword arguments are defined using the `**{ }` syntax. Unlike positional arguments, they are passed by name when calling.
+In T-Ruby, keyword arguments are defined using the `{ }` syntax (without variable name). Unlike positional arguments, they are passed by name when calling.
 
 :::info Positional vs Keyword Arguments
 
 | Definition | Call Style |
 |------------|------------|
 | `(x: String, y: Integer)` | `foo("hi", 10)` - positional |
-| `(**{ x: String, y: Integer })` | `foo(x: "hi", y: 10)` - keyword |
+| `({ x: String, y: Integer })` | `foo(x: "hi", y: 10)` - keyword |
+| `(config: { x: String })` | `foo(config: { x: "hi" })` - Hash literal |
+
+**Key Rule**: Variable name presence determines the meaning:
+- `{ ... }` (no variable) → keyword arguments (destructured)
+- `name: { ... }` (with variable) → Hash literal
 
 :::
 
 ### Inline Type Style
 
-Define types directly inside `**{ }`. Default values use `= value` syntax:
+Define types directly inside `{ }`. Default values use `= value` syntax:
 
 ```trb title="keyword_inline.trb"
-def create_post(**{
+def create_post({
   title: String,
   content: String,
   published: Boolean = false,
@@ -186,7 +191,7 @@ interface PostOptions
   tags?: Array<String>
 end
 
-def create_post(**{ title:, content:, published: false, tags: [] }: PostOptions): Post
+def create_post({ title:, content:, published: false, tags: [] }: PostOptions): Post
   Post.new(
     title: title,
     content: content,
@@ -203,7 +208,7 @@ post = create_post(title: "Hello", content: "World")
 
 | Aspect | Inline Type | Interface Reference |
 |--------|-------------|---------------------|
-| Type definition | Inside `**{ }` | Separate interface |
+| Type definition | Inside `{ }` | Separate interface |
 | Default value syntax | `= value` | `: value` (no equals) |
 | Optional marking | Implied by default value | `?` suffix |
 | Reusability | Single method | Shared across methods |
@@ -226,14 +231,14 @@ def create_config(env: String, **options: Hash<Symbol, String | Integer | Boolea
 end
 
 # Using keyword rest parameters
-query1 = build_query(table: "users", id: 123, active: 1)
+query1 = build_query("users", id: 123, active: 1)
 # "SELECT * FROM users WHERE id = 123 AND active = 1"
 
-query2 = build_query(table: "posts", author_id: 5, published: 1, category: "tech")
+query2 = build_query("posts", author_id: 5, published: 1, category: "tech")
 # "SELECT * FROM posts WHERE author_id = 5 AND published = 1 AND category = tech"
 
 config = create_config(
-  env: "production",
+  "production",
   debug: false,
   timeout: 30,
   host: "example.com"
@@ -247,7 +252,7 @@ The type annotation `**conditions: Hash<Symbol, String | Integer>` means "zero o
 Keyword arguments without default values are required:
 
 ```trb title="required_kwargs.trb"
-def register_user(**{
+def register_user({
   email: String,
   password: String,
   name: String = "Anonymous",
@@ -280,7 +285,7 @@ You can combine all parameter types, but they must follow this order:
 1. Required positional parameters
 2. Optional positional parameters
 3. Rest parameter (`*args`)
-4. Keyword arguments (`**{ ... }`)
+4. Keyword arguments (`{ ... }`)
 5. Keyword rest parameter (`**kwargs`)
 
 ```trb title="all_types.trb"
@@ -288,7 +293,7 @@ def complex_function(
   required_pos: String,                    # 1. Required positional
   optional_pos: Integer = 0,               # 2. Optional positional
   *rest_args: Array<String>,               # 3. Rest parameter
-  **{
+  {
     required_kw: Boolean,                  # 4. Required keyword
     optional_kw: String = "default"        # 5. Optional keyword
   },
@@ -339,7 +344,7 @@ class HTTPRequestBuilder
   end
 
   # Keyword arguments (inline type)
-  def request(**{
+  def request({
     method: String,
     url: String,
     body: String? = nil,
@@ -481,7 +486,7 @@ logger.debug(
 
 4. **Use rest parameters for collections**: When you expect a variable number of similar items, rest parameters are cleaner than array parameters.
 
-5. **Type rest parameters appropriately**: `*args: String` is better than `*args: String | Integer` if you only expect strings.
+5. **Type rest parameters appropriately**: `*args: Array<String>` is better than `*args: Array<String | Integer>` if you only expect strings.
 
 6. **Document complex signatures**: When combining many parameter types, add comments explaining the usage.
 
@@ -490,7 +495,7 @@ logger.debug(
 ### Builder Methods with Defaults (Keyword Arguments)
 
 ```trb title="builder_pattern.trb"
-def build_email(**{
+def build_email({
   to: String,
   subject: String,
   from: String = "noreply@example.com",
@@ -508,7 +513,7 @@ email = build_email(to: "alice@example.com", subject: "Hello")
 ### Variadic Factory Functions (Rest + Keyword Arguments)
 
 ```trb title="factory.trb"
-def create_users(*names: Array<String>, **{ role: String = "user" }): Array<User>
+def create_users(*names: Array<String>, { role: String = "user" }): Array<User>
   names.map { |name| User.new(name: name, role: role) }
 end
 
@@ -538,12 +543,14 @@ Optional and rest parameters give your functions flexibility while maintaining t
 | `(x: Type)` | Positional argument | `foo("hi")` |
 | `(x: Type = default)` | Optional positional | `foo()` or `foo("hi")` |
 | `(*args: Array<Type>)` | Rest parameter | `foo("a", "b", "c")` |
-| `(**{ x: Type })` | Keyword argument | `foo(x: "hi")` |
+| `({ x: Type })` | Keyword argument | `foo(x: "hi")` |
+| `(config: { x: Type })` | Hash literal | `foo(config: { x: "hi" })` |
 | `(**kwargs: Hash<Symbol, Type>)` | Keyword rest | `foo(a: 1, b: 2)` |
 
 **Key Points:**
 - **Positional arguments** `(x: Type)`: passed by order
-- **Keyword arguments** `(**{ x: Type })`: passed by name
+- **Keyword arguments** `({ x: Type })`: passed by name (no variable = destructured)
+- **Hash literal** `(config: { x: Type })`: with variable name = Hash
 - **Keyword rest** `(**kwargs: Hash<Symbol, Type>)`: collects arbitrary keyword arguments into a hash
 - T-Ruby ensures type safety for all parameter variations
 

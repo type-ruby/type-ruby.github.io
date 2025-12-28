@@ -60,13 +60,18 @@ def greet(name: String, greeting: String = "Hello"): String
 end
 
 # Rest parameters
-def sum(*numbers: Integer): Integer
+def sum(*numbers: Array<Integer>): Integer
   numbers.sum
 end
 
-# Keyword arguments
-def create_user(name: String, email: String, age: Integer = 18): Hash
+# Keyword arguments (no variable = destructured)
+def create_user({ name: String, email: String, age: Integer = 18 }): Hash
   { name: name, email: email, age: age }
+end
+
+# Hash literal (with variable name)
+def process(config: { host: String, port: Integer }): String
+  "#{config[:host]}:#{config[:port]}"
 end
 
 # No return value

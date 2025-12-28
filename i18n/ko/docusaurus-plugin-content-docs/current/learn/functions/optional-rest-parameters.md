@@ -138,26 +138,31 @@ team3 = create_team("Gamma", "Charlie", true, "Dave", "Eve", "Frank")
 
 ## 키워드 인수
 
-T-Ruby에서 키워드 인수는 `**{ }` 문법을 사용하여 정의합니다. 위치 인수와 달리 호출 시 이름으로 인자를 전달합니다.
+T-Ruby에서 키워드 인수는 `{ }` 문법(변수명 없이)을 사용하여 정의합니다. 위치 인수와 달리 호출 시 이름으로 인자를 전달합니다.
 
 :::info 위치 인수 vs 키워드 인수
 
 | 정의 | 호출 방식 |
 |------|----------|
 | `(x: String, y: Integer)` | `foo("hi", 10)` - 위치 인수 |
-| `(**{ x: String, y: Integer })` | `foo(x: "hi", y: 10)` - 키워드 인수 |
+| `({ x: String, y: Integer })` | `foo(x: "hi", y: 10)` - 키워드 인수 |
+| `(config: { x: String })` | `foo(config: { x: "hi" })` - Hash 리터럴 |
+
+**핵심 규칙**: 변수명 유무로 의미가 결정됩니다:
+- `{ ... }` (변수명 없음) → 키워드 인수 (구조분해)
+- `name: { ... }` (변수명 있음) → Hash 리터럴
 
 :::
 
 ### 인라인 타입 방식
 
-타입을 `**{ }` 안에 직접 정의합니다. 기본값은 `= value` 형태로 지정합니다:
+타입을 `{ }` 안에 직접 정의합니다. 기본값은 `= value` 형태로 지정합니다:
 
 {/* TODO: ExampleBadge 활성화 - 파서 구현 후 */}
 {/* <ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/functions/optional_rest_parameters_spec.rb" line={69} /> */}
 
 ```trb title="keyword_inline.trb"
-def create_post(**{
+def create_post({
   title: String,
   content: String,
   published: Boolean = false,
@@ -197,7 +202,7 @@ interface PostOptions
   tags?: Array<String>
 end
 
-def create_post(**{ title:, content:, published: false, tags: [] }: PostOptions): Post
+def create_post({ title:, content:, published: false, tags: [] }: PostOptions): Post
   Post.new(
     title: title,
     content: content,
@@ -214,7 +219,7 @@ post = create_post(title: "Hello", content: "World")
 
 | 항목 | 인라인 타입 | interface 참조 |
 |------|------------|---------------|
-| 타입 정의 위치 | `**{ }` 안에 직접 | 별도 interface |
+| 타입 정의 위치 | `{ }` 안에 직접 | 별도 interface |
 | 기본값 문법 | `= value` | `: value` (등호 없음) |
 | Optional 표시 | 기본값으로 암시 | `?` 접미사 |
 | 재사용성 | 단일 메서드 | 여러 메서드에서 공유 |
@@ -239,14 +244,14 @@ def create_config(env: String, **options: Hash<Symbol, String | Integer | Boolea
 end
 
 # 키워드 나머지 매개변수 사용
-query1 = build_query(table: "users", id: 123, active: 1)
+query1 = build_query("users", id: 123, active: 1)
 # "SELECT * FROM users WHERE id = 123 AND active = 1"
 
-query2 = build_query(table: "posts", author_id: 5, published: 1, category: "tech")
+query2 = build_query("posts", author_id: 5, published: 1, category: "tech")
 # "SELECT * FROM posts WHERE author_id = 5 AND published = 1 AND category = tech"
 
 config = create_config(
-  env: "production",
+  "production",
   debug: false,
   timeout: 30,
   host: "example.com"
@@ -263,7 +268,7 @@ config = create_config(
 {/* <ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/functions/optional_rest_parameters_spec.rb" line={91} /> */}
 
 ```trb title="required_kwargs.trb"
-def register_user(**{
+def register_user({
   email: String,
   password: String,
   name: String = "Anonymous",
@@ -296,7 +301,7 @@ user2 = register_user(
 1. 필수 위치 매개변수
 2. 선택적 위치 매개변수
 3. 나머지 매개변수 (`*args`)
-4. 키워드 인수 (`**{ ... }`)
+4. 키워드 인수 (`{ ... }`)
 5. 키워드 나머지 매개변수 (`**kwargs`)
 
 {/* TODO: ExampleBadge 활성화 - 파서 구현 후 */}
@@ -307,7 +312,7 @@ def complex_function(
   required_pos: String,                    # 1. 필수 위치
   optional_pos: Integer = 0,               # 2. 선택적 위치
   *rest_args: Array<String>,               # 3. 나머지 매개변수
-  **{
+  {
     required_kw: Boolean,                  # 4. 필수 키워드
     optional_kw: String = "default"        # 5. 선택적 키워드
   },
@@ -361,7 +366,7 @@ class HTTPRequestBuilder
   end
 
   # 키워드 인수 (인라인 타입)
-  def request(**{
+  def request({
     method: String,
     url: String,
     body: String? = nil,
@@ -506,7 +511,7 @@ logger.debug(
 
 4. **컬렉션에는 나머지 매개변수 사용**: 가변 개수의 유사한 항목을 기대할 때, 나머지 매개변수가 배열 매개변수보다 깔끔합니다.
 
-5. **나머지 매개변수에 적절한 타입 지정**: 문자열만 기대한다면 `*args: String | Integer`보다 `*args: String`이 더 좋습니다.
+5. **나머지 매개변수에 적절한 타입 지정**: 문자열만 기대한다면 `*args: Array<String | Integer>`보다 `*args: Array<String>`이 더 좋습니다.
 
 6. **복잡한 시그니처 문서화**: 많은 매개변수 타입을 조합할 때, 사용법을 설명하는 주석을 추가하세요.
 
@@ -518,7 +523,7 @@ logger.debug(
 {/* <ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/functions/optional_rest_parameters_spec.rb" line={135} /> */}
 
 ```trb title="builder_pattern.trb"
-def build_email(**{
+def build_email({
   to: String,
   subject: String,
   from: String = "noreply@example.com",
@@ -539,7 +544,7 @@ email = build_email(to: "alice@example.com", subject: "Hello")
 {/* <ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/functions/optional_rest_parameters_spec.rb" line={146} /> */}
 
 ```trb title="factory.trb"
-def create_users(*names: Array<String>, **{ role: String = "user" }): Array<User>
+def create_users(*names: Array<String>, { role: String = "user" }): Array<User>
   names.map { |name| User.new(name: name, role: role) }
 end
 
@@ -572,12 +577,14 @@ config = merge_config(
 | `(x: Type)` | 위치 인수 | `foo("hi")` |
 | `(x: Type = default)` | 선택적 위치 인수 | `foo()` 또는 `foo("hi")` |
 | `(*args: Array<Type>)` | 나머지 매개변수 | `foo("a", "b", "c")` |
-| `(**{ x: Type })` | 키워드 인수 | `foo(x: "hi")` |
+| `({ x: Type })` | 키워드 인수 | `foo(x: "hi")` |
+| `(config: { x: Type })` | Hash 리터럴 | `foo(config: { x: "hi" })` |
 | `(**kwargs: Hash<Symbol, Type>)` | 키워드 나머지 | `foo(a: 1, b: 2)` |
 
 **핵심 포인트:**
 - **위치 인수** `(x: Type)`: 순서대로 전달
-- **키워드 인수** `(**{ x: Type })`: 이름으로 전달
+- **키워드 인수** `({ x: Type })`: 이름으로 전달 (변수명 없음 = 구조분해)
+- **Hash 리터럴** `(config: { x: Type })`: 변수명 있음 = Hash
 - **키워드 나머지** `(**kwargs: Hash<Symbol, Type>)`: 임의의 키워드 인수를 해시로 수집
 - T-Ruby는 모든 매개변수 변형에 대해 타입 안전성을 보장합니다
 

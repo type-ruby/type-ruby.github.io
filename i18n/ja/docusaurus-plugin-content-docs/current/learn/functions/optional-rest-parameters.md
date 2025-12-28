@@ -130,23 +130,28 @@ team3 = create_team("Gamma", "Charlie", true, "Dave", "Eve", "Frank")
 
 ## キーワード引数
 
-T-Rubyでは、キーワード引数は `**{ }` 構文を使用して定義します。位置引数とは異なり、呼び出し時に名前で引数を渡します。
+T-Rubyでは、キーワード引数は `{ }` 構文（変数名なし）を使用して定義します。位置引数とは異なり、呼び出し時に名前で引数を渡します。
 
 :::info 位置引数 vs キーワード引数
 
 | 定義 | 呼び出し方法 |
 |------|-------------|
 | `(x: String, y: Integer)` | `foo("hi", 10)` - 位置引数 |
-| `(**{ x: String, y: Integer })` | `foo(x: "hi", y: 10)` - キーワード引数 |
+| `({ x: String, y: Integer })` | `foo(x: "hi", y: 10)` - キーワード引数 |
+| `(config: { x: String })` | `foo(config: { x: "hi" })` - Hashリテラル |
+
+**重要なルール**: 変数名の有無で意味が決まります：
+- `{ ... }` (変数名なし) → キーワード引数（分割代入）
+- `name: { ... }` (変数名あり) → Hashリテラル
 
 :::
 
 ### インライン型方式
 
-型を `**{ }` 内に直接定義します。デフォルト値は `= value` 形式で指定します：
+型を `{ }` 内に直接定義します。デフォルト値は `= value` 形式で指定します：
 
 ```trb title="keyword_inline.trb"
-def create_post(**{
+def create_post({
   title: String,
   content: String,
   published: Boolean = false,
@@ -186,7 +191,7 @@ interface PostOptions
   tags?: Array<String>
 end
 
-def create_post(**{ title:, content:, published: false, tags: [] }: PostOptions): Post
+def create_post({ title:, content:, published: false, tags: [] }: PostOptions): Post
   Post.new(
     title: title,
     content: content,
@@ -203,7 +208,7 @@ post = create_post(title: "Hello", content: "World")
 
 | 項目 | インライン型 | interface参照 |
 |------|------------|---------------|
-| 型定義の場所 | `**{ }` 内に直接 | 別途interface |
+| 型定義の場所 | `{ }` 内に直接 | 別途interface |
 | デフォルト値構文 | `= value` | `: value`（等号なし） |
 | Optional表示 | デフォルト値で暗示 | `?` 接尾辞 |
 | 再利用性 | 単一メソッド | 複数メソッドで共有 |
@@ -226,14 +231,14 @@ def create_config(env: String, **options: Hash<Symbol, String | Integer | Boolea
 end
 
 # キーワード残余パラメータの使用
-query1 = build_query(table: "users", id: 123, active: 1)
+query1 = build_query("users", id: 123, active: 1)
 # "SELECT * FROM users WHERE id = 123 AND active = 1"
 
-query2 = build_query(table: "posts", author_id: 5, published: 1, category: "tech")
+query2 = build_query("posts", author_id: 5, published: 1, category: "tech")
 # "SELECT * FROM posts WHERE author_id = 5 AND published = 1 AND category = tech"
 
 config = create_config(
-  env: "production",
+  "production",
   debug: false,
   timeout: 30,
   host: "example.com"
@@ -247,7 +252,7 @@ config = create_config(
 デフォルト値のないキーワード引数は必須です：
 
 ```trb title="required_kwargs.trb"
-def register_user(**{
+def register_user({
   email: String,
   password: String,
   name: String = "Anonymous",
@@ -280,7 +285,7 @@ user2 = register_user(
 1. 必須位置パラメータ
 2. オプショナル位置パラメータ
 3. 残余パラメータ (`*args`)
-4. キーワード引数 (`**{ ... }`)
+4. キーワード引数 (`{ ... }`)
 5. キーワード残余パラメータ (`**kwargs`)
 
 ```trb title="all_types.trb"
@@ -288,7 +293,7 @@ def complex_function(
   required_pos: String,                    # 1. 必須位置
   optional_pos: Integer = 0,               # 2. オプショナル位置
   *rest_args: Array<String>,               # 3. 残余パラメータ
-  **{
+  {
     required_kw: Boolean,                  # 4. 必須キーワード
     optional_kw: String = "default"        # 5. オプショナルキーワード
   },
@@ -339,7 +344,7 @@ class HTTPRequestBuilder
   end
 
   # キーワード引数（インライン型）
-  def request(**{
+  def request({
     method: String,
     url: String,
     body: String? = nil,
@@ -481,7 +486,7 @@ logger.debug(
 
 4. **コレクションには残余パラメータを使用する**: 可変数の類似アイテムを期待する場合、残余パラメータは配列パラメータよりもクリーンです。
 
-5. **残余パラメータに適切な型を付ける**: 文字列のみを期待する場合、`*args: String | Integer`より`*args: String`の方が良いです。
+5. **残余パラメータに適切な型を付ける**: 文字列のみを期待する場合、`*args: Array<String | Integer>`より`*args: Array<String>`の方が良いです。
 
 6. **複雑なシグネチャを文書化する**: 多くのパラメータタイプを組み合わせる場合、使用法を説明するコメントを追加します。
 
@@ -490,7 +495,7 @@ logger.debug(
 ### デフォルト付きビルダーメソッド（キーワード引数）
 
 ```trb title="builder_pattern.trb"
-def build_email(**{
+def build_email({
   to: String,
   subject: String,
   from: String = "noreply@example.com",
@@ -508,7 +513,7 @@ email = build_email(to: "alice@example.com", subject: "Hello")
 ### 可変ファクトリ関数（残余 + キーワード引数）
 
 ```trb title="factory.trb"
-def create_users(*names: Array<String>, **{ role: String = "user" }): Array<User>
+def create_users(*names: Array<String>, { role: String = "user" }): Array<User>
   names.map { |name| User.new(name: name, role: role) }
 end
 
@@ -538,12 +543,14 @@ config = merge_config(
 | `(x: Type)` | 位置引数 | `foo("hi")` |
 | `(x: Type = default)` | オプショナル位置引数 | `foo()` または `foo("hi")` |
 | `(*args: Array<Type>)` | 残余パラメータ | `foo("a", "b", "c")` |
-| `(**{ x: Type })` | キーワード引数 | `foo(x: "hi")` |
+| `({ x: Type })` | キーワード引数 | `foo(x: "hi")` |
+| `(config: { x: Type })` | Hashリテラル | `foo(config: { x: "hi" })` |
 | `(**kwargs: Hash<Symbol, Type>)` | キーワード残余 | `foo(a: 1, b: 2)` |
 
 **重要なポイント：**
 - **位置引数** `(x: Type)`: 順序で渡す
-- **キーワード引数** `(**{ x: Type })`: 名前で渡す
+- **キーワード引数** `({ x: Type })`: 名前で渡す（変数名なし = 分割代入）
+- **Hashリテラル** `(config: { x: Type })`: 変数名あり = Hash
 - **キーワード残余** `(**kwargs: Hash<Symbol, Type>)`: 任意のキーワード引数をハッシュに収集
 - T-Rubyはすべてのパラメータのバリエーションに対して型安全性を保証します
 

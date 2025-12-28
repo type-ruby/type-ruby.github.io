@@ -64,13 +64,18 @@ def greet(name: String, greeting: String = "Hello"): String
 end
 
 # 나머지 매개변수
-def sum(*numbers: Integer): Integer
+def sum(*numbers: Array<Integer>): Integer
   numbers.sum
 end
 
-# 키워드 인자
-def create_user(name: String, email: String, age: Integer = 18): Hash
+# 키워드 인수 (변수명 없음 = 구조분해)
+def create_user({ name: String, email: String, age: Integer = 18 }): Hash
   { name: name, email: email, age: age }
+end
+
+# Hash 리터럴 (변수명 있음)
+def process(config: { host: String, port: Integer }): String
+  "#{config[:host]}:#{config[:port]}"
 end
 
 # 반환 값 없음
