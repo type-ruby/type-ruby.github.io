@@ -1,0 +1,1 @@
+"use strict";(globalThis.webpackChunkt_ruby_docs=globalThis.webpackChunkt_ruby_docs||[]).push([[6461],{6587:e=>{e.exports=JSON.parse('{"metadata":{"permalink":"/ko/news","page":1,"postsPerPage":10,"totalPages":1,"totalCount":5,"blogDescription":"Release notes, announcements, and project updates","blogTitle":"T-Ruby News"}}')}}]);
