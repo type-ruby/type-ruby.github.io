@@ -105,7 +105,7 @@ function WhatIsTRuby() {
               dangerouslySetInnerHTML={{
                 __html: translate({
                   id: 'homepage.whatIs.rubyMore.description',
-                  message: 'T-Ruby extends Ruby with additional syntax. <strong>This means static types and compile time.</strong>',
+                  message: 'T-Ruby extends Ruby with additional syntax. <strong>This means static types at compile time.</strong>',
                 }),
               }}
             />
