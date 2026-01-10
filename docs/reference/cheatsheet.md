@@ -60,7 +60,7 @@ def greet(name: String, greeting: String = "Hello"): String
 end
 
 # Rest parameters
-def sum(*numbers: Array<Integer>): Integer
+def sum(*numbers: Integer[]): Integer
   numbers.sum
 end
 
@@ -110,18 +110,22 @@ end
 ## Array Types
 
 ```trb
-# Array of specific type
-names: Array<String> = ["Alice", "Bob"]
-numbers: Array<Integer> = [1, 2, 3]
+# Array of specific type (shorthand syntax)
+names: String[] = ["Alice", "Bob"]
+numbers: Integer[] = [1, 2, 3]
 
 # Array of union types
-mixed: Array<String | Integer> = ["Alice", 1, "Bob", 2]
+mixed: (String | Integer)[] = ["Alice", 1, "Bob", 2]
 
 # Nested arrays
-matrix: Array<Array<Integer>> = [[1, 2], [3, 4]]
+matrix: Integer[][] = [[1, 2], [3, 4]]
 
 # Empty array with type
-items: Array<String> = []
+items: String[] = []
+
+# Nullable array vs array of nullable
+nullable_array: String[]? = nil        # The array itself can be nil
+array_of_nullable: String?[] = [nil]   # Elements can be nil
 ```
 
 ## Hash Types
@@ -146,7 +150,7 @@ users: Hash<Integer, Hash<Symbol, String>> = {
 
 ```trb
 # Generic function
-def first<T>(arr: Array<T>): T | nil
+def first<T>(arr: T[]): T?
   arr[0]
 end
 
@@ -185,7 +189,7 @@ type ID = String | Integer
 type JSONValue = String | Integer | Float | Boolean | nil
 
 # Collection alias
-type StringList = Array<String>
+type StringList = String[]
 type UserMap = Hash<Integer, User>
 
 # Generic alias
@@ -292,6 +296,7 @@ end
 | `\|` | Union | Either/or types | `String \| Integer` |
 | `&` | Intersection | Both types | `Printable & Comparable` |
 | `?` | Optional | Shorthand for `\| nil` | `String?` |
+| `[]` | Array | Array shorthand | `String[]` |
 | `<T>` | Generic | Type parameter | `Array<T>` |
 | `=>` | Hash pair | Key-value type | `Hash<String => Integer>` |
 
@@ -307,7 +312,11 @@ end
 # Optional
 name: String?  # Same as String | nil
 
-# Generics
+# Array shorthand
+items: String[]
+nested: Integer[][]
+
+# Generics (alternative)
 items: Array<String>
 pairs: Hash<String, Integer>
 ```
@@ -316,7 +325,7 @@ pairs: Hash<String, Integer>
 
 ```trb
 # Block parameter
-def each_item<T>(items: Array<T>, &block: Proc<T, void>): void
+def each_item<T>(items: T[], &block: Proc<T, void>): void
   items.each { |item| block.call(item) }
 end
 
@@ -328,7 +337,7 @@ transformer: Proc<Integer, String> = ->(n: Integer): String { n.to_s }
 double: Proc<Integer, Integer> = ->(n: Integer): Integer { n * 2 }
 
 # Block with multiple parameters
-def map<T, U>(items: Array<T>, &block: Proc<T, Integer, U>): Array<U>
+def map<T, U>(items: T[], &block: Proc<T, Integer, U>): U[]
   items.map.with_index { |item, index| block.call(item, index) }
 end
 ```
@@ -481,7 +490,7 @@ end
 
 ```trb
 class QueryBuilder
-  @conditions: Array<String>
+  @conditions: String[]
 
   def initialize: void
     @conditions = []

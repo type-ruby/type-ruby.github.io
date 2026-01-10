@@ -11,24 +11,24 @@ description: Array, Hash, and other built-in generic types
 
 T-Ruby comes with several built-in generic types that you'll use every day. These types are parameterized to work with any type while providing type safety. Understanding how to use these built-in generics is essential for writing type-safe T-Ruby code.
 
-## Array\<T\>
+## Array\<T\> (or T[])
 
-The most commonly used generic type is `Array<T>`, representing an array of elements of type `T`.
+The most commonly used generic type is `Array<T>`, representing an array of elements of type `T`. T-Ruby also supports the shorthand syntax `T[]`.
 
 ### Basic Array Usage
 
 ```trb
-# Explicitly typed arrays
-numbers: Array<Integer> = [1, 2, 3, 4, 5]
-names: Array<String> = ["Alice", "Bob", "Charlie"]
-flags: Array<Boolean> = [true, false, true]
+# Explicitly typed arrays (shorthand syntax)
+numbers: Integer[] = [1, 2, 3, 4, 5]
+names: String[] = ["Alice", "Bob", "Charlie"]
+flags: Boolean[] = [true, false, true]
 
 # Type inference works too
-inferred_numbers = [1, 2, 3]  # Array<Integer>
-inferred_names = ["Alice", "Bob"]  # Array<String>
+inferred_numbers = [1, 2, 3]  # Integer[]
+inferred_names = ["Alice", "Bob"]  # String[]
 
 # Empty arrays need explicit types
-empty_numbers: Array<Integer> = []
+empty_numbers: Integer[] = []
 empty_users = Array<User>.new
 ```
 
@@ -37,40 +37,40 @@ empty_users = Array<User>.new
 All standard array operations preserve type safety:
 
 ```trb
-numbers: Array<Integer> = [1, 2, 3, 4, 5]
+numbers: Integer[] = [1, 2, 3, 4, 5]
 
 # Accessing elements
-first: Integer | nil = numbers[0]      # 1
-last: Integer | nil = numbers[-1]      # 5
-out_of_bounds: Integer | nil = numbers[100]  # nil
+first: Integer? = numbers[0]      # 1
+last: Integer? = numbers[-1]      # 5
+out_of_bounds: Integer? = numbers[100]  # nil
 
 # Adding elements
-numbers.push(6)        # Array<Integer>
-numbers << 7           # Array<Integer>
-numbers.unshift(0)     # Array<Integer>
+numbers.push(6)        # Integer[]
+numbers << 7           # Integer[]
+numbers.unshift(0)     # Integer[]
 
 # Removing elements
-popped: Integer | nil = numbers.pop      # Removes and returns last
-shifted: Integer | nil = numbers.shift   # Removes and returns first
+popped: Integer? = numbers.pop      # Removes and returns last
+shifted: Integer? = numbers.shift   # Removes and returns first
 
 # Checking contents
 contains_three: Boolean = numbers.include?(3)  # true
-index: Integer | nil = numbers.index(3)     # 2
+index: Integer? = numbers.index(3)     # 2
 ```
 
 ### Array Mapping and Transformation
 
-Mapping transforms an `Array<T>` into an `Array<U>`:
+Mapping transforms a `T[]` into a `U[]`:
 
 ```trb
 # Map integers to strings
-numbers: Array<Integer> = [1, 2, 3, 4, 5]
-strings: Array<String> = numbers.map { |n| n.to_s }
+numbers: Integer[] = [1, 2, 3, 4, 5]
+strings: String[] = numbers.map { |n| n.to_s }
 # Result: ["1", "2", "3", "4", "5"]
 
 # Map strings to their lengths
-words: Array<String> = ["hello", "world", "ruby"]
-lengths: Array<Integer> = words.map { |w| w.length }
+words: String[] = ["hello", "world", "ruby"]
+lengths: Integer[] = words.map { |w| w.length }
 # Result: [5, 5, 4]
 
 # Map to complex types
@@ -88,8 +88,8 @@ class Person
   end
 end
 
-names: Array<String> = ["Alice", "Bob"]
-people: Array<Person> = names.map { |name| Person.new(name, 25) }
+names: String[] = ["Alice", "Bob"]
+people: Person[] = names.map { |name| Person.new(name, 25) }
 ```
 
 ### Array Filtering
@@ -97,23 +97,23 @@ people: Array<Person> = names.map { |name| Person.new(name, 25) }
 Filtering maintains the same type:
 
 ```trb
-numbers: Array<Integer> = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+numbers: Integer[] = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
 
 # Filter for even numbers
-evens: Array<Integer> = numbers.select { |n| n.even? }
+evens: Integer[] = numbers.select { |n| n.even? }
 # Result: [2, 4, 6, 8, 10]
 
 # Filter for odd numbers
-odds: Array<Integer> = numbers.reject { |n| n.even? }
+odds: Integer[] = numbers.reject { |n| n.even? }
 # Result: [1, 3, 5, 7, 9]
 
 # Find first matching element
-first_even: Integer | nil = numbers.find { |n| n.even? }
+first_even: Integer? = numbers.find { |n| n.even? }
 # Result: 2
 
 # Filter with complex conditions
-words: Array<String> = ["hello", "world", "hi", "ruby", "typescript"]
-long_words: Array<String> = words.select { |w| w.length > 4 }
+words: String[] = ["hello", "world", "hi", "ruby", "typescript"]
+long_words: String[] = words.select { |w| w.length > 4 }
 # Result: ["hello", "world", "typescript"]
 ```
 
@@ -122,7 +122,7 @@ long_words: Array<String> = words.select { |w| w.length > 4 }
 Reduce collapses an array into a single value:
 
 ```trb
-numbers: Array<Integer> = [1, 2, 3, 4, 5]
+numbers: Integer[] = [1, 2, 3, 4, 5]
 
 # Sum all numbers
 sum: Integer = numbers.reduce(0) { |acc, n| acc + n }
@@ -133,12 +133,12 @@ max: Integer = numbers.reduce(numbers[0]) { |max, n| n > max ? n : max }
 # Result: 5
 
 # Concatenate strings
-words: Array<String> = ["Hello", "World", "from", "T-Ruby"]
+words: String[] = ["Hello", "World", "from", "T-Ruby"]
 sentence: String = words.reduce("") { |acc, w| acc.empty? ? w : "#{acc} #{w}" }
 # Result: "Hello World from T-Ruby"
 
 # Build a hash from array
-pairs: Array<Array<String>> = [["name", "Alice"], ["age", "30"]]
+pairs: String[][] = [["name", "Alice"], ["age", "30"]]
 hash: Hash<String, String> = pairs.reduce({}) { |h, pair|
   h[pair[0]] = pair[1]
   h
@@ -151,25 +151,25 @@ Arrays can be nested to any depth:
 
 ```trb
 # Two-dimensional array (matrix)
-matrix: Array<Array<Integer>> = [
+matrix: Integer[][] = [
   [1, 2, 3],
   [4, 5, 6],
   [7, 8, 9]
 ]
 
 # Accessing nested elements
-first_row: Array<Integer> = matrix[0]      # [1, 2, 3]
-element: Integer | nil = matrix[1][2]      # 6
+first_row: Integer[] = matrix[0]      # [1, 2, 3]
+element: Integer? = matrix[1][2]      # 6
 
 # Three-dimensional array
-cube: Array<Array<Array<Integer>>> = [
+cube: Integer[][][] = [
   [[1, 2], [3, 4]],
   [[5, 6], [7, 8]]
 ]
 
 # Flatten nested arrays
-nested: Array<Array<Integer>> = [[1, 2], [3, 4], [5, 6]]
-flat: Array<Integer> = nested.flatten
+nested: Integer[][] = [[1, 2], [3, 4], [5, 6]]
+flat: Integer[] = nested.flatten
 # Result: [1, 2, 3, 4, 5, 6]
 ```
 
@@ -226,8 +226,8 @@ has_alice: Boolean = ages.key?("Alice")      # true
 has_bob: Boolean = ages.key?("Bob")          # false (deleted)
 
 # Getting keys and values
-keys: Array<String> = ages.keys           # ["Alice", "Charlie"]
-values: Array<Integer> = ages.values      # [31, 35]
+keys: String[] = ages.keys           # ["Alice", "Charlie"]
+values: Integer[] = ages.values      # [31, 35]
 ```
 
 ### Hash Iteration
@@ -245,7 +245,7 @@ scores.each do |name, score|
 end
 
 # Map to arrays
-name_score_pairs: Array<String> = scores.map { |name, score|
+name_score_pairs: String[] = scores.map { |name, score|
   "#{name} scored #{score}"
 }
 
@@ -262,7 +262,7 @@ doubled: Hash<String, Integer> = scores.transform_values { |score| score * 2 }
 
 ```trb
 # Hash with array values
-tags: Hash<String, Array<String>> = {
+tags: Hash<String, String[]> = {
   "ruby" => ["programming", "language"],
   "rails" => ["framework", "web"],
   "postgres" => ["database", "sql"]
@@ -326,7 +326,7 @@ intersection: Set<Integer> = set1 & set2    # {3, 4}
 difference: Set<Integer> = set1 - set2      # {1, 2}
 
 # Convert to array
-array: Array<Integer> = numbers.to_a
+array: Integer[] = numbers.to_a
 ```
 
 ## Range\<T\>
@@ -342,7 +342,7 @@ one_to_nine: Range<Integer> = 1...10    # Exclusive: 1, 2, ..., 9
 includes_five: Boolean = one_to_ten.include?(5)  # true
 
 # Convert to array
-numbers: Array<Integer> = (1..5).to_a   # [1, 2, 3, 4, 5]
+numbers: Integer[] = (1..5).to_a   # [1, 2, 3, 4, 5]
 
 # Iterate over range
 (1..5).each do |i|
@@ -351,7 +351,7 @@ end
 
 # Character ranges
 alphabet: Range<String> = 'a'..'z'
-letters: Array<String> = ('a'..'e').to_a  # ["a", "b", "c", "d", "e"]
+letters: String[] = ('a'..'e').to_a  # ["a", "b", "c", "d", "e"]
 ```
 
 ## Enumerator\<T\>
@@ -366,7 +366,7 @@ enum: Enumerator<Integer> = numbers.each
 # Lazy evaluation
 large_range: Enumerator<Integer> = (1..1_000_000).lazy
 squares: Enumerator<Integer> = large_range.map { |n| n * n }
-first_five_squares: Array<Integer> = squares.first(5)
+first_five_squares: Integer[] = squares.first(5)
 # Only computes first 5, not all 1 million
 
 # Chain operations lazily
@@ -403,7 +403,7 @@ end
 result = apply_twice(5, doubler)  # 20 (5 * 2 * 2)
 
 # Array of procs
-operations: Array<Proc<Integer, Integer>> = [
+operations: Proc<Integer, Integer>[] = [
   ->(x: Integer): Integer { x + 1 },
   ->(x: Integer): Integer { x * 2 },
   ->(x: Integer): Integer { x - 3 }
@@ -427,19 +427,19 @@ name: String? = "Alice"
 age: Integer? = nil
 
 # Working with optional arrays
-numbers: Array<Integer>? = [1, 2, 3]
+numbers: Integer[]? = [1, 2, 3]
 numbers = nil
 
 # Array of optional elements
-numbers: Array<Integer | nil> = [1, nil, 3, nil, 5]
-numbers: Array<Integer?> = [1, nil, 3, nil, 5]  # Same as above
+numbers: (Integer | nil)[] = [1, nil, 3, nil, 5]
+numbers: Integer?[] = [1, nil, 3, nil, 5]  # Same as above
 
 # Optional hash
 config: Hash<String, String>? = { "key" => "value" }
 config = nil
 
 # Hash with optional values
-settings: Hash<String, String | nil> = {
+settings: Hash<String, String?> = {
   "name" => "MyApp",
   "description" => nil
 }
@@ -451,25 +451,25 @@ Generic types can be combined in powerful ways:
 
 ```trb
 # Array of hashes
-users: Array<Hash<Symbol, String | Integer>> = [
+users: Hash<Symbol, String | Integer>[] = [
   { name: "Alice", age: 30 },
   { name: "Bob", age: 25 }
 ]
 
 # Hash of arrays
-tags_by_category: Hash<String, Array<String>> = {
+tags_by_category: Hash<String, String[]> = {
   "colors" => ["red", "blue", "green"],
   "sizes" => ["small", "medium", "large"]
 }
 
 # Array of arrays (matrix)
-matrix: Array<Array<Integer>> = [
+matrix: Integer[][] = [
   [1, 2, 3],
   [4, 5, 6]
 ]
 
 # Hash with complex values
-cache: Hash<String, Array<Hash<Symbol, String>>> = {
+cache: Hash<String, Hash<Symbol, String>[]> = {
   "users" => [
     { id: "1", name: "Alice" },
     { id: "2", name: "Bob" }
@@ -477,7 +477,7 @@ cache: Hash<String, Array<Hash<Symbol, String>>> = {
 }
 
 # Optional array of optional values
-data: Array<Integer | nil>? = [1, nil, 3]
+data: Integer?[]? = [1, nil, 3]
 data = nil
 ```
 
@@ -487,13 +487,13 @@ Create readable aliases for complex generic types:
 
 ```trb
 # Simple aliases
-type StringArray = Array<String>
+type StringArray = String[]
 type IntHash = Hash<String, Integer>
 
 # Complex aliases
 type UserData = Hash<Symbol, String | Integer>
-type UserList = Array<UserData>
-type TagMap = Hash<String, Array<String>>
+type UserList = UserData[]
+type TagMap = Hash<String, String[]>
 
 # Using aliases
 users: UserList = [
@@ -523,18 +523,18 @@ T-Ruby's type system understands Ruby's built-in array and hash methods:
 
 ```trb
 # Array methods preserve types
-numbers: Array<Integer> = [1, 2, 3, 4, 5]
+numbers: Integer[] = [1, 2, 3, 4, 5]
 
-first_three: Array<Integer> = numbers.take(3)        # [1, 2, 3]
-last_two: Array<Integer> = numbers.drop(3)           # [4, 5]
-reversed: Array<Integer> = numbers.reverse           # [5, 4, 3, 2, 1]
-unique: Array<Integer> = [1, 2, 2, 3].uniq          # [1, 2, 3]
-sorted: Array<Integer> = [3, 1, 2].sort             # [1, 2, 3]
+first_three: Integer[] = numbers.take(3)        # [1, 2, 3]
+last_two: Integer[] = numbers.drop(3)           # [4, 5]
+reversed: Integer[] = numbers.reverse           # [5, 4, 3, 2, 1]
+unique: Integer[] = [1, 2, 2, 3].uniq          # [1, 2, 3]
+sorted: Integer[] = [3, 1, 2].sort             # [1, 2, 3]
 
 # Combining arrays
-combined: Array<Integer> = numbers + [6, 7, 8]      # [1, 2, 3, 4, 5, 6, 7, 8]
-intersection: Array<Integer> = [1, 2, 3] & [2, 3, 4]  # [2, 3]
-difference: Array<Integer> = [1, 2, 3] - [2, 3]       # [1]
+combined: Integer[] = numbers + [6, 7, 8]      # [1, 2, 3, 4, 5, 6, 7, 8]
+intersection: Integer[] = [1, 2, 3] & [2, 3, 4]  # [2, 3]
+difference: Integer[] = [1, 2, 3] - [2, 3]       # [1]
 
 # Hash methods
 hash: Hash<String, Integer> = { "a" => 1, "b" => 2 }
@@ -551,11 +551,11 @@ counts: Hash<String, Integer> = Hash.new(0)
 counts["a"] += 1  # Safe: default is 0
 
 # Hash with default block
-groups: Hash<String, Array<String>> = Hash.new { |h, k| h[k] = [] }
+groups: Hash<String, String[]> = Hash.new { |h, k| h[k] = [] }
 groups["colors"].push("red")  # Safe: creates array if missing
 
 # Array fetch with default
-numbers: Array<Integer> = [1, 2, 3]
+numbers: Integer[] = [1, 2, 3]
 value: Integer = numbers.fetch(10, 0)  # Returns 0 if index out of bounds
 
 # Hash fetch with default
@@ -569,11 +569,11 @@ port: String = config.fetch("port", "3000")  # Returns "3000" if key missing
 
 ```trb
 # Good: Specific types
-users: Array<User> = []
+users: User[] = []
 config: Hash<Symbol, String> = {}
 
 # Avoid: Using Any loses type safety
-data: Array<Any> = []  # No type checking
+data: Any[] = []  # No type checking
 ```
 
 ### 2. Use Type Aliases for Complex Types
@@ -581,14 +581,14 @@ data: Array<Any> = []  # No type checking
 ```trb
 # Good: Clear, reusable alias
 type UserMap = Hash<Integer, User>
-type ErrorList = Array<String>
+type ErrorList = String[]
 
 def process_users(users: UserMap): ErrorList
   # ...
 end
 
 # Less good: Repeated complex types
-def process_users(users: Hash<Integer, User>): Array<String>
+def process_users(users: Hash<Integer, User>): String[]
   # ...
 end
 ```
@@ -597,8 +597,8 @@ end
 
 ```trb
 # Good: Explicit nil handling
-users: Array<User> = []
-first_user: User | nil = users.first
+users: User[] = []
+first_user: User? = users.first
 
 if first_user
   puts first_user.name
@@ -617,7 +617,7 @@ end
 unique_tags: Set<String> = Set.new
 
 # Less efficient: Using Array for uniqueness
-unique_tags: Array<String> = []
+unique_tags: String[] = []
 unique_tags.push(tag) unless unique_tags.include?(tag)
 ```
 
@@ -626,7 +626,7 @@ unique_tags.push(tag) unless unique_tags.include?(tag)
 ### Safe Array Access
 
 ```trb
-def safe_get<T>(array: Array<T>, index: Integer, default: T): T
+def safe_get<T>(array: T[], index: Integer, default: T): T
   array.fetch(index, default)
 end
 
@@ -651,14 +651,14 @@ class Person
   end
 end
 
-people: Array<Person> = [
+people: Person[] = [
   Person.new("Alice", 30),
   Person.new("Bob", 25),
   Person.new("Charlie", 30)
 ]
 
 # Group by age
-by_age: Hash<Integer, Array<Person>> = people.group_by { |p| p.age }
+by_age: Hash<Integer, Person[]> = people.group_by { |p| p.age }
 # { 30 => [Alice, Charlie], 25 => [Bob] }
 ```
 

@@ -14,6 +14,37 @@ All notable changes to T-Ruby will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.0.43] - 2026-01-10
+
+### Added
+
+#### TypeScript-style Array Shorthand Syntax
+- **Array shorthand `T[]`** - Alternative syntax for `Array<T>`, inspired by TypeScript
+- **Nested arrays** - `Integer[][]` for `Array<Array<Integer>>`
+- **Nullable arrays** - `String[]?` for `(Array<String> | nil)`
+- **Arrays of nullable elements** - `String?[]` for `Array<String?>`
+- **Union type arrays** - `(String | Integer)[]` for `Array<(String | Integer)>`
+- **Full equivalence** - Both `String[]` and `Array<String>` produce identical IR and RBS output
+
+### Example
+
+```trb
+# Array shorthand syntax
+def process(items: String[]): Integer[][]
+  # items is Array<String>
+  # returns Array<Array<Integer>>
+end
+
+# Equivalent to
+def process(items: Array<String>): Array<Array<Integer>>
+end
+
+# Both generate same RBS:
+# def process: (items: Array[String]) -> Array[Array[Integer]]
+```
+
+---
+
 ## [0.0.39] - 2025-12-24
 
 ### Added
@@ -36,14 +67,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Example
 
 Before (explicit annotation required):
-```ruby
+```trb
 def greet(name: String): String
   "Hello, #{name}!"
 end
 ```
 
 After (inference works automatically):
-```ruby
+```trb
 def greet(name: String)
   "Hello, #{name}!"
 end
@@ -311,6 +342,7 @@ T-Ruby is released under the MIT License. See LICENSE file for details.
 
 | Version | Release Date | Status | Highlights |
 |---------|--------------|--------|------------|
+| [0.0.43](#0043---2026-01-10) | 2026-01-10 | Alpha | Array shorthand syntax `T[]` |
 | [0.0.39](#0039---2025-12-24) | 2025-12-24 | Alpha | TypeScript-style type inference |
 | [0.1.0-alpha](#010-alpha---2025-12-09) | 2025-12-09 | Alpha | Initial release, core features |
 | 0.2.0 | TBD | Planned | LSP, tuples, tooling |

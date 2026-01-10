@@ -13,22 +13,22 @@ Arrays and hashes are the most commonly used collection types in T-Ruby. They al
 
 ## Array Types
 
-Arrays in T-Ruby use generic type syntax: `Array<T>`, where `T` is the type of elements in the array.
+Arrays in T-Ruby use shorthand syntax: `T[]`, where `T` is the type of elements in the array. You can also use the generic syntax `Array<T>`.
 
 ### Basic Array Syntax
 
 ```trb title="array_basics.trb"
 # Array of integers
-numbers: Array<Integer> = [1, 2, 3, 4, 5]
+numbers: Integer[] = [1, 2, 3, 4, 5]
 
 # Array of strings
-names: Array<String> = ["Alice", "Bob", "Charlie"]
+names: String[] = ["Alice", "Bob", "Charlie"]
 
 # Array of floats
-prices: Array<Float> = [9.99, 14.99, 19.99]
+prices: Float[] = [9.99, 14.99, 19.99]
 
 # Empty array (type annotation required)
-items: Array<String> = []
+items: String[] = []
 ```
 
 ### Type Inference with Arrays
@@ -36,70 +36,70 @@ items: Array<String> = []
 When initializing with values, T-Ruby can infer the array type:
 
 ```trb title="array_inference.trb"
-# Type is inferred as Array<Integer>
+# Type is inferred as Integer[]
 numbers = [1, 2, 3, 4, 5]
 
-# Type is inferred as Array<String>
+# Type is inferred as String[]
 names = ["Alice", "Bob", "Charlie"]
 
 # For empty arrays, you must provide a type annotation
-items: Array<String> = []
+items: String[] = []
 ```
 
 ### Array Operations
 
 ```trb title="array_operations.trb"
-def add_item(items: Array<String>, item: String): Array<String>
+def add_item(items: String[], item: String): String[]
   items << item
   items
 end
 
-def get_first(items: Array<String>): String | nil
+def get_first(items: String[]): String?
   items.first
 end
 
-def get_last(items: Array<Integer>): Integer | nil
+def get_last(items: Integer[]): Integer?
   items.last
 end
 
-def array_length(items: Array<String>): Integer
+def array_length(items: String[]): Integer
   items.length
 end
 
 # Usage
-list: Array<String> = ["apple", "banana"]
+list: String[] = ["apple", "banana"]
 updated = add_item(list, "cherry")  # ["apple", "banana", "cherry"]
 
-first: String | nil = get_first(list)  # "apple"
+first: String? = get_first(list)  # "apple"
 count: Integer = array_length(list)  # 3
 ```
 
 ### Accessing Array Elements
 
 ```trb title="array_access.trb"
-def get_at_index(items: Array<String>, index: Integer): String | nil
+def get_at_index(items: String[], index: Integer): String?
   items[index]
 end
 
-def get_slice(items: Array<Integer>, start: Integer, length: Integer): Array<Integer>
+def get_slice(items: Integer[], start: Integer, length: Integer): Integer[]
   items[start, length]
 end
 
-def get_range(items: Array<String>, range: Range): Array<String>
+def get_range(items: String[], range: Range): String[]
   items[range]
 end
 
-fruits: Array<String> = ["apple", "banana", "cherry", "date"]
+fruits: String[] = ["apple", "banana", "cherry", "date"]
 
-item: String | nil = get_at_index(fruits, 0)  # "apple"
-slice: Array<Integer> = get_slice([1, 2, 3, 4, 5], 1, 3)  # [2, 3, 4]
-subset: Array<String> = get_range(fruits, 1..2)  # ["banana", "cherry"]
+item: String? = get_at_index(fruits, 0)  # "apple"
+slice: Integer[] = get_slice([1, 2, 3, 4, 5], 1, 3)  # [2, 3, 4]
+subset: String[] = get_range(fruits, 1..2)  # ["banana", "cherry"]
 ```
 
 ### Iterating Over Arrays
 
 ```trb title="array_iteration.trb"
-def sum_numbers(numbers: Array<Integer>): Integer
+def sum_numbers(numbers: Integer[]): Integer
   total = 0
   numbers.each do |n|
     total += n
@@ -107,47 +107,47 @@ def sum_numbers(numbers: Array<Integer>): Integer
   total
 end
 
-def double_values(numbers: Array<Integer>): Array<Integer>
+def double_values(numbers: Integer[]): Integer[]
   numbers.map { |n| n * 2 }
 end
 
-def filter_positive(numbers: Array<Integer>): Array<Integer>
+def filter_positive(numbers: Integer[]): Integer[]
   numbers.select { |n| n > 0 }
 end
 
-def find_first_even(numbers: Array<Integer>): Integer | nil
+def find_first_even(numbers: Integer[]): Integer?
   numbers.find { |n| n % 2 == 0 }
 end
 
 total: Integer = sum_numbers([1, 2, 3, 4, 5])  # 15
-doubled: Array<Integer> = double_values([1, 2, 3])  # [2, 4, 6]
-positive: Array<Integer> = filter_positive([-1, 2, -3, 4])  # [2, 4]
-even: Integer | nil = find_first_even([1, 3, 4, 5])  # 4
+doubled: Integer[] = double_values([1, 2, 3])  # [2, 4, 6]
+positive: Integer[] = filter_positive([-1, 2, -3, 4])  # [2, 4]
+even: Integer? = find_first_even([1, 3, 4, 5])  # 4
 ```
 
 ### Array Transformation Methods
 
 ```trb title="array_transform.trb"
-def join_strings(items: Array<String>, separator: String): String
+def join_strings(items: String[], separator: String): String
   items.join(separator)
 end
 
-def reverse_array(items: Array<Integer>): Array<Integer>
+def reverse_array(items: Integer[]): Integer[]
   items.reverse
 end
 
-def sort_numbers(numbers: Array<Integer>): Array<Integer>
+def sort_numbers(numbers: Integer[]): Integer[]
   numbers.sort
 end
 
-def unique_items(items: Array<String>): Array<String>
+def unique_items(items: String[]): String[]
   items.uniq
 end
 
 joined: String = join_strings(["a", "b", "c"], "-")  # "a-b-c"
-reversed: Array<Integer> = reverse_array([1, 2, 3])  # [3, 2, 1]
-sorted: Array<Integer> = sort_numbers([3, 1, 4, 2])  # [1, 2, 3, 4]
-unique: Array<String> = unique_items(["a", "b", "a", "c"])  # ["a", "b", "c"]
+reversed: Integer[] = reverse_array([1, 2, 3])  # [3, 2, 1]
+sorted: Integer[] = sort_numbers([3, 1, 4, 2])  # [1, 2, 3, 4]
+unique: String[] = unique_items(["a", "b", "a", "c"])  # ["a", "b", "c"]
 ```
 
 ### Nested Arrays
@@ -156,11 +156,11 @@ Arrays can contain other arrays:
 
 ```trb title="nested_arrays.trb"
 # 2D array (array of arrays)
-def create_grid(rows: Integer, cols: Integer): Array<Array<Integer>>
-  grid: Array<Array<Integer>> = []
+def create_grid(rows: Integer, cols: Integer): Integer[][]
+  grid: Integer[][] = []
 
   rows.times do |r|
-    row: Array<Integer> = []
+    row: Integer[] = []
     cols.times do |c|
       row << (r * cols + c)
     end
@@ -170,12 +170,12 @@ def create_grid(rows: Integer, cols: Integer): Array<Array<Integer>>
   grid
 end
 
-def get_cell(grid: Array<Array<Integer>>, row: Integer, col: Integer): Integer | nil
+def get_cell(grid: Integer[][], row: Integer, col: Integer): Integer?
   return nil if grid[row].nil?
   grid[row][col]
 end
 
-matrix: Array<Array<Integer>> = create_grid(3, 3)
+matrix: Integer[][] = create_grid(3, 3)
 # [[0, 1, 2], [3, 4, 5], [6, 7, 8]]
 
 value = get_cell(matrix, 1, 1)  # 4
@@ -269,11 +269,11 @@ def print_hash(hash: Hash<Symbol, String>)
   end
 end
 
-def get_keys(hash: Hash<String, Integer>): Array<String>
+def get_keys(hash: Hash<String, Integer>): String[]
   hash.keys
 end
 
-def get_values(hash: Hash<Symbol, Integer>): Array<Integer>
+def get_values(hash: Hash<Symbol, Integer>): Integer[]
   hash.values
 end
 
@@ -283,8 +283,8 @@ end
 
 scores: Hash<String, Integer> = { "alice" => 95, "bob" => 88 }
 
-keys: Array<String> = get_keys(scores)  # ["alice", "bob"]
-values: Array<Integer> = get_values({ a: 1, b: 2 })  # [1, 2]
+keys: String[] = get_keys(scores)  # ["alice", "bob"]
+values: Integer[] = get_values({ a: 1, b: 2 })  # [1, 2]
 
 doubled: Hash<Symbol, Integer> = transform_values({ a: 5, b: 10 })
 # { a: 10, b: 20 }
@@ -375,11 +375,11 @@ Collections can hold multiple types using union types:
 
 ```trb title="array_unions.trb"
 # Array that can contain strings or integers
-def create_mixed_array(): Array<String | Integer>
+def create_mixed_array(): (String | Integer)[]
   ["alice", 42, "bob", 100]
 end
 
-def sum_numbers_from_mixed(items: Array<String | Integer>): Integer
+def sum_numbers_from_mixed(items: (String | Integer)[]): Integer
   total = 0
 
   items.each do |item|
@@ -391,7 +391,7 @@ def sum_numbers_from_mixed(items: Array<String | Integer>): Integer
   total
 end
 
-mixed: Array<String | Integer> = create_mixed_array()
+mixed: (String | Integer)[] = create_mixed_array()
 sum: Integer = sum_numbers_from_mixed(mixed)  # 142
 ```
 
@@ -435,7 +435,7 @@ Here's a comprehensive example combining arrays and hashes:
 ```trb title="data_processing.trb"
 class DataProcessor
   def initialize()
-    @records: Array<Hash<Symbol, String | Integer>> = []
+    @records: Hash<Symbol, String | Integer>[] = []
   end
 
   def add_record(name: String, age: Integer, score: Integer)
@@ -447,8 +447,8 @@ class DataProcessor
     @records << record
   end
 
-  def get_all_names(): Array<String>
-    names: Array<String> = []
+  def get_all_names(): String[]
+    names: String[] = []
 
     @records.each do |record|
       name = record[:name]
@@ -475,8 +475,8 @@ class DataProcessor
     total.to_f / @records.length
   end
 
-  def get_top_scorers(threshold: Integer): Array<String>
-    top_scorers: Array<String> = []
+  def get_top_scorers(threshold: Integer): String[]
+    top_scorers: String[] = []
 
     @records.each do |record|
       score = record[:score]
@@ -490,8 +490,8 @@ class DataProcessor
     top_scorers
   end
 
-  def group_by_age(): Hash<Integer, Array<String>>
-    groups: Hash<Integer, Array<String>> = {}
+  def group_by_age(): Hash<Integer, String[]>
+    groups: Hash<Integer, String[]> = {}
 
     @records.each do |record|
       age = record[:age]
@@ -535,16 +535,16 @@ processor.add_record("Alice", 25, 95)
 processor.add_record("Bob", 30, 88)
 processor.add_record("Charlie", 25, 92)
 
-names: Array<String> = processor.get_all_names()
+names: String[] = processor.get_all_names()
 # ["Alice", "Bob", "Charlie"]
 
 avg: Float = processor.get_average_score()
 # 91.67
 
-top: Array<String> = processor.get_top_scorers(90)
+top: String[] = processor.get_top_scorers(90)
 # ["Alice", "Charlie"]
 
-by_age: Hash<Integer, Array<String>> = processor.group_by_age()
+by_age: Hash<Integer, String[]> = processor.group_by_age()
 # { 25 => ["Alice", "Charlie"], 30 => ["Bob"] }
 
 stats: Hash<Symbol, Float | Integer> = processor.get_statistics()
@@ -556,8 +556,8 @@ stats: Hash<Symbol, Float | Integer> = processor.get_statistics()
 ### Building Arrays Dynamically
 
 ```trb title="array_building.trb"
-def build_range(start: Integer, stop: Integer): Array<Integer>
-  result: Array<Integer> = []
+def build_range(start: Integer, stop: Integer): Integer[]
+  result: Integer[] = []
 
   i = start
   while i <= stop
@@ -569,10 +569,10 @@ def build_range(start: Integer, stop: Integer): Array<Integer>
 end
 
 def filter_and_transform(
-  numbers: Array<Integer>,
+  numbers: Integer[],
   threshold: Integer
-): Array<String>
-  result: Array<String> = []
+): String[]
+  result: String[] = []
 
   numbers.each do |n|
     if n > threshold
@@ -583,15 +583,15 @@ def filter_and_transform(
   result
 end
 
-range: Array<Integer> = build_range(1, 5)  # [1, 2, 3, 4, 5]
-filtered: Array<String> = filter_and_transform([10, 5, 20, 3], 8)
+range: Integer[] = build_range(1, 5)  # [1, 2, 3, 4, 5]
+filtered: String[] = filter_and_transform([10, 5, 20, 3], 8)
 # ["High: 10", "High: 20"]
 ```
 
 ### Building Hashes Dynamically
 
 ```trb title="hash_building.trb"
-def count_occurrences(words: Array<String>): Hash<String, Integer>
+def count_occurrences(words: String[]): Hash<String, Integer>
   counts: Hash<String, Integer> = {}
 
   words.each do |word|
@@ -607,7 +607,7 @@ def count_occurrences(words: Array<String>): Hash<String, Integer>
 end
 
 def index_by_property(
-  items: Array<Hash<Symbol, String>>,
+  items: Hash<Symbol, String>[],
   key: Symbol
 ): Hash<String, Hash<Symbol, String>>
   index: Hash<String, Hash<Symbol, String>> = {}
@@ -622,7 +622,7 @@ def index_by_property(
   index
 end
 
-words: Array<String> = ["apple", "banana", "apple", "cherry", "banana", "apple"]
+words: String[] = ["apple", "banana", "apple", "cherry", "banana", "apple"]
 counts: Hash<String, Integer> = count_occurrences(words)
 # { "apple" => 3, "banana" => 2, "cherry" => 1 }
 ```
@@ -636,31 +636,31 @@ counts: Hash<String, Integer> = count_occurrences(words)
 # items = []  # Error!
 
 # Always annotate empty collections
-items: Array<String> = []
+items: String[] = []
 config: Hash<Symbol, Integer> = {}
 ```
 
 ### Mutating Collections
 
 ```trb title="mutation.trb"
-def add_item_wrong(items: Array<String>): Array<String>
+def add_item_wrong(items: String[]): String[]
   # This mutates the original array
   items << "new"
   items
 end
 
-def add_item_safe(items: Array<String>): Array<String>
+def add_item_safe(items: String[]): String[]
   # Create a copy first
   new_items = items.dup
   new_items << "new"
   new_items
 end
 
-original: Array<String> = ["a", "b"]
+original: String[] = ["a", "b"]
 result1 = add_item_wrong(original)
 # original is now ["a", "b", "new"]!
 
-original2: Array<String> = ["a", "b"]
+original2: String[] = ["a", "b"]
 result2 = add_item_safe(original2)
 # original2 is still ["a", "b"]
 ```
@@ -685,11 +685,12 @@ end
 
 Arrays and Hashes are essential collection types in T-Ruby:
 
-- **Arrays** use `Array<T>` syntax for homogeneous collections
+- **Arrays** use `T[]` syntax (shorthand) or `Array<T>` for homogeneous collections
 - **Hashes** use `Hash<K, V>` syntax for key-value pairs
 - **Type inference** works for non-empty collections
 - **Empty collections** always require type annotations
-- **Union types** allow mixed-type collections
+- **Union types** allow mixed-type collections: `(String | Integer)[]`
+- **Nested arrays** use multiple brackets: `Integer[][]`
 - **Nested structures** combine arrays and hashes for complex data
 
 Understanding these collection types is crucial for organizing data in T-Ruby applications. In the next chapter, you'll learn about union types in more detail.
