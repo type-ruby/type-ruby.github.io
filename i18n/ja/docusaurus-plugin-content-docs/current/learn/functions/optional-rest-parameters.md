@@ -68,15 +68,15 @@ send_email("bob@example.com", "Meeting", "team@example.com")
 残余パラメータは複数の引数を配列に収集します。配列の要素型を指定します：
 
 ```trb title="rest.trb"
-def sum(*numbers: Array<Integer>): Integer
+def sum(*numbers: Integer[]): Integer
   numbers.reduce(0, :+)
 end
 
-def concat_strings(*strings: Array<String>): String
+def concat_strings(*strings: String[]): String
   strings.join(" ")
 end
 
-def log_messages(level: String, *messages: Array<String>): void
+def log_messages(level: String, *messages: String[]): void
   messages.each do |msg|
     puts "[#{level}] #{msg}"
   end
@@ -96,7 +96,7 @@ log_messages("INFO", "App started", "Database connected", "Ready")
 # [INFO] Ready
 ```
 
-型アノテーション `*numbers: Array<Integer>` は「配列に収集される0個以上のInteger引数」を意味します。
+型アノテーション `*numbers: Integer[]` は「配列に収集される0個以上のInteger引数」を意味します。
 
 ## オプショナルパラメータと残余パラメータの組み合わせ
 
@@ -107,7 +107,7 @@ def create_team(
   name: String,
   leader: String,
   active: Boolean = true,
-  *members: Array<String>
+  *members: String[]
 ): Team
   Team.new(
     name: name,
@@ -155,7 +155,7 @@ def create_post({
   title: String,
   content: String,
   published: Boolean = false,
-  tags: Array<String> = []
+  tags: String[] = []
 }): Post
   Post.new(
     title: title,
@@ -292,7 +292,7 @@ user2 = register_user(
 def complex_function(
   required_pos: String,                    # 1. 必須位置
   optional_pos: Integer = 0,               # 2. オプショナル位置
-  *rest_args: Array<String>,               # 3. 残余パラメータ
+  *rest_args: String[],               # 3. 残余パラメータ
   {
     required_kw: Boolean,                  # 4. 必須キーワード
     optional_kw: String = "default"        # 5. オプショナルキーワード
@@ -339,7 +339,7 @@ class HTTPRequestBuilder
   end
 
   # 必須 + 残余パラメータ
-  def delete(*urls: Array<String>): Array<Response>
+  def delete(*urls: String[]): Response[]
     urls.map { |url| make_request("DELETE", url, nil, {}) }
   end
 
@@ -429,7 +429,7 @@ class Logger
   end
 
   # 残余パラメータで複数メッセージ
-  def log_many(level: String, *messages: Array<String>): void
+  def log_many(level: String, *messages: String[]): void
     messages.each { |msg| log(msg, level) }
   end
 
@@ -440,7 +440,7 @@ class Logger
   end
 
   # 柔軟なデバッグロギング
-  def debug(*messages: Array<String>, **context: Hash<Symbol, String | Integer>): void
+  def debug(*messages: String[], **context: Hash<Symbol, String | Integer>): void
     messages.each do |msg|
       ctx_str = context.empty? ? "" : " (#{context.map { |k, v| "#{k}=#{v}" }.join(", ")})"
       puts "[DEBUG] #{msg}#{ctx_str}"
@@ -500,8 +500,8 @@ def build_email({
   subject: String,
   from: String = "noreply@example.com",
   reply_to: String? = nil,
-  cc: Array<String> = [],
-  bcc: Array<String> = []
+  cc: String[] = [],
+  bcc: String[] = []
 }): Email
   Email.new(to, subject, from, reply_to, cc, bcc)
 end
@@ -513,7 +513,7 @@ email = build_email(to: "alice@example.com", subject: "Hello")
 ### 可変ファクトリ関数（残余 + キーワード引数）
 
 ```trb title="factory.trb"
-def create_users(*names: Array<String>, { role: String = "user" }): Array<User>
+def create_users(*names: String[], { role: String = "user" }): User[]
   names.map { |name| User.new(name: name, role: role) }
 end
 
@@ -542,7 +542,7 @@ config = merge_config(
 |------|------|----------|
 | `(x: Type)` | 位置引数 | `foo("hi")` |
 | `(x: Type = default)` | オプショナル位置引数 | `foo()` または `foo("hi")` |
-| `(*args: Array<Type>)` | 残余パラメータ | `foo("a", "b", "c")` |
+| `(*args: Type[])` | 残余パラメータ | `foo("a", "b", "c")` |
 | `({ x: Type })` | キーワード引数 | `foo(x: "hi")` |
 | `(config: { x: Type })` | Hashリテラル | `foo(config: { x: "hi" })` |
 | `(**kwargs: Hash<Symbol, Type>)` | キーワード残余 | `foo(a: 1, b: 2)` |

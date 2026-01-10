@@ -68,15 +68,15 @@ send_email("bob@example.com", "Meeting", "team@example.com")
 Rest parameters collect multiple arguments into an array. Type the array's element type:
 
 ```trb title="rest.trb"
-def sum(*numbers: Array<Integer>): Integer
+def sum(*numbers: Integer[]): Integer
   numbers.reduce(0, :+)
 end
 
-def concat_strings(*strings: Array<String>): String
+def concat_strings(*strings: String[]): String
   strings.join(" ")
 end
 
-def log_messages(level: String, *messages: Array<String>): void
+def log_messages(level: String, *messages: String[]): void
   messages.each do |msg|
     puts "[#{level}] #{msg}"
   end
@@ -96,7 +96,7 @@ log_messages("INFO", "App started", "Database connected", "Ready")
 # [INFO] Ready
 ```
 
-The type annotation `*numbers: Array<Integer>` means "zero or more Integer arguments collected into an array".
+The type annotation `*numbers: Integer[]` means "zero or more Integer arguments collected into an array".
 
 ## Combining Optional and Rest Parameters
 
@@ -107,7 +107,7 @@ def create_team(
   name: String,
   leader: String,
   active: Boolean = true,
-  *members: Array<String>
+  *members: String[]
 ): Team
   Team.new(
     name: name,
@@ -155,7 +155,7 @@ def create_post({
   title: String,
   content: String,
   published: Boolean = false,
-  tags: Array<String> = []
+  tags: String[] = []
 }): Post
   Post.new(
     title: title,
@@ -188,7 +188,7 @@ interface PostOptions
   title: String
   content: String
   published?: Boolean    # ? marks optional
-  tags?: Array<String>
+  tags?: String[]
 end
 
 def create_post({ title:, content:, published: false, tags: [] }: PostOptions): Post
@@ -292,7 +292,7 @@ You can combine all parameter types, but they must follow this order:
 def complex_function(
   required_pos: String,                    # 1. Required positional
   optional_pos: Integer = 0,               # 2. Optional positional
-  *rest_args: Array<String>,               # 3. Rest parameter
+  *rest_args: String[],                    # 3. Rest parameter
   {
     required_kw: Boolean,                  # 4. Required keyword
     optional_kw: String = "default"        # 5. Optional keyword
@@ -339,7 +339,7 @@ class HTTPRequestBuilder
   end
 
   # Required + rest parameters
-  def delete(*urls: Array<String>): Array<Response>
+  def delete(*urls: String[]): Response[]
     urls.map { |url| make_request("DELETE", url, nil, {}) }
   end
 
@@ -429,7 +429,7 @@ class Logger
   end
 
   # Multiple messages with rest parameter
-  def log_many(level: String, *messages: Array<String>): void
+  def log_many(level: String, *messages: String[]): void
     messages.each { |msg| log(msg, level) }
   end
 
@@ -440,7 +440,7 @@ class Logger
   end
 
   # Flexible debug logging
-  def debug(*messages: Array<String>, **context: Hash<Symbol, String | Integer>): void
+  def debug(*messages: String[], **context: Hash<Symbol, String | Integer>): void
     messages.each do |msg|
       ctx_str = context.empty? ? "" : " (#{context.map { |k, v| "#{k}=#{v}" }.join(", ")})"
       puts "[DEBUG] #{msg}#{ctx_str}"
@@ -500,8 +500,8 @@ def build_email({
   subject: String,
   from: String = "noreply@example.com",
   reply_to: String? = nil,
-  cc: Array<String> = [],
-  bcc: Array<String> = []
+  cc: String[] = [],
+  bcc: String[] = []
 }): Email
   Email.new(to, subject, from, reply_to, cc, bcc)
 end
@@ -513,7 +513,7 @@ email = build_email(to: "alice@example.com", subject: "Hello")
 ### Variadic Factory Functions (Rest + Keyword Arguments)
 
 ```trb title="factory.trb"
-def create_users(*names: Array<String>, { role: String = "user" }): Array<User>
+def create_users(*names: String[], { role: String = "user" }): User[]
   names.map { |name| User.new(name: name, role: role) }
 end
 
@@ -542,7 +542,7 @@ Optional and rest parameters give your functions flexibility while maintaining t
 |--------|-------------|--------------|
 | `(x: Type)` | Positional argument | `foo("hi")` |
 | `(x: Type = default)` | Optional positional | `foo()` or `foo("hi")` |
-| `(*args: Array<Type>)` | Rest parameter | `foo("a", "b", "c")` |
+| `(*args: Type[])` | Rest parameter | `foo("a", "b", "c")` |
 | `({ x: Type })` | Keyword argument | `foo(x: "hi")` |
 | `(config: { x: Type })` | Hash literal | `foo(config: { x: "hi" })` |
 | `(**kwargs: Hash<Symbol, Type>)` | Keyword rest | `foo(a: 1, b: 2)` |

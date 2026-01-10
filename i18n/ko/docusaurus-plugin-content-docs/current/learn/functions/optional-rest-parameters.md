@@ -74,15 +74,15 @@ send_email("bob@example.com", "Meeting", "team@example.com")
 <ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/functions/optional_rest_parameters_spec.rb" line={47} />
 
 ```trb title="rest.trb"
-def sum(*numbers: Array<Integer>): Integer
+def sum(*numbers: Integer[]): Integer
   numbers.reduce(0, :+)
 end
 
-def concat_strings(*strings: Array<String>): String
+def concat_strings(*strings: String[]): String
   strings.join(" ")
 end
 
-def log_messages(level: String, *messages: Array<String>): void
+def log_messages(level: String, *messages: String[]): void
   messages.each do |msg|
     puts "[#{level}] #{msg}"
   end
@@ -102,7 +102,7 @@ log_messages("INFO", "App started", "Database connected", "Ready")
 # [INFO] Ready
 ```
 
-타입 어노테이션 `*numbers: Array<Integer>`는 "배열로 수집되는 0개 이상의 Integer 인수"를 의미합니다.
+타입 어노테이션 `*numbers: Integer[]`는 "배열로 수집되는 0개 이상의 Integer 인수"를 의미합니다.
 
 ## 선택적 매개변수와 나머지 매개변수 조합
 
@@ -115,7 +115,7 @@ def create_team(
   name: String,
   leader: String,
   active: Boolean = true,
-  *members: Array<String>
+  *members: String[]
 ): Team
   Team.new(
     name: name,
@@ -166,7 +166,7 @@ def create_post({
   title: String,
   content: String,
   published: Boolean = false,
-  tags: Array<String> = []
+  tags: String[] = []
 }): Post
   Post.new(
     title: title,
@@ -311,7 +311,7 @@ user2 = register_user(
 def complex_function(
   required_pos: String,                    # 1. 필수 위치
   optional_pos: Integer = 0,               # 2. 선택적 위치
-  *rest_args: Array<String>,               # 3. 나머지 매개변수
+  *rest_args: String[],               # 3. 나머지 매개변수
   {
     required_kw: Boolean,                  # 4. 필수 키워드
     optional_kw: String = "default"        # 5. 선택적 키워드
@@ -361,7 +361,7 @@ class HTTPRequestBuilder
   end
 
   # 나머지 매개변수
-  def delete(*urls: Array<String>): Array<Response>
+  def delete(*urls: String[]): Response[]
     urls.map { |url| make_request("DELETE", url, nil, {}) }
   end
 
@@ -454,7 +454,7 @@ class Logger
   end
 
   # 나머지 매개변수로 여러 메시지
-  def log_many(level: String, *messages: Array<String>): void
+  def log_many(level: String, *messages: String[]): void
     messages.each { |msg| log(msg, level) }
   end
 
@@ -465,7 +465,7 @@ class Logger
   end
 
   # 나머지 매개변수 + 키워드 나머지
-  def debug(*messages: Array<String>, **context: Hash<Symbol, String | Integer>): void
+  def debug(*messages: String[], **context: Hash<Symbol, String | Integer>): void
     messages.each do |msg|
       ctx_str = context.empty? ? "" : " (#{context.map { |k, v| "#{k}=#{v}" }.join(", ")})"
       puts "[DEBUG] #{msg}#{ctx_str}"
@@ -528,8 +528,8 @@ def build_email({
   subject: String,
   from: String = "noreply@example.com",
   reply_to: String? = nil,
-  cc: Array<String> = [],
-  bcc: Array<String> = []
+  cc: String[] = [],
+  bcc: String[] = []
 }): Email
   Email.new(to, subject, from, reply_to, cc, bcc)
 end
@@ -544,7 +544,7 @@ email = build_email(to: "alice@example.com", subject: "Hello")
 {/* <ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/functions/optional_rest_parameters_spec.rb" line={146} /> */}
 
 ```trb title="factory.trb"
-def create_users(*names: Array<String>, { role: String = "user" }): Array<User>
+def create_users(*names: String[], { role: String = "user" }): User[]
   names.map { |name| User.new(name: name, role: role) }
 end
 
@@ -576,7 +576,7 @@ config = merge_config(
 |------|------|----------|
 | `(x: Type)` | 위치 인수 | `foo("hi")` |
 | `(x: Type = default)` | 선택적 위치 인수 | `foo()` 또는 `foo("hi")` |
-| `(*args: Array<Type>)` | 나머지 매개변수 | `foo("a", "b", "c")` |
+| `(*args: Type[])` | 나머지 매개변수 | `foo("a", "b", "c")` |
 | `({ x: Type })` | 키워드 인수 | `foo(x: "hi")` |
 | `(config: { x: Type })` | Hash 리터럴 | `foo(config: { x: "hi" })` |
 | `(**kwargs: Hash<Symbol, Type>)` | 키워드 나머지 | `foo(a: 1, b: 2)` |

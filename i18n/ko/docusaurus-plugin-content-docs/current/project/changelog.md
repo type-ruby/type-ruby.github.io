@@ -36,14 +36,14 @@ T-Ruby의 모든 주목할 만한 변경 사항은 이 파일에 문서화됩니
 ### 예제
 
 이전 (명시적 어노테이션 필요):
-```ruby
+```trb
 def greet(name: String): String
   "Hello, #{name}!"
 end
 ```
 
 이후 (추론이 자동으로 동작):
-```ruby
+```trb
 def greet(name: String)
   "Hello, #{name}!"
 end

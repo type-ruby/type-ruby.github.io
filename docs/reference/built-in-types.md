@@ -31,7 +31,7 @@ TEXT
 - `upcase: String` - Converts to uppercase
 - `downcase: String` - Converts to lowercase
 - `strip: String` - Removes leading/trailing whitespace
-- `split(delimiter: String): Array<String>` - Splits into array
+- `split(delimiter: String): String[]` - Splits into array
 - `include?(substring: String): Boolean` - Checks if contains substring
 - `empty?: Boolean` - Checks if string is empty
 
@@ -192,43 +192,43 @@ result = Builder.new.append("Hello").append(" ").append("World").build
 
 ## Collection Types
 
-### Array\<T\>
+### Array\<T\> (or T[])
 
-Represents an ordered collection of elements of type `T`.
+Represents an ordered collection of elements of type `T`. Use shorthand `T[]` or generic `Array<T>`.
 
 ```trb
 # Array of strings
-names: Array<String> = ["Alice", "Bob", "Charlie"]
+names: String[] = ["Alice", "Bob", "Charlie"]
 
 # Array of integers
-numbers: Array<Integer> = [1, 2, 3, 4, 5]
+numbers: Integer[] = [1, 2, 3, 4, 5]
 
 # Array of mixed types
-mixed: Array<String | Integer> = ["Alice", 1, "Bob", 2]
+mixed: (String | Integer)[] = ["Alice", 1, "Bob", 2]
 
 # Nested arrays
-matrix: Array<Array<Integer>> = [[1, 2], [3, 4]]
+matrix: Integer[][] = [[1, 2], [3, 4]]
 
 # Empty typed array
-items: Array<String> = []
+items: String[] = []
 ```
 
 **Common Methods:**
 - `length: Integer` - Returns array length
 - `size: Integer` - Alias for length
 - `empty?: Boolean` - Checks if empty
-- `first: T | nil` - Returns first element
-- `last: T | nil` - Returns last element
-- `push(item: T): Array<T>` - Adds element to end
-- `pop: T | nil` - Removes and returns last element
-- `shift: T | nil` - Removes and returns first element
-- `unshift(item: T): Array<T>` - Adds element to beginning
+- `first: T?` - Returns first element
+- `last: T?` - Returns last element
+- `push(item: T): T[]` - Adds element to end
+- `pop: T?` - Removes and returns last element
+- `shift: T?` - Removes and returns first element
+- `unshift(item: T): T[]` - Adds element to beginning
 - `include?(item: T): Boolean` - Checks if contains element
-- `map<U>(&block: Proc<T, U>): Array<U>` - Transforms elements
-- `select(&block: Proc<T, Boolean>): Array<T>` - Filters elements
+- `map<U>(&block: Proc<T, U>): U[]` - Transforms elements
+- `select(&block: Proc<T, Boolean>): T[]` - Filters elements
 - `each(&block: Proc<T, void>): void` - Iterates over elements
-- `reverse: Array<T>` - Returns reversed array
-- `sort: Array<T>` - Returns sorted array
+- `reverse: T[]` - Returns reversed array
+- `sort: T[]` - Returns sorted array
 - `join(separator: String): String` - Joins into string
 
 ### Hash\<K, V\>
@@ -260,8 +260,8 @@ cache: Hash<String, Any> = {}
 - `empty?: Boolean` - Checks if empty
 - `key?(key: K): Boolean` - Checks if key exists
 - `value?(value: V): Boolean` - Checks if value exists
-- `keys: Array<K>` - Returns array of keys
-- `values: Array<V>` - Returns array of values
+- `keys: K[]` - Returns array of keys
+- `values: V[]` - Returns array of values
 - `fetch(key: K): V` - Gets value (raises if not found)
 - `fetch(key: K, default: V): V` - Gets value with default
 - `merge(other: Hash<K, V>): Hash<K, V>` - Merges hashes
@@ -285,7 +285,7 @@ unique_ids: Set<Integer> = Set.new([1, 2, 3, 2, 1])  # {1, 2, 3}
 - `include?(item: T): Boolean` - Checks membership
 - `empty?: Boolean` - Checks if empty
 - `size: Integer` - Returns number of elements
-- `to_a: Array<T>` - Converts to array
+- `to_a: T[]` - Converts to array
 
 ### Range
 
@@ -372,15 +372,15 @@ type Lambda<Args..., Return> = Proc<Args..., Return>
 
 ```trb
 # Method accepting a block
-def each_item<T>(items: Array<T>, &block: Proc<T, void>): void
+def each_item<T>(items: T[], &block: Proc<T, void>): void
   items.each { |item| block.call(item) }
 end
 
 # Block with multiple parameters
 def map_with_index<T, U>(
-  items: Array<T>,
+  items: T[],
   &block: Proc<T, Integer, U>
-): Array<U>
+): U[]
   items.map.with_index { |item, index| block.call(item, index) }
 end
 ```
@@ -497,7 +497,7 @@ end
 Represents the result of a regular expression match.
 
 ```trb
-def extract_numbers(text: String): Array<String> | nil
+def extract_numbers(text: String): String[]?
   match: MatchData | nil = text.match(/\d+/)
   return nil if match.nil?
   match.to_a
@@ -551,7 +551,7 @@ Represents an enumerable object.
 enum: Enumerator<Integer> = [1, 2, 3].each
 range_enum: Enumerator<Integer> = (1..10).each
 
-def process<T>(enum: Enumerator<T>): Array<T>
+def process<T>(enum: Enumerator<T>): T[]
   enum.to_a
 end
 ```
@@ -592,7 +592,7 @@ end
 | `Boolean` | Primitive | True/false | `true` |
 | `Symbol` | Primitive | Identifiers | `:active` |
 | `nil` | Primitive | No value | `nil` |
-| `Array<T>` | Collection | Ordered list | `[1, 2, 3]` |
+| `T[]` / `Array<T>` | Collection | Ordered list | `[1, 2, 3]` |
 | `Hash<K, V>` | Collection | Key-value pairs | `{ "a" => 1 }` |
 | `Set<T>` | Collection | Unique items | `Set.new([1, 2])` |
 | `Range` | Collection | Value range | `1..10` |
@@ -666,7 +666,7 @@ value.class.name       # String
 ## Best Practices
 
 1. **Use specific types over Any** - `String | Integer` instead of `Any`
-2. **Leverage generics for collections** - `Array<String>` instead of `Array`
+2. **Leverage generics for collections** - `String[]` or `Array<String>` instead of `Array`
 3. **Use union types for optional values** - `String | nil` or `String?`
 4. **Choose appropriate collection types** - Use `Set` for uniqueness, `Hash` for lookups
 5. **Prefer `void` for side effects** - Clearly indicate functions that don't return values
