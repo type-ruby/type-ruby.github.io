@@ -1,1 +1,0 @@
-"use strict";(globalThis.webpackChunkt_ruby_docs=globalThis.webpackChunkt_ruby_docs||[]).push([[2130],{936:s=>{s.exports=JSON.parse('{"blogBasePath":"/news","blogTitle":"T-Ruby News","authorsListPath":"/news/authors"}')}}]);
