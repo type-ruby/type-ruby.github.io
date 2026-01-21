@@ -347,10 +347,8 @@ We're already working on v0.2.0 with:
 
 This is an experimental release. We'd love your feedback!
 
-- Report bugs on [GitHub Issues](https://github.com/t-ruby/t-ruby/issues)
-- Suggest features in [GitHub Discussions](https://github.com/t-ruby/t-ruby/discussions)
-- Join our [Discord community](https://discord.gg/t-ruby)
-- Follow [@t_ruby](https://twitter.com/t_ruby) for updates
+- Report bugs on [GitHub Issues](https://github.com/type-ruby/t-ruby/issues)
+- Suggest features in [GitHub Discussions](https://github.com/type-ruby/t-ruby/discussions)
 
 #### Contributors
 
@@ -439,15 +437,14 @@ Bleeding edge builds from `main` branch (not recommended).
 
 ## Stay Updated
 
-- Watch the [GitHub repository](https://github.com/t-ruby/t-ruby) for releases
-- Follow [@t_ruby](https://twitter.com/t_ruby) for announcements
-- Join [Discord](https://discord.gg/t-ruby) for discussions
-- Subscribe to the newsletter (coming soon)
+- Watch the [GitHub repository](https://github.com/type-ruby/t-ruby) for releases
+- Check the [News section](https://type-ruby.github.io/news) for announcements
+- Join [GitHub Discussions](https://github.com/type-ruby/t-ruby/discussions) for discussions
 
 ## Archive
 
 All releases are available on:
-- [GitHub Releases](https://github.com/t-ruby/t-ruby/releases)
+- [GitHub Releases](https://github.com/type-ruby/t-ruby/releases)
 - [RubyGems.org](https://rubygems.org/gems/t-ruby)
 
 ---

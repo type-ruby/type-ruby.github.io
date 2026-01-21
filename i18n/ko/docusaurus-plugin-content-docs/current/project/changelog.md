@@ -286,10 +286,8 @@ end
 
 이것은 실험적 릴리스입니다. 여러분의 피드백을 기다립니다!
 
-- [GitHub Issues](https://github.com/t-ruby/t-ruby/issues)에서 버그 보고
-- [GitHub Discussions](https://github.com/t-ruby/t-ruby/discussions)에서 기능 제안
-- [Discord 커뮤니티](https://discord.gg/t-ruby) 참여
-- 업데이트를 위해 [@t_ruby](https://twitter.com/t_ruby) 팔로우
+- [GitHub Issues](https://github.com/type-ruby/t-ruby/issues)에서 버그 보고
+- [GitHub Discussions](https://github.com/type-ruby/t-ruby/discussions)에서 기능 제안
 
 #### 기여자
 
@@ -374,15 +372,14 @@ T-Ruby는 [시맨틱 버저닝](https://semver.org/)을 따릅니다:
 
 ## 최신 정보 얻기
 
-- [GitHub 저장소](https://github.com/t-ruby/t-ruby)에서 릴리스 주시
-- 발표를 위해 [@t_ruby](https://twitter.com/t_ruby) 팔로우
-- 토론을 위해 [Discord](https://discord.gg/t-ruby) 참여
-- 뉴스레터 구독 (출시 예정)
+- [GitHub 저장소](https://github.com/type-ruby/t-ruby)에서 릴리스 주시
+- 발표를 위해 [뉴스 섹션](https://type-ruby.github.io/news) 확인
+- 토론을 위해 [GitHub Discussions](https://github.com/type-ruby/t-ruby/discussions) 참여
 
 ## 아카이브
 
 모든 릴리스는 다음에서 사용 가능합니다:
-- [GitHub Releases](https://github.com/t-ruby/t-ruby/releases)
+- [GitHub Releases](https://github.com/type-ruby/t-ruby/releases)
 - [RubyGems.org](https://rubygems.org/gems/t-ruby)
 
 ---

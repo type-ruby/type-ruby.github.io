@@ -564,8 +564,6 @@ PRをレビューする際：
 
 - **GitHub Discussions** - 一般的な質問、アイデア
 - **GitHub Issues** - バグ報告、機能リクエスト
-- **Discord** - コミュニティとのリアルタイムチャット
-- **Stack Overflow** - `t-ruby`タグで質問
 
 ### 良い質問に含めるもの
 
@@ -589,17 +587,16 @@ T-Rubyに貢献することで、あなたの貢献がMITライセンスの下�
 
 ## リソース
 
-- **GitHubリポジトリ** - https://github.com/t-ruby/t-ruby
-- **ドキュメント** - https://t-ruby.github.io
+- **GitHubリポジトリ** - https://github.com/type-ruby/t-ruby
+- **ドキュメント** - https://type-ruby.github.io
 - **スタイルガイド** - https://rubystyle.guide/
 - **RSpecガイド** - https://rspec.info/
 - **セマンティックバージョニング** - https://semver.org/
 
 ## 連絡先
 
-- **メール** - maintainers@t-ruby.org
-- **Twitter** - @t_ruby
-- **Discord** - [サーバーに参加](https://discord.gg/t-ruby)
+- **GitHub** - https://github.com/type-ruby/t-ruby
+- **Discussions** - https://github.com/type-ruby/t-ruby/discussions
 
 ---
 

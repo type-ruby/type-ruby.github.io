@@ -39,7 +39,8 @@ Found a bug? Please open an issue on GitHub with:
 - **Error messages** - Full error output if applicable
 
 **Example:**
-```markdown
+
+````markdown
 ## Bug: Type inference fails for array map
 
 **T-Ruby Version:** v0.1.0
@@ -57,7 +58,7 @@ strings = numbers.map { |n| n.to_s }
 
 ### Actual
 Type is inferred as `Any[]`
-```
+````
 
 ### 2. Suggest Features
 
@@ -564,8 +565,6 @@ We follow [Semantic Versioning](https://semver.org/):
 
 - **GitHub Discussions** - General questions, ideas
 - **GitHub Issues** - Bug reports, feature requests
-- **Discord** - Real-time chat with community
-- **Stack Overflow** - Tag questions with `t-ruby`
 
 ### Good Questions Include
 
@@ -589,17 +588,16 @@ By contributing to T-Ruby, you agree that your contributions will be licensed un
 
 ## Resources
 
-- **GitHub Repository** - https://github.com/t-ruby/t-ruby
-- **Documentation** - https://t-ruby.github.io
+- **GitHub Repository** - https://github.com/type-ruby/t-ruby
+- **Documentation** - https://type-ruby.github.io
 - **Style Guide** - https://rubystyle.guide/
 - **RSpec Guide** - https://rspec.info/
 - **Semantic Versioning** - https://semver.org/
 
 ## Contact
 
-- **Email** - maintainers@t-ruby.org
-- **Twitter** - @t_ruby
-- **Discord** - [Join our server](https://discord.gg/t-ruby)
+- **GitHub** - https://github.com/type-ruby/t-ruby
+- **Discussions** - https://github.com/type-ruby/t-ruby/discussions
 
 ---
 

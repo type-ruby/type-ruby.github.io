@@ -284,10 +284,8 @@ v0.2.0に向けて作業中：
 
 これは実験的なリリースです。フィードバックをお待ちしています！
 
-- [GitHub Issues](https://github.com/t-ruby/t-ruby/issues)でバグを報告
-- [GitHub Discussions](https://github.com/t-ruby/t-ruby/discussions)で機能を提案
-- [Discordコミュニティ](https://discord.gg/t-ruby)に参加
-- 更新のために[@t_ruby](https://twitter.com/t_ruby)をフォロー
+- [GitHub Issues](https://github.com/type-ruby/t-ruby/issues)でバグを報告
+- [GitHub Discussions](https://github.com/type-ruby/t-ruby/discussions)で機能を提案
 
 #### コントリビューター
 
@@ -372,15 +370,14 @@ T-Rubyは[セマンティックバージョニング](https://semver.org/)に従
 
 ## 最新情報を入手
 
-- [GitHubリポジトリ](https://github.com/t-ruby/t-ruby)でリリースをウォッチ
-- お知らせのために[@t_ruby](https://twitter.com/t_ruby)をフォロー
-- ディスカッションのために[Discord](https://discord.gg/t-ruby)に参加
-- ニュースレターを購読（近日公開）
+- [GitHubリポジトリ](https://github.com/type-ruby/t-ruby)でリリースをウォッチ
+- お知らせのために[ニュースセクション](https://type-ruby.github.io/news)をチェック
+- ディスカッションのために[GitHub Discussions](https://github.com/type-ruby/t-ruby/discussions)に参加
 
 ## アーカイブ
 
 すべてのリリースは以下で利用可能：
-- [GitHub Releases](https://github.com/t-ruby/t-ruby/releases)
+- [GitHub Releases](https://github.com/type-ruby/t-ruby/releases)
 - [RubyGems.org](https://rubygems.org/gems/t-ruby)
 
 ---

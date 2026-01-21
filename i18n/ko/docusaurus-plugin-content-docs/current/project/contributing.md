@@ -580,8 +580,6 @@ PR 리뷰 시:
 
 - **GitHub Discussions** - 일반적인 질문, 아이디어
 - **GitHub Issues** - 버그 보고, 기능 요청
-- **Discord** - 커뮤니티와 실시간 채팅
-- **Stack Overflow** - `t-ruby` 태그로 질문
 
 ### 좋은 질문에 포함할 것
 
@@ -605,17 +603,16 @@ T-Ruby에 기여함으로써, 귀하의 기여가 MIT 라이선스에 따라 라
 
 ## 리소스
 
-- **GitHub 저장소** - https://github.com/t-ruby/t-ruby
-- **문서** - https://t-ruby.github.io
+- **GitHub 저장소** - https://github.com/type-ruby/t-ruby
+- **문서** - https://type-ruby.github.io
 - **스타일 가이드** - https://rubystyle.guide/
 - **RSpec 가이드** - https://rspec.info/
 - **시맨틱 버저닝** - https://semver.org/
 
 ## 연락처
 
-- **이메일** - maintainers@t-ruby.org
-- **Twitter** - @t_ruby
-- **Discord** - [서버 참가](https://discord.gg/t-ruby)
+- **GitHub** - https://github.com/type-ruby/t-ruby
+- **Discussions** - https://github.com/type-ruby/t-ruby/discussions
 
 ---
 
