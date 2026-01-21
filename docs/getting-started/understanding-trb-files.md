@@ -134,7 +134,7 @@ Let's create a Calculator class:
 ```trb title="calculator.trb"
 class Calculator
   # Instance variable with type annotation
-  @history: Array<String>
+  @history: String[]
 
   def initialize: void
     @history = []
@@ -168,7 +168,7 @@ class Calculator
     result
   end
 
-  def history: Array<String>
+  def history: String[]
     @history.dup
   end
 
@@ -272,7 +272,7 @@ def find(id: Integer): User?  # Shorthand
 ### Block Parameters
 
 ```rbs
-def each_item(items: Array<String>, &block: (String) -> void): void
+def each_item(items: String[], &block: (String) -> void): void
   items.each(&block)
 end
 
@@ -314,7 +314,7 @@ Error: calculator.trb:2:15
 
 1. **Start with public APIs** - Type your public methods first
 2. **Use type aliases** - Make complex types readable
-3. **Prefer specific types** - `Array<String>` over `Array`
+3. **Prefer specific types** - `String[]` over `Array`
 4. **Document with types** - Types serve as documentation
 
 ## Next Steps

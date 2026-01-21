@@ -85,7 +85,7 @@ interface Printable
 end
 
 # T를 Printable을 구현하는 타입으로 제약
-def print_items<T: Printable>(items: Array<T>): void
+def print_items<T: Printable>(items: T[]): void
   items.each do |item|
     puts item.to_s  # 안전: T는 to_s가 있음을 보장
   end
@@ -132,7 +132,7 @@ interface Numeric
   def /(other: self): self
 end
 
-def average<T: Numeric>(numbers: Array<T>): T
+def average<T: Numeric>(numbers: T[]): T
   sum = numbers.reduce { |acc, n| acc + n }
   sum / numbers.length
 end
@@ -140,7 +140,7 @@ end
 # Enumerable 인터페이스
 interface Enumerable<T>
   def each(&block: Proc<T, void>): void
-  def map<U>(&block: Proc<T, U>): Array<U>
+  def map<U>(&block: Proc<T, U>): U[]
 end
 
 def count_items<T, C: Enumerable<T>>(collection: C): Integer
@@ -228,7 +228,7 @@ end
 
 # 모든 Vehicle 서브클래스와 작동하는 Repository
 class Repository<T: Vehicle>
-  @items: Array<T>
+  @items: T[]
 
   def initialize: void
     @items = []
@@ -242,7 +242,7 @@ class Repository<T: Vehicle>
     @items.find { |item| item.brand == brand }
   end
 
-  def all: Array<T>
+  def all: T[]
     @items.dup
   end
 end
@@ -331,7 +331,7 @@ user2 = find_user("alice")    # 사용자명 문자열로 찾기
 ```trb
 # 비교 가능한 항목으로만 작동하는 큐
 class PriorityQueue<T: Comparable>
-  @items: Array<T>
+  @items: T[]
 
   def initialize: void
     @items = []
@@ -388,7 +388,7 @@ interface Comparable
 end
 
 class SortedList<T: Comparable>
-  @items: Array<T>
+  @items: T[]
 
   def initialize: void
     @items = []
@@ -416,7 +416,7 @@ class SortedList<T: Comparable>
     @items.last
   end
 
-  def to_a: Array<T>
+  def to_a: T[]
     @items.dup
   end
 end
@@ -464,7 +464,7 @@ class Repository<T: Entity>
     @items[id]
   end
 
-  def all: Array<T>
+  def all: T[]
     @items.values
   end
 
@@ -513,7 +513,7 @@ product_repo = Repository<Product>.new
 product_repo.save(Product.new(1, "Laptop", 999.99))
 
 found_user = user_repo.find(1)  # User | nil
-all_products = product_repo.all  # Array<Product>
+all_products = product_repo.all  # Product[]
 ```
 
 ## 모범 사례
@@ -524,12 +524,12 @@ all_products = product_repo.all  # Array<Product>
 
 ```trb
 # 좋음: 필요한 것만 요구
-def print_all<T: Printable>(items: Array<T>): void
+def print_all<T: Printable>(items: T[]): void
   items.each { |item| puts item.to_s }
 end
 
 # 덜 좋음: 너무 제한적
-def print_all<T: User>(items: Array<T>): void
+def print_all<T: User>(items: T[]): void
   items.each { |item| puts item.to_s }
 end
 ```
@@ -549,7 +549,7 @@ interface Timestamped
   def updated_at: Time
 end
 
-def find_by_id<T: Identifiable>(items: Array<T>, id: Integer): T | nil
+def find_by_id<T: Identifiable>(items: T[], id: Integer): T | nil
   items.find { |item| item.id == id }
 end
 
@@ -571,9 +571,9 @@ end
 ```trb
 # 좋음: 명확한 문서화
 # 문자열로 변환할 수 있는 항목을 처리
-# @param items [Array<T>] 출력 가능한 항목의 배열
+# @param items [T[]] 출력 가능한 항목의 배열
 # @return [void]
-def log_items<T: Printable>(items: Array<T>): void
+def log_items<T: Printable>(items: T[]): void
   items.each { |item| puts item.to_s }
 end
 ```
@@ -589,7 +589,7 @@ interface Identifiable
   def id: Integer | String
 end
 
-def find_duplicates<T: Identifiable>(items: Array<T>): Array<T>
+def find_duplicates<T: Identifiable>(items: T[]): T[]
   seen = {}
   duplicates = []
 
@@ -612,7 +612,7 @@ end
 ```trb
 interface Validatable
   def valid?: Boolean
-  def errors: Array<String>
+  def errors: String[]
 end
 
 def save_if_valid<T: Validatable>(item: T): Boolean
@@ -635,7 +635,7 @@ interface Convertible<T>
   def convert: T
 end
 
-def batch_convert<S: Convertible<T>, T>(items: Array<S>): Array<T>
+def batch_convert<S: Convertible<T>, T>(items: S[]): T[]
   items.map { |item| item.convert }
 end
 ```

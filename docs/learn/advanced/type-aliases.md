@@ -37,7 +37,7 @@ def create_user(data: Hash<Symbol, String | Integer | Boolean>): Integer
 end
 
 # Hard to understand what this represents
-users: Array<Hash<Symbol, String | Integer | Boolean>> = []
+users: Hash<Symbol, String | Integer | Boolean>[] = []
 ```
 
 ### With Type Aliases
@@ -60,7 +60,7 @@ def create_user(data: UserData): Integer
 end
 
 # Clear what this represents
-users: Array<UserData> = []
+users: UserData[] = []
 ```
 
 ## Basic Type Aliases
@@ -261,10 +261,10 @@ type Quantity = Integer
 
 type Product = Hash<Symbol, ProductId | String | Price>
 type OrderItem = Hash<Symbol, ProductId | Quantity | Price>
-type Order = Hash<Symbol, OrderId | CustomerId | Array<OrderItem> | String>
+type Order = Hash<Symbol, OrderId | CustomerId | OrderItem[] | String>
 
 # Using domain types
-def create_order(customer_id: CustomerId, items: Array<OrderItem>): Order
+def create_order(customer_id: CustomerId, items: OrderItem[]): Order
   {
     id: generate_order_id(),
     customer_id: customer_id,
@@ -273,7 +273,7 @@ def create_order(customer_id: CustomerId, items: Array<OrderItem>): Order
   }
 end
 
-def calculate_total(items: Array<OrderItem>): Price
+def calculate_total(items: OrderItem[]): Price
   items.reduce(0.0) { |sum, item| sum + item[:price] * item[:quantity] }
 end
 ```
@@ -356,15 +356,15 @@ type Supplier<T> = Proc<T>
 type Comparator<T> = Proc<T, T, Integer>
 
 # Using function types
-def filter<T>(array: Array<T>, predicate: Predicate<T>): Array<T>
+def filter<T>(array: T[], predicate: Predicate<T>): T[]
   array.select { |item| predicate.call(item) }
 end
 
-def map<T, U>(array: Array<T>, mapper: Mapper<T, U>): Array<U>
+def map<T, U>(array: T[], mapper: Mapper<T, U>): U[]
   array.map { |item| mapper.call(item) }
 end
 
-def for_each<T>(array: Array<T>, consumer: Consumer<T>): void
+def for_each<T>(array: T[], consumer: Consumer<T>): void
   array.each { |item| consumer.call(item) }
 end
 
@@ -426,7 +426,7 @@ In the future, T-Ruby will support recursive type aliases for tree structures an
 # Tree structure
 type TreeNode<T> = {
   value: T,
-  children: Array<TreeNode<T>>
+  children: TreeNode<T>[]
 }
 
 # Linked list

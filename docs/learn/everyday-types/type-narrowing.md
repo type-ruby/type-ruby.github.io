@@ -95,11 +95,11 @@ len2: Integer = get_length(nil)  # 0
 The `empty?` method can narrow types for collections:
 
 ```trb title="empty_guard.trb"
-def process_array(items: Array<String> | nil): String
+def process_array(items: String[] | nil): String
   if items.nil? || items.empty?
     "No items"
   else
-    # items is a non-empty Array<String> here
+    # items is a non-empty String[] here
     "First item: #{items.first}"
   end
 end
@@ -246,9 +246,9 @@ def process_and(
   end
 end
 
-def safe_access(items: Array<String> | nil, index: Integer): String | nil
+def safe_access(items: String[] | nil, index: Integer): String | nil
   if !items.nil? && index < items.length
-    # items is Array<String> here
+    # items is String[] here
     items[index]
   else
     nil
@@ -319,10 +319,10 @@ end
 ### Array Methods
 
 ```trb title="array_method_narrowing.trb"
-def get_first_element(items: Array<String> | nil): String
+def get_first_element(items: String[] | nil): String
   return "No items" if items.nil? || items.empty?
 
-  # items is non-empty Array<String> here
+  # items is non-empty String[] here
   first: String = items.first
   first
 end
@@ -333,8 +333,8 @@ end
 Type narrowing works within blocks:
 
 ```trb title="block_narrowing.trb"
-def process_items(items: Array<String | nil>): Array<String>
-  result: Array<String> = []
+def process_items(items: (String | nil)[]): String[]
+  result: String[] = []
 
   items.each do |item|
     # item is String | nil here
@@ -347,7 +347,7 @@ def process_items(items: Array<String | nil>): Array<String>
   result
 end
 
-def filter_and_map(items: Array<String | Integer>): Array<String>
+def filter_and_map(items: (String | Integer)[]): String[]
   items.map do |item|
     if item.is_a?(String)
       # item is String here
@@ -434,8 +434,8 @@ class FormValidator
     name: String | nil,
     email: String | nil,
     age: Integer | String | nil
-  ): Hash<Symbol, Array<String>>
-    errors: Hash<Symbol, Array<String>> = {}
+  ): Hash<Symbol, String[]>
+    errors: Hash<Symbol, String[]> = {}
 
     # Validate name
     name_error = validate_field("Name", name, true)

@@ -128,7 +128,7 @@ class Calculator
     a + b
   end
 
-  def join(items: Array<String>): String
+  def join(items: String[]): String
     items.join(", ")
   end
 end
@@ -217,7 +217,7 @@ end
 - Type erasure (no runtime overhead)
 - Gradual typing support
 - Union types (`String | Integer`)
-- Generic types (`Array<T>`)
+- Generic types (`T[]`)
 - Interface definitions
 
 ### Differences

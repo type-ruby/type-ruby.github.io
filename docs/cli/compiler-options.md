@@ -39,7 +39,7 @@ In strict mode:
 
 ```trb
 # Strict mode requires full typing
-def process(data: Array<String>): Hash<String, Integer>
+def process(data: String[]): Hash<String, Integer>
   @count: Integer = 0
   result: Hash<String, Integer> = {}
   result
@@ -138,7 +138,7 @@ trc compile --no-unchecked-indexed-access src/
 
 ```trb
 # Error with --no-unchecked-indexed-access
-users: Array<User> = get_users()
+users: User[] = get_users()
 user = users[0]  # Error: might be nil
 
 # Must check first

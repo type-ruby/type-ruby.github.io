@@ -72,7 +72,7 @@ def transform(data, options = {})
 end
 
 # With types - crystal clear
-def transform(data: Array<Record>, options: TransformOptions?): TransformResult
+def transform(data: Record[], options: TransformOptions?): TransformResult
   # ...
 end
 ```
@@ -148,7 +148,7 @@ Types add some overhead. For very small scripts or quick prototypes, untyped Rub
 puts "Hello, #{ARGV[0]}!"
 
 # No need for:
-# def main(args: Array<String>): void
+# def main(args: String[]): void
 #   puts "Hello, #{args[0]}!"
 # end
 ```

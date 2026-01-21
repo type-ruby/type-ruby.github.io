@@ -21,20 +21,20 @@ description: 제네릭으로 재사용 가능한 코드 만들기
 
 ```trb
 # 제네릭 없이는 각 타입에 대해 별도의 함수가 필요
-def first_string(arr: Array<String>): String | nil
+def first_string(arr: String[]): String | nil
   arr[0]
 end
 
-def first_integer(arr: Array<Integer>): Integer | nil
+def first_integer(arr: Integer[]): Integer | nil
   arr[0]
 end
 
-def first_user(arr: Array<User>): User | nil
+def first_user(arr: User[]): User | nil
   arr[0]
 end
 
 # 또는 타입 안전성을 잃음
-def first(arr: Array<Any>): Any
+def first(arr: Any[]): Any
   arr[0]  # 반환 타입이 Any - 타입 안전성 없음!
 end
 ```
@@ -45,7 +45,7 @@ end
 
 ```trb
 # 모든 타입에 작동하는 하나의 함수
-def first<T>(arr: Array<T>): T | nil
+def first<T>(arr: T[]): T | nil
   arr[0]
 end
 
@@ -74,7 +74,7 @@ end
 # 모든 타입과 작동
 str = identity("hello")      # String
 num = identity(42)           # Integer
-arr = identity([1, 2, 3])    # Array<Integer>
+arr = identity([1, 2, 3])    # Integer[]
 ```
 
 ### 다중 타입 매개변수
@@ -103,26 +103,26 @@ mixed = pair("count", 42)          # Hash<String, Integer>
 
 ```trb
 # 배열의 마지막 요소 가져오기
-def last<T>(arr: Array<T>): T | nil
+def last<T>(arr: T[]): T | nil
   arr[-1]
 end
 
 # 배열 뒤집기
-def reverse<T>(arr: Array<T>): Array<T>
+def reverse<T>(arr: T[]): T[]
   arr.reverse
 end
 
 # 조건부로 배열 필터링
-def filter<T>(arr: Array<T>, &block: Proc<T, Boolean>): Array<T>
+def filter<T>(arr: T[], &block: Proc<T, Boolean>): T[]
   arr.select { |item| block.call(item) }
 end
 
 # 사용법
 numbers = [1, 2, 3, 4, 5]
-evens = filter(numbers) { |n| n.even? }  # Array<Integer>
+evens = filter(numbers) { |n| n.even? }  # Integer[]
 
 words = ["hello", "world", "foo", "bar"]
-long_words = filter(words) { |w| w.length > 3 }  # Array<String>
+long_words = filter(words) { |w| w.length > 3 }  # String[]
 ```
 
 ### 반환 타입 변환이 있는 제네릭 함수
@@ -133,17 +133,17 @@ long_words = filter(words) { |w| w.length > 3 }  # Array<String>
 
 ```trb
 # 타입 T를 타입 U로 변환하는 map 함수
-def map<T, U>(arr: Array<T>, &block: Proc<T, U>): Array<U>
+def map<T, U>(arr: T[], &block: Proc<T, U>): U[]
   arr.map { |item| block.call(item) }
 end
 
 # 정수를 문자열로 변환
 numbers = [1, 2, 3]
-strings = map(numbers) { |n| n.to_s }  # Array<String>
+strings = map(numbers) { |n| n.to_s }  # String[]
 
 # 문자열을 길이로 변환
 words = ["hello", "world"]
-lengths = map(words) { |w| w.length }  # Array<Integer>
+lengths = map(words) { |w| w.length }  # Integer[]
 ```
 
 ## 제네릭 클래스
@@ -223,7 +223,7 @@ container3 = Container<Boolean>.new(true)
 
 ```trb
 class Stack<T>
-  @items: Array<T>
+  @items: T[]
 
   def initialize: void
     @items = []
@@ -249,7 +249,7 @@ class Stack<T>
     @items.length
   end
 
-  def to_a: Array<T>
+  def to_a: T[]
     @items.dup
   end
 end
@@ -321,9 +321,9 @@ swapped = name_age.swap              # Pair<Integer, String>
 
 ```trb
 class Collection<T>
-  @items: Array<T>
+  @items: T[]
 
-  def initialize(items: Array<T> = []): void
+  def initialize(items: T[] = []): void
     @items = items.dup
   end
 
@@ -364,7 +364,7 @@ class Collection<T>
     @items.each { |item| block.call(item) }
   end
 
-  def to_a: Array<T>
+  def to_a: T[]
     @items.dup
   end
 
@@ -396,23 +396,23 @@ numbers.each { |n| puts n }
 ```trb
 class Utils
   # 비제네릭 클래스의 제네릭 메서드
-  def self.wrap<T>(value: T): Array<T>
+  def self.wrap<T>(value: T): T[]
     [value]
   end
 
-  def self.duplicate<T>(value: T, times: Integer): Array<T>
+  def self.duplicate<T>(value: T, times: Integer): T[]
     Array.new(times, value)
   end
 
-  def self.zip<T, U>(arr1: Array<T>, arr2: Array<U>): Array<Pair<T, U>>
+  def self.zip<T, U>(arr1: T[], arr2: U[]): Pair<T, U>[]
     arr1.zip(arr2).map { |t, u| Pair.new(t, u) }
   end
 end
 
 # 사용법
-wrapped = Utils.wrap(42)                    # Array<Integer>
-duplicates = Utils.duplicate("hello", 3)    # Array<String>
-zipped = Utils.zip([1, 2], ["a", "b"])      # Array<Pair<Integer, String>>
+wrapped = Utils.wrap(42)                    # Integer[]
+duplicates = Utils.duplicate("hello", 3)    # String[]
+zipped = Utils.zip([1, 2], ["a", "b"])      # Pair<Integer, String>[]
 ```
 
 ## 중첩 제네릭
@@ -424,7 +424,7 @@ zipped = Utils.zip([1, 2], ["a", "b"])      # Array<Pair<Integer, String>>
 ```trb
 # 각 키에 대해 값 배열을 저장하는 캐시
 class Cache<K, V>
-  @store: Hash<K, Array<V>>
+  @store: Hash<K, V[]>
 
   def initialize: void
     @store = {}
@@ -435,7 +435,7 @@ class Cache<K, V>
     @store[key].push(value)
   end
 
-  def get(key: K): Array<V>
+  def get(key: K): V[]
     @store[key] || []
   end
 
@@ -450,7 +450,7 @@ user_tags.add(1, "ruby")
 user_tags.add(1, "programming")
 user_tags.add(2, "design")
 
-tags = user_tags.get(1)  # Array<String> = ["ruby", "programming"]
+tags = user_tags.get(1)  # String[] = ["ruby", "programming"]
 ```
 
 ## 모범 사례
@@ -484,12 +484,12 @@ end
 
 ```trb
 # 좋음: 간단하고 집중된 제네릭 함수
-def head<T>(arr: Array<T>): T | nil
+def head<T>(arr: T[]): T | nil
   arr.first
 end
 
 # 덜 좋음: 너무 많은 책임
-def process<T>(arr: Array<T>, flag: Boolean, count: Integer): Array<T> | Hash<Integer, T>
+def process<T>(arr: T[], flag: Boolean, count: Integer): T[] | Hash<Integer, T>
   # 너무 복잡함, 제네릭 동작을 이해하기 어려움
 end
 ```

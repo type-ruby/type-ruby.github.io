@@ -297,7 +297,7 @@ end
 | `&` | Intersection | Both types | `Printable & Comparable` |
 | `?` | Optional | Shorthand for `\| nil` | `String?` |
 | `[]` | Array | Array shorthand | `String[]` |
-| `<T>` | Generic | Type parameter | `Array<T>` |
+| `<T>` | Generic | Type parameter | `T[]` |
 | `=>` | Hash pair | Key-value type | `Hash<String => Integer>` |
 
 ```trb
@@ -316,8 +316,8 @@ name: String?  # Same as String | nil
 items: String[]
 nested: Integer[][]
 
-# Generics (alternative)
-items: Array<String>
+# Generics
+items: String[]
 pairs: Hash<String, Integer>
 ```
 

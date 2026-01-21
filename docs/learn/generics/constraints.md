@@ -77,7 +77,7 @@ interface Printable
 end
 
 # Constrain T to types that implement Printable
-def print_items<T: Printable>(items: Array<T>): void
+def print_items<T: Printable>(items: T[]): void
   items.each do |item|
     puts item.to_s  # Safe: T is guaranteed to have to_s
   end
@@ -122,7 +122,7 @@ interface Numeric
   def /(other: self): self
 end
 
-def average<T: Numeric>(numbers: Array<T>): T
+def average<T: Numeric>(numbers: T[]): T
   sum = numbers.reduce { |acc, n| acc + n }
   sum / numbers.length
 end
@@ -130,7 +130,7 @@ end
 # Enumerable interface
 interface Enumerable<T>
   def each(&block: Proc<T, void>): void
-  def map<U>(&block: Proc<T, U>): Array<U>
+  def map<U>(&block: Proc<T, U>): U[]
 end
 
 def count_items<T, C: Enumerable<T>>(collection: C): Integer
@@ -214,7 +214,7 @@ end
 
 # Repository that works with any Vehicle subclass
 class Repository<T: Vehicle>
-  @items: Array<T>
+  @items: T[]
 
   def initialize: void
     @items = []
@@ -228,7 +228,7 @@ class Repository<T: Vehicle>
     @items.find { |item| item.brand == brand }
   end
 
-  def all: Array<T>
+  def all: T[]
     @items.dup
   end
 end
@@ -309,7 +309,7 @@ Generic classes can have constrained type parameters:
 ```trb
 # Queue that only works with comparable items
 class PriorityQueue<T: Comparable>
-  @items: Array<T>
+  @items: T[]
 
   def initialize: void
     @items = []
@@ -431,7 +431,7 @@ interface Comparable
 end
 
 class SortedList<T: Comparable>
-  @items: Array<T>
+  @items: T[]
 
   def initialize: void
     @items = []
@@ -459,7 +459,7 @@ class SortedList<T: Comparable>
     @items.last
   end
 
-  def to_a: Array<T>
+  def to_a: T[]
     @items.dup
   end
 end
@@ -505,7 +505,7 @@ class Repository<T: Entity>
     @items[id]
   end
 
-  def all: Array<T>
+  def all: T[]
     @items.values
   end
 
@@ -580,7 +580,7 @@ class QueryBuilder
   implements Buildable
 
   @table: String
-  @conditions: Array<String>
+  @conditions: String[]
 
   def initialize(table: String): void
     @table = table
@@ -621,7 +621,7 @@ puts query.to_sql
 T-Ruby can infer constrained types from usage:
 
 ```trb
-def sort_and_first<T: Comparable>(items: Array<T>): T | nil
+def sort_and_first<T: Comparable>(items: T[]): T | nil
   sorted = items.sort { |a, b| a <=> b }
   sorted.first
 end
@@ -641,12 +641,12 @@ first_word = sort_and_first(words)  # String | nil
 
 ```trb
 # Good: Only requires what's needed
-def print_all<T: Printable>(items: Array<T>): void
+def print_all<T: Printable>(items: T[]): void
   items.each { |item| puts item.to_s }
 end
 
 # Less good: Too restrictive
-def print_all<T: User>(items: Array<T>): void
+def print_all<T: User>(items: T[]): void
   items.each { |item| puts item.to_s }
 end
 ```
@@ -664,7 +664,7 @@ interface Timestamped
   def updated_at: Time
 end
 
-def find_by_id<T: Identifiable>(items: Array<T>, id: Integer): T | nil
+def find_by_id<T: Identifiable>(items: T[], id: Integer): T | nil
   items.find { |item| item.id == id }
 end
 
@@ -684,9 +684,9 @@ end
 ```trb
 # Good: Clear documentation
 # Processes items that can be converted to strings
-# @param items [Array<T>] Array of printable items
+# @param items [T[]] Array of printable items
 # @return [void]
-def log_items<T: Printable>(items: Array<T>): void
+def log_items<T: Printable>(items: T[]): void
   items.each { |item| puts item.to_s }
 end
 ```
@@ -700,7 +700,7 @@ interface Identifiable
   def id: Integer | String
 end
 
-def find_duplicates<T: Identifiable>(items: Array<T>): Array<T>
+def find_duplicates<T: Identifiable>(items: T[]): T[]
   seen = {}
   duplicates = []
 
@@ -721,7 +721,7 @@ end
 ```trb
 interface Validatable
   def valid?: Boolean
-  def errors: Array<String>
+  def errors: String[]
 end
 
 def save_if_valid<T: Validatable>(item: T): Boolean
@@ -742,7 +742,7 @@ interface Convertible<T>
   def convert: T
 end
 
-def batch_convert<S: Convertible<T>, T>(items: Array<S>): Array<T>
+def batch_convert<S: Convertible<T>, T>(items: S[]): T[]
   items.map { |item| item.convert }
 end
 ```
@@ -751,6 +751,6 @@ end
 
 Now that you understand constraints, explore:
 
-- [Built-in Generics](/docs/learn/generics/built-in-generics) to see how constraints work with `Array<T>`, `Hash<K, V>`, and other built-in types
+- [Built-in Generics](/docs/learn/generics/built-in-generics) to see how constraints work with `T[]`, `Hash<K, V>`, and other built-in types
 - [Interfaces](/docs/learn/interfaces/defining-interfaces) to create interfaces for use as constraints
 - [Advanced Types](/docs/learn/advanced/type-aliases) for more complex type patterns

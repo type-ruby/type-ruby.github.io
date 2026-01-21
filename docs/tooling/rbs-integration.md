@@ -164,7 +164,7 @@ def format: (
 ### Block Signatures
 
 ```trb title="iterator.trb"
-def each_item(items: Array<String>): void do |String| -> void end
+def each_item(items: String[]): void do |String| -> void end
   items.each { |item| yield item }
 end
 ```
@@ -264,7 +264,7 @@ end
 type UserId = Integer
 type UserMap = Hash<UserId, User>
 
-def find_users(ids: Array<UserId>): UserMap
+def find_users(ids: UserId[]): UserMap
   # ...
 end
 ```
@@ -675,7 +675,7 @@ RBS files serve as documentation. Ensure public APIs are well-typed:
 ```trb
 # Good - clear public API
 class Service
-  def process(data: Array<String>): Hash<String, Integer>
+  def process(data: String[]): Hash<String, Integer>
     # ...
   end
 

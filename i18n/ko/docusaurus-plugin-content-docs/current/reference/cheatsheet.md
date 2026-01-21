@@ -64,7 +64,7 @@ def greet(name: String, greeting: String = "Hello"): String
 end
 
 # 나머지 매개변수
-def sum(*numbers: Array<Integer>): Integer
+def sum(*numbers: Integer[]): Integer
   numbers.sum
 end
 
@@ -119,17 +119,17 @@ end
 
 ```trb
 # 특정 타입의 배열
-names: Array<String> = ["Alice", "Bob"]
-numbers: Array<Integer> = [1, 2, 3]
+names: String[] = ["Alice", "Bob"]
+numbers: Integer[] = [1, 2, 3]
 
 # 유니온 타입의 배열
-mixed: Array<String | Integer> = ["Alice", 1, "Bob", 2]
+mixed: (String | Integer)[] = ["Alice", 1, "Bob", 2]
 
 # 중첩 배열
-matrix: Array<Array<Integer>> = [[1, 2], [3, 4]]
+matrix: Integer[][] = [[1, 2], [3, 4]]
 
 # 타입이 있는 빈 배열
-items: Array<String> = []
+items: String[] = []
 ```
 
 ## 해시 타입
@@ -158,7 +158,7 @@ users: Hash<Integer, Hash<Symbol, String>> = {
 
 ```trb
 # 제네릭 함수
-def first<T>(arr: Array<T>): T | nil
+def first<T>(arr: T[]): T | nil
   arr[0]
 end
 
@@ -199,7 +199,7 @@ type ID = String | Integer
 type JSONValue = String | Integer | Float | Boolean | nil
 
 # 컬렉션 별칭
-type StringList = Array<String>
+type StringList = String[]
 type UserMap = Hash<Integer, User>
 
 # 제네릭 별칭
@@ -310,7 +310,7 @@ end
 | `\|` | 유니온 | 둘 중 하나 타입 | `String \| Integer` |
 | `&` | 인터섹션 | 두 타입 모두 | `Printable & Comparable` |
 | `?` | 선택적 | `\| nil`의 약어 | `String?` |
-| `<T>` | 제네릭 | 타입 매개변수 | `Array<T>` |
+| `<T>` | 제네릭 | 타입 매개변수 | `T[]` |
 | `=>` | 해시 쌍 | 키-값 타입 | `Hash<String => Integer>` |
 
 <ExampleBadge status="pass" testFile="spec/docs_site/pages/reference/cheatsheet_spec.rb" line={124} />
@@ -328,7 +328,7 @@ end
 name: String?  # String | nil과 동일
 
 # 제네릭
-items: Array<String>
+items: String[]
 pairs: Hash<String, Integer>
 ```
 
@@ -338,7 +338,7 @@ pairs: Hash<String, Integer>
 
 ```trb
 # 블록 매개변수
-def each_item<T>(items: Array<T>, &block: Proc<T, void>): void
+def each_item<T>(items: T[], &block: Proc<T, void>): void
   items.each { |item| block.call(item) }
 end
 
@@ -350,7 +350,7 @@ transformer: Proc<Integer, String> = ->(n: Integer): String { n.to_s }
 double: Proc<Integer, Integer> = ->(n: Integer): Integer { n * 2 }
 
 # 여러 매개변수가 있는 블록
-def map<T, U>(items: Array<T>, &block: Proc<T, Integer, U>): Array<U>
+def map<T, U>(items: T[], &block: Proc<T, Integer, U>): U[]
   items.map.with_index { |item, index| block.call(item, index) }
 end
 ```
@@ -519,7 +519,7 @@ end
 
 ```trb
 class QueryBuilder
-  @conditions: Array<String>
+  @conditions: String[]
 
   def initialize: void
     @conditions = []

@@ -101,7 +101,7 @@ abstract class DataSource
     raise NotImplementedError, "Must implement disconnect()"
   end
 
-  def fetch(query: String): Array<Hash<String, String>>
+  def fetch(query: String): Hash<String, String>[]
     raise NotImplementedError, "Must implement fetch()"
   end
 
@@ -132,7 +132,7 @@ class DatabaseSource < DataSource
     @connected = false
   end
 
-  def fetch(query: String): Array<Hash<String, String>>
+  def fetch(query: String): Hash<String, String>[]
     raise "Not connected" unless @connected
     # Database query implementation
     []
@@ -162,7 +162,7 @@ class APISource < DataSource
     @connected = false
   end
 
-  def fetch(query: String): Array<Hash<String, String>>
+  def fetch(query: String): Hash<String, String>[]
     # API fetch implementation
     []
   end
@@ -212,7 +212,7 @@ abstract class Report
 end
 
 class PDFReport < Report
-  def initialize(title: String, data: Array<String>)
+  def initialize(title: String, data: String[])
     @title = title
     @data = data
   end
@@ -235,7 +235,7 @@ class PDFReport < Report
 end
 
 class HTMLReport < Report
-  def initialize(title: String, data: Array<String>)
+  def initialize(title: String, data: String[])
     @title = title
     @data = data
   end
@@ -401,8 +401,8 @@ Use abstract classes to enforce common patterns:
 ```trb title="common_patterns.trb"
 abstract class Controller
   def initialize()
-    @before_filters: Array<Proc<[], void>> = []
-    @after_filters: Array<Proc<[], void>> = []
+    @before_filters: Proc<[], void>[] = []
+    @after_filters: Proc<[], void>[] = []
   end
 
   def execute(action: String): void
@@ -640,7 +640,7 @@ def process_payment(processor: PaymentProcessor): Boolean
   processor.process()
 end
 
-processors: Array<PaymentProcessor> = [stripe, paypal]
+processors: PaymentProcessor[] = [stripe, paypal]
 processors.each { |p| process_payment(p) }
 ```
 
@@ -664,20 +664,20 @@ processors.each { |p| process_payment(p) }
 
 ```trb title="strategy.trb"
 abstract class SortStrategy
-  def sort(array: Array<Integer>): Array<Integer>
+  def sort(array: Integer[]): Integer[]
     raise NotImplementedError, "Must implement sort()"
   end
 end
 
 class BubbleSort < SortStrategy
-  def sort(array: Array<Integer>): Array<Integer>
+  def sort(array: Integer[]): Integer[]
     # Bubble sort implementation
     array.sort
   end
 end
 
 class QuickSort < SortStrategy
-  def sort(array: Array<Integer>): Array<Integer>
+  def sort(array: Integer[]): Integer[]
     # Quick sort implementation
     array.sort
   end
@@ -688,7 +688,7 @@ class Sorter
     @strategy = strategy
   end
 
-  def sort(data: Array<Integer>): Array<Integer>
+  def sort(data: Integer[]): Integer[]
     @strategy.sort(data)
   end
 end

@@ -19,20 +19,20 @@ Without generics, you'd need to write the same function multiple times for diffe
 
 ```trb
 # Without generics, you need separate functions for each type
-def first_string(arr: Array<String>): String | nil
+def first_string(arr: String[]): String | nil
   arr[0]
 end
 
-def first_integer(arr: Array<Integer>): Integer | nil
+def first_integer(arr: Integer[]): Integer | nil
   arr[0]
 end
 
-def first_user(arr: Array<User>): User | nil
+def first_user(arr: User[]): User | nil
   arr[0]
 end
 
 # Or you lose type safety
-def first(arr: Array<Any>): Any
+def first(arr: Any[]): Any
   arr[0]  # Return type is Any - no type safety!
 end
 ```
@@ -41,7 +41,7 @@ end
 
 ```trb
 # One function that works for all types
-def first<T>(arr: Array<T>): T | nil
+def first<T>(arr: T[]): T | nil
   arr[0]
 end
 
@@ -68,7 +68,7 @@ end
 # Works with any type
 str = identity("hello")      # String
 num = identity(42)           # Integer
-arr = identity([1, 2, 3])    # Array<Integer>
+arr = identity([1, 2, 3])    # Integer[]
 ```
 
 ### Multiple Type Parameters
@@ -93,26 +93,26 @@ A common use case is working with arrays of any type:
 
 ```trb
 # Get the last element of an array
-def last<T>(arr: Array<T>): T | nil
+def last<T>(arr: T[]): T | nil
   arr[-1]
 end
 
 # Reverse an array
-def reverse<T>(arr: Array<T>): Array<T>
+def reverse<T>(arr: T[]): T[]
   arr.reverse
 end
 
 # Filter an array with a predicate
-def filter<T>(arr: Array<T>, &block: Proc<T, Boolean>): Array<T>
+def filter<T>(arr: T[], &block: Proc<T, Boolean>): T[]
   arr.select { |item| block.call(item) }
 end
 
 # Usage
 numbers = [1, 2, 3, 4, 5]
-evens = filter(numbers) { |n| n.even? }  # Array<Integer>
+evens = filter(numbers) { |n| n.even? }  # Integer[]
 
 words = ["hello", "world", "foo", "bar"]
-long_words = filter(words) { |w| w.length > 3 }  # Array<String>
+long_words = filter(words) { |w| w.length > 3 }  # String[]
 ```
 
 ### Generic Functions with Return Type Transformation
@@ -121,17 +121,17 @@ Sometimes the return type differs from the input type, but is still generic:
 
 ```trb
 # Map function that transforms type T to type U
-def map<T, U>(arr: Array<T>, &block: Proc<T, U>): Array<U>
+def map<T, U>(arr: T[], &block: Proc<T, U>): U[]
   arr.map { |item| block.call(item) }
 end
 
 # Transform integers to strings
 numbers = [1, 2, 3]
-strings = map(numbers) { |n| n.to_s }  # Array<String>
+strings = map(numbers) { |n| n.to_s }  # String[]
 
 # Transform strings to their lengths
 words = ["hello", "world"]
-lengths = map(words) { |w| w.length }  # Array<Integer>
+lengths = map(words) { |w| w.length }  # Integer[]
 ```
 
 ## Generic Classes
@@ -205,7 +205,7 @@ Here's a practical example of a generic stack data structure:
 
 ```trb
 class Stack<T>
-  @items: Array<T>
+  @items: T[]
 
   def initialize: void
     @items = []
@@ -231,7 +231,7 @@ class Stack<T>
     @items.length
   end
 
-  def to_a: Array<T>
+  def to_a: T[]
     @items.dup
   end
 end
@@ -299,9 +299,9 @@ A more complex example showing a custom collection:
 
 ```trb
 class Collection<T>
-  @items: Array<T>
+  @items: T[]
 
-  def initialize(items: Array<T> = []): void
+  def initialize(items: T[] = []): void
     @items = items.dup
   end
 
@@ -342,7 +342,7 @@ class Collection<T>
     @items.each { |item| block.call(item) }
   end
 
-  def to_a: Array<T>
+  def to_a: T[]
     @items.dup
   end
 
@@ -372,22 +372,22 @@ You can have generic methods in classes that aren't themselves generic:
 ```trb
 class Utils
   # Generic method in a non-generic class
-  def self.wrap<T>(value: T): Array<T>
+  def self.wrap<T>(value: T): T[]
     [value]
   end
 
-  def self.duplicate<T>(value: T, times: Integer): Array<T>
+  def self.duplicate<T>(value: T, times: Integer): T[]
     Array.new(times, value)
   end
 
-  def self.zip<T, U>(arr1: Array<T>, arr2: Array<U>): Array<Pair<T, U>>
+  def self.zip<T, U>(arr1: T[], arr2: U[]): Pair<T, U>[]
     arr1.zip(arr2).map { |t, u| Pair.new(t, u) }
   end
 end
 
 # Usage
-wrapped = Utils.wrap(42)                    # Array<Integer>
-duplicates = Utils.duplicate("hello", 3)    # Array<String>
+wrapped = Utils.wrap(42)                    # Integer[]
+duplicates = Utils.duplicate("hello", 3)    # String[]
 zipped = Utils.zip([1, 2], ["a", "b"])      # Array<Pair<Integer, String>>
 ```
 
@@ -398,7 +398,7 @@ Generics can be nested to create complex type structures:
 ```trb
 # A cache that stores arrays of values for each key
 class Cache<K, V>
-  @store: Hash<K, Array<V>>
+  @store: Hash<K, V[]>
 
   def initialize: void
     @store = {}
@@ -409,7 +409,7 @@ class Cache<K, V>
     @store[key].push(value)
   end
 
-  def get(key: K): Array<V>
+  def get(key: K): V[]
     @store[key] || []
   end
 
@@ -424,7 +424,7 @@ user_tags.add(1, "ruby")
 user_tags.add(1, "programming")
 user_tags.add(2, "design")
 
-tags = user_tags.get(1)  # Array<String> = ["ruby", "programming"]
+tags = user_tags.get(1)  # String[] = ["ruby", "programming"]
 ```
 
 ## Best Practices
@@ -454,12 +454,12 @@ end
 
 ```trb
 # Good: Simple, focused generic function
-def head<T>(arr: Array<T>): T | nil
+def head<T>(arr: T[]): T | nil
   arr.first
 end
 
 # Less good: Too many responsibilities
-def process<T>(arr: Array<T>, flag: Boolean, count: Integer): Array<T> | Hash<Integer, T>
+def process<T>(arr: T[], flag: Boolean, count: Integer): T[] | Hash<Integer, T>
   # Too complex, hard to understand the generic behavior
 end
 ```
@@ -581,5 +581,5 @@ puts result.unwrap_err if result.err?  # "Division by zero"
 Now that you understand generic functions and classes, you can:
 
 - Learn about [Constraints](/docs/learn/generics/constraints) to limit which types can be used with generics
-- Explore [Built-in Generics](/docs/learn/generics/built-in-generics) like `Array<T>` and `Hash<K, V>`
+- Explore [Built-in Generics](/docs/learn/generics/built-in-generics) like `T[]` and `Hash<K, V>`
 - See how generics work with [Interfaces](/docs/learn/interfaces/defining-interfaces)

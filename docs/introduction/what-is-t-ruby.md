@@ -56,7 +56,7 @@ def calculate(x: Integer, y: Integer): Integer
 end
 
 # Partially typed (return type inferred)
-def process(data: Array<String>)
+def process(data: String[])
   data.map(&:upcase)
 end
 

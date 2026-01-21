@@ -68,7 +68,7 @@ def process(items: String[]): Integer[][]
 end
 
 # Equivalent to
-def process(items: Array<String>): Array<Array<Integer>>
+def process(items: String[]): Integer[][]
 end
 
 # Both generate same RBS:
@@ -312,8 +312,8 @@ alice: User = User.new("Alice", "alice@example.com", 30)
 bob: User = User.new("Bob", "bob@example.com", 17)
 
 # Type-safe operations
-users: Array<User> = [alice, bob]
-adults: Array<User> = users.select { |u| u.adult? }
+users: User[] = [alice, bob]
+adults: User[] = users.select { |u| u.adult? }
 
 adults.each do |user|
   puts user.greet

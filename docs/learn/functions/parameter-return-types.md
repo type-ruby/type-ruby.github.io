@@ -114,7 +114,7 @@ save_to_database(user_record)
 Parameters can have any type, including arrays, hashes, and custom classes:
 
 ```trb title="complex.trb"
-def process_names(names: Array<String>): Integer
+def process_names(names: String[]): Integer
   names.map(&:capitalize).length
 end
 
@@ -228,11 +228,11 @@ can_edit = has_permission(current_user, "posts:edit")
 Functions can return generic types that preserve type information:
 
 ```trb title="generics.trb"
-def first_element<T>(array: Array<T>): T | nil
+def first_element<T>(array: T[]): T | nil
   array.first
 end
 
-def wrap_in_array<T>(value: T): Array<T>
+def wrap_in_array<T>(value: T): T[]
   [value]
 end
 
@@ -243,7 +243,7 @@ first_num = first_element(numbers)  # Type: Integer | nil
 strings = ["a", "b", "c"]
 first_str = first_element(strings)  # Type: String | nil
 
-wrapped = wrap_in_array(42)  # Type: Array<Integer>
+wrapped = wrap_in_array(42)  # Type: Integer[]
 ```
 
 ## Practical Example: User Service
@@ -275,7 +275,7 @@ class UserService
     database.delete("users", id)
   end
 
-  def list_all(): Array<User>
+  def list_all(): User[]
     database.query("SELECT * FROM users").map { |row| User.from_row(row) }
   end
 
@@ -303,7 +303,7 @@ updated = service.update(123, { "name" => "Bob", "age" => 31 })
 # Returns void
 service.delete(456)
 
-# Returns Array<User>
+# Returns User[]
 all_users = service.list_all()
 
 # Returns Integer
@@ -319,7 +319,7 @@ exists = service.is_email_taken("test@example.com")
 
 2. **Be explicit with return types**: Even when T-Ruby can infer them, explicit return types serve as documentation.
 
-3. **Use specific types**: Prefer `String` over `Object`, `Array<Integer>` over `Array`.
+3. **Use specific types**: Prefer `String` over `Object`, `Integer[]` over `Array`.
 
 4. **Use union types for multiple return values**: `User | nil` is clearer than just returning any value.
 
@@ -350,7 +350,7 @@ def to_boolean(value: String): Boolean
   ["true", "yes", "1"].include?(value.downcase)
 end
 
-def to_array(value: String): Array<String>
+def to_array(value: String): String[]
   value.split(",").map(&:strip)
 end
 ```

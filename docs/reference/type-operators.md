@@ -36,7 +36,7 @@ name: String | nil = nil
 user: User | nil = find_user(123)
 
 # In collections
-mixed: Array<String | Integer> = ["Alice", 1, "Bob", 2]
+mixed: (String | Integer)[] = ["Alice", 1, "Bob", 2]
 config: Hash<Symbol, String | Integer | Boolean> = {
   host: "localhost",
   port: 3000,
@@ -123,7 +123,7 @@ class User
 end
 
 # In collections
-users: Array<User?> = [User.new, nil, User.new]
+users: User?[] = [User.new, nil, User.new]
 cache: Hash<String, Integer?> = { "count" => 42, "missing" => nil }
 ```
 
@@ -192,7 +192,7 @@ end
 
 ```trb
 # Generic with multiple constraints
-def sort_and_print<T>(items: Array<T>): void
+def sort_and_print<T>(items: T[]): void
   where T: Printable & Comparable
 
   sorted = items.sort
@@ -208,7 +208,7 @@ Angle brackets denote generic type parameters.
 
 ```trb
 # Single type parameter
-def first<T>(arr: Array<T>): T | nil
+def first<T>(arr: T[]): T | nil
   arr[0]
 end
 
@@ -218,7 +218,7 @@ def pair<K, V>(key: K, value: V): Hash<K, V>
 end
 
 # Generic with constraints
-def find<T>(items: Array<T>, predicate: Proc<T, Boolean>): T | nil
+def find<T>(items: T[], predicate: Proc<T, Boolean>): T | nil
   items.find { |item| predicate.call(item) }
 end
 ```
@@ -267,12 +267,12 @@ end
 
 ```trb
 # Nested generic types
-cache: Hash<String, Array<Integer>> = {
+cache: Hash<String, Integer[]> = {
   "fibonacci" => [1, 1, 2, 3, 5, 8]
 }
 
 # Complex nesting
-type NestedData = Hash<String, Array<Hash<Symbol, String | Integer>>>
+type NestedData = Hash<String, Hash<Symbol, String | Integer>[]>
 
 data: NestedData = {
   "users" => [
@@ -284,33 +284,33 @@ data: NestedData = {
 
 ## Array Type Operator
 
-Array types use angle bracket notation with a single type parameter.
+Array types use shorthand syntax `T[]` (preferred) or generic `Array<T>`.
 
 ### Syntax
 
 ```trb
-Array<ElementType>
+ElementType[]
 ```
 
 ### Examples
 
 ```trb
 # Basic arrays
-strings: Array<String> = ["a", "b", "c"]
-numbers: Array<Integer> = [1, 2, 3]
+strings: String[] = ["a", "b", "c"]
+numbers: Integer[] = [1, 2, 3]
 
 # Union element types
-mixed: Array<String | Integer> = ["Alice", 1, "Bob", 2]
+mixed: (String | Integer)[] = ["Alice", 1, "Bob", 2]
 
 # Nested arrays
-matrix: Array<Array<Float>> = [
+matrix: Float[][] = [
   [1.0, 2.0],
   [3.0, 4.0]
 ]
 
 # Generic function returning array
-def range<T>(start: T, count: Integer, &block: Proc<T, T>): Array<T>
-  result: Array<T> = [start]
+def range<T>(start: T, count: Integer, &block: Proc<T, T>): T[]
+  result: T[] = [start]
   current = start
 
   (count - 1).times do
@@ -352,8 +352,8 @@ users: Hash<Integer, Hash<Symbol, String>> = {
 }
 
 # Generic hash function
-def group_by<T, K>(items: Array<T>, &block: Proc<T, K>): Hash<K, Array<T>>
-  result: Hash<K, Array<T>> = {}
+def group_by<T, K>(items: T[], &block: Proc<T, K>): Hash<K, T[]>
+  result: Hash<K, T[]> = {}
 
   items.each do |item|
     key = block.call(item)
@@ -393,12 +393,12 @@ adder: Proc<Integer, Integer, Integer> = ->(a: Integer, b: Integer): Integer {
 logger: Proc<String, void> = ->(msg: String): void { puts msg }
 
 # Generic proc parameter
-def map<T, U>(arr: Array<T>, fn: Proc<T, U>): Array<U>
+def map<T, U>(arr: T[], fn: Proc<T, U>): U[]
   arr.map { |item| fn.call(item) }
 end
 
 # Block parameter
-def each_with_index<T>(items: Array<T>, &block: Proc<T, Integer, void>): void
+def each_with_index<T>(items: T[], &block: Proc<T, Integer, void>): void
   items.each_with_index { |item, index| block.call(item, index) }
 end
 ```
@@ -565,7 +565,7 @@ Makes types immutable.
 
 ```trb
 # Readonly type (planned)
-type ReadonlyArray<T> = readonly Array<T>
+type ReadonlyArray<T> = readonly T[]
 type ReadonlyHash<K, V> = readonly Hash<K, V>
 
 # Cannot modify
@@ -604,7 +604,7 @@ type Config = typeof config
 When combining operators, T-Ruby follows this precedence (highest to lowest):
 
 1. Generic parameters: `<T>`
-2. Array/Hash/Proc: `Array<T>`, `Hash<K,V>`, `Proc<T,R>`
+2. Array/Hash/Proc: `T[]`, `Hash<K,V>`, `Proc<T,R>`
 3. Intersection: `&`
 4. Union: `|`
 5. Optional: `?`
@@ -634,11 +634,11 @@ type D = String | (Integer?)
 | `\|` | Union | Either/or types | `String \| Integer` |
 | `&` | Intersection | Both types | `Printable & Comparable` |
 | `?` | Optional | Type or nil | `String?` |
-| `<T>` | Generic | Type parameter | `Array<T>` |
+| `<T>` | Generic | Type parameter | `T[]` |
 | `as` | Type assertion | Force type | `value as String` |
 | `is` | Type guard | Type predicate | `value is String` |
 | `[]` | Tuple | Fixed array | `[String, Integer]` (planned) |
-| `readonly` | Readonly | Immutable | `readonly Array<T>` (planned) |
+| `readonly` | Readonly | Immutable | `readonly T[]` (planned) |
 | `keyof` | Key extraction | Object keys | `keyof User` (planned) |
 | `typeof` | Type query | Get type | `typeof value` (planned) |
 
@@ -668,7 +668,7 @@ name: String? = nil
 
 ```trb
 # ❌ Too many options
-value: String | Integer | Float | Boolean | Symbol | nil | Array<String>
+value: String | Integer | Float | Boolean | Symbol | nil | String[]
 
 # ✅ Use type alias
 type PrimitiveValue = String | Integer | Float | Boolean

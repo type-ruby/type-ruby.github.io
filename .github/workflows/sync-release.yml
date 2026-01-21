@@ -1,0 +1,82 @@
+name: Sync Release Docs
+
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'Released version'
+        required: true
+      base_tag:
+        description: 'Base tag (5 releases ago)'
+        required: true
+      recent_tags:
+        description: 'Recent 5 tags (comma-separated)'
+        required: true
+      changed_files:
+        description: 'Changed files since base tag'
+        required: true
+
+permissions:
+  contents: write
+
+jobs:
+  update-docs:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Fetch t-ruby source
+        run: |
+          git clone https://github.com/type-ruby/t-ruby.git /tmp/t-ruby
+          cd /tmp/t-ruby
+          git fetch --tags
+
+      - name: Generate diff context (last 5 releases)
+        run: |
+          cd /tmp/t-ruby
+          git diff ${{ inputs.base_tag }}..v${{ inputs.version }} > /tmp/release_diff.txt
+          git log ${{ inputs.base_tag }}..v${{ inputs.version }} --oneline > /tmp/commit_log.txt
+          git show v${{ inputs.version }}:CHANGELOG.md > /tmp/current_changelog.txt
+
+      - name: Update docs with Claude Code
+        uses: anthropics/claude-code-action@v1
+        with:
+          anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
+          prompt: |
+            t-ruby v${{ inputs.version }}이 릴리스되었습니다.
+
+            ## 컨텍스트
+            - 컴파일러 소스: /tmp/t-ruby
+            - 현재 저장소: 문서 사이트 (t-ruby.github.io)
+            - 현재 릴리스: v${{ inputs.version }}
+            - 분석 범위: 최근 5개 릴리스 (${{ inputs.recent_tags }})
+            - 비교 시작점: ${{ inputs.base_tag }}
+            - 변경된 파일 목록: ${{ inputs.changed_files }}
+            - 상세 diff: /tmp/release_diff.txt
+            - 커밋 로그: /tmp/commit_log.txt
+            - 현재 CHANGELOG: /tmp/current_changelog.txt
+
+            ## 작업
+            1. static/version.json의 compiler 버전을 ${{ inputs.version }}으로 업데이트
+            2. /tmp/t-ruby/CHANGELOG.md를 docs/project/changelog.md로 동기화
+            3. 최근 5개 릴리스의 변경사항을 분석하여 문서 업데이트:
+               - 새 기능 추가 → 관련 문서 생성/수정
+               - API 변경 → 레퍼런스 업데이트
+               - 기능 제거 → 문서 삭제 또는 deprecated 표시
+               - 이전 릴리스에서 누락된 문서 변경도 보완
+            4. 다국어(i18n/ko, i18n/ja) 문서도 필요시 업데이트
+
+            변경사항이 있으면 커밋해주세요.
+
+      - name: Push changes
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add -A
+          if git diff --staged --quiet; then
+            echo "No changes to commit"
+          else
+            git commit -m "docs: sync v${{ inputs.version }} release"
+            git push origin main
+          fi

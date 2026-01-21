@@ -40,7 +40,7 @@ name: String | nil = nil
 user: User | nil = find_user(123)
 
 # 컬렉션에서
-mixed: Array<String | Integer> = ["Alice", 1, "Bob", 2]
+mixed: (String | Integer)[] = ["Alice", 1, "Bob", 2]
 config: Hash<Symbol, String | Integer | Boolean> = {
   host: "localhost",
   port: 3000,
@@ -135,7 +135,7 @@ class User
 end
 
 # 컬렉션에서
-users: Array<User?> = [User.new, nil, User.new]
+users: User?[] = [User.new, nil, User.new]
 cache: Hash<String, Integer?> = { "count" => 42, "missing" => nil }
 ```
 
@@ -212,7 +212,7 @@ end
 
 ```trb
 # 다중 제약이 있는 제네릭
-def sort_and_print<T>(items: Array<T>): void
+def sort_and_print<T>(items: T[]): void
   where T: Printable & Comparable
 
   sorted = items.sort
@@ -230,7 +230,7 @@ end
 
 ```trb
 # 단일 타입 매개변수
-def first<T>(arr: Array<T>): T | nil
+def first<T>(arr: T[]): T | nil
   arr[0]
 end
 
@@ -240,7 +240,7 @@ def pair<K, V>(key: K, value: V): Hash<K, V>
 end
 
 # 제약이 있는 제네릭
-def find<T>(items: Array<T>, predicate: Proc<T, Boolean>): T | nil
+def find<T>(items: T[], predicate: Proc<T, Boolean>): T | nil
   items.find { |item| predicate.call(item) }
 end
 ```
@@ -293,12 +293,12 @@ end
 
 ```trb
 # 중첩 제네릭 타입
-cache: Hash<String, Array<Integer>> = {
+cache: Hash<String, Integer[]> = {
   "fibonacci" => [1, 1, 2, 3, 5, 8]
 }
 
 # 복잡한 중첩
-type NestedData = Hash<String, Array<Hash<Symbol, String | Integer>>>
+type NestedData = Hash<String, Hash<Symbol, String | Integer>[]>
 
 data: NestedData = {
   "users" => [
@@ -310,14 +310,14 @@ data: NestedData = {
 
 ## 배열 타입 연산자
 
-배열 타입은 단일 타입 매개변수와 함께 꺾쇠 괄호 표기법을 사용합니다.
+배열 타입은 `T[]` 약식 표기법을 사용합니다.
 
 ### 구문
 
 <ExampleBadge status="pass" testFile="spec/docs_site/pages/reference/type_operators_spec.rb" line={166} />
 
 ```trb
-Array<ElementType>
+ElementType[]
 ```
 
 ### 예시
@@ -326,21 +326,21 @@ Array<ElementType>
 
 ```trb
 # 기본 배열
-strings: Array<String> = ["a", "b", "c"]
-numbers: Array<Integer> = [1, 2, 3]
+strings: String[] = ["a", "b", "c"]
+numbers: Integer[] = [1, 2, 3]
 
 # 유니온 요소 타입
-mixed: Array<String | Integer> = ["Alice", 1, "Bob", 2]
+mixed: (String | Integer)[] = ["Alice", 1, "Bob", 2]
 
 # 중첩 배열
-matrix: Array<Array<Float>> = [
+matrix: Float[][] = [
   [1.0, 2.0],
   [3.0, 4.0]
 ]
 
 # 배열을 반환하는 제네릭 함수
-def range<T>(start: T, count: Integer, &block: Proc<T, T>): Array<T>
-  result: Array<T> = [start]
+def range<T>(start: T, count: Integer, &block: Proc<T, T>): T[]
+  result: T[] = [start]
   current = start
 
   (count - 1).times do
@@ -386,8 +386,8 @@ users: Hash<Integer, Hash<Symbol, String>> = {
 }
 
 # 제네릭 해시 함수
-def group_by<T, K>(items: Array<T>, &block: Proc<T, K>): Hash<K, Array<T>>
-  result: Hash<K, Array<T>> = {}
+def group_by<T, K>(items: T[], &block: Proc<T, K>): Hash<K, T[]>
+  result: Hash<K, T[]> = {}
 
   items.each do |item|
     key = block.call(item)
@@ -431,12 +431,12 @@ adder: Proc<Integer, Integer, Integer> = ->(a: Integer, b: Integer): Integer {
 logger: Proc<String, void> = ->(msg: String): void { puts msg }
 
 # 제네릭 proc 매개변수
-def map<T, U>(arr: Array<T>, fn: Proc<T, U>): Array<U>
+def map<T, U>(arr: T[], fn: Proc<T, U>): U[]
   arr.map { |item| fn.call(item) }
 end
 
 # 블록 매개변수
-def each_with_index<T>(items: Array<T>, &block: Proc<T, Integer, void>): void
+def each_with_index<T>(items: T[], &block: Proc<T, Integer, void>): void
   items.each_with_index { |item, index| block.call(item, index) }
 end
 ```
@@ -700,7 +700,7 @@ type D = String | (Integer?)
 | `\|` | 유니온 | 둘 중 하나 타입 | `String \| Integer` |
 | `&` | 인터섹션 | 두 타입 모두 | `Printable & Comparable` |
 | `?` | 선택적 | 타입 또는 nil | `String?` |
-| `<T>` | 제네릭 | 타입 매개변수 | `Array<T>` |
+| `<T>` | 제네릭 | 타입 매개변수 | `T[]` |
 | `as` | 타입 단언 | 타입 강제 | `value as String` |
 | `is` | 타입 가드 | 타입 술어 | `value is String` |
 | `[]` | 튜플 | 고정 배열 | `[String, Integer]` (계획됨) |
@@ -740,7 +740,7 @@ name: String? = nil
 
 ```trb
 # ❌ 너무 많은 옵션
-value: String | Integer | Float | Boolean | Symbol | nil | Array<String>
+value: String | Integer | Float | Boolean | Symbol | nil | String[]
 
 # ✅ 타입 별칭 사용
 type PrimitiveValue = String | Integer | Float | Boolean

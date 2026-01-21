@@ -256,7 +256,7 @@ compiler:
 
 ```trb
 # Required in strict mode
-def process(data: Array<String>): Hash<String, Integer>
+def process(data: String[]): Hash<String, Integer>
   @count: Integer = 0
   result: Hash<String, Integer> = {}
   # ...
@@ -272,7 +272,7 @@ end
 
 ```trb
 # OK in standard mode
-def process(data: Array<String>): Hash<String, Integer>
+def process(data: String[]): Hash<String, Integer>
   @count: Integer = 0
   result = {}  # Type inferred
   # ...
@@ -412,7 +412,7 @@ end
 
 ```trb
 # Error when no_unchecked_indexed_access: true
-users: Array<User> = get_users()
+users: User[] = get_users()
 user = users[0]  # Error: might be nil
 
 # OK - Check first

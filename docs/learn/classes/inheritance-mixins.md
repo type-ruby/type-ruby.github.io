@@ -236,7 +236,7 @@ module Searchable
     searchable_fields().any? { |field| field.include?(query) }
   end
 
-  def searchable_fields(): Array<String>
+  def searchable_fields(): String[]
     []
   end
 end
@@ -258,7 +258,7 @@ class BlogPost
     set_created()
   end
 
-  def searchable_fields(): Array<String>
+  def searchable_fields(): String[]
     [@title, @content, @author]
   end
 
@@ -285,7 +285,7 @@ class Product
     set_created()
   end
 
-  def searchable_fields(): Array<String>
+  def searchable_fields(): String[]
     [@name, @description, @sku]
   end
 end
@@ -311,7 +311,7 @@ module Validatable
     errors().empty?
   end
 
-  def errors(): Array<String>
+  def errors(): String[]
     @errors ||= []
   end
 
@@ -334,7 +334,7 @@ class User
   def initialize(email: String, age: Integer)
     @email = email
     @age = age
-    @errors: Array<String> = []
+    @errors: String[] = []
   end
 
   def validate(): Boolean
@@ -375,7 +375,7 @@ module Comparable
     !self.==(other)
   end
 
-  def compare_fields(): Array<String | Integer>
+  def compare_fields(): (String | Integer)[]
     []
   end
 end
@@ -395,7 +395,7 @@ module Cloneable
     self.class.new(*clone_params())
   end
 
-  def clone_params(): Array<String | Integer>
+  def clone_params(): (String | Integer)[]
     []
   end
 end
@@ -415,7 +415,7 @@ class Person
     @email = email
   end
 
-  def compare_fields(): Array<String | Integer>
+  def compare_fields(): (String | Integer)[]
     [@name, @age, @email]
   end
 
@@ -423,7 +423,7 @@ class Person
     { "name" => @name, "age" => @age, "email" => @email }
   end
 
-  def clone_params(): Array<String | Integer>
+  def clone_params(): (String | Integer)[]
     [@name, @age, @email]
   end
 end
@@ -497,7 +497,7 @@ start_vehicle(car)         # "Car engine starting"
 start_vehicle(motorcycle)  # "Motorcycle roaring to life"
 
 # Type checking works
-vehicles: Array<Vehicle> = [car, motorcycle]
+vehicles: Vehicle[] = [car, motorcycle]
 vehicles.each { |v| v.start() }
 ```
 
@@ -527,7 +527,7 @@ module Publishable
 end
 
 module Taggable
-  def tags(): Array<String>
+  def tags(): String[]
     @tags ||= []
   end
 
@@ -547,7 +547,7 @@ module Taggable
 end
 
 module Commentable
-  def comments(): Array<Comment>
+  def comments(): Comment[]
     @comments ||= []
   end
 
@@ -591,8 +591,8 @@ class Article < Content
     @excerpt = excerpt
     @published: Boolean = false
     @published_at: Time? = nil
-    @tags: Array<String> = []
-    @comments: Array<Comment> = []
+    @tags: String[] = []
+    @comments: Comment[] = []
   end
 
   def summary(): String
@@ -693,27 +693,27 @@ class DataImporter
     File.read(file_path)
   end
 
-  def validate_data(data: Array<Hash<String, String>>): void
+  def validate_data(data: Hash<String, String>[]): void
     # Common validation
     raise "Empty data" if data.empty?
   end
 
-  def parse_data(data: String): Array<Hash<String, String>>
+  def parse_data(data: String): Hash<String, String>[]
     raise "Must implement parse_data"
   end
 
-  def save_data(data: Array<Hash<String, String>>): void
+  def save_data(data: Hash<String, String>[]): void
     raise "Must implement save_data"
   end
 end
 
 class CSVImporter < DataImporter
-  def parse_data(data: String): Array<Hash<String, String>>
+  def parse_data(data: String): Hash<String, String>[]
     # Parse CSV
     []
   end
 
-  def save_data(data: Array<Hash<String, String>>): void
+  def save_data(data: Hash<String, String>[]): void
     # Save to database
   end
 end

@@ -139,10 +139,10 @@ In this example, T-Ruby infers:
 T-Ruby can infer the types of array and hash elements:
 
 ```trb title="collections.trb"
-# Inferred as Array<Integer>
+# Inferred as Integer[]
 numbers = [1, 2, 3, 4, 5]
 
-# Inferred as Array<String>
+# Inferred as String[]
 names = ["Alice", "Bob", "Charlie"]
 
 # Inferred as Hash<Symbol, String>
@@ -163,7 +163,7 @@ scores = {
 T-Ruby can infer block parameter types when iterating over typed collections:
 
 ```trb title="blocks.trb"
-def sum_numbers(numbers: Array<Integer>): Integer
+def sum_numbers(numbers: Integer[]): Integer
   total = 0
 
   # T-Ruby infers that n is an Integer
@@ -174,7 +174,7 @@ def sum_numbers(numbers: Array<Integer>): Integer
   total
 end
 
-def greet_all(names: Array<String>)
+def greet_all(names: String[])
   # T-Ruby infers that name is a String
   names.each do |name|
     puts "Hello, #{name}!"
@@ -209,7 +209,7 @@ Instance variables should be annotated when declared:
 ```trb title="instance_vars.trb"
 class ShoppingCart
   def initialize()
-    @items: Array<String> = []
+    @items: String[] = []
     @total: Float = 0.0
   end
 
@@ -232,7 +232,7 @@ result = 0  # Inferred as Integer
 result: Float = 0.0
 
 # Or when starting with a temporary value
-users: Array<String> = []  # Will hold usernames later
+users: String[] = []  # Will hold usernames later
 ```
 
 ### 4. Union Types
@@ -257,7 +257,7 @@ When defining public methods, classes, or modules:
 ```trb title="public_api.trb"
 module MathHelpers
   # Public method - fully annotated
-  def self.calculate_average(numbers: Array<Float>): Float
+  def self.calculate_average(numbers: Float[]): Float
     sum = numbers.reduce(0.0) { |acc, n| acc + n }
     sum / numbers.length
   end
@@ -313,11 +313,11 @@ end
 ### Pattern 1: Initialize Then Use
 
 ```trb title="pattern1.trb"
-def process_names(raw_names: String): Array<String>
-  # names is inferred as Array<String>
+def process_names(raw_names: String): String[]
+  # names is inferred as String[]
   names = raw_names.split(",")
 
-  # cleaned is inferred as Array<String>
+  # cleaned is inferred as String[]
   cleaned = names.map { |n| n.strip.downcase }
 
   cleaned
@@ -327,7 +327,7 @@ end
 ### Pattern 2: Accumulator Variables
 
 ```trb title="pattern2.trb"
-def calculate_stats(numbers: Array<Integer>): Hash<Symbol, Float>
+def calculate_stats(numbers: Integer[]): Hash<Symbol, Float>
   # sum is inferred as Integer (starts at 0, adds Integers)
   sum = 0
   numbers.each { |n| sum += n }
@@ -342,7 +342,7 @@ end
 ### Pattern 3: Builder Pattern
 
 ```trb title="pattern3.trb"
-def build_query(table: String, conditions: Array<String>): String
+def build_query(table: String, conditions: String[]): String
   # query is inferred as String
   query = "SELECT * FROM #{table}"
 
@@ -367,7 +367,7 @@ There are situations where T-Ruby cannot infer types automatically:
 items = []  # Needs annotation!
 
 # Better - annotate the type
-items: Array<String> = []
+items: String[] = []
 
 # Or initialize with at least one element
 items = ["first_item"]
@@ -430,7 +430,7 @@ end
 class OrderProcessor
   def initialize()
     # Annotate - shared across methods
-    @pending_orders: Array<String> = []
+    @pending_orders: String[] = []
     @completed_count: Integer = 0
   end
 
@@ -496,7 +496,7 @@ Here's a complete example showing effective use of type inference:
 class Invoice
   def initialize(customer: String)
     @customer: String = customer
-    @items: Array<Hash<Symbol, String | Float>> = []
+    @items: Hash<Symbol, String | Float>[] = []
     @tax_rate: Float = 0.08
   end
 

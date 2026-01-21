@@ -47,16 +47,16 @@ Found a bug? Please open an issue on GitHub with:
 
 ### Steps to Reproduce
 ```trb
-numbers: Array<Integer> = [1, 2, 3]
+numbers: Integer[] = [1, 2, 3]
 strings = numbers.map { |n| n.to_s }
-# Type of strings should be Array<String>
+# Type of strings should be String[]
 ```
 
 ### Expected
-`strings` should be inferred as `Array<String>`
+`strings` should be inferred as `String[]`
 
 ### Actual
-Type is inferred as `Array<Any>`
+Type is inferred as `Any[]`
 ```
 
 ### 2. Suggest Features
@@ -350,8 +350,8 @@ def process_user(user: User): UserResponse
 end
 
 # Add type annotations for clarity
-users: Array<User> = fetch_users()
-active_users: Array<User> = users.select { |u| u.active? }
+users: User[] = fetch_users()
+active_users: User[] = users.select { |u| u.active? }
 ```
 
 ### Documentation Style

@@ -89,7 +89,7 @@ class BlogPost
     @content: String = content
     @published: Boolean = published
     @views: Integer = 0
-    @tags: Array<String> = []
+    @tags: String[] = []
   end
 
   def publish(): void
@@ -104,7 +104,7 @@ class BlogPost
     @tags.push(tag)
   end
 
-  def tag_list(): Array<String>
+  def tag_list(): String[]
     @tags
   end
 end
@@ -355,7 +355,7 @@ class Product
   end
 
   # Tag management
-  def tags(): Array<String>
+  def tags(): String[]
     @tags
   end
 
@@ -400,7 +400,7 @@ class Product
     Product.new(data["id"], data["name"], data["price"])
   end
 
-  def self.bulk_create(names: Array<String>, default_price: Float): Array<Product>
+  def self.bulk_create(names: String[], default_price: Float): Product[]
     names.map.with_index do |name, index|
       Product.new(index + 1, name, default_price)
     end
@@ -479,7 +479,7 @@ class Task
     subtask
   end
 
-  def subtasks(): Array<Task>
+  def subtasks(): Task[]
     @subtasks
   end
 
@@ -518,23 +518,23 @@ class TaskList
     @tasks.find { |t| t.id == id }
   end
 
-  def all_tasks(): Array<Task>
+  def all_tasks(): Task[]
     @tasks
   end
 
-  def completed_tasks(): Array<Task>
+  def completed_tasks(): Task[]
     @tasks.select { |t| t.completed }
   end
 
-  def pending_tasks(): Array<Task>
+  def pending_tasks(): Task[]
     @tasks.reject { |t| t.completed }
   end
 
-  def overdue_tasks(): Array<Task>
+  def overdue_tasks(): Task[]
     @tasks.select { |t| t.overdue? }
   end
 
-  def high_priority_tasks(): Array<Task>
+  def high_priority_tasks(): Task[]
     @tasks.select { |t| t.priority == "high" }
   end
 
@@ -595,12 +595,12 @@ class EmailBuilder
     @body = ""
   end
 
-  def to(addresses: Array<String>): EmailBuilder
+  def to(addresses: String[]): EmailBuilder
     @to = addresses
     self
   end
 
-  def cc(addresses: Array<String>): EmailBuilder
+  def cc(addresses: String[]): EmailBuilder
     @cc = addresses
     self
   end

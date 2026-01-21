@@ -33,7 +33,7 @@ TEXT
 - `upcase: String` - 대문자로 변환
 - `downcase: String` - 소문자로 변환
 - `strip: String` - 앞뒤 공백 제거
-- `split(delimiter: String): Array<String>` - 배열로 분리
+- `split(delimiter: String): String[]` - 배열로 분리
 - `include?(substring: String): Boolean` - 부분 문자열 포함 여부 확인
 - `empty?: Boolean` - 문자열이 비어 있는지 확인
 
@@ -220,19 +220,19 @@ result = Builder.new.append("Hello").append(" ").append("World").build
 
 ```trb
 # 문자열 배열
-names: Array<String> = ["Alice", "Bob", "Charlie"]
+names: String[] = ["Alice", "Bob", "Charlie"]
 
 # 정수 배열
-numbers: Array<Integer> = [1, 2, 3, 4, 5]
+numbers: Integer[] = [1, 2, 3, 4, 5]
 
 # 혼합 타입 배열
-mixed: Array<String | Integer> = ["Alice", 1, "Bob", 2]
+mixed: (String | Integer)[] = ["Alice", 1, "Bob", 2]
 
 # 중첩 배열
-matrix: Array<Array<Integer>> = [[1, 2], [3, 4]]
+matrix: Integer[][] = [[1, 2], [3, 4]]
 
 # 타입이 있는 빈 배열
-items: Array<String> = []
+items: String[] = []
 ```
 
 **일반 메서드:**
@@ -241,16 +241,16 @@ items: Array<String> = []
 - `empty?: Boolean` - 비어 있는지 확인
 - `first: T | nil` - 첫 번째 요소 반환
 - `last: T | nil` - 마지막 요소 반환
-- `push(item: T): Array<T>` - 끝에 요소 추가
+- `push(item: T): T[]` - 끝에 요소 추가
 - `pop: T | nil` - 마지막 요소 제거 및 반환
 - `shift: T | nil` - 첫 번째 요소 제거 및 반환
-- `unshift(item: T): Array<T>` - 시작에 요소 추가
+- `unshift(item: T): T[]` - 시작에 요소 추가
 - `include?(item: T): Boolean` - 요소 포함 여부 확인
-- `map<U>(&block: Proc<T, U>): Array<U>` - 요소 변환
-- `select(&block: Proc<T, Boolean>): Array<T>` - 요소 필터링
+- `map<U>(&block: Proc<T, U>): U[]` - 요소 변환
+- `select(&block: Proc<T, Boolean>): T[]` - 요소 필터링
 - `each(&block: Proc<T, void>): void` - 요소 반복
-- `reverse: Array<T>` - 뒤집힌 배열 반환
-- `sort: Array<T>` - 정렬된 배열 반환
+- `reverse: T[]` - 뒤집힌 배열 반환
+- `sort: T[]` - 정렬된 배열 반환
 - `join(separator: String): String` - 문자열로 결합
 
 ### Hash\<K, V\>
@@ -284,8 +284,8 @@ cache: Hash<String, Any> = {}
 - `empty?: Boolean` - 비어 있는지 확인
 - `key?(key: K): Boolean` - 키 존재 여부 확인
 - `value?(value: V): Boolean` - 값 존재 여부 확인
-- `keys: Array<K>` - 키 배열 반환
-- `values: Array<V>` - 값 배열 반환
+- `keys: K[]` - 키 배열 반환
+- `values: V[]` - 값 배열 반환
 - `fetch(key: K): V` - 값 가져오기 (없으면 예외)
 - `fetch(key: K, default: V): V` - 기본값으로 값 가져오기
 - `merge(other: Hash<K, V>): Hash<K, V>` - 해시 병합
@@ -311,7 +311,7 @@ unique_ids: Set<Integer> = Set.new([1, 2, 3, 2, 1])  # {1, 2, 3}
 - `include?(item: T): Boolean` - 멤버십 확인
 - `empty?: Boolean` - 비어 있는지 확인
 - `size: Integer` - 요소 수 반환
-- `to_a: Array<T>` - 배열로 변환
+- `to_a: T[]` - 배열로 변환
 
 ### Range
 
@@ -412,15 +412,15 @@ type Lambda<Args..., Return> = Proc<Args..., Return>
 
 ```trb
 # 블록을 받는 메서드
-def each_item<T>(items: Array<T>, &block: Proc<T, void>): void
+def each_item<T>(items: T[], &block: Proc<T, void>): void
   items.each { |item| block.call(item) }
 end
 
 # 여러 매개변수가 있는 블록
 def map_with_index<T, U>(
-  items: Array<T>,
+  items: T[],
   &block: Proc<T, Integer, U>
-): Array<U>
+): U[]
   items.map.with_index { |item, index| block.call(item, index) }
 end
 ```
@@ -619,7 +619,7 @@ IOError            # I/O 작업 실패
 enum: Enumerator<Integer> = [1, 2, 3].each
 range_enum: Enumerator<Integer> = (1..10).each
 
-def process<T>(enum: Enumerator<T>): Array<T>
+def process<T>(enum: Enumerator<T>): T[]
   enum.to_a
 end
 ```
@@ -664,7 +664,7 @@ end
 | `Boolean` | 프리미티브 | True/false | `true` |
 | `Symbol` | 프리미티브 | 식별자 | `:active` |
 | `nil` | 프리미티브 | 값 없음 | `nil` |
-| `Array<T>` | 컬렉션 | 순서 있는 목록 | `[1, 2, 3]` |
+| `T[]` | 컬렉션 | 순서 있는 목록 | `[1, 2, 3]` |
 | `Hash<K, V>` | 컬렉션 | 키-값 쌍 | `{ "a" => 1 }` |
 | `Set<T>` | 컬렉션 | 고유 항목 | `Set.new([1, 2])` |
 | `Range` | 컬렉션 | 값 범위 | `1..10` |
@@ -742,7 +742,7 @@ value.class.name       # String
 ## 모범 사례
 
 1. **Any보다 특정 타입 사용** - `Any` 대신 `String | Integer`
-2. **컬렉션에 제네릭 활용** - `Array` 대신 `Array<String>`
+2. **컬렉션에 제네릭 활용** - `Array` 대신 `String[]`
 3. **선택적 값에 유니온 타입 사용** - `String | nil` 또는 `String?`
 4. **적절한 컬렉션 타입 선택** - 고유성에는 `Set`, 조회에는 `Hash`
 5. **부작용에 `void` 선호** - 값을 반환하지 않는 함수를 명확히 표시
