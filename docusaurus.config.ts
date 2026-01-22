@@ -1,6 +1,7 @@
 import {themes as prismThemes} from 'prism-react-renderer';
 import type {Config} from '@docusaurus/types';
 import type * as Preset from '@docusaurus/preset-classic';
+import type {Configuration} from 'webpack';
 
 const config: Config = {
   title: 'T-Ruby',
@@ -89,6 +90,27 @@ const config: Config = {
         },
       },
     ],
+    // WASM support for @t-ruby/wasm
+    function wasmPlugin() {
+      return {
+        name: 'wasm-plugin',
+        configureWebpack(_config: Configuration, _isServer: boolean) {
+          return {
+            experiments: {
+              asyncWebAssembly: true,
+            },
+            module: {
+              rules: [
+                {
+                  test: /\.wasm$/,
+                  type: 'asset/resource',
+                },
+              ],
+            },
+          };
+        },
+      };
+    },
   ],
 
   themeConfig: {

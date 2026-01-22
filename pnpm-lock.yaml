@@ -17,6 +17,9 @@ importers:
       '@mdx-js/react':
         specifier: ^3.1.1
         version: 3.1.1(@types/react@19.2.9)(react@19.2.3)
+      '@t-ruby/wasm':
+        specifier: ^0.0.47
+        version: 0.0.47
       clsx:
         specifier: ^2.1.1
         version: 2.1.1
@@ -42,6 +45,9 @@ importers:
       '@docusaurus/types':
         specifier: 3.9.2
         version: 3.9.2(react-dom@19.2.3(react@19.2.3))(react@19.2.3)
+      '@types/webpack':
+        specifier: ^5.28.5
+        version: 5.28.5
       gh-pages:
         specifier: ^6.3.0
         version: 6.3.0
@@ -679,6 +685,9 @@ packages:
   '@babel/types@7.28.6':
     resolution: {integrity: sha512-0ZrskXVEHSWIqZM/sQZ4EV3jZJXRkio/WCxaqKZP1g//CEWEPSfeZFcms4XeKBCHU0ZKnIkdJeU/kF+eRp5lBg==}
     engines: {node: '>=6.9.0'}
+
+  '@bjorn3/browser_wasi_shim@0.3.0':
+    resolution: {integrity: sha512-FlRBYttPRLcWORzBe6g8nmYTafBkOEFeOqMYM4tAHJzFsQy4+xJA94z85a9BCs8S+Uzfh9LrkpII7DXr2iUVFg==}
 
   '@colors/colors@1.5.0':
     resolution: {integrity: sha512-ooWCrlZP11i8GImSjTHYHLkvFDP48nS4+204nGb1RiX/WXYHmJA2III9/e2DWVabCESdW7hBAEzHRqUn9OUVvQ==}
@@ -1408,6 +1417,12 @@ packages:
   '@polka/url@1.0.0-next.29':
     resolution: {integrity: sha512-wwQAWhWSuHaag8c4q/KN/vCoeOJYshAIvMQwD4GpSb3OiZklFfvAgmj0VCBBImRpuF/aFgIRzllXlVX93Jevww==}
 
+  '@ruby/3.4-wasm-wasi@2.8.1':
+    resolution: {integrity: sha512-lxID0PK2uj669VryTSytMQ9+HflzZgFyzKXLJH+tTOLYOK+VxUjUL8eae0UmCchrhmH1lODfkPPS68MB36uv7A==}
+
+  '@ruby/wasm-wasi@2.8.1':
+    resolution: {integrity: sha512-xtisFn9V2U45nE2goni9UAd8LERHAzwFEsQk3+mG6+hXf4imYfDRRXnBqX6jERR0rysCH15IDzEkxjMQmIZ3qA==}
+
   '@sideway/address@4.1.5':
     resolution: {integrity: sha512-IqO/DUQHUkPeixNQ8n0JA6102hT9CmaljNTPmQ1u8MEhBo/R4Q8eKLN/vGZxuebwOroDB4cbpjheD4+/sKFK4Q==}
 
@@ -1518,6 +1533,10 @@ packages:
   '@szmarczak/http-timer@5.0.1':
     resolution: {integrity: sha512-+PmQX0PiAYPMeVYe237LJAYvOMYW1j2rH5YROyS3b4CTVJum34HfRvKvAzozHAQG0TnHNdUfY9nCeUyRAs//cw==}
     engines: {node: '>=14.16'}
+
+  '@t-ruby/wasm@0.0.47':
+    resolution: {integrity: sha512-Z8CKTdmA1DwPTOFhzLbn5pPnTLdjBW5Nw1FQ1u7OZHZHoXvf1XdAYsrYn+kLakgHuz+R6A5CyRJQA5delx/N/Q==}
+    engines: {node: '>=18.0.0'}
 
   '@trysound/sax@0.2.0':
     resolution: {integrity: sha512-L7z9BgrNEcYyUYtF+HaEfiS5ebkh9jXqbszz7pC0hRBPaatV0XjSD3+eHrpqFemQfgwiFF0QPIarnIihIDn7OA==}
@@ -1654,6 +1673,9 @@ packages:
 
   '@types/unist@3.0.3':
     resolution: {integrity: sha512-ko/gIFJRv177XgZsZcBwnqJN5x/Gien8qNOn0D5bQU/zAzVf9Zt3BlcUiLqhV9y4ARk0GbT3tnUiPNgnTXzc/Q==}
+
+  '@types/webpack@5.28.5':
+    resolution: {integrity: sha512-wR87cgvxj3p6D0Crt1r5avwqffqPXUkNlnQ1mjU93G7gCuFjufZR4I6j8cz5g1F1tTYpfOOFvly+cmIQwL9wvw==}
 
   '@types/ws@8.18.1':
     resolution: {integrity: sha512-ThVF6DCVhA8kUGy+aazFQ4kXQ7E1Ty7A3ypFOe0IcJV8O/M511G99AW24irKrW56Wt44yG9+ij8FaqoBGkuBXg==}
@@ -5946,6 +5968,8 @@ snapshots:
       '@babel/helper-string-parser': 7.27.1
       '@babel/helper-validator-identifier': 7.28.5
 
+  '@bjorn3/browser_wasi_shim@0.3.0': {}
+
   '@colors/colors@1.5.0':
     optional: true
 
@@ -7345,6 +7369,15 @@ snapshots:
 
   '@polka/url@1.0.0-next.29': {}
 
+  '@ruby/3.4-wasm-wasi@2.8.1':
+    dependencies:
+      '@ruby/wasm-wasi': 2.8.1
+
+  '@ruby/wasm-wasi@2.8.1':
+    dependencies:
+      '@bjorn3/browser_wasi_shim': 0.3.0
+      tslib: 2.8.1
+
   '@sideway/address@4.1.5':
     dependencies:
       '@hapi/hoek': 9.3.0
@@ -7471,6 +7504,11 @@ snapshots:
   '@szmarczak/http-timer@5.0.1':
     dependencies:
       defer-to-connect: 2.0.1
+
+  '@t-ruby/wasm@0.0.47':
+    dependencies:
+      '@ruby/3.4-wasm-wasi': 2.8.1
+      '@ruby/wasm-wasi': 2.8.1
 
   '@trysound/sax@0.2.0': {}
 
@@ -7631,6 +7669,17 @@ snapshots:
   '@types/unist@2.0.11': {}
 
   '@types/unist@3.0.3': {}
+
+  '@types/webpack@5.28.5':
+    dependencies:
+      '@types/node': 25.0.9
+      tapable: 2.3.0
+      webpack: 5.104.1
+    transitivePeerDependencies:
+      - '@swc/core'
+      - esbuild
+      - uglify-js
+      - webpack-cli
 
   '@types/ws@8.18.1':
     dependencies:

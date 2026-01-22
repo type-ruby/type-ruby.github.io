@@ -1,11 +1,10 @@
 /**
  * T-Ruby WASM Loader for Playground
  *
- * Uses a Web Worker to isolate WASM execution from browser extensions.
- * Web Workers run in a separate thread and extensions don't inject content scripts into them.
+ * Uses @t-ruby/wasm package for compilation.
  */
 
-// Types
+// Types for playground interface
 export interface CompileResult {
   success: boolean;
   ruby: string;
@@ -17,6 +16,7 @@ export interface TRubyCompiler {
   compile(code: string): Promise<CompileResult>;
   healthCheck(): { loaded: boolean; version: string; ruby_version: string };
   getVersion(): { t_ruby: string; ruby: string };
+  cleanup(): void;
 }
 
 export type LoadingState = 'idle' | 'loading' | 'ready' | 'error';
@@ -25,272 +25,71 @@ export interface LoadingProgress {
   state: LoadingState;
   message: string;
   progress?: number; // 0-100
+  retryCount?: number;
+  maxRetries?: number;
+}
+
+// Configuration
+const CONFIG = {
+  MAX_RETRIES: 3,
+  RETRY_DELAY_MS: 1000, // 1초 초기 지연
+  COMPILE_TIMEOUT_MS: 60000, // 60초 컴파일 타임아웃
+};
+
+// Version info type matching @t-ruby/wasm VersionInfo
+interface VersionInfo {
+  tRuby: string;
+  rubyWasm: string;
+  ruby: string;
 }
 
 // Singleton state
 let compiler: TRubyCompiler | null = null;
 let loadingPromise: Promise<TRubyCompiler> | null = null;
-let wasmWorker: Worker | null = null;
-let healthData: { loaded: boolean; version: string; ruby_version: string } | null = null;
-
-// Pending compile requests
-const pendingRequests = new Map<string, {
-  resolve: (result: CompileResult) => void;
-  reject: (error: Error) => void;
-}>();
-
-let requestIdCounter = 0;
-
-function generateRequestId(): string {
-  return `req_${++requestIdCounter}_${Date.now()}`;
-}
-
-// T-Ruby WASM package version - update this when publishing new version
-const T_RUBY_WASM_VERSION = '0.0.8';
-
-// T-Ruby library CDN base URL
-const T_RUBY_CDN_BASE = `https://cdn.jsdelivr.net/npm/@t-ruby/wasm@${T_RUBY_WASM_VERSION}/dist/lib/`;
-
-// T-Ruby library files in dependency order (only core compilation files)
-// Excluded: lsp_server, watcher, cli, cache, package_manager, bundler_integration, benchmark, doc_generator
-// These require external gems (listen, etc.) not available in WASM
-const T_RUBY_FILES = [
-  't_ruby/version.rb',
-  't_ruby/config.rb',
-  't_ruby/ir.rb',
-  't_ruby/parser_combinator.rb',
-  't_ruby/smt_solver.rb',
-  't_ruby/type_alias_registry.rb',
-  't_ruby/parser.rb',
-  't_ruby/union_type_parser.rb',
-  't_ruby/generic_type_parser.rb',
-  't_ruby/intersection_type_parser.rb',
-  't_ruby/type_erasure.rb',
-  't_ruby/error_handler.rb',
-  't_ruby/rbs_generator.rb',
-  't_ruby/declaration_generator.rb',
-  't_ruby/compiler.rb',
-  't_ruby/constraint_checker.rb',
-  't_ruby/type_inferencer.rb',
-  't_ruby/runtime_validator.rb',
-  't_ruby/type_checker.rb',
-];
-
-// Web Worker code as a string - runs in isolated thread
-const WORKER_CODE = `
-// Web Worker for T-Ruby WASM compilation
-// This runs in a separate thread, isolated from browser extensions
-
-// Use @ruby/wasm-wasi package directly for DefaultRubyVM
-const RUBY_WASM_CDN = 'https://cdn.jsdelivr.net/npm/@ruby/wasm-wasi@2.7.1/dist/browser/+esm';
-// Use Ruby 3.4 WASM binary (more stable)
-const RUBY_WASM_BINARY = 'https://cdn.jsdelivr.net/npm/@ruby/3.4-wasm-wasi@2.7.1/dist/ruby+stdlib.wasm';
-
-// T-Ruby library CDN base URL
-const T_RUBY_LIB_BASE = '${T_RUBY_CDN_BASE}';
-
-// T-Ruby library files in dependency order
-const T_RUBY_FILES = ${JSON.stringify(T_RUBY_FILES)};
-
-const BOOTSTRAP_CODE = \`
-require "json"
-
-# Define TRuby module if not already defined
-module TRuby
-end unless defined?(TRuby)
-
-$trb_compiler = nil
-
-def get_compiler
-  $trb_compiler ||= TRuby::Compiler.new(nil, use_ir: true, optimize: false)
-end
-
-def __trb_compile__(code)
-  compiler = get_compiler
-
-  begin
-    result = compiler.compile_string(code)
-
-    {
-      success: result[:errors].empty?,
-      ruby: result[:ruby] || "",
-      rbs: result[:rbs] || "",
-      errors: result[:errors] || []
-    }.to_json
-  rescue TRuby::ParseError => e
-    {
-      success: false,
-      ruby: "",
-      rbs: "",
-      errors: [e.message]
-    }.to_json
-  rescue StandardError => e
-    {
-      success: false,
-      ruby: "",
-      rbs: "",
-      errors: ["Compilation error: " + e.message + " at " + e.backtrace.first.to_s]
-    }.to_json
-  end
-end
-
-def __trb_health_check__
-  {
-    loaded: defined?(TRuby) == "constant",
-    version: defined?(TRuby::VERSION) ? TRuby::VERSION : "unknown",
-    ruby_version: RUBY_VERSION
-  }.to_json
-end
-\`;
-
-let vm = null;
-let isReady = false;
-
-// Send message to main thread
-function sendToMain(type, data, requestId) {
-  self.postMessage({ type, data, requestId });
-}
-
-// Fetch T-Ruby library file
-async function fetchTRubyFile(filename) {
-  const url = T_RUBY_LIB_BASE + filename;
-  const response = await fetch(url);
-  if (!response.ok) {
-    throw new Error('Failed to fetch ' + filename + ': ' + response.status);
-  }
-  return await response.text();
-}
-
-// Initialize Ruby VM with T-Ruby library
-async function initialize() {
-  try {
-    console.log('[WASM Worker] Step 1: Loading Ruby WASM module...');
-    sendToMain('progress', { message: 'Loading Ruby runtime...', progress: 5 });
-
-    const { DefaultRubyVM } = await import(RUBY_WASM_CDN);
-    console.log('[WASM Worker] Step 1 complete');
-
-    console.log('[WASM Worker] Step 2: Fetching WASM binary...');
-    sendToMain('progress', { message: 'Downloading Ruby WASM binary...', progress: 15 });
-
-    const response = await fetch(RUBY_WASM_BINARY);
-    const wasmModule = await WebAssembly.compileStreaming(response);
-    console.log('[WASM Worker] Step 2 complete');
-
-    console.log('[WASM Worker] Step 3: Initializing Ruby VM...');
-    sendToMain('progress', { message: 'Initializing Ruby VM...', progress: 30 });
-
-    const result = await DefaultRubyVM(wasmModule);
-    vm = result.vm;
-    console.log('[WASM Worker] Step 3 complete');
-
-    console.log('[WASM Worker] Step 4: Loading T-Ruby library files...');
-    sendToMain('progress', { message: 'Loading T-Ruby compiler...', progress: 40 });
-
-    // Load each T-Ruby library file
-    const totalFiles = T_RUBY_FILES.length;
-    for (let i = 0; i < totalFiles; i++) {
-      const filename = T_RUBY_FILES[i];
-      const progress = 40 + Math.floor((i / totalFiles) * 50);
-      sendToMain('progress', { message: 'Loading ' + filename + '...', progress });
-
-      try {
-        const code = await fetchTRubyFile(filename);
-        // Remove frozen_string_literal comment and require_relative statements
-        // since we're loading files directly
-        const processedCode = code
-          .replace(/# frozen_string_literal: true\\n?/g, '')
-          .replace(/require_relative\\s+["'][^"']+["']\\n?/g, '')
-          .replace(/require\\s+["']fileutils["']\\n?/g, '');
-
-        console.log('[WASM Worker] Loading:', filename);
-        vm.eval(processedCode);
-      } catch (err) {
-        console.error('[WASM Worker] Error loading ' + filename + ':', err);
-        throw err;
-      }
-    }
-    console.log('[WASM Worker] Step 4 complete');
-
-    console.log('[WASM Worker] Step 5: Running bootstrap code...');
-    sendToMain('progress', { message: 'Initializing compiler...', progress: 95 });
-
-    vm.eval(BOOTSTRAP_CODE);
-    console.log('[WASM Worker] Step 5 complete');
-
-    // Health check
-    const healthResult = vm.eval('__trb_health_check__');
-    console.log('[WASM Worker] Health check:', healthResult.toString());
-
-    isReady = true;
-    sendToMain('ready', { health: JSON.parse(healthResult.toString()) });
-
-  } catch (error) {
-    console.error('[WASM Worker] Init error:', error);
-    sendToMain('error', { message: error.message });
-  }
-}
-
-// Compile code
-function compile(code, requestId) {
-  if (!isReady || !vm) {
-    sendToMain('compile-result', {
-      success: false,
-      ruby: '',
-      rbs: '',
-      errors: ['Compiler not ready']
-    }, requestId);
-    return;
-  }
-
-  try {
-    console.log('[WASM Worker] Compiling:', code.substring(0, 50) + '...');
-    // Use Base64 encoding to safely pass code with any special characters
-    const base64Code = btoa(unescape(encodeURIComponent(code)));
-    const decodeAndCompile = 'require "base64"; __trb_compile__(Base64.decode64("' + base64Code + '").force_encoding("UTF-8"))';
-    const resultJson = vm.eval(decodeAndCompile);
-    const result = JSON.parse(resultJson.toString());
-    console.log('[WASM Worker] Compile result:', result);
-    sendToMain('compile-result', result, requestId);
-  } catch (error) {
-    console.error('[WASM Worker] Compile error:', error);
-    sendToMain('compile-result', {
-      success: false,
-      ruby: '',
-      rbs: '',
-      errors: [error.message]
-    }, requestId);
-  }
-}
-
-// Listen for messages from main thread
-self.addEventListener('message', (event) => {
-  const { type, data, requestId } = event.data || {};
-
-  switch (type) {
-    case 'init':
-      initialize();
-      break;
-    case 'compile':
-      compile(data.code, requestId);
-      break;
-  }
-});
-
-// Signal that worker is loaded
-sendToMain('loaded', {});
-`;
+let versionInfo: VersionInfo | null = null;
+let retryCount = 0;
 
 /**
- * Load the T-Ruby WASM compiler using Web Worker
+ * Sleep helper for retry delay with exponential backoff
+ */
+function sleep(ms: number): Promise<void> {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
+
+/**
+ * Create a user-friendly error message
+ */
+function formatErrorMessage(error: unknown, context: string): string {
+  const baseMessage = error instanceof Error ? error.message : String(error);
+
+  // Map common errors to user-friendly messages
+  if (baseMessage.includes('Failed to fetch') || baseMessage.includes('NetworkError')) {
+    return `네트워크 오류: WASM 파일을 다운로드하지 못했습니다. 인터넷 연결을 확인해주세요.`;
+  }
+  if (baseMessage.includes('out of memory') || baseMessage.includes('OOM')) {
+    return `메모리 부족: 브라우저 메모리가 부족합니다. 다른 탭을 닫고 다시 시도해주세요.`;
+  }
+  if (baseMessage.includes('timeout') || baseMessage.includes('Timeout')) {
+    return `시간 초과: ${context} 작업이 너무 오래 걸렸습니다. 다시 시도해주세요.`;
+  }
+  if (baseMessage.includes('WebAssembly')) {
+    return `WASM 오류: 브라우저가 WebAssembly를 지원하지 않거나 초기화에 실패했습니다.`;
+  }
+
+  return `${context} 실패: ${baseMessage}`;
+}
+
+/**
+ * Load the T-Ruby WASM compiler using @t-ruby/wasm package
  * Returns cached instance if already loaded
+ * Includes retry logic for network failures
  */
 export async function loadTRubyCompiler(
   onProgress?: (progress: LoadingProgress) => void
 ): Promise<TRubyCompiler> {
   // Return cached compiler if available
   if (compiler) {
-    onProgress?.({ state: 'ready', message: 'Compiler ready' });
+    onProgress?.({ state: 'ready', message: 'Compiler ready', progress: 100 });
     return compiler;
   }
 
@@ -299,11 +98,12 @@ export async function loadTRubyCompiler(
     return loadingPromise;
   }
 
-  // Start loading
-  loadingPromise = doLoadCompiler(onProgress);
+  // Start loading with retry logic
+  loadingPromise = doLoadCompilerWithRetry(onProgress);
 
   try {
     compiler = await loadingPromise;
+    retryCount = 0; // Reset retry count on success
     return compiler;
   } catch (error) {
     loadingPromise = null;
@@ -311,137 +111,179 @@ export async function loadTRubyCompiler(
   }
 }
 
+/**
+ * Load compiler with retry logic
+ */
+async function doLoadCompilerWithRetry(
+  onProgress?: (progress: LoadingProgress) => void
+): Promise<TRubyCompiler> {
+  let lastError: Error | null = null;
+
+  for (let attempt = 0; attempt <= CONFIG.MAX_RETRIES; attempt++) {
+    try {
+      retryCount = attempt;
+
+      if (attempt > 0) {
+        const delay = CONFIG.RETRY_DELAY_MS * Math.pow(2, attempt - 1); // Exponential backoff
+        onProgress?.({
+          state: 'loading',
+          message: `재시도 중... (${attempt}/${CONFIG.MAX_RETRIES})`,
+          progress: 5,
+          retryCount: attempt,
+          maxRetries: CONFIG.MAX_RETRIES
+        });
+        await sleep(delay);
+      }
+
+      return await doLoadCompiler(onProgress);
+    } catch (error) {
+      lastError = error instanceof Error ? error : new Error(String(error));
+      console.warn(`[T-Ruby] Load attempt ${attempt + 1} failed:`, lastError.message);
+
+      // Don't retry for certain errors
+      if (lastError.message.includes('not supported') ||
+          lastError.message.includes('WebAssembly')) {
+        break;
+      }
+    }
+  }
+
+  const errorMessage = formatErrorMessage(lastError, '컴파일러 로드');
+  throw new Error(errorMessage);
+}
+
+/**
+ * Promise with timeout helper
+ */
+function withTimeout<T>(promise: Promise<T>, ms: number, operation: string): Promise<T> {
+  return Promise.race([
+    promise,
+    new Promise<T>((_, reject) =>
+      setTimeout(() => reject(new Error(`Timeout: ${operation}`)), ms)
+    )
+  ]);
+}
+
 async function doLoadCompiler(
   onProgress?: (progress: LoadingProgress) => void
 ): Promise<TRubyCompiler> {
-  return new Promise((resolve, reject) => {
-    console.log('[T-Ruby] Creating Web Worker for WASM execution...');
+  try {
+    console.log('[T-Ruby] Loading @t-ruby/wasm package...');
     onProgress?.({
       state: 'loading',
-      message: 'Initializing compiler worker...',
-      progress: 0
+      message: 'T-Ruby 컴파일러 로드 중...',
+      progress: 10,
+      retryCount,
+      maxRetries: CONFIG.MAX_RETRIES
     });
 
-    // Create Web Worker from blob URL
-    // Web Workers run in a separate thread, isolated from extension content scripts
-    const blob = new Blob([WORKER_CODE], { type: 'application/javascript' });
-    const blobUrl = URL.createObjectURL(blob);
-    const worker = new Worker(blobUrl, { type: 'module' });
+    // Dynamic import of @t-ruby/wasm
+    const { TRuby } = await import('@t-ruby/wasm');
 
-    // Clean up blob URL
-    URL.revokeObjectURL(blobUrl);
+    onProgress?.({
+      state: 'loading',
+      message: 'Ruby VM 초기화 중...',
+      progress: 30,
+      retryCount,
+      maxRetries: CONFIG.MAX_RETRIES
+    });
 
-    // Message handler
-    worker.onmessage = (event: MessageEvent) => {
-      const { type, data, requestId } = event.data || {};
-      console.log('[T-Ruby] Received message from worker:', type, data);
+    // Create and initialize the compiler
+    const trb = new TRuby();
 
-      switch (type) {
-        case 'loaded':
-          console.log('[T-Ruby] Worker loaded, sending init command...');
-          worker.postMessage({ type: 'init' });
-          break;
+    onProgress?.({
+      state: 'loading',
+      message: 'T-Ruby 라이브러리 로드 중...',
+      progress: 50,
+      retryCount,
+      maxRetries: CONFIG.MAX_RETRIES
+    });
 
-        case 'progress':
-          onProgress?.({
-            state: 'loading',
-            message: data.message,
-            progress: data.progress
-          });
-          break;
+    await trb.initialize();
 
-        case 'ready':
-          console.log('[T-Ruby] Worker ready, health:', data.health);
-          healthData = data.health;
-          onProgress?.({
-            state: 'ready',
-            message: 'Compiler ready',
-            progress: 100
-          });
+    onProgress?.({
+      state: 'loading',
+      message: '버전 정보 확인 중...',
+      progress: 90,
+      retryCount,
+      maxRetries: CONFIG.MAX_RETRIES
+    });
 
-          // Create compiler interface
-          const compilerInstance: TRubyCompiler = {
-            async compile(code: string): Promise<CompileResult> {
-              return new Promise((res, rej) => {
-                const reqId = generateRequestId();
-                pendingRequests.set(reqId, { resolve: res, reject: rej });
+    // Get version info
+    versionInfo = await trb.getVersion();
+    console.log('[T-Ruby] Version:', versionInfo);
 
-                console.log('[T-Ruby] Sending compile request:', reqId);
-                worker.postMessage({
-                  type: 'compile',
-                  data: { code },
-                  requestId: reqId
-                });
+    onProgress?.({
+      state: 'ready',
+      message: '컴파일러 준비 완료',
+      progress: 100
+    });
 
-                // Timeout after 30 seconds
-                setTimeout(() => {
-                  if (pendingRequests.has(reqId)) {
-                    pendingRequests.delete(reqId);
-                    rej(new Error('Compile timeout'));
-                  }
-                }, 30000);
-              });
-            },
+    // Create compiler interface
+    const compilerInstance: TRubyCompiler = {
+      async compile(code: string): Promise<CompileResult> {
+        try {
+          console.log('[T-Ruby] Compiling:', code.substring(0, 50) + '...');
 
-            healthCheck() {
-              return healthData || { loaded: false, version: 'unknown', ruby_version: 'unknown' };
-            },
+          // Add timeout for compilation
+          const result = await withTimeout(
+            trb.compile(code),
+            CONFIG.COMPILE_TIMEOUT_MS,
+            '컴파일'
+          );
+          console.log('[T-Ruby] Compile result:', result);
 
-            getVersion() {
-              return {
-                t_ruby: healthData?.version || 'unknown',
-                ruby: healthData?.ruby_version || 'unknown'
-              };
-            }
+          return {
+            success: result.success,
+            ruby: result.ruby || '',
+            rbs: result.rbs || '',
+            errors: result.errors?.map(e => e.message) || []
           };
+        } catch (error) {
+          console.error('[T-Ruby] Compile error:', error);
+          const errorMessage = formatErrorMessage(error, '컴파일');
+          return {
+            success: false,
+            ruby: '',
+            rbs: '',
+            errors: [errorMessage]
+          };
+        }
+      },
 
-          wasmWorker = worker;
-          resolve(compilerInstance);
-          break;
+      healthCheck() {
+        return {
+          loaded: trb.isInitialized(),
+          version: versionInfo?.tRuby || 'unknown',
+          ruby_version: versionInfo?.ruby || 'unknown'
+        };
+      },
 
-        case 'compile-result':
-          console.log('[T-Ruby] Compile result received for:', requestId);
-          const pending = pendingRequests.get(requestId);
-          if (pending) {
-            pendingRequests.delete(requestId);
-            pending.resolve(data);
-          }
-          break;
+      getVersion() {
+        return {
+          t_ruby: versionInfo?.tRuby || 'unknown',
+          ruby: versionInfo?.ruby || 'unknown'
+        };
+      },
 
-        case 'error':
-          console.error('[T-Ruby] Worker error:', data.message);
-          onProgress?.({
-            state: 'error',
-            message: data.message
-          });
-          worker.terminate();
-          reject(new Error(data.message));
-          break;
+      cleanup() {
+        // Reset state for cleanup on unmount
+        console.log('[T-Ruby] Cleanup called');
+        // Note: TRuby instance cleanup is handled internally
       }
     };
 
-    // Error handling
-    worker.onerror = (error) => {
-      console.error('[T-Ruby] Worker error:', error);
-      reject(new Error('Failed to initialize WASM worker'));
-    };
+    return compilerInstance;
 
-    // Timeout for initial load
-    const loadTimeout = setTimeout(() => {
-      if (!compiler) {
-        console.error('[T-Ruby] Worker initialization timeout');
-        worker.terminate();
-        reject(new Error('WASM worker initialization timeout'));
-      }
-    }, 120000); // 120 second timeout for initial load (loading many files)
-
-    // Clear timeout when ready
-    const originalResolve = resolve;
-    resolve = (value) => {
-      clearTimeout(loadTimeout);
-      originalResolve(value);
-    };
-  });
+  } catch (error) {
+    console.error('[T-Ruby] Failed to load compiler:', error);
+    const errorMessage = formatErrorMessage(error, '컴파일러 로드');
+    onProgress?.({
+      state: 'error',
+      message: errorMessage
+    });
+    throw error;
+  }
 }
 
 /**
@@ -469,4 +311,33 @@ export function preloadCompiler(): void {
       // Silently ignore preload errors
     });
   }
+}
+
+/**
+ * Cleanup the compiler instance
+ * Call this when unmounting components to free resources
+ */
+export function cleanupCompiler(): void {
+  if (compiler) {
+    compiler.cleanup();
+  }
+  compiler = null;
+  loadingPromise = null;
+  versionInfo = null;
+  retryCount = 0;
+  console.log('[T-Ruby] Compiler cleaned up');
+}
+
+/**
+ * Get retry count for displaying in UI
+ */
+export function getRetryCount(): number {
+  return retryCount;
+}
+
+/**
+ * Get max retries configuration
+ */
+export function getMaxRetries(): number {
+  return CONFIG.MAX_RETRIES;
 }

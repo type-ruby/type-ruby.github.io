@@ -173,14 +173,19 @@ function PlaygroundContent(): ReactNode {
   // Load WASM compiler on first compile
   const loadWasmCompiler = useCallback(async (): Promise<TRubyCompiler> => {
     setCompilerState('loading');
-    setLoadingMessage('Loading Ruby runtime...');
+    setLoadingMessage('Ruby 런타임 로드 중...');
 
     try {
       // Dynamic import of the WASM loader
       const { loadTRubyCompiler } = await import('../lib/ruby-wasm');
 
       const loadedCompiler = await loadTRubyCompiler((progress) => {
-        setLoadingMessage(progress.message);
+        // Show retry information if retrying
+        let message = progress.message;
+        if (progress.retryCount && progress.retryCount > 0) {
+          message = `${progress.message} (재시도 ${progress.retryCount}/${progress.maxRetries})`;
+        }
+        setLoadingMessage(message);
       });
 
       setCompilerState('ready');
@@ -189,7 +194,8 @@ function PlaygroundContent(): ReactNode {
     } catch (error) {
       console.error('WASM compiler failed to load:', error);
       setCompilerState('error');
-      setLoadingMessage(error instanceof Error ? error.message : 'Failed to load compiler');
+      // Error message is already formatted by ruby-wasm.ts
+      setLoadingMessage(error instanceof Error ? error.message : '컴파일러 로드에 실패했습니다.');
       throw error;
     }
   }, []);
@@ -236,10 +242,16 @@ function PlaygroundContent(): ReactNode {
     }
   }, [code, compiler, loadWasmCompiler]);
 
-  // Preload compiler when component mounts (optional optimization)
+  // Cleanup compiler on component unmount
   useEffect(() => {
-    // Uncomment to preload compiler on page load
-    // loadWasmCompiler();
+    return () => {
+      // Dynamic import cleanup function
+      import('../lib/ruby-wasm').then(({ cleanupCompiler }) => {
+        cleanupCompiler();
+      }).catch(() => {
+        // Ignore cleanup errors
+      });
+    };
   }, []);
 
   const getButtonText = () => {
