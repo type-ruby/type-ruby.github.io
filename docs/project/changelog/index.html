@@ -10,8 +10,8 @@
 
 
 <link rel="alternate" type="application/rss+xml" href="/news/rss.xml" title="T-Ruby RSS Feed">
-<link rel="alternate" type="application/atom+xml" href="/news/atom.xml" title="T-Ruby Atom Feed"><link rel="stylesheet" href="/assets/css/styles.5bd3c6b8.css">
-<script src="/assets/js/runtime~main.6f9aaf30.js" defer="defer"></script>
+<link rel="alternate" type="application/atom+xml" href="/news/atom.xml" title="T-Ruby Atom Feed"><link rel="stylesheet" href="/assets/css/styles.58e058c5.css">
+<script src="/assets/js/runtime~main.863e9f96.js" defer="defer"></script>
 <script src="/assets/js/main.aae55fa9.js" defer="defer"></script>
 </head>
 <body class="navigation-with-keyboard">
@@ -48,12 +48,12 @@ and this project adheres to <a href="https://semver.org/spec/v2.0.0.html" target
 <h3 class="anchor anchorTargetStickyNavbar_qQJf" id="added-1">Added<a href="#added-1" class="hash-link" aria-label="Direct link to Added" title="Direct link to Added" translate="no">​</a></h3>
 <h4 class="anchor anchorTargetStickyNavbar_qQJf" id="typescript-style-array-shorthand-syntax">TypeScript-style Array Shorthand Syntax<a href="#typescript-style-array-shorthand-syntax" class="hash-link" aria-label="Direct link to TypeScript-style Array Shorthand Syntax" title="Direct link to TypeScript-style Array Shorthand Syntax" translate="no">​</a></h4>
 <ul>
-<li class=""><strong>Array shorthand <code>T[]</code></strong> - Alternative syntax for <code>Array&lt;T&gt;</code>, inspired by TypeScript</li>
-<li class=""><strong>Nested arrays</strong> - <code>Integer[][]</code> for <code>Array&lt;Array&lt;Integer&gt;&gt;</code></li>
-<li class=""><strong>Nullable arrays</strong> - <code>String[]?</code> for <code>(Array&lt;String&gt; | nil)</code></li>
-<li class=""><strong>Arrays of nullable elements</strong> - <code>String?[]</code> for <code>Array&lt;String?&gt;</code></li>
-<li class=""><strong>Union type arrays</strong> - <code>(String | Integer)[]</code> for <code>Array&lt;(String | Integer)&gt;</code></li>
-<li class=""><strong>Full equivalence</strong> - Both <code>String[]</code> and <code>Array&lt;String&gt;</code> produce identical IR and RBS output</li>
+<li class=""><strong>Array shorthand <code>T[]</code></strong> - TypeScript-style array syntax</li>
+<li class=""><strong>Nested arrays</strong> - <code>Integer[][]</code> for multi-dimensional arrays</li>
+<li class=""><strong>Nullable arrays</strong> - <code>String[]?</code> for optional array type</li>
+<li class=""><strong>Arrays of nullable elements</strong> - <code>String?[]</code> for array of nullable strings</li>
+<li class=""><strong>Union type arrays</strong> - <code>(String | Integer)[]</code> for array of union types</li>
+<li class=""><strong>RBS compatibility</strong> - All array syntaxes generate proper RBS output</li>
 </ul>
 <h3 class="anchor anchorTargetStickyNavbar_qQJf" id="example-1">Example<a href="#example-1" class="hash-link" aria-label="Direct link to Example" title="Direct link to Example" translate="no">​</a></h3>
 <div class="language-trb codeBlockContainer_Qeel theme-code-block" style="--prism-color:#F8F8F2;--prism-background-color:#282A36"><div class="codeBlockContent_nxYV"><pre tabindex="0" class="prism-code language-trb codeBlock_PnSJ thin-scrollbar" style="color:#F8F8F2;background-color:#282A36"><code class="codeBlockLines_N2Kg"><span class="token-line" style="color:#F8F8F2"><span class="token plain"># Array shorthand syntax</span><br></span><span class="token-line" style="color:#F8F8F2"><span class="token plain">def process(items: String[]): Integer[][]</span><br></span><span class="token-line" style="color:#F8F8F2"><span class="token plain">  # items is Array&lt;String&gt;</span><br></span><span class="token-line" style="color:#F8F8F2"><span class="token plain">  # returns Array&lt;Array&lt;Integer&gt;&gt;</span><br></span><span class="token-line" style="color:#F8F8F2"><span class="token plain">end</span><br></span><span class="token-line" style="color:#F8F8F2"><span class="token plain" style="display:inline-block"></span><br></span><span class="token-line" style="color:#F8F8F2"><span class="token plain"># Equivalent to</span><br></span><span class="token-line" style="color:#F8F8F2"><span class="token plain">def process(items: String[]): Integer[][]</span><br></span><span class="token-line" style="color:#F8F8F2"><span class="token plain">end</span><br></span><span class="token-line" style="color:#F8F8F2"><span class="token plain" style="display:inline-block"></span><br></span><span class="token-line" style="color:#F8F8F2"><span class="token plain"># Both generate same RBS:</span><br></span><span class="token-line" style="color:#F8F8F2"><span class="token plain"># def process: (items: Array[String]) -&gt; Array[Array[Integer]]</span><br></span></code></pre></div></div>
@@ -103,7 +103,7 @@ and this project adheres to <a href="https://semver.org/spec/v2.0.0.html" target
 <li class=""><strong>Special Types</strong> - <code>Any</code>, <code>void</code>, <code>never</code>, <code>self</code></li>
 <li class=""><strong>Union Types</strong> - Combine multiple types with <code>|</code> operator</li>
 <li class=""><strong>Optional Types</strong> - Shorthand <code>T?</code> for <code>T | nil</code></li>
-<li class=""><strong>Array Generics</strong> - <code>Array&lt;T&gt;</code> for typed arrays</li>
+<li class=""><strong>Array Generics</strong> - <code>T[]</code> for typed arrays</li>
 <li class=""><strong>Hash Generics</strong> - <code>Hash&lt;K, V&gt;</code> for typed hashes</li>
 <li class=""><strong>Type Inference</strong> - Automatic type inference for variables and returns</li>
 <li class=""><strong>Type Narrowing</strong> - Smart narrowing with <code>is_a?</code> and <code>nil?</code></li>

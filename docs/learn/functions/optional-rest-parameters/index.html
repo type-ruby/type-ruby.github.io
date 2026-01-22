@@ -10,8 +10,8 @@
 
 
 <link rel="alternate" type="application/rss+xml" href="/news/rss.xml" title="T-Ruby RSS Feed">
-<link rel="alternate" type="application/atom+xml" href="/news/atom.xml" title="T-Ruby Atom Feed"><link rel="stylesheet" href="/assets/css/styles.5bd3c6b8.css">
-<script src="/assets/js/runtime~main.6f9aaf30.js" defer="defer"></script>
+<link rel="alternate" type="application/atom+xml" href="/news/atom.xml" title="T-Ruby Atom Feed"><link rel="stylesheet" href="/assets/css/styles.58e058c5.css">
+<script src="/assets/js/runtime~main.863e9f96.js" defer="defer"></script>
 <script src="/assets/js/main.aae55fa9.js" defer="defer"></script>
 </head>
 <body class="navigation-with-keyboard">
@@ -86,7 +86,7 @@
 <p><strong>Use rest parameters for collections</strong>: When you expect a variable number of similar items, rest parameters are cleaner than array parameters.</p>
 </li>
 <li class="">
-<p><strong>Type rest parameters appropriately</strong>: <code>*args: Array&lt;String&gt;</code> is better than <code>*args: Array&lt;String | Integer&gt;</code> if you only expect strings.</p>
+<p><strong>Type rest parameters appropriately</strong>: <code>*args: String[]</code> is better than <code>*args: (String | Integer)[]</code> if you only expect strings.</p>
 </li>
 <li class="">
 <p><strong>Document complex signatures</strong>: When combining many parameter types, add comments explaining the usage.</p>
