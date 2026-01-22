@@ -175,7 +175,7 @@ speed_of_light: Float = 2.998e8  # 299,800,000
 ### Float算術
 
 ```trb title="float_math.trb"
-def calculate_average(values: Array<Float>): Float
+def calculate_average(values: Float[]): Float
   sum = 0.0
   values.each do |v|
     sum += v

@@ -256,7 +256,7 @@ compiler:
 
 ```trb
 # 厳格モードで必要
-def process(data: Array<String>): Hash<String, Integer>
+def process(data: String[]): Hash<String, Integer>
   @count: Integer = 0
   result: Hash<String, Integer> = {}
   # ...
@@ -272,7 +272,7 @@ end
 
 ```trb
 # 標準モードでOK
-def process(data: Array<String>): Hash<String, Integer>
+def process(data: String[]): Hash<String, Integer>
   @count: Integer = 0
   result = {}  # 型を推論
   # ...
@@ -412,7 +412,7 @@ end
 
 ```trb
 # no_unchecked_indexed_access: trueの場合エラー
-users: Array<User> = get_users()
+users: User[] = get_users()
 user = users[0]  # エラー: nilの可能性あり
 
 # OK - まず検査

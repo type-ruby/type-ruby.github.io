@@ -55,7 +55,7 @@ person.password = "secret"   # ✓ OK - attr_writer
 ```trb title="explicit_types.trb"
 class ShoppingCart
   def initialize()
-    @items: Array<String> = []
+    @items: String[] = []
     @quantities: Hash<String, Integer> = {}
     @total: Float = 0.0
     @discount: Float? = nil
@@ -94,7 +94,7 @@ class Article
     @title = title
     @published = false
     @views: Integer = 0
-    @comments: Array<String> = []
+    @comments: String[] = []
     @author: String? = nil
   end
 
@@ -204,7 +204,7 @@ class Configuration
   @@database_url: String = "localhost"
   @@max_connections: Integer = 10
   @@debug_mode: Boolean = false
-  @@allowed_hosts: Array<String> = []
+  @@allowed_hosts: String[] = []
 
   def self.database_url(): String
     @@database_url
@@ -234,7 +234,7 @@ class Configuration
     @@allowed_hosts.push(host) unless @@allowed_hosts.include?(host)
   end
 
-  def self.allowed_hosts(): Array<String>
+  def self.allowed_hosts(): String[]
     @@allowed_hosts
   end
 end
@@ -328,10 +328,10 @@ puts BankAccount.total_balance()    # 3500.0
 ```trb title="complex_types.trb"
 class DataStore
   def initialize()
-    @strings: Array<String> = []
-    @numbers: Array<Integer> = []
+    @strings: String[] = []
+    @numbers: Integer[] = []
     @mappings: Hash<String, Integer> = {}
-    @nested: Hash<String, Array<String>> = {}
+    @nested: Hash<String, String[]> = {}
     @optional_data: String? = nil
     @union_data: String | Integer | nil = nil
   end
@@ -348,7 +348,7 @@ class DataStore
     @mappings[key] = value
   end
 
-  def add_nested(key: String, values: Array<String>): void
+  def add_nested(key: String, values: String[]): void
     @nested[key] = values
   end
 
@@ -360,7 +360,7 @@ class DataStore
     @union_data = data
   end
 
-  def get_strings(): Array<String>
+  def get_strings(): String[]
     @strings
   end
 
@@ -550,7 +550,7 @@ class Cache<T>
     total > 0 ? (@hits.to_f / total.to_f) * 100 : 0.0
   end
 
-  def keys(): Array<String>
+  def keys(): String[]
     @data.keys
   end
 
@@ -632,16 +632,16 @@ class Report
 
   def initialize(name: String)
     @name = name
-    @data: Array<String>? = nil
+    @data: String[]? = nil
   end
 
-  def data(): Array<String>
+  def data(): String[]
     @data ||= load_data()
   end
 
   private
 
-  def load_data(): Array<String>
+  def load_data(): String[]
     # 高コストな操作
     ["Item 1", "Item 2", "Item 3"]
   end
@@ -665,7 +665,7 @@ class Plugin
     @@plugins[name]
   end
 
-  def self.all(): Array<Plugin>
+  def self.all(): Plugin[]
     @@plugins.values
   end
 

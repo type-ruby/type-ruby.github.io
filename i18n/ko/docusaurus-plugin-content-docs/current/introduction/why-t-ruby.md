@@ -80,7 +80,7 @@ def transform(data, options = {})
 end
 
 # 타입과 함께 - 명확하게
-def transform(data: Array<Record>, options: TransformOptions?): TransformResult
+def transform(data: Record[], options: TransformOptions?): TransformResult
   # ...
 end
 ```
@@ -162,7 +162,7 @@ T-Ruby는 특히 다음에 유용합니다:
 puts "Hello, #{ARGV[0]}!"
 
 # 이렇게 할 필요 없습니다:
-# def main(args: Array<String>): void
+# def main(args: String[]): void
 #   puts "Hello, #{args[0]}!"
 # end
 ```

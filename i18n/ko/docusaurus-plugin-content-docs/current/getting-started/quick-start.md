@@ -86,7 +86,7 @@ is_active: Boolean = true
 role: Symbol = :admin
 
 # 컬렉션
-numbers: Array<Integer> = [1, 2, 3, 4, 5]
+numbers: Integer[] = [1, 2, 3, 4, 5]
 scores: Hash<String, Integer> = { "수학" => 100, "영어" => 95 }
 
 # Nil 허용 (옵셔널)

@@ -36,7 +36,7 @@ name: String | nil = nil
 user: User | nil = find_user(123)
 
 # コレクションで
-mixed: Array<String | Integer> = ["Alice", 1, "Bob", 2]
+mixed: (String | Integer)[] = ["Alice", 1, "Bob", 2]
 config: Hash<Symbol, String | Integer | Boolean> = {
   host: "localhost",
   port: 3000,
@@ -123,7 +123,7 @@ class User
 end
 
 # コレクションで
-users: Array<User?> = [User.new, nil, User.new]
+users: User?[] = [User.new, nil, User.new]
 cache: Hash<String, Integer?> = { "count" => 42, "missing" => nil }
 ```
 
@@ -192,7 +192,7 @@ end
 
 ```trb
 # 複数の制約を持つジェネリック
-def sort_and_print<T>(items: Array<T>): void
+def sort_and_print<T>(items: T[]): void
   where T: Printable & Comparable
 
   sorted = items.sort
@@ -208,7 +208,7 @@ end
 
 ```trb
 # 単一の型パラメータ
-def first<T>(arr: Array<T>): T | nil
+def first<T>(arr: T[]): T | nil
   arr[0]
 end
 
@@ -218,7 +218,7 @@ def pair<K, V>(key: K, value: V): Hash<K, V>
 end
 
 # 制約付きジェネリック
-def find<T>(items: Array<T>, predicate: Proc<T, Boolean>): T | nil
+def find<T>(items: T[], predicate: Proc<T, Boolean>): T | nil
   items.find { |item| predicate.call(item) }
 end
 ```
@@ -267,12 +267,12 @@ end
 
 ```trb
 # ネストされたジェネリック型
-cache: Hash<String, Array<Integer>> = {
+cache: Hash<String, Integer[]> = {
   "fibonacci" => [1, 1, 2, 3, 5, 8]
 }
 
 # 複雑なネスト
-type NestedData = Hash<String, Array<Hash<Symbol, String | Integer>>>
+type NestedData = Hash<String, Hash<Symbol, String | Integer>[]>
 
 data: NestedData = {
   "users" => [
@@ -296,21 +296,21 @@ Array<ElementType>
 
 ```trb
 # 基本的な配列
-strings: Array<String> = ["a", "b", "c"]
-numbers: Array<Integer> = [1, 2, 3]
+strings: String[] = ["a", "b", "c"]
+numbers: Integer[] = [1, 2, 3]
 
 # ユニオン要素型
-mixed: Array<String | Integer> = ["Alice", 1, "Bob", 2]
+mixed: (String | Integer)[] = ["Alice", 1, "Bob", 2]
 
 # ネストされた配列
-matrix: Array<Array<Float>> = [
+matrix: Float[][] = [
   [1.0, 2.0],
   [3.0, 4.0]
 ]
 
 # 配列を返すジェネリック関数
-def range<T>(start: T, count: Integer, &block: Proc<T, T>): Array<T>
-  result: Array<T> = [start]
+def range<T>(start: T, count: Integer, &block: Proc<T, T>): T[]
+  result: T[] = [start]
   current = start
 
   (count - 1).times do
@@ -352,8 +352,8 @@ users: Hash<Integer, Hash<Symbol, String>> = {
 }
 
 # ジェネリックハッシュ関数
-def group_by<T, K>(items: Array<T>, &block: Proc<T, K>): Hash<K, Array<T>>
-  result: Hash<K, Array<T>> = {}
+def group_by<T, K>(items: T[], &block: Proc<T, K>): Hash<K, T[]>
+  result: Hash<K, T[]> = {}
 
   items.each do |item|
     key = block.call(item)
@@ -393,12 +393,12 @@ adder: Proc<Integer, Integer, Integer> = ->(a: Integer, b: Integer): Integer {
 logger: Proc<String, void> = ->(msg: String): void { puts msg }
 
 # ジェネリックprocパラメータ
-def map<T, U>(arr: Array<T>, fn: Proc<T, U>): Array<U>
+def map<T, U>(arr: T[], fn: Proc<T, U>): U[]
   arr.map { |item| fn.call(item) }
 end
 
 # ブロックパラメータ
-def each_with_index<T>(items: Array<T>, &block: Proc<T, Integer, void>): void
+def each_with_index<T>(items: T[], &block: Proc<T, Integer, void>): void
   items.each_with_index { |item, index| block.call(item, index) }
 end
 ```
@@ -565,7 +565,7 @@ person: Person = ["Alice", 30]
 
 ```trb
 # Readonly型（計画中）
-type ReadonlyArray<T> = readonly Array<T>
+type ReadonlyArray<T> = readonly T[]
 type ReadonlyHash<K, V> = readonly Hash<K, V>
 
 # 変更不可
@@ -668,7 +668,7 @@ name: String? = nil
 
 ```trb
 # ❌ オプションが多すぎる
-value: String | Integer | Float | Boolean | Symbol | nil | Array<String>
+value: String | Integer | Float | Boolean | Symbol | nil | String[]
 
 # ✅ 型エイリアスを使用
 type PrimitiveValue = String | Integer | Float | Boolean

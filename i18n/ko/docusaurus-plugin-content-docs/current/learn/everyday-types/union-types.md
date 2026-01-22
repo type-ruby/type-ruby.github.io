@@ -172,11 +172,11 @@ Union 타입은 배열과 해시와 함께 일반적으로 사용됩니다:
 
 ```trb title="union_arrays.trb"
 # 문자열 또는 정수를 포함할 수 있는 배열
-def create_mixed_list(): Array<String | Integer>
+def create_mixed_list(): (String | Integer)[]
   ["Alice", 1, "Bob", 2, "Charlie", 3]
 end
 
-def sum_numbers(items: Array<String | Integer>): Integer
+def sum_numbers(items: (String | Integer)[]): Integer
   total = 0
 
   items.each do |item|
@@ -188,8 +188,8 @@ def sum_numbers(items: Array<String | Integer>): Integer
   total
 end
 
-def get_strings(items: Array<String | Integer>): Array<String>
-  result: Array<String> = []
+def get_strings(items: (String | Integer)[]): String[]
+  result: String[] = []
 
   items.each do |item|
     if item.is_a?(String)
@@ -200,9 +200,9 @@ def get_strings(items: Array<String | Integer>): Array<String>
   result
 end
 
-mixed: Array<String | Integer> = create_mixed_list()
+mixed: (String | Integer)[] = create_mixed_list()
 sum: Integer = sum_numbers(mixed)  # 6
-strings: Array<String> = get_strings(mixed)  # ["Alice", "Bob", "Charlie"]
+strings: String[] = get_strings(mixed)  # ["Alice", "Bob", "Charlie"]
 ```
 
 ### Union 값 타입을 가진 해시
@@ -388,8 +388,8 @@ result4: String = process_input(:active)  # "심볼: active"
 ```trb title="complex_unions.trb"
 # 단일 값이거나 값의 배열일 수 있음
 def normalize_input(
-  value: String | Array<String>
-): Array<String>
+  value: String | String[]
+): String[]
   if value.is_a?(Array)
     value
   else
@@ -397,11 +397,11 @@ def normalize_input(
   end
 end
 
-result1: Array<String> = normalize_input("hello")  # ["hello"]
-result2: Array<String> = normalize_input(["a", "b"])  # ["a", "b"]
+result1: String[] = normalize_input("hello")  # ["hello"]
+result2: String[] = normalize_input(["a", "b"])  # ["a", "b"]
 
 # 단일 정수 또는 범위일 수 있음
-def expand_range(value: Integer | Range): Array<Integer>
+def expand_range(value: Integer | Range): Integer[]
   if value.is_a?(Range)
     value.to_a
   else
@@ -409,8 +409,8 @@ def expand_range(value: Integer | Range): Array<Integer>
   end
 end
 
-nums1: Array<Integer> = expand_range(5)  # [5]
-nums2: Array<Integer> = expand_range(1..5)  # [1, 2, 3, 4, 5]
+nums1: Integer[] = expand_range(5)  # [5]
+nums2: Integer[] = expand_range(1..5)  # [1, 2, 3, 4, 5]
 ```
 
 ## 실용적 예제: 설정 시스템

@@ -103,11 +103,11 @@ len2: Integer = get_length(nil)  # 0
 <ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/everyday_types/type_narrowing_spec.rb" line={58} />
 
 ```trb title="empty_guard.trb"
-def process_array(items: Array<String> | nil): String
+def process_array(items: String[] | nil): String
   if items.nil? || items.empty?
     "항목 없음"
   else
-    # 여기서 items는 비어있지 않은 Array<String>
+    # 여기서 items는 비어있지 않은 String[]
     "첫 번째 항목: #{items.first}"
   end
 end
@@ -268,9 +268,9 @@ def process_and(
   end
 end
 
-def safe_access(items: Array<String> | nil, index: Integer): String | nil
+def safe_access(items: String[] | nil, index: Integer): String | nil
   if !items.nil? && index < items.length
-    # 여기서 items는 Array<String>
+    # 여기서 items는 String[]
     items[index]
   else
     nil
@@ -349,10 +349,10 @@ end
 <ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/everyday_types/type_narrowing_spec.rb" line={179} />
 
 ```trb title="array_method_narrowing.trb"
-def get_first_element(items: Array<String> | nil): String
+def get_first_element(items: String[] | nil): String
   return "항목 없음" if items.nil? || items.empty?
 
-  # 여기서 items는 비어있지 않은 Array<String>
+  # 여기서 items는 비어있지 않은 String[]
   first: String = items.first
   first
 end
@@ -365,8 +365,8 @@ end
 <ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/everyday_types/type_narrowing_spec.rb" line={190} />
 
 ```trb title="block_narrowing.trb"
-def process_items(items: Array<String | nil>): Array<String>
-  result: Array<String> = []
+def process_items(items: (String | nil)[]): String[]
+  result: String[] = []
 
   items.each do |item|
     # 여기서 item은 String | nil
@@ -379,7 +379,7 @@ def process_items(items: Array<String | nil>): Array<String>
   result
 end
 
-def filter_and_map(items: Array<String | Integer>): Array<String>
+def filter_and_map(items: (String | Integer)[]): String[]
   items.map do |item|
     if item.is_a?(String)
       # 여기서 item은 String
@@ -468,8 +468,8 @@ class FormValidator
     name: String | nil,
     email: String | nil,
     age: Integer | String | nil
-  ): Hash<Symbol, Array<String>>
-    errors: Hash<Symbol, Array<String>> = {}
+  ): Hash<Symbol, String[]>
+    errors: Hash<Symbol, String[]> = {}
 
     # 이름 검증
     name_error = validate_field("이름", name, true)

@@ -95,11 +95,11 @@ len2: Integer = get_length(nil)  # 0
 `empty?`メソッドはコレクションの型を絞り込むことができます：
 
 ```trb title="empty_guard.trb"
-def process_array(items: Array<String> | nil): String
+def process_array(items: String[] | nil): String
   if items.nil? || items.empty?
     "アイテムなし"
   else
-    # ここでitemsは空でないArray<String>
+    # ここでitemsは空でないString[]
     "最初のアイテム: #{items.first}"
   end
 end
@@ -246,9 +246,9 @@ def process_and(
   end
 end
 
-def safe_access(items: Array<String> | nil, index: Integer): String | nil
+def safe_access(items: String[] | nil, index: Integer): String | nil
   if !items.nil? && index < items.length
-    # ここでitemsはArray<String>
+    # ここでitemsはString[]
     items[index]
   else
     nil
@@ -319,10 +319,10 @@ end
 ### Arrayメソッド
 
 ```trb title="array_method_narrowing.trb"
-def get_first_element(items: Array<String> | nil): String
+def get_first_element(items: String[] | nil): String
   return "アイテムなし" if items.nil? || items.empty?
 
-  # ここでitemsは空でないArray<String>
+  # ここでitemsは空でないString[]
   first: String = items.first
   first
 end
@@ -333,8 +333,8 @@ end
 型ナローイングはブロック内でも機能します：
 
 ```trb title="block_narrowing.trb"
-def process_items(items: Array<String | nil>): Array<String>
-  result: Array<String> = []
+def process_items(items: (String | nil)[]): String[]
+  result: String[] = []
 
   items.each do |item|
     # ここでitemはString | nil
@@ -347,7 +347,7 @@ def process_items(items: Array<String | nil>): Array<String>
   result
 end
 
-def filter_and_map(items: Array<String | Integer>): Array<String>
+def filter_and_map(items: (String | Integer)[]): String[]
   items.map do |item|
     if item.is_a?(String)
       # ここでitemはString
@@ -434,8 +434,8 @@ class FormValidator
     name: String | nil,
     email: String | nil,
     age: Integer | String | nil
-  ): Hash<Symbol, Array<String>>
-    errors: Hash<Symbol, Array<String>> = {}
+  ): Hash<Symbol, String[]>
+    errors: Hash<Symbol, String[]> = {}
 
     # 名前の検証
     name_error = validate_field("名前", name, true)

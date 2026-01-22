@@ -172,7 +172,7 @@ end
 
 interface Validatable
   def valid?: Boolean
-  def errors: Array<String>
+  def errors: String[]
 end
 
 interface Persistable
@@ -189,7 +189,7 @@ class Article
 
   @title: String
   @content: String
-  @errors: Array<String>
+  @errors: String[]
 
   def initialize(title: String, content: String): void
     @title = title
@@ -213,7 +213,7 @@ class Article
     @errors.empty?
   end
 
-  def errors: Array<String>
+  def errors: String[]
     @errors
   end
 
@@ -260,7 +260,7 @@ type BaseEntity = Identifiable & Timestamped
 type DeletableEntity = Identifiable & Timestamped & SoftDeletable
 
 class Repository<T: BaseEntity>
-  @items: Array<T>
+  @items: T[]
 
   def initialize: void
     @items = []
@@ -270,25 +270,25 @@ class Repository<T: BaseEntity>
     @items.find { |item| item.id == id }
   end
 
-  def all: Array<T>
+  def all: T[]
     @items.dup
   end
 
-  def recent(limit: Integer = 10): Array<T>
+  def recent(limit: Integer = 10): T[]
     @items.sort_by { |item| item.created_at }.reverse.take(limit)
   end
 end
 
 class SoftDeleteRepository<T: DeletableEntity> < Repository<T>
-  def all: Array<T>
+  def all: T[]
     @items.reject { |item| item.deleted? }
   end
 
-  def with_deleted: Array<T>
+  def with_deleted: T[]
     @items.dup
   end
 
-  def only_deleted: Array<T>
+  def only_deleted: T[]
     @items.select { |item| item.deleted? }
   end
 end
@@ -444,7 +444,7 @@ end
 
 # 여러 기능이 필요한 컬렉션
 class ValidatedCollection<T: Identifiable & Validatable>
-  @items: Array<T>
+  @items: T[]
 
   def initialize: void
     @items = []
@@ -463,11 +463,11 @@ class ValidatedCollection<T: Identifiable & Validatable>
     @items.find { |item| item.id == id }
   end
 
-  def all_valid: Array<T>
+  def all_valid: T[]
     @items.select { |item| item.valid? }
   end
 
-  def all_invalid: Array<T>
+  def all_invalid: T[]
     @items.reject { |item| item.valid? }
   end
 end
@@ -668,7 +668,7 @@ class FormBuilder
   implements Buildable, Validatable, Resettable
 
   @fields: Hash<String, String>
-  @errors: Array<String>
+  @errors: String[]
 
   def initialize: void
     @fields = {}
@@ -722,9 +722,9 @@ class WorkflowState
   implements State, Transitionable, Observable
 
   @name: String
-  @allowed_transitions: Array<String>
+  @allowed_transitions: String[]
 
-  def initialize(name: String, allowed_transitions: Array<String>): void
+  def initialize(name: String, allowed_transitions: String[]): void
     @name = name
     @allowed_transitions = allowed_transitions
   end

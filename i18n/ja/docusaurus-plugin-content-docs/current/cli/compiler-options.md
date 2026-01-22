@@ -39,7 +39,7 @@ trc compile --strict src/
 
 ```trb
 # 厳格モードでは完全な型指定が必要
-def process(data: Array<String>): Hash<String, Integer>
+def process(data: String[]): Hash<String, Integer>
   @count: Integer = 0
   result: Hash<String, Integer> = {}
   result
@@ -138,7 +138,7 @@ trc compile --no-unchecked-indexed-access src/
 
 ```trb
 # --no-unchecked-indexed-access使用時はエラー
-users: Array<User> = get_users()
+users: User[] = get_users()
 user = users[0]  # エラー: nilの可能性あり
 
 # まず検査が必要

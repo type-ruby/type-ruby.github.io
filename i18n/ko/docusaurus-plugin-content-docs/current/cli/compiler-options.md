@@ -41,7 +41,7 @@ trc compile --strict src/
 
 ```trb
 # 엄격 모드는 전체 타입 지정 필요
-def process(data: Array<String>): Hash<String, Integer>
+def process(data: String[]): Hash<String, Integer>
   @count: Integer = 0
   result: Hash<String, Integer> = {}
   result
@@ -150,7 +150,7 @@ trc compile --no-unchecked-indexed-access src/
 
 ```trb
 # --no-unchecked-indexed-access 사용 시 오류
-users: Array<User> = get_users()
+users: User[] = get_users()
 user = users[0]  # 오류: nil일 수 있음
 
 # 먼저 검사해야 함

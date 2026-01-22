@@ -55,7 +55,7 @@ id: String | Integer = "user-123"
 name: String? = nil
 
 # 제네릭
-users: Array<User> = []
+users: User[] = []
 
 # 인터페이스
 interface Printable

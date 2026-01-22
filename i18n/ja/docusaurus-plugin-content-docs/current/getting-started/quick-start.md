@@ -82,7 +82,7 @@ is_active: Boolean = true
 role: Symbol = :admin
 
 # コレクション
-numbers: Array<Integer> = [1, 2, 3, 4, 5]
+numbers: Integer[] = [1, 2, 3, 4, 5]
 scores: Hash<String, Integer> = { "数学" => 100, "英語" => 95 }
 
 # Nil許容（オプショナル）

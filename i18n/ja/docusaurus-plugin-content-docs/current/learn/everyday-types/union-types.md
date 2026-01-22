@@ -156,11 +156,11 @@ Union型は配列やハッシュとよく一緒に使用されます：
 
 ```trb title="union_arrays.trb"
 # 文字列または整数を含むことができる配列
-def create_mixed_list(): Array<String | Integer>
+def create_mixed_list(): (String | Integer)[]
   ["Alice", 1, "Bob", 2, "Charlie", 3]
 end
 
-def sum_numbers(items: Array<String | Integer>): Integer
+def sum_numbers(items: (String | Integer)[]): Integer
   total = 0
 
   items.each do |item|
@@ -172,8 +172,8 @@ def sum_numbers(items: Array<String | Integer>): Integer
   total
 end
 
-def get_strings(items: Array<String | Integer>): Array<String>
-  result: Array<String> = []
+def get_strings(items: (String | Integer)[]): String[]
+  result: String[] = []
 
   items.each do |item|
     if item.is_a?(String)
@@ -184,9 +184,9 @@ def get_strings(items: Array<String | Integer>): Array<String>
   result
 end
 
-mixed: Array<String | Integer> = create_mixed_list()
+mixed: (String | Integer)[] = create_mixed_list()
 sum: Integer = sum_numbers(mixed)  # 6
-strings: Array<String> = get_strings(mixed)  # ["Alice", "Bob", "Charlie"]
+strings: String[] = get_strings(mixed)  # ["Alice", "Bob", "Charlie"]
 ```
 
 ### Union値型を持つハッシュ
@@ -358,8 +358,8 @@ result4: String = process_input(:active)  # "シンボル: active"
 ```trb title="complex_unions.trb"
 # 単一の値または値の配列になりうる
 def normalize_input(
-  value: String | Array<String>
-): Array<String>
+  value: String | String[]
+): String[]
   if value.is_a?(Array)
     value
   else
@@ -367,11 +367,11 @@ def normalize_input(
   end
 end
 
-result1: Array<String> = normalize_input("hello")  # ["hello"]
-result2: Array<String> = normalize_input(["a", "b"])  # ["a", "b"]
+result1: String[] = normalize_input("hello")  # ["hello"]
+result2: String[] = normalize_input(["a", "b"])  # ["a", "b"]
 
 # 単一の整数または範囲になりうる
-def expand_range(value: Integer | Range): Array<Integer>
+def expand_range(value: Integer | Range): Integer[]
   if value.is_a?(Range)
     value.to_a
   else
@@ -379,8 +379,8 @@ def expand_range(value: Integer | Range): Array<Integer>
   end
 end
 
-nums1: Array<Integer> = expand_range(5)  # [5]
-nums2: Array<Integer> = expand_range(1..5)  # [1, 2, 3, 4, 5]
+nums1: Integer[] = expand_range(5)  # [5]
+nums2: Integer[] = expand_range(1..5)  # [1, 2, 3, 4, 5]
 ```
 
 ## 実用的な例：設定システム

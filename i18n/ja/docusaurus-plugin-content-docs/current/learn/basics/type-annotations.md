@@ -227,7 +227,7 @@ member_price = calculate_discount(100.0, 10, true)
 ブロックパラメータにもアノテーションを付けることができます：
 
 ```trb title="blocks.trb"
-def process_numbers(numbers: Array<Integer>)
+def process_numbers(numbers: Integer[])
   numbers.map do |n: Integer|
     n * 2
   end

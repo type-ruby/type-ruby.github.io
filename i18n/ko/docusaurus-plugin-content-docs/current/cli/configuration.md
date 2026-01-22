@@ -258,7 +258,7 @@ compiler:
 
 ```trb
 # 엄격 모드에서 필요
-def process(data: Array<String>): Hash<String, Integer>
+def process(data: String[]): Hash<String, Integer>
   @count: Integer = 0
   result: Hash<String, Integer> = {}
   # ...
@@ -276,7 +276,7 @@ end
 
 ```trb
 # 표준 모드에서 OK
-def process(data: Array<String>): Hash<String, Integer>
+def process(data: String[]): Hash<String, Integer>
   @count: Integer = 0
   result = {}  # 타입 추론
   # ...
@@ -432,7 +432,7 @@ end
 
 ```trb
 # no_unchecked_indexed_access: true일 때 오류
-users: Array<User> = get_users()
+users: User[] = get_users()
 user = users[0]  # 오류: nil일 수 있음
 
 # OK - 먼저 검사

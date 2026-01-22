@@ -139,10 +139,10 @@ end
 T-Rubyは配列とハッシュ要素の型を推論できます：
 
 ```trb title="collections.trb"
-# Array<Integer>として推論
+# Integer[]として推論
 numbers = [1, 2, 3, 4, 5]
 
-# Array<String>として推論
+# String[]として推論
 names = ["Alice", "Bob", "Charlie"]
 
 # Hash<Symbol, String>として推論
@@ -163,7 +163,7 @@ scores = {
 T-Rubyは型付きコレクションを反復処理するときにブロックパラメータの型を推論できます：
 
 ```trb title="blocks.trb"
-def sum_numbers(numbers: Array<Integer>): Integer
+def sum_numbers(numbers: Integer[]): Integer
   total = 0
 
   # T-RubyはnがIntegerであることを推論
@@ -174,7 +174,7 @@ def sum_numbers(numbers: Array<Integer>): Integer
   total
 end
 
-def greet_all(names: Array<String>)
+def greet_all(names: String[])
   # T-RubyはnameがStringであることを推論
   names.each do |name|
     puts "こんにちは、#{name}さん！"
@@ -209,7 +209,7 @@ end
 ```trb title="instance_vars.trb"
 class ShoppingCart
   def initialize()
-    @items: Array<String> = []
+    @items: String[] = []
     @total: Float = 0.0
   end
 
@@ -232,7 +232,7 @@ result = 0  # Integerとして推論
 result: Float = 0.0
 
 # または一時的な値で始める場合
-users: Array<String> = []  # 後でユーザー名を保持する
+users: String[] = []  # 後でユーザー名を保持する
 ```
 
 ### 4. Union型
@@ -257,7 +257,7 @@ current_user: String | nil = nil
 ```trb title="public_api.trb"
 module MathHelpers
   # パブリックメソッド - 完全にアノテーション
-  def self.calculate_average(numbers: Array<Float>): Float
+  def self.calculate_average(numbers: Float[]): Float
     sum = numbers.reduce(0.0) { |acc, n| acc + n }
     sum / numbers.length
   end
@@ -313,11 +313,11 @@ end
 ### パターン1：初期化して使用
 
 ```trb title="pattern1.trb"
-def process_names(raw_names: String): Array<String>
-  # namesはArray<String>として推論
+def process_names(raw_names: String): String[]
+  # namesはString[]として推論
   names = raw_names.split(",")
 
-  # cleanedはArray<String>として推論
+  # cleanedはString[]として推論
   cleaned = names.map { |n| n.strip.downcase }
 
   cleaned
@@ -327,7 +327,7 @@ end
 ### パターン2：アキュムレータ変数
 
 ```trb title="pattern2.trb"
-def calculate_stats(numbers: Array<Integer>): Hash<Symbol, Float>
+def calculate_stats(numbers: Integer[]): Hash<Symbol, Float>
   # sumはIntegerとして推論（0から始まり、Integerを加算）
   sum = 0
   numbers.each { |n| sum += n }
@@ -342,7 +342,7 @@ end
 ### パターン3：ビルダーパターン
 
 ```trb title="pattern3.trb"
-def build_query(table: String, conditions: Array<String>): String
+def build_query(table: String, conditions: String[]): String
   # queryはStringとして推論
   query = "SELECT * FROM #{table}"
 
@@ -367,7 +367,7 @@ T-Rubyが自動的に型を推論できない状況があります：
 items = []  # アノテーションが必要！
 
 # より良い - 型をアノテーション
-items: Array<String> = []
+items: String[] = []
 
 # または少なくとも1つの要素で初期化
 items = ["first_item"]
@@ -430,7 +430,7 @@ end
 class OrderProcessor
   def initialize()
     # アノテーション - メソッド間で共有
-    @pending_orders: Array<String> = []
+    @pending_orders: String[] = []
     @completed_count: Integer = 0
   end
 

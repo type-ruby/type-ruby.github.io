@@ -111,7 +111,7 @@ len: Integer = string_length("Hello")  # 5
 
 ```trb title="string_building.trb"
 def build_greeting(name: String, title: String): String
-  parts: Array<String> = ["Hello", title, name]
+  parts: String[] = ["Hello", title, name]
   parts.join(" ")
 end
 
@@ -165,7 +165,7 @@ def divide_truncate(a: Integer, b: Integer): Integer
   a / b
 end
 
-def divide_with_remainder(a: Integer, b: Integer): Array<Integer>
+def divide_with_remainder(a: Integer, b: Integer): Integer[]
   quotient = a / b
   remainder = a % b
   [quotient, remainder]
@@ -174,7 +174,7 @@ end
 result1: Integer = divide_truncate(7, 2)  # 3（3.5ではない）
 result2: Integer = divide_truncate(-7, 2)  # -3（ゼロ方向に切り捨て）
 
-parts: Array<Integer> = divide_with_remainder(17, 5)
+parts: Integer[] = divide_with_remainder(17, 5)
 # [3, 2]を返す（17 = 5 * 3 + 2）
 ```
 
@@ -218,8 +218,8 @@ def next_number(n: Integer): Integer
   n.next
 end
 
-def times_operation(n: Integer): Array<Integer>
-  results: Array<Integer> = []
+def times_operation(n: Integer): Integer[]
+  results: Integer[] = []
   n.times do |i|
     results << i
   end
@@ -228,7 +228,7 @@ end
 
 abs_value: Integer = absolute(-42)  # 42
 next_val: Integer = next_number(5)  # 6
-numbers: Array<Integer> = times_operation(5)  # [0, 1, 2, 3, 4]
+numbers: Integer[] = times_operation(5)  # [0, 1, 2, 3, 4]
 ```
 
 ## Floatプリミティブの操作
@@ -243,7 +243,7 @@ def divide_precise(a: Integer, b: Integer): Float
   a.to_f / b
 end
 
-def calculate_average(numbers: Array<Integer>): Float
+def calculate_average(numbers: Integer[]): Float
   sum = numbers.reduce(0) { |acc, n| acc + n }
   sum.to_f / numbers.length
 end
@@ -371,11 +371,11 @@ def is_valid_email(email: String): Boolean
   email.include?("@") && email.include?(".")
 end
 
-def all_positive(numbers: Array<Integer>): Boolean
+def all_positive(numbers: Integer[]): Boolean
   numbers.all? { |n| n > 0 }
 end
 
-def any_even(numbers: Array<Integer>): Boolean
+def any_even(numbers: Integer[]): Boolean
   numbers.any? { |n| n % 2 == 0 }
 end
 
@@ -447,8 +447,8 @@ message: String = get_status_message(:active)
 シンボルは繰り返し使用する場合、文字列よりメモリ効率が良いです：
 
 ```trb title="symbol_performance.trb"
-def categorize_with_symbols(items: Array<Integer>): Hash<Symbol, Array<Integer>>
-  categories: Hash<Symbol, Array<Integer>> = {
+def categorize_with_symbols(items: Integer[]): Hash<Symbol, Integer[]>
+  categories: Hash<Symbol, Integer[]> = {
     small: [],
     medium: [],
     large: []
@@ -602,7 +602,7 @@ num4: Float = int_to_float(42)  # 42.0
 ```trb title="calculator.trb"
 class Calculator
   def initialize()
-    @history: Array<String> = []
+    @history: String[] = []
     @memory: Float = 0.0
   end
 
@@ -647,7 +647,7 @@ class Calculator
     @memory = 0.0
   end
 
-  def get_history(): Array<String>
+  def get_history(): String[]
     @history
   end
 
@@ -669,7 +669,7 @@ result2: Float = calc.multiply(4.0, 2.5)  # 10.0
 calc.store_in_memory(result1)
 recalled: Float = calc.recall_memory()  # 15.8
 
-history: Array<String> = calc.get_history()
+history: String[] = calc.get_history()
 # ["10.5 add 5.3 = 15.8", "4.0 multiply 2.5 = 10.0"]を返す
 ```
 

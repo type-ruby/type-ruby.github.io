@@ -557,7 +557,7 @@ end
 <ExampleBadge status="pass" testFile="spec/docs_site/pages/reference/built_in_types_spec.rb" line={344} />
 
 ```trb
-def extract_numbers(text: String): Array<String> | nil
+def extract_numbers(text: String): String[] | nil
   match: MatchData | nil = text.match(/\d+/)
   return nil if match.nil?
   match.to_a

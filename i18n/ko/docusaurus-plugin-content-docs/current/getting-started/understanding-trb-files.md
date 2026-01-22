@@ -146,7 +146,7 @@ Calculator 클래스를 만들어봅시다:
 ```trb title="calculator.trb"
 class Calculator
   # 타입 어노테이션이 있는 인스턴스 변수
-  @history: Array<String>
+  @history: String[]
 
   def initialize: void
     @history = []
@@ -180,7 +180,7 @@ class Calculator
     result
   end
 
-  def history: Array<String>
+  def history: String[]
     @history.dup
   end
 
@@ -294,7 +294,7 @@ def find(id: Integer): User?  # 축약형
 <ExampleBadge status="pass" testFile="spec/docs_site/pages/getting_started/first_trb_file_spec.rb" line={133} />
 
 ```trb
-def each_item(items: Array<String>, &block: (String) -> void): void
+def each_item(items: String[], &block: (String) -> void): void
   items.each(&block)
 end
 
@@ -336,7 +336,7 @@ Error: calculator.trb:2:15
 
 1. **공개 API부터 시작** - 공개 메서드에 먼저 타입 지정
 2. **타입 별칭 사용** - 복잡한 타입을 읽기 쉽게 만들기
-3. **구체적인 타입 선호** - `Array`보다 `Array<String>`
+3. **구체적인 타입 선호** - `Array`보다 `String[]`
 4. **타입으로 문서화** - 타입은 문서 역할을 함
 
 ## 다음 단계

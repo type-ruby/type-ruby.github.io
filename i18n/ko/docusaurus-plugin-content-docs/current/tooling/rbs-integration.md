@@ -180,7 +180,7 @@ def format: (
 <ExampleBadge status="pass" testFile="spec/docs_site/pages/tooling/rbs_integration_spec.rb" line={98} />
 
 ```trb title="iterator.trb"
-def each_item(items: Array<String>): void do |String| -> void end
+def each_item(items: String[]): void do |String| -> void end
   items.each { |item| yield item }
 end
 ```
@@ -296,7 +296,7 @@ end
 type UserId = Integer
 type UserMap = Hash<UserId, User>
 
-def find_users(ids: Array<UserId>): UserMap
+def find_users(ids: UserId[]): UserMap
   # ...
 end
 ```
@@ -727,7 +727,7 @@ RBS 파일은 문서 역할을 합니다. 공개 API가 잘 타입 지정되어 
 ```trb
 # 좋음 - 명확한 공개 API
 class Service
-  def process(data: Array<String>): Hash<String, Integer>
+  def process(data: String[]): Hash<String, Integer>
     # ...
   end
 

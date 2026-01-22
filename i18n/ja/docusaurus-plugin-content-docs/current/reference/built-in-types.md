@@ -31,7 +31,7 @@ TEXT
 - `upcase: String` - 大文字に変換
 - `downcase: String` - 小文字に変換
 - `strip: String` - 前後の空白を削除
-- `split(delimiter: String): Array<String>` - 配列に分割
+- `split(delimiter: String): String[]` - 配列に分割
 - `include?(substring: String): Boolean` - 部分文字列を含むかチェック
 - `empty?: Boolean` - 文字列が空かチェック
 
@@ -198,19 +198,19 @@ result = Builder.new.append("Hello").append(" ").append("World").build
 
 ```trb
 # 文字列の配列
-names: Array<String> = ["Alice", "Bob", "Charlie"]
+names: String[] = ["Alice", "Bob", "Charlie"]
 
 # 整数の配列
-numbers: Array<Integer> = [1, 2, 3, 4, 5]
+numbers: Integer[] = [1, 2, 3, 4, 5]
 
 # 混合型の配列
-mixed: Array<String | Integer> = ["Alice", 1, "Bob", 2]
+mixed: (String | Integer)[] = ["Alice", 1, "Bob", 2]
 
 # ネストされた配列
-matrix: Array<Array<Integer>> = [[1, 2], [3, 4]]
+matrix: Integer[][] = [[1, 2], [3, 4]]
 
 # 型付きの空配列
-items: Array<String> = []
+items: String[] = []
 ```
 
 **一般的なメソッド:**
@@ -219,16 +219,16 @@ items: Array<String> = []
 - `empty?: Boolean` - 空かチェック
 - `first: T | nil` - 最初の要素を返す
 - `last: T | nil` - 最後の要素を返す
-- `push(item: T): Array<T>` - 末尾に要素を追加
+- `push(item: T): T[]` - 末尾に要素を追加
 - `pop: T | nil` - 最後の要素を削除して返す
 - `shift: T | nil` - 最初の要素を削除して返す
-- `unshift(item: T): Array<T>` - 先頭に要素を追加
+- `unshift(item: T): T[]` - 先頭に要素を追加
 - `include?(item: T): Boolean` - 要素を含むかチェック
-- `map<U>(&block: Proc<T, U>): Array<U>` - 要素を変換
-- `select(&block: Proc<T, Boolean>): Array<T>` - 要素をフィルタ
+- `map<U>(&block: Proc<T, U>): U[]` - 要素を変換
+- `select(&block: Proc<T, Boolean>): T[]` - 要素をフィルタ
 - `each(&block: Proc<T, void>): void` - 要素を反復
-- `reverse: Array<T>` - 反転した配列を返す
-- `sort: Array<T>` - ソートされた配列を返す
+- `reverse: T[]` - 反転した配列を返す
+- `sort: T[]` - ソートされた配列を返す
 - `join(separator: String): String` - 文字列に結合
 
 ### Hash\<K, V\>
@@ -260,8 +260,8 @@ cache: Hash<String, Any> = {}
 - `empty?: Boolean` - 空かチェック
 - `key?(key: K): Boolean` - キーが存在するかチェック
 - `value?(value: V): Boolean` - 値が存在するかチェック
-- `keys: Array<K>` - キーの配列を返す
-- `values: Array<V>` - 値の配列を返す
+- `keys: K[]` - キーの配列を返す
+- `values: V[]` - 値の配列を返す
 - `fetch(key: K): V` - 値を取得（見つからない場合は例外）
 - `fetch(key: K, default: V): V` - デフォルト値で値を取得
 - `merge(other: Hash<K, V>): Hash<K, V>` - ハッシュをマージ
@@ -285,7 +285,7 @@ unique_ids: Set<Integer> = Set.new([1, 2, 3, 2, 1])  # {1, 2, 3}
 - `include?(item: T): Boolean` - メンバーシップをチェック
 - `empty?: Boolean` - 空かチェック
 - `size: Integer` - 要素数を返す
-- `to_a: Array<T>` - 配列に変換
+- `to_a: T[]` - 配列に変換
 
 ### Range
 
@@ -372,15 +372,15 @@ type Lambda<Args..., Return> = Proc<Args..., Return>
 
 ```trb
 # ブロックを受け取るメソッド
-def each_item<T>(items: Array<T>, &block: Proc<T, void>): void
+def each_item<T>(items: T[], &block: Proc<T, void>): void
   items.each { |item| block.call(item) }
 end
 
 # 複数のパラメータを持つブロック
 def map_with_index<T, U>(
-  items: Array<T>,
+  items: T[],
   &block: Proc<T, Integer, U>
-): Array<U>
+): U[]
   items.map.with_index { |item, index| block.call(item, index) }
 end
 ```
@@ -497,7 +497,7 @@ end
 正規表現マッチの結果を表します。
 
 ```trb
-def extract_numbers(text: String): Array<String> | nil
+def extract_numbers(text: String): String[] | nil
   match: MatchData | nil = text.match(/\d+/)
   return nil if match.nil?
   match.to_a
@@ -551,7 +551,7 @@ IOError            # I/O操作の失敗
 enum: Enumerator<Integer> = [1, 2, 3].each
 range_enum: Enumerator<Integer> = (1..10).each
 
-def process<T>(enum: Enumerator<T>): Array<T>
+def process<T>(enum: Enumerator<T>): T[]
   enum.to_a
 end
 ```
@@ -666,7 +666,7 @@ value.class.name       # String
 ## ベストプラクティス
 
 1. **Anyより特定の型を使用** - `Any`の代わりに`String | Integer`
-2. **コレクションにジェネリックを活用** - `Array`の代わりに`Array<String>`
+2. **コレクションにジェネリックを活用** - `Array`の代わりに`String[]`
 3. **オプション値にユニオン型を使用** - `String | nil`または`String?`
 4. **適切なコレクション型を選択** - 一意性には`Set`、ルックアップには`Hash`
 5. **副作用には`void`を優先** - 値を返さない関数を明確に示す

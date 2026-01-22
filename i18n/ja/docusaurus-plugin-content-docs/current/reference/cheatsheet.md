@@ -60,7 +60,7 @@ def greet(name: String, greeting: String = "Hello"): String
 end
 
 # 残余パラメータ
-def sum(*numbers: Array<Integer>): Integer
+def sum(*numbers: Integer[]): Integer
   numbers.sum
 end
 
@@ -111,17 +111,17 @@ end
 
 ```trb
 # 特定の型の配列
-names: Array<String> = ["Alice", "Bob"]
-numbers: Array<Integer> = [1, 2, 3]
+names: String[] = ["Alice", "Bob"]
+numbers: Integer[] = [1, 2, 3]
 
 # ユニオン型の配列
-mixed: Array<String | Integer> = ["Alice", 1, "Bob", 2]
+mixed: (String | Integer)[] = ["Alice", 1, "Bob", 2]
 
 # ネストされた配列
-matrix: Array<Array<Integer>> = [[1, 2], [3, 4]]
+matrix: Integer[][] = [[1, 2], [3, 4]]
 
 # 型付きの空配列
-items: Array<String> = []
+items: String[] = []
 ```
 
 ## ハッシュ型
@@ -146,7 +146,7 @@ users: Hash<Integer, Hash<Symbol, String>> = {
 
 ```trb
 # ジェネリック関数
-def first<T>(arr: Array<T>): T | nil
+def first<T>(arr: T[]): T | nil
   arr[0]
 end
 
@@ -185,7 +185,7 @@ type ID = String | Integer
 type JSONValue = String | Integer | Float | Boolean | nil
 
 # コレクションエイリアス
-type StringList = Array<String>
+type StringList = String[]
 type UserMap = Hash<Integer, User>
 
 # ジェネリックエイリアス
@@ -308,7 +308,7 @@ end
 name: String?  # String | nilと同じ
 
 # ジェネリック
-items: Array<String>
+items: String[]
 pairs: Hash<String, Integer>
 ```
 
@@ -316,7 +316,7 @@ pairs: Hash<String, Integer>
 
 ```trb
 # ブロックパラメータ
-def each_item<T>(items: Array<T>, &block: Proc<T, void>): void
+def each_item<T>(items: T[], &block: Proc<T, void>): void
   items.each { |item| block.call(item) }
 end
 
@@ -328,7 +328,7 @@ transformer: Proc<Integer, String> = ->(n: Integer): String { n.to_s }
 double: Proc<Integer, Integer> = ->(n: Integer): Integer { n * 2 }
 
 # 複数のパラメータを持つブロック
-def map<T, U>(items: Array<T>, &block: Proc<T, Integer, U>): Array<U>
+def map<T, U>(items: T[], &block: Proc<T, Integer, U>): U[]
   items.map.with_index { |item, index| block.call(item, index) }
 end
 ```
@@ -481,7 +481,7 @@ end
 
 ```trb
 class QueryBuilder
-  @conditions: Array<String>
+  @conditions: String[]
 
   def initialize: void
     @conditions = []

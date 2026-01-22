@@ -63,8 +63,8 @@ trc run hello.trb
 ```trb
 # Array shorthand syntax
 def process(items: String[]): Integer[][]
-  # items is Array<String>
-  # returns Array<Array<Integer>>
+  # items is String[]
+  # returns Integer[][]
 end
 
 # Equivalent to

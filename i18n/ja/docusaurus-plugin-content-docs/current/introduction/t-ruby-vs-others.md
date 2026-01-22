@@ -128,7 +128,7 @@ class Calculator
     a + b
   end
 
-  def join(items: Array<String>): String
+  def join(items: String[]): String
     items.join(", ")
   end
 end

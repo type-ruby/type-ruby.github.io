@@ -36,7 +36,7 @@ def save_data(path: String, content: String): void
 end
 
 # ファイル操作
-def process_file(path: String): Array<String>
+def process_file(path: String): String[]
   File.readlines(path).map(&:strip)
 end
 ```
@@ -45,10 +45,10 @@ end
 - `File.exist?(path: String): Boolean`
 - `File.read(path: String): String`
 - `File.write(path: String, content: String): Integer`
-- `File.readlines(path: String): Array<String>`
+- `File.readlines(path: String): String[]`
 - `File.open(path: String, mode: String): File`
 - `File.open(path: String, mode: String, &block: Proc<File, void>): void`
-- `File.delete(*paths: Array<String>): Integer`
+- `File.delete(*paths: String[]): Integer`
 - `File.rename(old: String, new: String): Integer`
 - `File.size(path: String): Integer`
 - `File.directory?(path: String): Boolean`
@@ -60,12 +60,12 @@ end
 
 ```trb
 # ディレクトリ内容をリスト
-def list_files(dir: String): Array<String>
+def list_files(dir: String): String[]
   Dir.entries(dir)
 end
 
 # ファイル検索
-def find_ruby_files(dir: String): Array<String>
+def find_ruby_files(dir: String): String[]
   Dir.glob("#{dir}/**/*.rb")
 end
 
@@ -76,8 +76,8 @@ end
 ```
 
 **型シグネチャ:**
-- `Dir.entries(path: String): Array<String>`
-- `Dir.glob(pattern: String): Array<String>`
+- `Dir.entries(path: String): String[]`
+- `Dir.glob(pattern: String): String[]`
 - `Dir.exist?(path: String): Boolean`
 - `Dir.mkdir(path: String): void`
 - `Dir.rmdir(path: String): void`
@@ -111,10 +111,10 @@ end
 **型シグネチャ:**
 - `FileUtils.cp(src: String, dest: String): void`
 - `FileUtils.mv(src: String, dest: String): void`
-- `FileUtils.rm(path: String | Array<String>): void`
-- `FileUtils.rm_rf(path: String | Array<String>): void`
+- `FileUtils.rm(path: String | String[]): void`
+- `FileUtils.rm_rf(path: String | String[]): void`
 - `FileUtils.mkdir_p(path: String): void`
-- `FileUtils.touch(path: String | Array<String>): void`
+- `FileUtils.touch(path: String | String[]): void`
 
 ## JSON
 
@@ -154,7 +154,7 @@ end
 
 ```trb
 type JSONPrimitive = String | Integer | Float | Boolean | nil
-type JSONArray = Array<JSONValue>
+type JSONArray = JSONValue[]
 type JSONObject = Hash<String, JSONValue>
 type JSONValue = JSONPrimitive | JSONArray | JSONObject
 
@@ -275,13 +275,13 @@ CSVファイル処理。
 require 'csv'
 
 # CSV読み込み
-def load_csv(path: String): Array<Array<String>>
+def load_csv(path: String): String[][]
   CSV.read(path)
 end
 
 # ヘッダー付き読み込み
-def load_users(path: String): Array<Hash<String, String>>
-  result: Array<Hash<String, String>> = []
+def load_users(path: String): Hash<String, String>[]
+  result: Hash<String, String>[] = []
 
   CSV.foreach(path, headers: true) do |row|
     result << row.to_h
@@ -291,7 +291,7 @@ def load_users(path: String): Array<Hash<String, String>>
 end
 
 # CSV書き込み
-def save_csv(path: String, data: Array<Array<String>>): void
+def save_csv(path: String, data: String[][]): void
   CSV.open(path, 'w') do |csv|
     data.each { |row| csv << row }
   end
@@ -299,10 +299,10 @@ end
 ```
 
 **型シグネチャ:**
-- `CSV.read(path: String): Array<Array<String>>`
+- `CSV.read(path: String): String[][]`
 - `CSV.foreach(path: String, options: Hash<Symbol, Any>?, &block: Proc<CSV::Row, void>): void`
 - `CSV.open(path: String, mode: String, &block: Proc<CSV, void>): void`
-- `CSV#<<(row: Array<String>): void`
+- `CSV#<<(row: String[]): void`
 - `CSV::Row#to_h: Hash<String, String>`
 
 ## Logger
@@ -346,7 +346,7 @@ end
 require 'pathname'
 
 # パス操作
-def process_directory(path: String): Array<String>
+def process_directory(path: String): String[]
   dir = Pathname.new(path)
   dir.children.map { |child| child.to_s }
 end
@@ -366,7 +366,7 @@ end
 - `Pathname#exist?: Boolean`
 - `Pathname#directory?: Boolean`
 - `Pathname#file?: Boolean`
-- `Pathname#children: Array<Pathname>`
+- `Pathname#children: Pathname[]`
 - `Pathname#basename: Pathname`
 - `Pathname#dirname: Pathname`
 - `Pathname#extname: String`
@@ -388,7 +388,7 @@ def build_output: String
 end
 
 # 文字列から読み込み
-def parse_data(content: String): Array<String>
+def parse_data(content: String): String[]
   io = StringIO.new(content)
   io.readlines
 end
@@ -399,7 +399,7 @@ end
 - `StringIO#puts(str: String): void`
 - `StringIO#write(str: String): Integer`
 - `StringIO#read: String`
-- `StringIO#readlines: Array<String>`
+- `StringIO#readlines: String[]`
 - `StringIO#string: String`
 
 ## Set
@@ -410,7 +410,7 @@ end
 require 'set'
 
 # セットの作成と使用
-def unique_tags(posts: Array<Hash<Symbol, Array<String>>>): Set<String>
+def unique_tags(posts: Hash<Symbol, String[]>[]): Set<String>
   tags = Set<String>.new
 
   posts.each do |post|
@@ -421,7 +421,7 @@ def unique_tags(posts: Array<Hash<Symbol, Array<String>>>): Set<String>
 end
 
 # セット演算
-def common_interests(users: Array<Hash<Symbol, Set<String>>>): Set<String>
+def common_interests(users: Hash<Symbol, Set<String>>[]): Set<String>
   return Set.new if users.empty?
 
   users.map { |u| u[:interests] }.reduce { |a, b| a & b }
@@ -429,13 +429,13 @@ end
 ```
 
 **型シグネチャ:**
-- `Set.new(enum: Array<T>?): Set<T>`
+- `Set.new(enum: T[]?): Set<T>`
 - `Set#add(item: T): Set<T>`
 - `Set#delete(item: T): Set<T>`
 - `Set#include?(item: T): Boolean`
 - `Set#size: Integer`
 - `Set#empty?: Boolean`
-- `Set#to_a: Array<T>`
+- `Set#to_a: T[]`
 - `Set#&(other: Set<T>): Set<T>` - 積集合
 - `Set#|(other: Set<T>): Set<T>` - 和集合
 - `Set#-(other: Set<T>): Set<T>` - 差集合
@@ -687,11 +687,11 @@ end
 
 ```trb
 # 安全なキャスト
-def load_users(path: String): Array<Hash<String, String>>
+def load_users(path: String): Hash<String, String>[]
   raw_data = JSON.parse(File.read(path))
 
   if raw_data.is_a?(Array)
-    raw_data as Array<Hash<String, String>>
+    raw_data as Hash<String, String>[]
   else
     []
   end

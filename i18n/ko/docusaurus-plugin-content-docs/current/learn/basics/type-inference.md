@@ -153,10 +153,10 @@ T-Ruby는 배열과 해시 요소의 타입을 추론할 수 있습니다:
 <ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/basics/type_inference_spec.rb" line={90} />
 
 ```trb title="collections.trb"
-# Array<Integer>로 추론
+# Integer[]로 추론
 numbers = [1, 2, 3, 4, 5]
 
-# Array<String>으로 추론
+# String[]으로 추론
 names = ["Alice", "Bob", "Charlie"]
 
 # Hash<Symbol, String>으로 추론
@@ -179,7 +179,7 @@ T-Ruby는 타입이 지정된 컬렉션을 반복할 때 블록 매개변수 타
 <ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/basics/type_inference_spec.rb" line={101} />
 
 ```trb title="blocks.trb"
-def sum_numbers(numbers: Array<Integer>): Integer
+def sum_numbers(numbers: Integer[]): Integer
   total = 0
 
   # T-Ruby는 n이 Integer임을 추론
@@ -190,7 +190,7 @@ def sum_numbers(numbers: Array<Integer>): Integer
   total
 end
 
-def greet_all(names: Array<String>)
+def greet_all(names: String[])
   # T-Ruby는 name이 String임을 추론
   names.each do |name|
     puts "안녕하세요, #{name}님!"
@@ -229,7 +229,7 @@ end
 ```trb title="instance_vars.trb"
 class ShoppingCart
   def initialize()
-    @items: Array<String> = []
+    @items: String[] = []
     @total: Float = 0.0
   end
 
@@ -254,7 +254,7 @@ result = 0  # Integer로 추론
 result: Float = 0.0
 
 # 또는 임시 값으로 시작할 때
-users: Array<String> = []  # 나중에 사용자 이름을 담을 것
+users: String[] = []  # 나중에 사용자 이름을 담을 것
 ```
 
 ### 4. Union 타입
@@ -283,7 +283,7 @@ current_user: String | nil = nil
 ```trb title="public_api.trb"
 module MathHelpers
   # 공개 메서드 - 완전히 어노테이션됨
-  def self.calculate_average(numbers: Array<Float>): Float
+  def self.calculate_average(numbers: Float[]): Float
     sum = numbers.reduce(0.0) { |acc, n| acc + n }
     sum / numbers.length
   end
@@ -345,11 +345,11 @@ end
 <ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/basics/type_inference_spec.rb" line={189} />
 
 ```trb title="pattern1.trb"
-def process_names(raw_names: String): Array<String>
-  # names는 Array<String>으로 추론
+def process_names(raw_names: String): String[]
+  # names는 String[]으로 추론
   names = raw_names.split(",")
 
-  # cleaned는 Array<String>으로 추론
+  # cleaned는 String[]으로 추론
   cleaned = names.map { |n| n.strip.downcase }
 
   cleaned
@@ -361,7 +361,7 @@ end
 <ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/basics/type_inference_spec.rb" line={200} />
 
 ```trb title="pattern2.trb"
-def calculate_stats(numbers: Array<Integer>): Hash<Symbol, Float>
+def calculate_stats(numbers: Integer[]): Hash<Symbol, Float>
   # sum은 Integer로 추론 (0으로 시작, Integer를 더함)
   sum = 0
   numbers.each { |n| sum += n }
@@ -378,7 +378,7 @@ end
 <ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/basics/type_inference_spec.rb" line={211} />
 
 ```trb title="pattern3.trb"
-def build_query(table: String, conditions: Array<String>): String
+def build_query(table: String, conditions: String[]): String
   # query는 String으로 추론
   query = "SELECT * FROM #{table}"
 
@@ -405,7 +405,7 @@ T-Ruby가 자동으로 타입을 추론할 수 없는 상황이 있습니다:
 items = []  # 어노테이션 필요!
 
 # 더 나음 - 타입 어노테이션
-items: Array<String> = []
+items: String[] = []
 
 # 또는 최소 하나의 요소로 초기화
 items = ["first_item"]
@@ -476,7 +476,7 @@ end
 class OrderProcessor
   def initialize()
     # 어노테이션 - 메서드 간 공유
-    @pending_orders: Array<String> = []
+    @pending_orders: String[] = []
     @completed_count: Integer = 0
   end
 

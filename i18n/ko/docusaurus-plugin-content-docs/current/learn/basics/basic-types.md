@@ -193,7 +193,7 @@ speed_of_light: Float = 2.998e8  # 299,800,000
 <ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/basics/basic_types_spec.rb" line={113} />
 
 ```trb title="float_math.trb"
-def calculate_average(values: Array<Float>): Float
+def calculate_average(values: Float[]): Float
   sum = 0.0
   values.each do |v|
     sum += v

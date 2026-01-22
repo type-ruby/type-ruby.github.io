@@ -134,7 +134,7 @@ Calculatorクラスを作成しましょう：
 ```trb title="calculator.trb"
 class Calculator
   # 型アノテーション付きインスタンス変数
-  @history: Array<String>
+  @history: String[]
 
   def initialize: void
     @history = []
@@ -168,7 +168,7 @@ class Calculator
     result
   end
 
-  def history: Array<String>
+  def history: String[]
     @history.dup
   end
 
@@ -272,7 +272,7 @@ def find(id: Integer): User?  # 短縮形
 ### ブロックパラメータ
 
 ```rbs
-def each_item(items: Array<String>, &block: (String) -> void): void
+def each_item(items: String[], &block: (String) -> void): void
   items.each(&block)
 end
 
@@ -314,7 +314,7 @@ Error: calculator.trb:2:15
 
 1. **パブリックAPIから始める** - パブリックメソッドに最初に型を付ける
 2. **型エイリアスを使用** - 複雑な型を読みやすくする
-3. **具体的な型を優先** - `Array`より`Array<String>`
+3. **具体的な型を優先** - `Array`より`String[]`
 4. **型でドキュメント化** - 型はドキュメントとして機能する
 
 ## 次のステップ

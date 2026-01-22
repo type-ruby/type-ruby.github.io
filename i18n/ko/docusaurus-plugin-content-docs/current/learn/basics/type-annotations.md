@@ -253,7 +253,7 @@ member_price = calculate_discount(100.0, 10, true)
 <ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/basics/type_annotations_spec.rb" line={155} />
 
 ```trb title="blocks.trb"
-def process_numbers(numbers: Array<Integer>)
+def process_numbers(numbers: Integer[])
   numbers.map do |n: Integer|
     n * 2
   end

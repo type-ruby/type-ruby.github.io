@@ -55,11 +55,11 @@ end`,
   generics: {
     name: translate({id: 'playground.examples.generics', message: 'Generics'}),
     code: `# Generic functions
-def first<T>(arr: Array<T>): T | nil
+def first<T>(arr: T[]): T | nil
   arr[0]
 end
 
-def map<T, U>(arr: Array<T>, &block: (T) -> U): Array<U>
+def map<T, U>(arr: T[], &block: (T) -> U): U[]
   arr.map(&block)
 end
 

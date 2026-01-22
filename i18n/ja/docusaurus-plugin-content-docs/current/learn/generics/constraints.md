@@ -77,7 +77,7 @@ interface Printable
 end
 
 # TをPrintableを実装する型に制約
-def print_items<T: Printable>(items: Array<T>): void
+def print_items<T: Printable>(items: T[]): void
   items.each do |item|
     puts item.to_s  # 安全：Tはto_sを持つことが保証
   end
@@ -122,7 +122,7 @@ interface Numeric
   def /(other: self): self
 end
 
-def average<T: Numeric>(numbers: Array<T>): T
+def average<T: Numeric>(numbers: T[]): T
   sum = numbers.reduce { |acc, n| acc + n }
   sum / numbers.length
 end
@@ -130,7 +130,7 @@ end
 # Enumerableインターフェース
 interface Enumerable<T>
   def each(&block: Proc<T, void>): void
-  def map<U>(&block: Proc<T, U>): Array<U>
+  def map<U>(&block: Proc<T, U>): U[]
 end
 
 def count_items<T, C: Enumerable<T>>(collection: C): Integer
@@ -214,7 +214,7 @@ end
 
 # 任意のVehicleサブクラスで動作するRepository
 class Repository<T: Vehicle>
-  @items: Array<T>
+  @items: T[]
 
   def initialize: void
     @items = []
@@ -228,7 +228,7 @@ class Repository<T: Vehicle>
     @items.find { |item| item.brand == brand }
   end
 
-  def all: Array<T>
+  def all: T[]
     @items.dup
   end
 end
@@ -309,7 +309,7 @@ user2 = find_user("alice")    # ユーザー名文字列で検索
 ```trb
 # 比較可能なアイテムのみで動作するキュー
 class PriorityQueue<T: Comparable>
-  @items: Array<T>
+  @items: T[]
 
   def initialize: void
     @items = []
@@ -364,7 +364,7 @@ interface Comparable
 end
 
 class SortedList<T: Comparable>
-  @items: Array<T>
+  @items: T[]
 
   def initialize: void
     @items = []
@@ -392,7 +392,7 @@ class SortedList<T: Comparable>
     @items.last
   end
 
-  def to_a: Array<T>
+  def to_a: T[]
     @items.dup
   end
 end
@@ -438,7 +438,7 @@ class Repository<T: Entity>
     @items[id]
   end
 
-  def all: Array<T>
+  def all: T[]
     @items.values
   end
 
@@ -487,7 +487,7 @@ product_repo = Repository<Product>.new
 product_repo.save(Product.new(1, "Laptop", 999.99))
 
 found_user = user_repo.find(1)  # User | nil
-all_products = product_repo.all  # Array<Product>
+all_products = product_repo.all  # Product[]
 ```
 
 ## ベストプラクティス
@@ -496,12 +496,12 @@ all_products = product_repo.all  # Array<Product>
 
 ```trb
 # 良い：必要なものだけを要求
-def print_all<T: Printable>(items: Array<T>): void
+def print_all<T: Printable>(items: T[]): void
   items.each { |item| puts item.to_s }
 end
 
 # あまり良くない：制限が多すぎる
-def print_all<T: User>(items: Array<T>): void
+def print_all<T: User>(items: T[]): void
   items.each { |item| puts item.to_s }
 end
 ```
@@ -519,7 +519,7 @@ interface Timestamped
   def updated_at: Time
 end
 
-def find_by_id<T: Identifiable>(items: Array<T>, id: Integer): T | nil
+def find_by_id<T: Identifiable>(items: T[], id: Integer): T | nil
   items.find { |item| item.id == id }
 end
 
@@ -539,9 +539,9 @@ end
 ```trb
 # 良い：明確なドキュメント
 # 文字列に変換できるアイテムを処理
-# @param items [Array<T>] 出力可能なアイテムの配列
+# @param items [T[]] 出力可能なアイテムの配列
 # @return [void]
-def log_items<T: Printable>(items: Array<T>): void
+def log_items<T: Printable>(items: T[]): void
   items.each { |item| puts item.to_s }
 end
 ```
@@ -555,7 +555,7 @@ interface Identifiable
   def id: Integer | String
 end
 
-def find_duplicates<T: Identifiable>(items: Array<T>): Array<T>
+def find_duplicates<T: Identifiable>(items: T[]): T[]
   seen = {}
   duplicates = []
 
@@ -576,7 +576,7 @@ end
 ```trb
 interface Validatable
   def valid?: Boolean
-  def errors: Array<String>
+  def errors: String[]
 end
 
 def save_if_valid<T: Validatable>(item: T): Boolean
@@ -597,7 +597,7 @@ interface Convertible<T>
   def convert: T
 end
 
-def batch_convert<S: Convertible<T>, T>(items: Array<S>): Array<T>
+def batch_convert<S: Convertible<T>, T>(items: S[]): T[]
   items.map { |item| item.convert }
 end
 ```

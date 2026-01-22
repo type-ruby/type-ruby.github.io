@@ -72,7 +72,7 @@ def transform(data, options = {})
 end
 
 # 型あり - 明確
-def transform(data: Array<Record>, options: TransformOptions?): TransformResult
+def transform(data: Record[], options: TransformOptions?): TransformResult
   # ...
 end
 ```
@@ -148,7 +148,7 @@ T-Rubyは特に以下の場合に価値があります：
 puts "Hello, #{ARGV[0]}!"
 
 # これは不要：
-# def main(args: Array<String>): void
+# def main(args: String[]): void
 #   puts "Hello, #{args[0]}!"
 # end
 ```

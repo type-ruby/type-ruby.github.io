@@ -258,7 +258,7 @@ class UserService
     User.create(attributes)
   end
 
-  def active_users: Array<User>
+  def active_users: User[]
     User.where(active: true)
   end
 end
@@ -358,7 +358,7 @@ def process_order(order_data: OrderData): OrderResult
   }
 end
 
-def calculate_total(items: Array<OrderItem>): Integer
+def calculate_total(items: OrderItem[]): Integer
   items.sum { |item| item[:price].to_i * item[:quantity].to_i }
 end
 ```
@@ -380,7 +380,7 @@ class OrderItem
   end
 end
 
-def calculate_total(items: Array<OrderItem>): Integer
+def calculate_total(items: OrderItem[]): Integer
   items.sum(&:total)
 end
 ```
@@ -787,7 +787,7 @@ bundle exec rake test
 ```trb
 type UserId = Integer
 type UserAttributes = Hash<String, String | Integer | Boolean>
-type UserList = Array<User>
+type UserList = User[]
 ```
 
 ### 4. パターンをドキュメント化
@@ -920,7 +920,7 @@ class Article < ApplicationRecord
     @content[0...length] + "..."
   end
 
-  def self.recent(limit: Integer = 10): Array<Article>
+  def self.recent(limit: Integer = 10): Article[]
     order(created_at: :desc).limit(limit)
   end
 end
