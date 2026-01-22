@@ -97,32 +97,6 @@
         <category label="keyword-arguments" term="keyword-arguments"/>
     </entry>
     <entry>
-        <title type="html"><![CDATA[T-Ruby ブログへようこそ]]></title>
-        <id>https://type-ruby.github.io/ja/blog/welcome</id>
-        <link href="https://type-ruby.github.io/ja/blog/welcome"/>
-        <updated>2025-12-24T00:00:00.000Z</updated>
-        <summary type="html"><![CDATA[公式 T-Ruby ブログへようこそ！ここでは、チュートリアル、技術的な詳細解説、型安全な Ruby 開発に関するインサイトを共有していきます。]]></summary>
-        <content type="html"><![CDATA[<p>公式 T-Ruby ブログへようこそ！ここでは、チュートリアル、技術的な詳細解説、型安全な Ruby 開発に関するインサイトを共有していきます。</p>
-<h2 class="anchor anchorTargetStickyNavbar_qQJf" id="このブログで見つけられるもの">このブログで見つけられるもの<a href="https://type-ruby.github.io/ja/blog/welcome#%E3%81%93%E3%81%AE%E3%83%96%E3%83%AD%E3%82%B0%E3%81%A7%E8%A6%8B%E3%81%A4%E3%81%91%E3%82%89%E3%82%8C%E3%82%8B%E3%82%82%E3%81%AE" class="hash-link" aria-label="このブログで見つけられるものへの直接リンク" title="このブログで見つけられるものへの直接リンク" translate="no">​</a></h2>
-<p>このブログでは以下のコンテンツを提供します：</p>
-<h3 class="anchor anchorTargetStickyNavbar_qQJf" id="チュートリアル">チュートリアル<a href="https://type-ruby.github.io/ja/blog/welcome#%E3%83%81%E3%83%A5%E3%83%BC%E3%83%88%E3%83%AA%E3%82%A2%E3%83%AB" class="hash-link" aria-label="チュートリアルへの直接リンク" title="チュートリアルへの直接リンク" translate="no">​</a></h3>
-<p>T-Ruby を最大限に活用するためのステップバイステップガイド。基本的な型アノテーションから高度なジェネリックパターンまで、すべてをカバーします。</p>
-<h3 class="anchor anchorTargetStickyNavbar_qQJf" id="技術的な詳細解説">技術的な詳細解説<a href="https://type-ruby.github.io/ja/blog/welcome#%E6%8A%80%E8%A1%93%E7%9A%84%E3%81%AA%E8%A9%B3%E7%B4%B0%E8%A7%A3%E8%AA%AC" class="hash-link" aria-label="技術的な詳細解説への直接リンク" title="技術的な詳細解説への直接リンク" translate="no">​</a></h3>
-<p>T-Ruby の型システムの内部を探ります。型推論の仕組み、RBS ファイルの生成方法、プロジェクトの設計決定について学びます。</p>
-<h3 class="anchor anchorTargetStickyNavbar_qQJf" id="ベストプラクティス">ベストプラクティス<a href="https://type-ruby.github.io/ja/blog/welcome#%E3%83%99%E3%82%B9%E3%83%88%E3%83%97%E3%83%A9%E3%82%AF%E3%83%86%E3%82%A3%E3%82%B9" class="hash-link" aria-label="ベストプラクティスへの直接リンク" title="ベストプラクティスへの直接リンク" translate="no">​</a></h3>
-<p>型安全な Ruby コードを書くための実践的なパターンとプラクティス。実際のプロジェクトからの例を共有し、避けるべき一般的な落とし穴について議論します。</p>
-<h3 class="anchor anchorTargetStickyNavbar_qQJf" id="コミュニティハイライト">コミュニティハイライト<a href="https://type-ruby.github.io/ja/blog/welcome#%E3%82%B3%E3%83%9F%E3%83%A5%E3%83%8B%E3%83%86%E3%82%A3%E3%83%8F%E3%82%A4%E3%83%A9%E3%82%A4%E3%83%88" class="hash-link" aria-label="コミュニティハイライトへの直接リンク" title="コミュニティハイライトへの直接リンク" translate="no">​</a></h3>
-<p>T-Ruby コミュニティからの興味深いプロジェクトや貢献を紹介します。</p>
-<h2 class="anchor anchorTargetStickyNavbar_qQJf" id="最新情報を入手">最新情報を入手<a href="https://type-ruby.github.io/ja/blog/welcome#%E6%9C%80%E6%96%B0%E6%83%85%E5%A0%B1%E3%82%92%E5%85%A5%E6%89%8B" class="hash-link" aria-label="最新情報を入手への直接リンク" title="最新情報を入手への直接リンク" translate="no">​</a></h2>
-<p>リリース発表やプロジェクトの更新については、<a class="" href="https://type-ruby.github.io/ja/news">ニュース</a>セクションをご覧ください。詳細なコンテンツについては、このブログをブックマークして定期的にチェックしてください。</p>
-<p>この旅を皆さんと共有できることを楽しみにしています。Happy typing！</p>]]></content>
-        <author>
-            <name>Yonghyun Kim</name>
-            <uri>https://github.com/yhk1038</uri>
-        </author>
-        <category label="announcement" term="announcement"/>
-    </entry>
-    <entry>
         <title type="html"><![CDATA[T-RubyのためのTypeScriptスタイル型推論の構築]]></title>
         <id>https://type-ruby.github.io/ja/blog/typescript-style-type-inference</id>
         <link href="https://type-ruby.github.io/ja/blog/typescript-style-type-inference"/>
@@ -231,5 +205,31 @@
         <category label="technical" term="technical"/>
         <category label="type-inference" term="type-inference"/>
         <category label="compiler" term="compiler"/>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[T-Ruby ブログへようこそ]]></title>
+        <id>https://type-ruby.github.io/ja/blog/welcome</id>
+        <link href="https://type-ruby.github.io/ja/blog/welcome"/>
+        <updated>2025-12-24T00:00:00.000Z</updated>
+        <summary type="html"><![CDATA[公式 T-Ruby ブログへようこそ！ここでは、チュートリアル、技術的な詳細解説、型安全な Ruby 開発に関するインサイトを共有していきます。]]></summary>
+        <content type="html"><![CDATA[<p>公式 T-Ruby ブログへようこそ！ここでは、チュートリアル、技術的な詳細解説、型安全な Ruby 開発に関するインサイトを共有していきます。</p>
+<h2 class="anchor anchorTargetStickyNavbar_qQJf" id="このブログで見つけられるもの">このブログで見つけられるもの<a href="https://type-ruby.github.io/ja/blog/welcome#%E3%81%93%E3%81%AE%E3%83%96%E3%83%AD%E3%82%B0%E3%81%A7%E8%A6%8B%E3%81%A4%E3%81%91%E3%82%89%E3%82%8C%E3%82%8B%E3%82%82%E3%81%AE" class="hash-link" aria-label="このブログで見つけられるものへの直接リンク" title="このブログで見つけられるものへの直接リンク" translate="no">​</a></h2>
+<p>このブログでは以下のコンテンツを提供します：</p>
+<h3 class="anchor anchorTargetStickyNavbar_qQJf" id="チュートリアル">チュートリアル<a href="https://type-ruby.github.io/ja/blog/welcome#%E3%83%81%E3%83%A5%E3%83%BC%E3%83%88%E3%83%AA%E3%82%A2%E3%83%AB" class="hash-link" aria-label="チュートリアルへの直接リンク" title="チュートリアルへの直接リンク" translate="no">​</a></h3>
+<p>T-Ruby を最大限に活用するためのステップバイステップガイド。基本的な型アノテーションから高度なジェネリックパターンまで、すべてをカバーします。</p>
+<h3 class="anchor anchorTargetStickyNavbar_qQJf" id="技術的な詳細解説">技術的な詳細解説<a href="https://type-ruby.github.io/ja/blog/welcome#%E6%8A%80%E8%A1%93%E7%9A%84%E3%81%AA%E8%A9%B3%E7%B4%B0%E8%A7%A3%E8%AA%AC" class="hash-link" aria-label="技術的な詳細解説への直接リンク" title="技術的な詳細解説への直接リンク" translate="no">​</a></h3>
+<p>T-Ruby の型システムの内部を探ります。型推論の仕組み、RBS ファイルの生成方法、プロジェクトの設計決定について学びます。</p>
+<h3 class="anchor anchorTargetStickyNavbar_qQJf" id="ベストプラクティス">ベストプラクティス<a href="https://type-ruby.github.io/ja/blog/welcome#%E3%83%99%E3%82%B9%E3%83%88%E3%83%97%E3%83%A9%E3%82%AF%E3%83%86%E3%82%A3%E3%82%B9" class="hash-link" aria-label="ベストプラクティスへの直接リンク" title="ベストプラクティスへの直接リンク" translate="no">​</a></h3>
+<p>型安全な Ruby コードを書くための実践的なパターンとプラクティス。実際のプロジェクトからの例を共有し、避けるべき一般的な落とし穴について議論します。</p>
+<h3 class="anchor anchorTargetStickyNavbar_qQJf" id="コミュニティハイライト">コミュニティハイライト<a href="https://type-ruby.github.io/ja/blog/welcome#%E3%82%B3%E3%83%9F%E3%83%A5%E3%83%8B%E3%83%86%E3%82%A3%E3%83%8F%E3%82%A4%E3%83%A9%E3%82%A4%E3%83%88" class="hash-link" aria-label="コミュニティハイライトへの直接リンク" title="コミュニティハイライトへの直接リンク" translate="no">​</a></h3>
+<p>T-Ruby コミュニティからの興味深いプロジェクトや貢献を紹介します。</p>
+<h2 class="anchor anchorTargetStickyNavbar_qQJf" id="最新情報を入手">最新情報を入手<a href="https://type-ruby.github.io/ja/blog/welcome#%E6%9C%80%E6%96%B0%E6%83%85%E5%A0%B1%E3%82%92%E5%85%A5%E6%89%8B" class="hash-link" aria-label="最新情報を入手への直接リンク" title="最新情報を入手への直接リンク" translate="no">​</a></h2>
+<p>リリース発表やプロジェクトの更新については、<a class="" href="https://type-ruby.github.io/ja/news">ニュース</a>セクションをご覧ください。詳細なコンテンツについては、このブログをブックマークして定期的にチェックしてください。</p>
+<p>この旅を皆さんと共有できることを楽しみにしています。Happy typing！</p>]]></content>
+        <author>
+            <name>Yonghyun Kim</name>
+            <uri>https://github.com/yhk1038</uri>
+        </author>
+        <category label="announcement" term="announcement"/>
     </entry>
 </feed>
