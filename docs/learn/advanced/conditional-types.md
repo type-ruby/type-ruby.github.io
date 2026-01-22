@@ -46,10 +46,10 @@ The `extends` keyword in conditional types checks if a type is assignable to ano
 ```trb
 # T extends U means "Can T be assigned to U?"
 
-type IsArray<T> = T extends Array<any> ? true : false
+type IsArray<T> = T extends any[] ? true : false
 
-type Test1 = IsArray<Array<Integer>>  # true
-type Test2 = IsArray<String>          # false
+type Test1 = IsArray<Integer[]>  # true
+type Test2 = IsArray<String>     # false
 type Test3 = IsArray<Hash<String, Integer>>  # false
 ```
 
@@ -105,13 +105,13 @@ type UserReturnType = ReturnType<GetUserFunction>  # User
 
 ```trb
 # Get the element type of an array
-type ElementType<T> = T extends Array<infer E> ? E : never
+type ElementType<T> = T extends (infer E)[] ? E : never
 
 # Usage
-type StringArray = Array<String>
+type StringArray = String[]
 type StringElement = ElementType<StringArray>  # String
 
-type NumberArray = Array<Integer>
+type NumberArray = Integer[]
 type NumberElement = ElementType<NumberArray>  # Integer
 ```
 
@@ -161,19 +161,19 @@ Remove wrapper types to get the inner type:
 
 ```trb
 # Unwrap Array
-type Unwrap<T> = T extends Array<infer U> ? U : T
+type Unwrap<T> = T extends (infer U)[] ? U : T
 
 # Usage
-type Wrapped1 = Unwrap<Array<String>>  # String
-type Wrapped2 = Unwrap<String>         # String (no change)
+type Wrapped1 = Unwrap<String[]>  # String
+type Wrapped2 = Unwrap<String>    # String (no change)
 
 # Unwrap nested arrays
 type DeepUnwrap<T> =
-  T extends Array<infer U>
+  T extends (infer U)[]
     ? DeepUnwrap<U>
     : T
 
-type NestedArray = Array<Array<Array<Integer>>>
+type NestedArray = Integer[][][]
 type Unwrapped = DeepUnwrap<NestedArray>  # Integer
 ```
 
@@ -182,7 +182,7 @@ type Unwrapped = DeepUnwrap<NestedArray>  # Integer
 ```trb
 # Flatten nested unions
 type Flatten<T> =
-  T extends Array<infer U>
+  T extends (infer U)[]
     ? Flatten<U>
     : T extends Hash<any, infer V>
       ? Flatten<V>
@@ -219,13 +219,13 @@ When a conditional type acts on a union type, it distributes over the union:
 
 ```trb
 # This conditional type is distributive
-type ToArray<T> = T extends any ? Array<T> : never
+type ToArray<T> = T extends any ? T[] : never
 
 # When applied to a union, it distributes:
 type StringOrNumber = String | Integer
 type Result = ToArray<StringOrNumber>
-# Result: Array<String> | Array<Integer>
-# Not: Array<String | Integer>
+# Result: String[] | Integer[]
+# Not: (String | Integer)[]
 
 # Another example
 type BoxedType<T> = T extends any ? { value: T } : never
@@ -241,11 +241,11 @@ To prevent distribution, wrap types in a tuple:
 
 ```trb
 # Non-distributive version
-type ToArrayNonDist<T> = [T] extends [any] ? Array<T> : never
+type ToArrayNonDist<T> = [T] extends [any] ? T[] : never
 
 type StringOrNumber = String | Integer
 type Result = ToArrayNonDist<StringOrNumber>
-# Result: Array<String | Integer>
+# Result: (String | Integer)[]
 ```
 
 ## Advanced Patterns
@@ -271,7 +271,7 @@ type FilterByProperty<T, K, V> =
 ```trb
 # Deep readonly type
 type DeepReadonly<T> =
-  T extends (Array<infer U> | Hash<any, infer U>)
+  T extends ((infer U)[] | Hash<any, infer U>)
     ? ReadonlyArray<DeepReadonly<U>>
     : T extends Hash<infer K, infer V>
       ? ReadonlyHash<K, DeepReadonly<V>>
@@ -281,8 +281,8 @@ type DeepReadonly<T> =
 type DeepPartial<T> =
   T extends Hash<infer K, infer V>
     ? Hash<K, DeepPartial<V> | nil>
-    : T extends Array<infer U>
-      ? Array<DeepPartial<U>>
+    : T extends (infer U)[]
+      ? DeepPartial<U>[]
       : T
 ```
 
@@ -294,7 +294,7 @@ def is_string<T>(value: T): value is String
   value.is_a?(String)
 end
 
-def is_array<T>(value: T): value is Array<any>
+def is_array<T>(value: T): value is any[]
   value.is_a?(Array)
 end
 
@@ -378,13 +378,13 @@ type IntegerWithDefault = WithDefault<DefiniteValue, Float>  # Integer
 ```trb
 # Get type based on collection type
 type CollectionElement<T> =
-  T extends Array<infer E> ? E :
+  T extends (infer E)[] ? E :
   T extends Hash<any, infer V> ? V :
   T extends Set<infer S> ? S :
   never
 
 # Usage
-type ArrayElement = CollectionElement<Array<String>>  # String
+type ArrayElement = CollectionElement<String[]>  # String
 type HashValue = CollectionElement<Hash<Symbol, Integer>>  # Integer
 type SetElement = CollectionElement<Set<User>>  # User
 ```
@@ -430,11 +430,11 @@ type ComplexCheck<T> =
 ```trb
 # Good: Clear names
 type NonNilable<T> = T extends nil ? never : T
-type Unwrap<T> = T extends Array<infer U> ? U : T
+type Unwrap<T> = T extends (infer U)[] ? U : T
 
 # Less good: Cryptic names
 type NN<T> = T extends nil ? never : T
-type UW<T> = T extends Array<infer U> ? U : T
+type UW<T> = T extends (infer U)[] ? U : T
 ```
 
 ### 3. Document Complex Types
@@ -464,7 +464,7 @@ type RestTypes<T> = T extends [any, ...infer R] ? R : never
 type Extract<T> =
   T extends [infer F, ...infer R]
     ? F extends String
-      ? R extends Array<infer U>
+      ? R extends (infer U)[]
         ? U extends Integer
           ? [F, U]
           : never
@@ -482,7 +482,7 @@ type Extract<T> =
 type DeepNested<T, N> =
   N extends 0
     ? T
-    : Array<DeepNested<T, Decrement<N>>>  # May hit depth limit
+    : DeepNested<T, Decrement<N>>[]  # May hit depth limit
 ```
 
 ### Type Inference Complexity

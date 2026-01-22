@@ -152,8 +152,14 @@ interface CompileResult {
   errors: string[];
 }
 
+interface VersionInfo {
+  t_ruby: string;
+  ruby: string;
+}
+
 interface TRubyCompiler {
   compile(code: string): CompileResult | Promise<CompileResult>;
+  getVersion(): VersionInfo;
 }
 
 function PlaygroundContent(): ReactNode {
@@ -169,6 +175,7 @@ function PlaygroundContent(): ReactNode {
   const [compilerState, setCompilerState] = useState<CompilerState>('idle');
   const [loadingMessage, setLoadingMessage] = useState('');
   const [compiler, setCompiler] = useState<TRubyCompiler | null>(null);
+  const [versionInfo, setVersionInfo] = useState<VersionInfo | null>(null);
 
   // Load WASM compiler on first compile
   const loadWasmCompiler = useCallback(async (): Promise<TRubyCompiler> => {
@@ -190,6 +197,7 @@ function PlaygroundContent(): ReactNode {
 
       setCompilerState('ready');
       setCompiler(loadedCompiler);
+      setVersionInfo(loadedCompiler.getVersion());
       return loadedCompiler;
     } catch (error) {
       console.error('WASM compiler failed to load:', error);
@@ -242,17 +250,21 @@ function PlaygroundContent(): ReactNode {
     }
   }, [code, compiler, loadWasmCompiler]);
 
-  // Cleanup compiler on component unmount
+  // Load WASM compiler on page load (not on compile click)
   useEffect(() => {
+    loadWasmCompiler().catch((error) => {
+      console.error('Failed to preload WASM compiler:', error);
+    });
+
+    // Cleanup compiler on component unmount
     return () => {
-      // Dynamic import cleanup function
       import('../lib/ruby-wasm').then(({ cleanupCompiler }) => {
         cleanupCompiler();
       }).catch(() => {
         // Ignore cleanup errors
       });
     };
-  }, []);
+  }, [loadWasmCompiler]);
 
   const getButtonText = () => {
     if (compilerState === 'loading') {
@@ -275,9 +287,14 @@ function PlaygroundContent(): ReactNode {
             Write T-Ruby code and see the compiled output in real-time.
           </Translate>
         </p>
-        {compilerState === 'ready' && (
+        {compilerState === 'ready' && versionInfo && (
           <span className={styles.compilerStatus}>
-            <Translate id="playground.status.wasmReady">WASM Compiler Ready</Translate>
+            T-Ruby v{versionInfo.t_ruby} (Ruby {versionInfo.ruby})
+          </span>
+        )}
+        {compilerState === 'loading' && (
+          <span className={styles.compilerStatusLoading}>
+            {loadingMessage || 'Loading...'}
           </span>
         )}
         {compilerState === 'error' && (

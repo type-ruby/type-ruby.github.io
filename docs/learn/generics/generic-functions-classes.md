@@ -388,7 +388,7 @@ end
 # Usage
 wrapped = Utils.wrap(42)                    # Integer[]
 duplicates = Utils.duplicate("hello", 3)    # String[]
-zipped = Utils.zip([1, 2], ["a", "b"])      # Array<Pair<Integer, String>>
+zipped = Utils.zip([1, 2], ["a", "b"])      # Pair<Integer, String>[]
 ```
 
 ## Nested Generics

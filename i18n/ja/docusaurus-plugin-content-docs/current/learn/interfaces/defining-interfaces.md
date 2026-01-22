@@ -144,7 +144,7 @@ class Stack<T>
   implements Container<T>
 
   def initialize()
-    @items: Array<T> = []
+    @items: T[] = []
   end
 
   def add(item: T): void
@@ -201,7 +201,7 @@ puts string_stack.contains("Hello")  # true
 ```trb title="multiple_methods.trb"
 interface Repository<T>
   def find(id: Integer): T?
-  def find_all(): Array<T>
+  def find_all(): T[]
   def create(entity: T): T
   def update(id: Integer, entity: T): Boolean
   def delete(id: Integer): Boolean
@@ -221,7 +221,7 @@ class UserRepository
     @users[id]
   end
 
-  def find_all(): Array<User>
+  def find_all(): User[]
     @users.values
   end
 
@@ -336,7 +336,7 @@ interface Identifiable
 end
 
 interface Taggable
-  def tags(): Array<String>
+  def tags(): String[]
   def add_tag(tag: String): void
   def remove_tag(tag: String): void
   def has_tag?(tag: String): Boolean
@@ -353,10 +353,10 @@ class BlogPost
     @id = id
     @name = name
     @created_at = Time.now
-    @tags: Array<String> = []
+    @tags: String[] = []
   end
 
-  def tags(): Array<String>
+  def tags(): String[]
     @tags
   end
 
@@ -481,7 +481,7 @@ end
 
 class PluginManager
   def initialize()
-    @plugins: Array<Plugin> = []
+    @plugins: Plugin[] = []
   end
 
   def register(plugin: Plugin): void
@@ -652,7 +652,7 @@ end
 class ArrayIterator<T>
   implements Iterator<T>
 
-  def initialize(items: Array<T>)
+  def initialize(items: T[])
     @items = items
     @position = 0
   end
@@ -696,7 +696,7 @@ interface Builder<T>
 end
 
 interface QueryBuilder extends Builder<String>
-  def select(fields: Array<String>): QueryBuilder
+  def select(fields: String[]): QueryBuilder
   def from(table: String): QueryBuilder
   def where(condition: String): QueryBuilder
 end

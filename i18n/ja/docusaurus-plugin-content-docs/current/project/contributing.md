@@ -47,16 +47,16 @@ T-Rubyに貢献する方法は多くあります：
 
 ### 再現手順
 ```trb
-numbers: Array<Integer> = [1, 2, 3]
+numbers: Integer[] = [1, 2, 3]
 strings = numbers.map { |n| n.to_s }
-# stringsの型はArray<String>であるべき
+# stringsの型はString[]であるべき
 ```
 
 ### 期待
-`strings`は`Array<String>`と推論されるべき
+`strings`は`String[]`と推論されるべき
 
 ### 実際
-型が`Array<Any>`と推論される
+型が`Any[]`と推論される
 ```
 
 ### 2. 機能の提案
@@ -330,7 +330,7 @@ def type_check(node: AST::Node): Type
 end
 
 # 説明的な変数名を使用
-def infer_array_type(elements: Array<AST::Node>): ArrayType
+def infer_array_type(elements: AST::Node[]): ArrayType
   element_types = elements.map { |el| infer_type(el) }
   union_type = UnionType.new(element_types)
   ArrayType.new(union_type)
@@ -350,8 +350,8 @@ def process_user(user: User): UserResponse
 end
 
 # 明確さのための型アノテーションを追加
-users: Array<User> = fetch_users()
-active_users: Array<User> = users.select { |u| u.active? }
+users: User[] = fetch_users()
+active_users: User[] = users.select { |u| u.active? }
 ```
 
 ### ドキュメントスタイル
@@ -360,11 +360,11 @@ active_users: Array<User> = users.select { |u| u.active? }
 # 良いドキュメント
 # 配列リテラルの型を推論します
 #
-# @param elements [Array<AST::Node>] 配列リテラル要素
+# @param elements [AST::Node[]] 配列リテラル要素
 # @return [ArrayType] 推論された配列型
 # @example
 #   infer_array_type([IntNode.new(1), IntNode.new(2)])
-#   #=> ArrayType<Integer>
+#   #=> Integer[]
 def infer_array_type(elements)
   # ...
 end
@@ -396,7 +396,7 @@ RSpec.describe TypeChecker do
     end
 
     context 'with generic types' do
-      it 'infers Array<T> from literal' do
+      it 'infers T[] from literal' do
         # ...
       end
     end

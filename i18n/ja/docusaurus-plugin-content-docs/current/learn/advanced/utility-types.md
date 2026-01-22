@@ -395,18 +395,18 @@ configs: Record<"development" | "staging" | "production", Config> = {
 配列から要素型を抽出：
 
 ```trb
-type ArrayElement<T> = T extends Array<infer E> ? E : never
+type ArrayElement<T> = T extends (infer E)[] ? E : never
 
-type StringArray = Array<String>
+type StringArray = String[]
 type StringElement = ArrayElement<StringArray>
 # String
 
-type UserArray = Array<User>
+type UserArray = User[]
 type UserElement = ArrayElement<UserArray>
 # User
 
 # 使用法
-def first_element<T>(arr: Array<T>): ArrayElement<Array<T>> | nil
+def first_element<T>(arr: T[]): ArrayElement<T[]> | nil
   arr.first
 end
 ```
@@ -416,7 +416,7 @@ end
 要素を変更できない配列：
 
 ```trb
-type ReadonlyArray<T> = readonly Array<T>
+type ReadonlyArray<T> = readonly T[]
 
 # 使用法
 def process_items(items: ReadonlyArray<String>): void
@@ -739,7 +739,7 @@ type LoginFormState = FormState<LoginForm>
 ```trb
 type Repository<T> = {
   find: Proc<Integer, Nullable<T>>,
-  find_all: Proc<Array<T>>,
+  find_all: Proc<T[]>,
   create: Proc<Omit<T, "id">, T>,
   update: Proc<Integer, Partial<T>, Nullable<T>>,
   delete: Proc<Integer, Boolean>

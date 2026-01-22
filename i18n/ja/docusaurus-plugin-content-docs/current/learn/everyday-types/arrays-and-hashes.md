@@ -43,7 +43,7 @@ numbers = [1, 2, 3, 4, 5]
 names = ["Alice", "Bob", "Charlie"]
 
 # 空の配列は型アノテーションを提供する必要がある
-items: Array<String> = []
+items: String[] = []
 ```
 
 ### 配列操作

@@ -11,9 +11,9 @@ description: Array, Hash, and other built-in generic types
 
 T-Ruby comes with several built-in generic types that you'll use every day. These types are parameterized to work with any type while providing type safety. Understanding how to use these built-in generics is essential for writing type-safe T-Ruby code.
 
-## Array\<T\> (or T[])
+## T[]
 
-The most commonly used generic type is `Array<T>`, representing an array of elements of type `T`. T-Ruby also supports the shorthand syntax `T[]`.
+The most commonly used generic type is `T[]`, representing an array of elements of type `T`.
 
 ### Basic Array Usage
 
@@ -29,7 +29,7 @@ inferred_names = ["Alice", "Bob"]  # String[]
 
 # Empty arrays need explicit types
 empty_numbers: Integer[] = []
-empty_users = Array<User>.new
+empty_users: User[] = []
 ```
 
 ### Array Operations
@@ -199,7 +199,7 @@ inferred = { "key" => "value" }  # Hash<String, String>
 
 # Empty hashes need explicit types
 empty_hash: Hash<String, Integer> = {}
-empty_map = Hash<Symbol, Array<String>>.new
+empty_map: Hash<Symbol, String[]> = {}
 ```
 
 ### Hash Operations
@@ -360,7 +360,7 @@ letters: String[] = ('a'..'e').to_a  # ["a", "b", "c", "d", "e"]
 
 ```trb
 # Create an enumerator
-numbers: Array<Integer> = [1, 2, 3, 4, 5]
+numbers: Integer[] = [1, 2, 3, 4, 5]
 enum: Enumerator<Integer> = numbers.each
 
 # Lazy evaluation

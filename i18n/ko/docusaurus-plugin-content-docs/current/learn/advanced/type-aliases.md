@@ -39,7 +39,7 @@ def create_user(data: Hash<Symbol, String | Integer | Boolean>): Integer
 end
 
 # 이것이 무엇을 나타내는지 이해하기 어려움
-users: Array<Hash<Symbol, String | Integer | Boolean>> = []
+users: Hash<Symbol, String | Integer | Boolean>[] = []
 ```
 
 ### 타입 별칭 사용
@@ -64,7 +64,7 @@ def create_user(data: UserData): Integer
 end
 
 # 이것이 무엇을 나타내는지 명확
-users: Array<UserData> = []
+users: UserData[] = []
 ```
 
 ## 기본 타입 별칭
@@ -143,9 +143,9 @@ type Result = :success | :error | :pending
 
 ```trb
 # 배열 별칭
-type StringList = Array<String>
-type NumberList = Array<Integer>
-type UserList = Array<User>
+type StringList = String[]
+type NumberList = Integer[]
+type UserList = User[]
 
 # 해시 별칭
 type StringMap = Hash<String, String>
@@ -153,9 +153,9 @@ type Configuration = Hash<Symbol, String | Integer>
 type Cache = Hash<String, Any>
 
 # 중첩 컬렉션
-type Matrix = Array<Array<Integer>>
-type TagMap = Hash<String, Array<String>>
-type UsersByAge = Hash<Integer, Array<User>>
+type Matrix = Integer[][]
+type TagMap = Hash<String, String[]>
+type UsersByAge = Hash<Integer, User[]>
 
 # 컬렉션 별칭 사용
 users: UserList = []
@@ -195,7 +195,7 @@ on_user_load: Callback<User> = ->(user: User): void { puts user.name }
 on_count: Callback<Integer> = ->(count: Integer): void { puts count }
 
 # 제네릭 쌍 타입
-type Pair<A, B> = Array<A | B>  # 예제를 위해 단순화됨
+type Pair<A, B> = (A | B)[]  # 예제를 위해 단순화됨
 
 # 사용법
 name_age: Pair<String, Integer> = ["Alice", 30]
@@ -281,10 +281,10 @@ type Quantity = Integer
 
 type Product = Hash<Symbol, ProductId | String | Price>
 type OrderItem = Hash<Symbol, ProductId | Quantity | Price>
-type Order = Hash<Symbol, OrderId | CustomerId | Array<OrderItem> | String>
+type Order = Hash<Symbol, OrderId | CustomerId | OrderItem[] | String>
 
 # 도메인 타입 사용
-def create_order(customer_id: CustomerId, items: Array<OrderItem>): Order
+def create_order(customer_id: CustomerId, items: OrderItem[]): Order
   {
     id: generate_order_id(),
     customer_id: customer_id,
@@ -293,7 +293,7 @@ def create_order(customer_id: CustomerId, items: Array<OrderItem>): Order
   }
 end
 
-def calculate_total(items: Array<OrderItem>): Price
+def calculate_total(items: OrderItem[]): Price
   items.reduce(0.0) { |sum, item| sum + item[:price] * item[:quantity] }
 end
 ```
@@ -344,7 +344,7 @@ end
 ```trb
 # JSON 타입
 type JSONPrimitive = String | Integer | Float | Boolean | nil
-type JSONArray = Array<JSONValue>
+type JSONArray = JSONValue[]
 type JSONObject = Hash<String, JSONValue>
 type JSONValue = JSONPrimitive | JSONArray | JSONObject
 
@@ -382,15 +382,15 @@ type Supplier<T> = Proc<T>
 type Comparator<T> = Proc<T, T, Integer>
 
 # 함수 타입 사용
-def filter<T>(array: Array<T>, predicate: Predicate<T>): Array<T>
+def filter<T>(array: T[], predicate: Predicate<T>): T[]
   array.select { |item| predicate.call(item) }
 end
 
-def map<T, U>(array: Array<T>, mapper: Mapper<T, U>): Array<U>
+def map<T, U>(array: T[], mapper: Mapper<T, U>): U[]
   array.map { |item| mapper.call(item) }
 end
 
-def for_each<T>(array: Array<T>, consumer: Consumer<T>): void
+def for_each<T>(array: T[], consumer: Consumer<T>): void
   array.each { |item| consumer.call(item) }
 end
 
@@ -434,11 +434,11 @@ type User = {
 
 # 또 다른 예제: 복잡성 증가
 type Coordinate = Float
-type Point = Array<Coordinate>  # [x, y]
-type Line = Array<Point>        # [point1, point2]
-type Polygon = Array<Point>     # [point1, point2, point3, ...]
+type Point = Coordinate[]  # [x, y]
+type Line = Point[]        # [point1, point2]
+type Polygon = Point[]     # [point1, point2, point3, ...]
 type Shape = Point | Line | Polygon
-type DrawingLayer = Array<Shape>
+type DrawingLayer = Shape[]
 type Drawing = Hash<String, DrawingLayer>
 ```
 
@@ -456,7 +456,7 @@ type Drawing = Hash<String, DrawingLayer>
 # 트리 구조
 type TreeNode<T> = {
   value: T,
-  children: Array<TreeNode<T>>
+  children: TreeNode<T>[]
 }
 
 # 연결 리스트
@@ -472,7 +472,7 @@ type JSONValue =
   | Float
   | Boolean
   | nil
-  | Array<JSONValue>
+  | JSONValue[]
   | Hash<String, JSONValue>
 ```
 
@@ -519,7 +519,7 @@ type ProductData = Hash<Symbol, String | Integer | Float>
 
 ```trb
 # 좋음: 여러 번 사용되는 복잡한 타입에 별칭
-type QueryResult = Hash<Symbol, Array<Hash<String, String | Integer>> | Integer>
+type QueryResult = Hash<Symbol, Hash<String, String | Integer>[] | Integer>
 
 def execute_query(sql: String): QueryResult
   # ...
@@ -530,7 +530,7 @@ def cache_result(key: String, result: QueryResult): void
 end
 
 # 덜 좋음: 복잡한 타입 반복
-def execute_query(sql: String): Hash<Symbol, Array<Hash<String, String | Integer>> | Integer>
+def execute_query(sql: String): Hash<Symbol, Hash<String, String | Integer>[] | Integer>
   # ...
 end
 ```

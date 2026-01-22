@@ -60,7 +60,7 @@ class Square
 end
 
 # 사용법 - 다형성 작동
-shapes: Array<Drawable> = [
+shapes: Drawable[] = [
   Circle.new(5.0),
   Square.new(4.0)
 ]
@@ -142,7 +142,7 @@ interface Storage<T>
   def save(item: T): void
   def load(id: String): T?
   def delete(id: String): Boolean
-  def list_all(): Array<T>
+  def list_all(): T[]
 end
 
 class UserStorage
@@ -169,7 +169,7 @@ class UserStorage
     end
   end
 
-  def list_all(): Array<User>
+  def list_all(): User[]
     @users.values
   end
 end
@@ -198,7 +198,7 @@ class ProductStorage
     end
   end
 
-  def list_all(): Array<Product>
+  def list_all(): Product[]
     @products.values
   end
 end
@@ -220,16 +220,16 @@ product_storage.save(Product.new("SKU-001", "Laptop", 999.99))
 ```trb title="partial_implementation.trb"
 interface Validator
   def validate(): Boolean
-  def errors(): Array<String>
+  def errors(): String[]
   def is_valid?(): Boolean
 end
 
 class BaseValidator
   def initialize()
-    @errors: Array<String> = []
+    @errors: String[] = []
   end
 
-  def errors(): Array<String>
+  def errors(): String[]
     @errors
   end
 
@@ -542,7 +542,7 @@ end
 ```trb title="notification_system.trb"
 interface NotificationChannel
   def send(recipient: String, message: String): Boolean
-  def send_bulk(recipients: Array<String>, message: String): Array<Boolean>
+  def send_bulk(recipients: String[], message: String): Boolean[]
   def is_available?(): Boolean
 end
 
@@ -567,7 +567,7 @@ class EmailNotification
     end
   end
 
-  def send_bulk(recipients: Array<String>, message: String): Array<Boolean>
+  def send_bulk(recipients: String[], message: String): Boolean[]
     recipients.map { |recipient| send(recipient, message) }
   end
 
@@ -593,7 +593,7 @@ class SMSNotification
     end
   end
 
-  def send_bulk(recipients: Array<String>, message: String): Array<Boolean>
+  def send_bulk(recipients: String[], message: String): Boolean[]
     recipients.map { |recipient| send(recipient, message) }
   end
 
@@ -619,7 +619,7 @@ class PushNotification
     end
   end
 
-  def send_bulk(recipients: Array<String>, message: String): Array<Boolean>
+  def send_bulk(recipients: String[], message: String): Boolean[]
     recipients.map { |recipient| send(recipient, message) }
   end
 
@@ -642,7 +642,7 @@ end
 
 class NotificationService
   def initialize()
-    @channels: Array<NotificationChannel> = []
+    @channels: NotificationChannel[] = []
     @formatter: Formatter = TemplateFormatter.new
   end
 
@@ -659,7 +659,7 @@ class NotificationService
     end
   end
 
-  def notify_all(recipients: Array<String>, template: String, data: Hash<String, String>): void
+  def notify_all(recipients: String[], template: String, data: Hash<String, String>): void
     message = @formatter.format(template, data)
     @channels.each do |channel|
       if channel.is_available?()
@@ -777,7 +777,7 @@ class Composite
   implements Component
 
   def initialize()
-    @children: Array<Component> = []
+    @children: Component[] = []
   end
 
   def render(): String

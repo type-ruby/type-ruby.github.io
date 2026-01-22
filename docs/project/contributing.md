@@ -331,7 +331,7 @@ def type_check(node: AST::Node): Type
 end
 
 # Use descriptive variable names
-def infer_array_type(elements: Array<AST::Node>): ArrayType
+def infer_array_type(elements: AST::Node[]): ArrayType
   element_types = elements.map { |el| infer_type(el) }
   union_type = UnionType.new(element_types)
   ArrayType.new(union_type)
@@ -361,11 +361,11 @@ active_users: User[] = users.select { |u| u.active? }
 # Good documentation
 # Infers the type of an array literal
 #
-# @param elements [Array<AST::Node>] Array literal elements
+# @param elements [AST::Node[]] Array literal elements
 # @return [ArrayType] Inferred array type
 # @example
 #   infer_array_type([IntNode.new(1), IntNode.new(2)])
-#   #=> ArrayType<Integer>
+#   #=> Integer[]
 def infer_array_type(elements)
   # ...
 end
@@ -397,7 +397,7 @@ RSpec.describe TypeChecker do
     end
 
     context 'with generic types' do
-      it 'infers Array<T> from literal' do
+      it 'infers T[] from literal' do
         # ...
       end
     end

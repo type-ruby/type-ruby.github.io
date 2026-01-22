@@ -160,7 +160,7 @@ type RequiredUserUpdate = Required<UserUpdate>
 ```trb
 # 모든 속성을 배열로 변환
 type Arrayify<T> = {
-  [K in keyof T]: Array<T[K]>
+  [K in keyof T]: T[K][]
 }
 
 type User = {
@@ -170,8 +170,8 @@ type User = {
 
 type ArrayUser = Arrayify<User>
 # {
-#   id: Array<Integer>,
-#   name: Array<String>
+#   id: Integer[],
+#   name: String[]
 # }
 
 # 모든 속성을 프로미스로 변환
@@ -683,7 +683,7 @@ type SmartNullable<T> = {
 ```trb
 type Repository<T> = {
   find_by_id: (id: Integer) => T | nil,
-  find_all: () => Array<T>,
+  find_all: () => T[],
   save: (entity: T) => T,
   update: (id: Integer, data: Partial<T>) => T | nil,
   delete: (id: Integer) => Boolean

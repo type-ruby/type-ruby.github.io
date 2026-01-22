@@ -19,20 +19,20 @@ description: ジェネリクスで再利用可能なコードを作成
 
 ```trb
 # ジェネリクスなしでは各型に別々の関数が必要
-def first_string(arr: Array<String>): String | nil
+def first_string(arr: String[]): String | nil
   arr[0]
 end
 
-def first_integer(arr: Array<Integer>): Integer | nil
+def first_integer(arr: Integer[]): Integer | nil
   arr[0]
 end
 
-def first_user(arr: Array<User>): User | nil
+def first_user(arr: User[]): User | nil
   arr[0]
 end
 
 # または型安全性を失う
-def first(arr: Array<Any>): Any
+def first(arr: Any[]): Any
   arr[0]  # 戻り値の型がAny - 型安全性なし！
 end
 ```
@@ -41,7 +41,7 @@ end
 
 ```trb
 # すべての型で動作する1つの関数
-def first<T>(arr: Array<T>): T | nil
+def first<T>(arr: T[]): T | nil
   arr[0]
 end
 
@@ -68,7 +68,7 @@ end
 # 任意の型で動作
 str = identity("hello")      # String
 num = identity(42)           # Integer
-arr = identity([1, 2, 3])    # Array<Integer>
+arr = identity([1, 2, 3])    # Integer[]
 ```
 
 ### 複数の型パラメータ
@@ -93,26 +93,26 @@ mixed = pair("count", 42)          # Hash<String, Integer>
 
 ```trb
 # 配列の最後の要素を取得
-def last<T>(arr: Array<T>): T | nil
+def last<T>(arr: T[]): T | nil
   arr[-1]
 end
 
 # 配列を反転
-def reverse<T>(arr: Array<T>): Array<T>
+def reverse<T>(arr: T[]): T[]
   arr.reverse
 end
 
 # 述語で配列をフィルタ
-def filter<T>(arr: Array<T>, &block: Proc<T, Boolean>): Array<T>
+def filter<T>(arr: T[], &block: Proc<T, Boolean>): T[]
   arr.select { |item| block.call(item) }
 end
 
 # 使用例
 numbers = [1, 2, 3, 4, 5]
-evens = filter(numbers) { |n| n.even? }  # Array<Integer>
+evens = filter(numbers) { |n| n.even? }  # Integer[]
 
 words = ["hello", "world", "foo", "bar"]
-long_words = filter(words) { |w| w.length > 3 }  # Array<String>
+long_words = filter(words) { |w| w.length > 3 }  # String[]
 ```
 
 ### 戻り値型変換のあるジェネリック関数
@@ -121,17 +121,17 @@ long_words = filter(words) { |w| w.length > 3 }  # Array<String>
 
 ```trb
 # 型TをUに変換するmap関数
-def map<T, U>(arr: Array<T>, &block: Proc<T, U>): Array<U>
+def map<T, U>(arr: T[], &block: Proc<T, U>): U[]
   arr.map { |item| block.call(item) }
 end
 
 # 整数を文字列に変換
 numbers = [1, 2, 3]
-strings = map(numbers) { |n| n.to_s }  # Array<String>
+strings = map(numbers) { |n| n.to_s }  # String[]
 
 # 文字列を長さに変換
 words = ["hello", "world"]
-lengths = map(words) { |w| w.length }  # Array<Integer>
+lengths = map(words) { |w| w.length }  # Integer[]
 ```
 
 ## ジェネリッククラス
@@ -205,7 +205,7 @@ container3 = Container<Boolean>.new(true)
 
 ```trb
 class Stack<T>
-  @items: Array<T>
+  @items: T[]
 
   def initialize: void
     @items = []
@@ -231,7 +231,7 @@ class Stack<T>
     @items.length
   end
 
-  def to_a: Array<T>
+  def to_a: T[]
     @items.dup
   end
 end
@@ -299,9 +299,9 @@ swapped = name_age.swap              # Pair<Integer, String>
 
 ```trb
 class Collection<T>
-  @items: Array<T>
+  @items: T[]
 
-  def initialize(items: Array<T> = []): void
+  def initialize(items: T[] = []): void
     @items = items.dup
   end
 
@@ -342,7 +342,7 @@ class Collection<T>
     @items.each { |item| block.call(item) }
   end
 
-  def to_a: Array<T>
+  def to_a: T[]
     @items.dup
   end
 
@@ -372,23 +372,23 @@ numbers.each { |n| puts n }
 ```trb
 class Utils
   # 非ジェネリッククラスのジェネリックメソッド
-  def self.wrap<T>(value: T): Array<T>
+  def self.wrap<T>(value: T): T[]
     [value]
   end
 
-  def self.duplicate<T>(value: T, times: Integer): Array<T>
+  def self.duplicate<T>(value: T, times: Integer): T[]
     Array.new(times, value)
   end
 
-  def self.zip<T, U>(arr1: Array<T>, arr2: Array<U>): Array<Pair<T, U>>
+  def self.zip<T, U>(arr1: T[], arr2: U[]): Pair<T, U>[]
     arr1.zip(arr2).map { |t, u| Pair.new(t, u) }
   end
 end
 
 # 使用例
-wrapped = Utils.wrap(42)                    # Array<Integer>
-duplicates = Utils.duplicate("hello", 3)    # Array<String>
-zipped = Utils.zip([1, 2], ["a", "b"])      # Array<Pair<Integer, String>>
+wrapped = Utils.wrap(42)                    # Integer[]
+duplicates = Utils.duplicate("hello", 3)    # String[]
+zipped = Utils.zip([1, 2], ["a", "b"])      # Pair<Integer, String>[]
 ```
 
 ## ネストしたジェネリクス
@@ -398,7 +398,7 @@ zipped = Utils.zip([1, 2], ["a", "b"])      # Array<Pair<Integer, String>>
 ```trb
 # 各キーに対して値の配列を格納するキャッシュ
 class Cache<K, V>
-  @store: Hash<K, Array<V>>
+  @store: Hash<K, V[]>
 
   def initialize: void
     @store = {}
@@ -409,7 +409,7 @@ class Cache<K, V>
     @store[key].push(value)
   end
 
-  def get(key: K): Array<V>
+  def get(key: K): V[]
     @store[key] || []
   end
 
@@ -424,7 +424,7 @@ user_tags.add(1, "ruby")
 user_tags.add(1, "programming")
 user_tags.add(2, "design")
 
-tags = user_tags.get(1)  # Array<String> = ["ruby", "programming"]
+tags = user_tags.get(1)  # String[] = ["ruby", "programming"]
 ```
 
 ## ベストプラクティス
@@ -454,12 +454,12 @@ end
 
 ```trb
 # 良い：シンプルでフォーカスされたジェネリック関数
-def head<T>(arr: Array<T>): T | nil
+def head<T>(arr: T[]): T | nil
   arr.first
 end
 
 # あまり良くない：責任が多すぎる
-def process<T>(arr: Array<T>, flag: Boolean, count: Integer): Array<T> | Hash<Integer, T>
+def process<T>(arr: T[], flag: Boolean, count: Integer): T[] | Hash<Integer, T>
   # 複雑すぎる、ジェネリックの動作を理解しにくい
 end
 ```

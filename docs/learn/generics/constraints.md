@@ -554,7 +554,7 @@ product_repo = Repository<Product>.new
 product_repo.save(Product.new(1, "Laptop", 999.99))
 
 found_user = user_repo.find(1)  # User | nil
-all_products = product_repo.all  # Array<Product>
+all_products = product_repo.all  # Product[]
 ```
 
 ### Builder Pattern with Constraints

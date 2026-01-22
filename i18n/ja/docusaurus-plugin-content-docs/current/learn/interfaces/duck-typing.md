@@ -314,9 +314,9 @@ simple_logging(advanced)  # 動作 - 構造的サブタイピング
 
 ```trb title="generic_structural.trb"
 def transform<T, U>(
-  items: Array<T>,
+  items: T[],
   transformer: { def transform(item: T): U }
-): Array<U>
+): U[]
   items.map { |item| transformer.transform(item) }
 end
 
@@ -423,15 +423,15 @@ runner.run_configurable(advanced, { "level" => "high" })
 
 ```trb title="data_pipeline.trb"
 type DataSource = {
-  def read(): Array<Hash<String, String>>
+  def read(): Hash<String, String>[]
 }
 
 type DataProcessor = {
-  def process(data: Array<Hash<String, String>>): Array<Hash<String, String>>
+  def process(data: Hash<String, String>[]): Hash<String, String>[]
 }
 
 type DataSink = {
-  def write(data: Array<Hash<String, String>>): void
+  def write(data: Hash<String, String>[]): void
 }
 
 class CSVSource
@@ -439,7 +439,7 @@ class CSVSource
     @path = path
   end
 
-  def read(): Array<Hash<String, String>>
+  def read(): Hash<String, String>[]
     # CSVファイルを読み込み
     [{ "name" => "Alice", "age" => "30" }]
   end
@@ -450,7 +450,7 @@ class JSONSource
     @url = url
   end
 
-  def read(): Array<Hash<String, String>>
+  def read(): Hash<String, String>[]
     # URLからJSONを取得
     [{ "name" => "Bob", "age" => "25" }]
   end
@@ -462,13 +462,13 @@ class FilterProcessor
     @value = value
   end
 
-  def process(data: Array<Hash<String, String>>): Array<Hash<String, String>>
+  def process(data: Hash<String, String>[]): Hash<String, String>[]
     data.select { |row| row[@field] == @value }
   end
 end
 
 class TransformProcessor
-  def process(data: Array<Hash<String, String>>): Array<Hash<String, String>>
+  def process(data: Hash<String, String>[]): Hash<String, String>[]
     data.map do |row|
       row.merge({ "processed" => "true" })
     end
@@ -476,7 +476,7 @@ class TransformProcessor
 end
 
 class DatabaseSink
-  def write(data: Array<Hash<String, String>>): void
+  def write(data: Hash<String, String>[]): void
     puts "Writing #{data.length} rows to database"
     data.each { |row| puts "  #{row}" }
   end
@@ -487,7 +487,7 @@ class FileSink
     @path = path
   end
 
-  def write(data: Array<Hash<String, String>>): void
+  def write(data: Hash<String, String>[]): void
     puts "Writing #{data.length} rows to #{@path}"
   end
 end
@@ -496,7 +496,7 @@ class Pipeline
   def initialize(source: DataSource, sink: DataSink)
     @source = source
     @sink = sink
-    @processors: Array<DataProcessor> = []
+    @processors: DataProcessor[] = []
   end
 
   def add_processor(processor: DataProcessor): void
@@ -572,7 +572,7 @@ end
 
 class EventBus
   def initialize()
-    @handlers: Array<EventHandler> = []
+    @handlers: EventHandler[] = []
   end
 
   def subscribe(handler: EventHandler): void

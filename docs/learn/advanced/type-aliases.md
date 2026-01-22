@@ -131,9 +131,9 @@ Make complex collection types more readable:
 
 ```trb
 # Array aliases
-type StringList = Array<String>
-type NumberList = Array<Integer>
-type UserList = Array<User>
+type StringList = String[]
+type NumberList = Integer[]
+type UserList = User[]
 
 # Hash aliases
 type StringMap = Hash<String, String>
@@ -141,9 +141,9 @@ type Configuration = Hash<Symbol, String | Integer>
 type Cache = Hash<String, Any>
 
 # Nested collections
-type Matrix = Array<Array<Integer>>
-type TagMap = Hash<String, Array<String>>
-type UsersByAge = Hash<Integer, Array<User>>
+type Matrix = Integer[][]
+type TagMap = Hash<String, String[]>
+type UsersByAge = Hash<Integer, User[]>
 
 # Using collection aliases
 users: UserList = []
@@ -181,7 +181,7 @@ on_user_load: Callback<User> = ->(user: User): void { puts user.name }
 on_count: Callback<Integer> = ->(count: Integer): void { puts count }
 
 # A generic pair type
-type Pair<A, B> = Array<A | B>  # Simplified for example
+type Pair<A, B> = (A | B)[]  # Simplified for example
 
 # Usage
 name_age: Pair<String, Integer> = ["Alice", 30]
@@ -320,7 +320,7 @@ end
 ```trb
 # JSON types
 type JSONPrimitive = String | Integer | Float | Boolean | nil
-type JSONArray = Array<JSONValue>
+type JSONArray = JSONValue[]
 type JSONObject = Hash<String, JSONValue>
 type JSONValue = JSONPrimitive | JSONArray | JSONObject
 
@@ -406,11 +406,11 @@ type User = {
 
 # Another example: Building up complexity
 type Coordinate = Float
-type Point = Array<Coordinate>  # [x, y]
-type Line = Array<Point>        # [point1, point2]
-type Polygon = Array<Point>     # [point1, point2, point3, ...]
+type Point = Coordinate[]  # [x, y]
+type Line = Point[]        # [point1, point2]
+type Polygon = Point[]     # [point1, point2, point3, ...]
 type Shape = Point | Line | Polygon
-type DrawingLayer = Array<Shape>
+type DrawingLayer = Shape[]
 type Drawing = Hash<String, DrawingLayer>
 ```
 
@@ -442,7 +442,7 @@ type JSONValue =
   | Float
   | Boolean
   | nil
-  | Array<JSONValue>
+  | JSONValue[]
   | Hash<String, JSONValue>
 ```
 
@@ -483,7 +483,7 @@ type ProductData = Hash<Symbol, String | Integer | Float>
 
 ```trb
 # Good: Alias for complex type used multiple times
-type QueryResult = Hash<Symbol, Array<Hash<String, String | Integer>> | Integer>
+type QueryResult = Hash<Symbol, Hash<String, String | Integer>[] | Integer>
 
 def execute_query(sql: String): QueryResult
   # ...
@@ -494,7 +494,7 @@ def cache_result(key: String, result: QueryResult): void
 end
 
 # Less good: Repeating complex type
-def execute_query(sql: String): Hash<Symbol, Array<Hash<String, String | Integer>> | Integer>
+def execute_query(sql: String): Hash<Symbol, Hash<String, String | Integer>[] | Integer>
   # ...
 end
 ```

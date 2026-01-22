@@ -199,7 +199,7 @@ interface PostOptions
   title: String
   content: String
   published?: Boolean    # ? 로 optional 표시
-  tags?: Array<String>
+  tags?: String[]
 end
 
 def create_post({ title:, content:, published: false, tags: [] }: PostOptions): Post
@@ -511,7 +511,7 @@ logger.debug(
 
 4. **컬렉션에는 나머지 매개변수 사용**: 가변 개수의 유사한 항목을 기대할 때, 나머지 매개변수가 배열 매개변수보다 깔끔합니다.
 
-5. **나머지 매개변수에 적절한 타입 지정**: 문자열만 기대한다면 `*args: Array<String | Integer>`보다 `*args: Array<String>`이 더 좋습니다.
+5. **나머지 매개변수에 적절한 타입 지정**: 문자열만 기대한다면 `*args: (String | Integer)[]`보다 `*args: String[]`이 더 좋습니다.
 
 6. **복잡한 시그니처 문서화**: 많은 매개변수 타입을 조합할 때, 사용법을 설명하는 주석을 추가하세요.
 

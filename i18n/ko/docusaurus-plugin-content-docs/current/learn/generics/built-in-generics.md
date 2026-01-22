@@ -31,7 +31,7 @@ inferred_names = ["Alice", "Bob"]  # String[]
 
 # 빈 배열은 명시적 타입이 필요
 empty_numbers: Integer[] = []
-empty_users = Array<User>.new
+empty_users: User[] = []
 ```
 
 ### 배열 연산

@@ -51,12 +51,12 @@ trc run hello.trb
 ### Added
 
 #### TypeScript-style Array Shorthand Syntax
-- **Array shorthand `T[]`** - Alternative syntax for `Array<T>`, inspired by TypeScript
-- **Nested arrays** - `Integer[][]` for `Array<Array<Integer>>`
-- **Nullable arrays** - `String[]?` for `(Array<String> | nil)`
-- **Arrays of nullable elements** - `String?[]` for `Array<String?>`
-- **Union type arrays** - `(String | Integer)[]` for `Array<(String | Integer)>`
-- **Full equivalence** - Both `String[]` and `Array<String>` produce identical IR and RBS output
+- **Array shorthand `T[]`** - TypeScript-style array syntax
+- **Nested arrays** - `Integer[][]` for multi-dimensional arrays
+- **Nullable arrays** - `String[]?` for optional array type
+- **Arrays of nullable elements** - `String?[]` for array of nullable strings
+- **Union type arrays** - `(String | Integer)[]` for array of union types
+- **RBS compatibility** - All array syntaxes generate proper RBS output
 
 ### Example
 
@@ -140,7 +140,7 @@ This is an alpha release. APIs may change, and breaking changes can occur. Not r
 - **Special Types** - `Any`, `void`, `never`, `self`
 - **Union Types** - Combine multiple types with `|` operator
 - **Optional Types** - Shorthand `T?` for `T | nil`
-- **Array Generics** - `Array<T>` for typed arrays
+- **Array Generics** - `T[]` for typed arrays
 - **Hash Generics** - `Hash<K, V>` for typed hashes
 - **Type Inference** - Automatic type inference for variables and returns
 - **Type Narrowing** - Smart narrowing with `is_a?` and `nil?`

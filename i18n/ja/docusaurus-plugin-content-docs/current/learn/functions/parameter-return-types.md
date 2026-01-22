@@ -114,7 +114,7 @@ save_to_database(user_record)
 パラメータは配列、ハッシュ、カスタムクラスを含む任意の型を持つことができます：
 
 ```trb title="complex.trb"
-def process_names(names: Array<String>): Integer
+def process_names(names: String[]): Integer
   names.map(&:capitalize).length
 end
 
@@ -228,11 +228,11 @@ can_edit = has_permission(current_user, "posts:edit")
 関数は型情報を保持するジェネリック型を返すことができます：
 
 ```trb title="generics.trb"
-def first_element<T>(array: Array<T>): T | nil
+def first_element<T>(array: T[]): T | nil
   array.first
 end
 
-def wrap_in_array<T>(value: T): Array<T>
+def wrap_in_array<T>(value: T): T[]
   [value]
 end
 
@@ -243,7 +243,7 @@ first_num = first_element(numbers)  # 型: Integer | nil
 strings = ["a", "b", "c"]
 first_str = first_element(strings)  # 型: String | nil
 
-wrapped = wrap_in_array(42)  # 型: Array<Integer>
+wrapped = wrap_in_array(42)  # 型: Integer[]
 ```
 
 ## 実践例: ユーザーサービス
@@ -275,7 +275,7 @@ class UserService
     database.delete("users", id)
   end
 
-  def list_all(): Array<User>
+  def list_all(): User[]
     database.query("SELECT * FROM users").map { |row| User.from_row(row) }
   end
 
@@ -303,7 +303,7 @@ updated = service.update(123, { "name" => "Bob", "age" => 31 })
 # void を返す
 service.delete(456)
 
-# Array<User> を返す
+# User[] を返す
 all_users = service.list_all()
 
 # Integer を返す
@@ -319,7 +319,7 @@ exists = service.is_email_taken("test@example.com")
 
 2. **戻り値の型を明示的にする**: T-Rubyが推論できる場合でも、明示的な戻り値の型はドキュメントとして機能します。
 
-3. **具体的な型を使用する**: `Object`より`String`を、`Array`より`Array<Integer>`を優先します。
+3. **具体的な型を使用する**: `Object`より`String`を、`Array`より`Integer[]`を優先します。
 
 4. **複数の戻り値にはユニオン型を使用する**: `User | nil` は任意の値を返すよりも明確です。
 
@@ -350,7 +350,7 @@ def to_boolean(value: String): Boolean
   ["true", "yes", "1"].include?(value.downcase)
 end
 
-def to_array(value: String): Array<String>
+def to_array(value: String): String[]
   value.split(",").map(&:strip)
 end
 ```

@@ -292,3 +292,18 @@
 [data-theme='dark'] .compilerStatusFallback {
   background: rgba(234, 179, 8, 0.2);
 }
+
+.compilerStatusLoading {
+  display: inline-block;
+  margin-top: 0.5rem;
+  padding: 0.25rem 0.75rem;
+  background: rgba(59, 130, 246, 0.15);
+  color: #3b82f6;
+  border-radius: 9999px;
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+[data-theme='dark'] .compilerStatusLoading {
+  background: rgba(59, 130, 246, 0.2);
+}

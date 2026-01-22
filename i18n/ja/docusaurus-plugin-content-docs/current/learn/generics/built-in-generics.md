@@ -19,16 +19,16 @@ T-Rubyには毎日使用するいくつかの組み込みジェネリック型�
 
 ```trb
 # 明示的に型付けされた配列
-numbers: Array<Integer> = [1, 2, 3, 4, 5]
-names: Array<String> = ["Alice", "Bob", "Charlie"]
-flags: Array<Boolean> = [true, false, true]
+numbers: Integer[] = [1, 2, 3, 4, 5]
+names: String[] = ["Alice", "Bob", "Charlie"]
+flags: Boolean[] = [true, false, true]
 
 # 型推論も動作
-inferred_numbers = [1, 2, 3]  # Array<Integer>
-inferred_names = ["Alice", "Bob"]  # Array<String>
+inferred_numbers = [1, 2, 3]  # Integer[]
+inferred_names = ["Alice", "Bob"]  # String[]
 
 # 空の配列は明示的な型が必要
-empty_numbers: Array<Integer> = []
+empty_numbers: Integer[] = []
 empty_users = Array<User>.new
 ```
 
@@ -37,7 +37,7 @@ empty_users = Array<User>.new
 すべての標準配列操作は型安全性を維持します：
 
 ```trb
-numbers: Array<Integer> = [1, 2, 3, 4, 5]
+numbers: Integer[] = [1, 2, 3, 4, 5]
 
 # 要素へのアクセス
 first: Integer | nil = numbers[0]      # 1
@@ -45,9 +45,9 @@ last: Integer | nil = numbers[-1]      # 5
 out_of_bounds: Integer | nil = numbers[100]  # nil
 
 # 要素の追加
-numbers.push(6)        # Array<Integer>
-numbers << 7           # Array<Integer>
-numbers.unshift(0)     # Array<Integer>
+numbers.push(6)        # Integer[]
+numbers << 7           # Integer[]
+numbers.unshift(0)     # Integer[]
 
 # 要素の削除
 popped: Integer | nil = numbers.pop      # 最後を削除して返す
@@ -64,13 +64,13 @@ index: Integer | nil = numbers.index(3)     # 2
 
 ```trb
 # 整数を文字列にマップ
-numbers: Array<Integer> = [1, 2, 3, 4, 5]
-strings: Array<String> = numbers.map { |n| n.to_s }
+numbers: Integer[] = [1, 2, 3, 4, 5]
+strings: String[] = numbers.map { |n| n.to_s }
 # 結果: ["1", "2", "3", "4", "5"]
 
 # 文字列を長さにマップ
-words: Array<String> = ["hello", "world", "ruby"]
-lengths: Array<Integer> = words.map { |w| w.length }
+words: String[] = ["hello", "world", "ruby"]
+lengths: Integer[] = words.map { |w| w.length }
 # 結果: [5, 5, 4]
 
 # 複雑な型にマップ
@@ -88,8 +88,8 @@ class Person
   end
 end
 
-names: Array<String> = ["Alice", "Bob"]
-people: Array<Person> = names.map { |name| Person.new(name, 25) }
+names: String[] = ["Alice", "Bob"]
+people: Person[] = names.map { |name| Person.new(name, 25) }
 ```
 
 ### 配列のフィルタリング
@@ -97,14 +97,14 @@ people: Array<Person> = names.map { |name| Person.new(name, 25) }
 フィルタリングは同じ型を維持します：
 
 ```trb
-numbers: Array<Integer> = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+numbers: Integer[] = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
 
 # 偶数をフィルタ
-evens: Array<Integer> = numbers.select { |n| n.even? }
+evens: Integer[] = numbers.select { |n| n.even? }
 # 結果: [2, 4, 6, 8, 10]
 
 # 奇数をフィルタ
-odds: Array<Integer> = numbers.reject { |n| n.even? }
+odds: Integer[] = numbers.reject { |n| n.even? }
 # 結果: [1, 3, 5, 7, 9]
 
 # 最初のマッチする要素を見つける
@@ -112,8 +112,8 @@ first_even: Integer | nil = numbers.find { |n| n.even? }
 # 結果: 2
 
 # 複雑な条件でフィルタ
-words: Array<String> = ["hello", "world", "hi", "ruby", "typescript"]
-long_words: Array<String> = words.select { |w| w.length > 4 }
+words: String[] = ["hello", "world", "hi", "ruby", "typescript"]
+long_words: String[] = words.select { |w| w.length > 4 }
 # 結果: ["hello", "world", "typescript"]
 ```
 
@@ -122,7 +122,7 @@ long_words: Array<String> = words.select { |w| w.length > 4 }
 reduceは配列を単一の値に畳み込みます：
 
 ```trb
-numbers: Array<Integer> = [1, 2, 3, 4, 5]
+numbers: Integer[] = [1, 2, 3, 4, 5]
 
 # すべての数字を合計
 sum: Integer = numbers.reduce(0) { |acc, n| acc + n }
@@ -133,12 +133,12 @@ max: Integer = numbers.reduce(numbers[0]) { |max, n| n > max ? n : max }
 # 結果: 5
 
 # 文字列を連結
-words: Array<String> = ["Hello", "World", "from", "T-Ruby"]
+words: String[] = ["Hello", "World", "from", "T-Ruby"]
 sentence: String = words.reduce("") { |acc, w| acc.empty? ? w : "#{acc} #{w}" }
 # 結果: "Hello World from T-Ruby"
 
 # 配列からハッシュを構築
-pairs: Array<Array<String>> = [["name", "Alice"], ["age", "30"]]
+pairs: String[][] = [["name", "Alice"], ["age", "30"]]
 hash: Hash<String, String> = pairs.reduce({}) { |h, pair|
   h[pair[0]] = pair[1]
   h
@@ -151,25 +151,25 @@ hash: Hash<String, String> = pairs.reduce({}) { |h, pair|
 
 ```trb
 # 2次元配列（行列）
-matrix: Array<Array<Integer>> = [
+matrix: Integer[][] = [
   [1, 2, 3],
   [4, 5, 6],
   [7, 8, 9]
 ]
 
 # ネストした要素へのアクセス
-first_row: Array<Integer> = matrix[0]      # [1, 2, 3]
+first_row: Integer[] = matrix[0]      # [1, 2, 3]
 element: Integer | nil = matrix[1][2]      # 6
 
 # 3次元配列
-cube: Array<Array<Array<Integer>>> = [
+cube: Integer[][][] = [
   [[1, 2], [3, 4]],
   [[5, 6], [7, 8]]
 ]
 
 # ネストした配列をフラット化
-nested: Array<Array<Integer>> = [[1, 2], [3, 4], [5, 6]]
-flat: Array<Integer> = nested.flatten
+nested: Integer[][] = [[1, 2], [3, 4], [5, 6]]
+flat: Integer[] = nested.flatten
 # 結果: [1, 2, 3, 4, 5, 6]
 ```
 
@@ -199,7 +199,7 @@ inferred = { "key" => "value" }  # Hash<String, String>
 
 # 空のハッシュは明示的な型が必要
 empty_hash: Hash<String, Integer> = {}
-empty_map = Hash<Symbol, Array<String>>.new
+empty_map = Hash<Symbol, String[]>.new
 ```
 
 ### ハッシュ操作
@@ -226,8 +226,8 @@ has_alice: Boolean = ages.key?("Alice")      # true
 has_bob: Boolean = ages.key?("Bob")          # false（削除済み）
 
 # キーと値の取得
-keys: Array<String> = ages.keys           # ["Alice", "Charlie"]
-values: Array<Integer> = ages.values      # [31, 35]
+keys: String[] = ages.keys           # ["Alice", "Charlie"]
+values: Integer[] = ages.values      # [31, 35]
 ```
 
 ### ハッシュの反復
@@ -245,7 +245,7 @@ scores.each do |name, score|
 end
 
 # 配列にマップ
-name_score_pairs: Array<String> = scores.map { |name, score|
+name_score_pairs: String[] = scores.map { |name, score|
   "#{name} scored #{score}"
 }
 
@@ -262,7 +262,7 @@ doubled: Hash<String, Integer> = scores.transform_values { |score| score * 2 }
 
 ```trb
 # 配列値を持つハッシュ
-tags: Hash<String, Array<String>> = {
+tags: Hash<String, String[]> = {
   "ruby" => ["programming", "language"],
   "rails" => ["framework", "web"],
   "postgres" => ["database", "sql"]
@@ -326,7 +326,7 @@ intersection: Set<Integer> = set1 & set2    # {3, 4}
 difference: Set<Integer> = set1 - set2      # {1, 2}
 
 # 配列に変換
-array: Array<Integer> = numbers.to_a
+array: Integer[] = numbers.to_a
 ```
 
 ## Range\<T\>
@@ -342,7 +342,7 @@ one_to_nine: Range<Integer> = 1...10    # 排他: 1, 2, ..., 9
 includes_five: Boolean = one_to_ten.include?(5)  # true
 
 # 配列に変換
-numbers: Array<Integer> = (1..5).to_a   # [1, 2, 3, 4, 5]
+numbers: Integer[] = (1..5).to_a   # [1, 2, 3, 4, 5]
 
 # 範囲の反復
 (1..5).each do |i|
@@ -351,7 +351,7 @@ end
 
 # 文字範囲
 alphabet: Range<String> = 'a'..'z'
-letters: Array<String> = ('a'..'e').to_a  # ["a", "b", "c", "d", "e"]
+letters: String[] = ('a'..'e').to_a  # ["a", "b", "c", "d", "e"]
 ```
 
 ## Proc\<Args, Return\>
@@ -379,7 +379,7 @@ end
 result = apply_twice(5, doubler)  # 20 (5 * 2 * 2)
 
 # Procの配列
-operations: Array<Proc<Integer, Integer>> = [
+operations: Proc<Integer, Integer>[] = [
   ->(x: Integer): Integer { x + 1 },
   ->(x: Integer): Integer { x * 2 },
   ->(x: Integer): Integer { x - 3 }
@@ -403,12 +403,12 @@ name: String? = "Alice"
 age: Integer? = nil
 
 # オプショナル配列の操作
-numbers: Array<Integer>? = [1, 2, 3]
+numbers: Integer[]? = [1, 2, 3]
 numbers = nil
 
 # オプショナル要素の配列
-numbers: Array<Integer | nil> = [1, nil, 3, nil, 5]
-numbers: Array<Integer?> = [1, nil, 3, nil, 5]  # 上と同じ
+numbers: (Integer | nil)[] = [1, nil, 3, nil, 5]
+numbers: Integer?[] = [1, nil, 3, nil, 5]  # 上と同じ
 
 # オプショナルハッシュ
 config: Hash<String, String>? = { "key" => "value" }
@@ -427,25 +427,25 @@ settings: Hash<String, String | nil> = {
 
 ```trb
 # ハッシュの配列
-users: Array<Hash<Symbol, String | Integer>> = [
+users: Hash<Symbol, String | Integer>[] = [
   { name: "Alice", age: 30 },
   { name: "Bob", age: 25 }
 ]
 
 # 配列のハッシュ
-tags_by_category: Hash<String, Array<String>> = {
+tags_by_category: Hash<String, String[]> = {
   "colors" => ["red", "blue", "green"],
   "sizes" => ["small", "medium", "large"]
 }
 
 # 配列の配列（行列）
-matrix: Array<Array<Integer>> = [
+matrix: Integer[][] = [
   [1, 2, 3],
   [4, 5, 6]
 ]
 
 # 複雑な値を持つハッシュ
-cache: Hash<String, Array<Hash<Symbol, String>>> = {
+cache: Hash<String, Hash<Symbol, String>[]> = {
   "users" => [
     { id: "1", name: "Alice" },
     { id: "2", name: "Bob" }
@@ -453,7 +453,7 @@ cache: Hash<String, Array<Hash<Symbol, String>>> = {
 }
 
 # オプショナル値のオプショナル配列
-data: Array<Integer | nil>? = [1, nil, 3]
+data: (Integer | nil)[]? = [1, nil, 3]
 data = nil
 ```
 
@@ -463,13 +463,13 @@ data = nil
 
 ```trb
 # シンプルなエイリアス
-type StringArray = Array<String>
+type StringArray = String[]
 type IntHash = Hash<String, Integer>
 
 # 複雑なエイリアス
 type UserData = Hash<Symbol, String | Integer>
-type UserList = Array<UserData>
-type TagMap = Hash<String, Array<String>>
+type UserList = UserData[]
+type TagMap = Hash<String, String[]>
 
 # エイリアスの使用
 users: UserList = [
@@ -499,11 +499,11 @@ to_string: Transformer<Integer, String> = ->(n: Integer): String { n.to_s }
 
 ```trb
 # 良い：特定の型
-users: Array<User> = []
+users: User[] = []
 config: Hash<Symbol, String> = {}
 
 # 避ける：Anyの使用は型安全性を失う
-data: Array<Any> = []  # 型チェックなし
+data: Any[] = []  # 型チェックなし
 ```
 
 ### 2. 複雑な型には型エイリアスを使用
@@ -511,14 +511,14 @@ data: Array<Any> = []  # 型チェックなし
 ```trb
 # 良い：明確で再利用可能なエイリアス
 type UserMap = Hash<Integer, User>
-type ErrorList = Array<String>
+type ErrorList = String[]
 
 def process_users(users: UserMap): ErrorList
   # ...
 end
 
 # あまり良くない：繰り返される複雑な型
-def process_users(users: Hash<Integer, User>): Array<String>
+def process_users(users: Hash<Integer, User>): String[]
   # ...
 end
 ```
@@ -527,7 +527,7 @@ end
 
 ```trb
 # 良い：明示的なnil処理
-users: Array<User> = []
+users: User[] = []
 first_user: User | nil = users.first
 
 if first_user
@@ -547,7 +547,7 @@ end
 unique_tags: Set<String> = Set.new
 
 # 効率が低い：ユニーク性のためにArrayを使用
-unique_tags: Array<String> = []
+unique_tags: String[] = []
 unique_tags.push(tag) unless unique_tags.include?(tag)
 ```
 
@@ -556,7 +556,7 @@ unique_tags.push(tag) unless unique_tags.include?(tag)
 ### 安全な配列アクセス
 
 ```trb
-def safe_get<T>(array: Array<T>, index: Integer, default: T): T
+def safe_get<T>(array: T[], index: Integer, default: T): T
   array.fetch(index, default)
 end
 
@@ -581,14 +581,14 @@ class Person
   end
 end
 
-people: Array<Person> = [
+people: Person[] = [
   Person.new("Alice", 30),
   Person.new("Bob", 25),
   Person.new("Charlie", 30)
 ]
 
 # 年齢でグループ化
-by_age: Hash<Integer, Array<Person>> = people.group_by { |p| p.age }
+by_age: Hash<Integer, Person[]> = people.group_by { |p| p.age }
 # { 30 => [Alice, Charlie], 25 => [Bob] }
 ```
 

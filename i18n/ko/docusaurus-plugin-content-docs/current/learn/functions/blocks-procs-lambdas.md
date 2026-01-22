@@ -49,7 +49,7 @@ def each_number(&block: Proc<Integer, void>): void
   end
 end
 
-def transform_strings(&block: Proc<String, String>): Array<String>
+def transform_strings(&block: Proc<String, String>): String[]
   ["hello", "world"].map do |str|
     block.call(str)
   end
@@ -80,7 +80,7 @@ def each_pair(&block: Proc<[String, Integer], void>): void
   end
 end
 
-def transform_hash(&block: Proc<[String, Integer], String>): Array<String>
+def transform_hash(&block: Proc<[String, Integer], String>): String[]
   { "a" => 1, "b" => 2, "c" => 3 }.map do |key, value|
     block.call(key, value)
   end
@@ -104,7 +104,7 @@ results = transform_hash { |k, v| "#{k}=#{v}" }
 <ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/functions/blocks_procs_lambdas_spec.rb" line={58} />
 
 ```trb title="optional_blocks.trb"
-def process_items(items: Array<Integer>, &block: Proc<Integer, Integer>?): Array<Integer>
+def process_items(items: Integer[], &block: Proc<Integer, Integer>?): Integer[]
   if block
     items.map { |item| block.call(item) }
   else
@@ -141,7 +141,7 @@ result2 = greeter.call("Alice") # "Hello, Alice!"
 result3 = validator.call("test@example.com")  # true
 
 # Proc은 메서드에 전달할 수 있음
-def apply_to_all(numbers: Array<Integer>, operation: Proc<Integer, Integer>): Array<Integer>
+def apply_to_all(numbers: Integer[], operation: Proc<Integer, Integer>): Integer[]
   numbers.map { |n| operation.call(n) }
 end
 
@@ -167,7 +167,7 @@ product = multiply.call(3, 4)       # 12
 formatted = format_user.call(user)  # "Alice (alice@example.com)"
 
 # 람다는 메서드에 전달할 수 있음
-def filter_users(users: Array<User>, predicate: Proc<User, Boolean>): Array<User>
+def filter_users(users: User[], predicate: Proc<User, Boolean>): User[]
   users.select { |user| predicate.call(user) }
 end
 
@@ -246,22 +246,22 @@ end
 <ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/functions/blocks_procs_lambdas_spec.rb" line={113} />
 
 ```trb title="generic_blocks.trb"
-def map<T, U>(array: Array<T>, &block: Proc<T, U>): Array<U>
+def map<T, U>(array: T[], &block: Proc<T, U>): U[]
   array.map { |item| block.call(item) }
 end
 
-def filter<T>(array: Array<T>, &block: Proc<T, Boolean>): Array<T>
+def filter<T>(array: T[], &block: Proc<T, Boolean>): T[]
   array.select { |item| block.call(item) }
 end
 
-def reduce<T, U>(array: Array<T>, initial: U, &block: Proc<[U, T], U>): U
+def reduce<T, U>(array: T[], initial: U, &block: Proc<[U, T], U>): U
   array.reduce(initial) { |acc, item| block.call(acc, item) }
 end
 
 # 제네릭 블록을 통해 타입이 보존됨
 numbers = [1, 2, 3, 4, 5]
-strings = map(numbers) { |n| n.to_s }  # Array<String>
-evens = filter(numbers) { |n| n.even? }  # Array<Integer>
+strings = map(numbers) { |n| n.to_s }  # String[]
+evens = filter(numbers) { |n| n.even? }  # Integer[]
 sum = reduce(numbers, 0) { |acc, n| acc + n }  # Integer
 ```
 
@@ -274,7 +274,7 @@ sum = reduce(numbers, 0) { |acc, n| acc + n }  # Integer
 ```trb title="event_handler.trb"
 class EventEmitter<T>
   def initialize()
-    @listeners: Array<Proc<T, void>> = []
+    @listeners: Proc<T, void>[] = []
   end
 
   def on(&listener: Proc<T, void>): void
@@ -350,7 +350,7 @@ type Middleware = Proc<[Request, Proc<Request, Response>], Response>
 
 class MiddlewareStack
   def initialize()
-    @middlewares: Array<Middleware> = []
+    @middlewares: Middleware[] = []
   end
 
   def use(middleware: Middleware): void
@@ -461,7 +461,7 @@ memoized.call(5)  # 즉시 25를 반환 (캐시됨)
 
 ```trb title="block_returns.trb"
 # 블록이 값을 반환
-def sum_transformed(numbers: Array<Integer>, &block: Proc<Integer, Integer>): Integer
+def sum_transformed(numbers: Integer[], &block: Proc<Integer, Integer>): Integer
   numbers.map { |n| block.call(n) }.sum
 end
 
@@ -473,7 +473,7 @@ def each_with_index(&block: Proc<[String, Integer], void>): void
 end
 
 # 블록이 boolean을 반환 (필터링용)
-def custom_select(items: Array<String>, &predicate: Proc<String, Boolean>): Array<String>
+def custom_select(items: String[], &predicate: Proc<String, Boolean>): String[]
   items.select { |item| predicate.call(item) }
 end
 
@@ -530,7 +530,7 @@ fetch_data(
 ```trb title="builder_block.trb"
 class QueryBuilder
   def initialize()
-    @conditions: Array<String> = []
+    @conditions: String[] = []
   end
 
   def where(&block: Proc<QueryBuilder, void>): QueryBuilder

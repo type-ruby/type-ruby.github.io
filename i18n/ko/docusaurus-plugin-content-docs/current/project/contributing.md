@@ -49,16 +49,16 @@ T-Ruby에 기여하는 방법은 여러 가지가 있습니다:
 <ExampleBadge status="pass" testFile="spec/docs_site/pages/project/contributing_spec.rb" line={25} />
 
 ```trb
-numbers: Array<Integer> = [1, 2, 3]
+numbers: Integer[] = [1, 2, 3]
 strings = numbers.map { |n| n.to_s }
-# strings의 타입은 Array<String>이어야 함
+# strings의 타입은 String[]이어야 함
 ```
 
 ### 예상
-`strings`는 `Array<String>`으로 추론되어야 함
+`strings`는 `String[]`으로 추론되어야 함
 
 ### 실제
-타입이 `Array<Any>`로 추론됨
+타입이 `Any[]`로 추론됨
 ```
 
 ### 2. 기능 제안
@@ -334,7 +334,7 @@ def type_check(node: AST::Node): Type
 end
 
 # 설명적인 변수 이름 사용
-def infer_array_type(elements: Array<AST::Node>): ArrayType
+def infer_array_type(elements: AST::Node[]): ArrayType
   element_types = elements.map { |el| infer_type(el) }
   union_type = UnionType.new(element_types)
   ArrayType.new(union_type)
@@ -356,8 +356,8 @@ def process_user(user: User): UserResponse
 end
 
 # 명확성을 위한 타입 어노테이션 추가
-users: Array<User> = fetch_users()
-active_users: Array<User> = users.select { |u| u.active? }
+users: User[] = fetch_users()
+active_users: User[] = users.select { |u| u.active? }
 ```
 
 ### 문서 스타일
@@ -368,11 +368,11 @@ active_users: Array<User> = users.select { |u| u.active? }
 # 좋은 문서
 # 배열 리터럴의 타입을 추론합니다
 #
-# @param elements [Array<AST::Node>] 배열 리터럴 요소
+# @param elements [AST::Node[]] 배열 리터럴 요소
 # @return [ArrayType] 추론된 배열 타입
 # @example
 #   infer_array_type([IntNode.new(1), IntNode.new(2)])
-#   #=> ArrayType<Integer>
+#   #=> Integer[]
 def infer_array_type(elements)
   # ...
 end
@@ -406,7 +406,7 @@ RSpec.describe TypeChecker do
     end
 
     context 'with generic types' do
-      it 'infers Array<T> from literal' do
+      it 'infers T[] from literal' do
         # ...
       end
     end

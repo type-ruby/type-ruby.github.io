@@ -52,10 +52,10 @@ type Test2 = IsString<Integer>  # false
 ```trb
 # T extends U는 "T를 U에 할당할 수 있는가?"를 의미
 
-type IsArray<T> = T extends Array<any> ? true : false
+type IsArray<T> = T extends any[] ? true : false
 
-type Test1 = IsArray<Array<Integer>>  # true
-type Test2 = IsArray<String>          # false
+type Test1 = IsArray<Integer[]>  # true
+type Test2 = IsArray<String>     # false
 type Test3 = IsArray<Hash<String, Integer>>  # false
 ```
 
@@ -119,13 +119,13 @@ type UserReturnType = ReturnType<GetUserFunction>  # User
 
 ```trb
 # 배열의 요소 타입 가져오기
-type ElementType<T> = T extends Array<infer E> ? E : never
+type ElementType<T> = T extends (infer E)[] ? E : never
 
 # 사용법
-type StringArray = Array<String>
+type StringArray = String[]
 type StringElement = ElementType<StringArray>  # String
 
-type NumberArray = Array<Integer>
+type NumberArray = Integer[]
 type NumberElement = ElementType<NumberArray>  # Integer
 ```
 
@@ -181,19 +181,19 @@ type FunctionParts<T> =
 
 ```trb
 # 배열 언래핑
-type Unwrap<T> = T extends Array<infer U> ? U : T
+type Unwrap<T> = T extends (infer U)[] ? U : T
 
 # 사용법
-type Wrapped1 = Unwrap<Array<String>>  # String
-type Wrapped2 = Unwrap<String>         # String (변경 없음)
+type Wrapped1 = Unwrap<String[]>  # String
+type Wrapped2 = Unwrap<String>    # String (변경 없음)
 
 # 중첩 배열 언래핑
 type DeepUnwrap<T> =
-  T extends Array<infer U>
+  T extends (infer U)[]
     ? DeepUnwrap<U>
     : T
 
-type NestedArray = Array<Array<Array<Integer>>>
+type NestedArray = Integer[][][]
 type Unwrapped = DeepUnwrap<NestedArray>  # Integer
 ```
 
@@ -204,7 +204,7 @@ type Unwrapped = DeepUnwrap<NestedArray>  # Integer
 ```trb
 # 중첩된 유니온 평탄화
 type Flatten<T> =
-  T extends Array<infer U>
+  T extends (infer U)[]
     ? Flatten<U>
     : T extends Hash<any, infer V>
       ? Flatten<V>
@@ -245,13 +245,13 @@ type AsyncReturnType<T> =
 
 ```trb
 # 이 조건부 타입은 분배적
-type ToArray<T> = T extends any ? Array<T> : never
+type ToArray<T> = T extends any ? T[] : never
 
 # 유니온에 적용되면 분배됨:
 type StringOrNumber = String | Integer
 type Result = ToArray<StringOrNumber>
-# 결과: Array<String> | Array<Integer>
-# 아님: Array<String | Integer>
+# 결과: String[] | Integer[]
+# 아님: (String | Integer)[]
 
 # 또 다른 예제
 type BoxedType<T> = T extends any ? { value: T } : never
@@ -269,11 +269,11 @@ type Boxed = BoxedType<Mixed>
 
 ```trb
 # 비분배 버전
-type ToArrayNonDist<T> = [T] extends [any] ? Array<T> : never
+type ToArrayNonDist<T> = [T] extends [any] ? T[] : never
 
 type StringOrNumber = String | Integer
 type Result = ToArrayNonDist<StringOrNumber>
-# 결과: Array<String | Integer>
+# 결과: (String | Integer)[]
 ```
 
 ## 고급 패턴
@@ -303,7 +303,7 @@ type FilterByProperty<T, K, V> =
 ```trb
 # 깊은 읽기 전용 타입
 type DeepReadonly<T> =
-  T extends (Array<infer U> | Hash<any, infer U>)
+  T extends ((infer U)[] | Hash<any, infer U>)
     ? ReadonlyArray<DeepReadonly<U>>
     : T extends Hash<infer K, infer V>
       ? ReadonlyHash<K, DeepReadonly<V>>
@@ -313,8 +313,8 @@ type DeepReadonly<T> =
 type DeepPartial<T> =
   T extends Hash<infer K, infer V>
     ? Hash<K, DeepPartial<V> | nil>
-    : T extends Array<infer U>
-      ? Array<DeepPartial<U>>
+    : T extends (infer U)[]
+      ? DeepPartial<U>[]
       : T
 ```
 
@@ -328,7 +328,7 @@ def is_string<T>(value: T): value is String
   value.is_a?(String)
 end
 
-def is_array<T>(value: T): value is Array<any>
+def is_array<T>(value: T): value is any[]
   value.is_a?(Array)
 end
 
@@ -420,13 +420,13 @@ type IntegerWithDefault = WithDefault<DefiniteValue, Float>  # Integer
 ```trb
 # 컬렉션 타입에 따른 타입 가져오기
 type CollectionElement<T> =
-  T extends Array<infer E> ? E :
+  T extends (infer E)[] ? E :
   T extends Hash<any, infer V> ? V :
   T extends Set<infer S> ? S :
   never
 
 # 사용법
-type ArrayElement = CollectionElement<Array<String>>  # String
+type ArrayElement = CollectionElement<String[]>  # String
 type HashValue = CollectionElement<Hash<Symbol, Integer>>  # Integer
 type SetElement = CollectionElement<Set<User>>  # User
 ```
@@ -478,11 +478,11 @@ type ComplexCheck<T> =
 ```trb
 # 좋음: 명확한 이름
 type NonNilable<T> = T extends nil ? never : T
-type Unwrap<T> = T extends Array<infer U> ? U : T
+type Unwrap<T> = T extends (infer U)[] ? U : T
 
 # 덜 좋음: 암호 같은 이름
 type NN<T> = T extends nil ? never : T
-type UW<T> = T extends Array<infer U> ? U : T
+type UW<T> = T extends (infer U)[] ? U : T
 ```
 
 ### 3. 복잡한 타입 문서화
@@ -516,7 +516,7 @@ type RestTypes<T> = T extends [any, ...infer R] ? R : never
 type Extract<T> =
   T extends [infer F, ...infer R]
     ? F extends String
-      ? R extends Array<infer U>
+      ? R extends (infer U)[]
         ? U extends Integer
           ? [F, U]
           : never
@@ -536,7 +536,7 @@ type Extract<T> =
 type DeepNested<T, N> =
   N extends 0
     ? T
-    : Array<DeepNested<T, Decrement<N>>>  # 깊이 한계에 도달할 수 있음
+    : DeepNested<T, Decrement<N>>[]  # 깊이 한계에 도달할 수 있음
 ```
 
 ### 타입 추론 복잡성

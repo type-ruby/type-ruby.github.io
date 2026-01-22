@@ -77,7 +77,7 @@ T-Ruby의 첫 알파 릴리스입니다! 이 릴리스에는 핵심 타입 시�
 - **특수 타입** - `Any`, `void`, `never`, `self`
 - **유니온 타입** - `|` 연산자로 여러 타입 결합
 - **선택적 타입** - `T | nil`의 단축형 `T?`
-- **Array 제네릭** - 타입이 지정된 배열을 위한 `Array<T>`
+- **Array 제네릭** - 타입이 지정된 배열을 위한 `T[]`
 - **Hash 제네릭** - 타입이 지정된 해시를 위한 `Hash<K, V>`
 - **타입 추론** - 변수와 반환값에 대한 자동 타입 추론
 - **타입 좁히기** - `is_a?`와 `nil?`을 사용한 스마트 좁히기
@@ -251,8 +251,8 @@ alice: User = User.new("Alice", "alice@example.com", 30)
 bob: User = User.new("Bob", "bob@example.com", 17)
 
 # 타입 안전 작업
-users: Array<User> = [alice, bob]
-adults: Array<User> = users.select { |u| u.adult? }
+users: User[] = [alice, bob]
+adults: User[] = users.select { |u| u.adult? }
 
 adults.each do |user|
   puts user.greet

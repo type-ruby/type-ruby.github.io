@@ -486,7 +486,7 @@ logger.debug(
 
 4. **Use rest parameters for collections**: When you expect a variable number of similar items, rest parameters are cleaner than array parameters.
 
-5. **Type rest parameters appropriately**: `*args: Array<String>` is better than `*args: Array<String | Integer>` if you only expect strings.
+5. **Type rest parameters appropriately**: `*args: String[]` is better than `*args: (String | Integer)[]` if you only expect strings.
 
 6. **Document complex signatures**: When combining many parameter types, add comments explaining the usage.
 

@@ -188,7 +188,7 @@ interface PostOptions
   title: String
   content: String
   published?: Boolean    # ? でoptionalを表示
-  tags?: Array<String>
+  tags?: String[]
 end
 
 def create_post({ title:, content:, published: false, tags: [] }: PostOptions): Post
@@ -486,7 +486,7 @@ logger.debug(
 
 4. **コレクションには残余パラメータを使用する**: 可変数の類似アイテムを期待する場合、残余パラメータは配列パラメータよりもクリーンです。
 
-5. **残余パラメータに適切な型を付ける**: 文字列のみを期待する場合、`*args: Array<String | Integer>`より`*args: Array<String>`の方が良いです。
+5. **残余パラメータに適切な型を付ける**: 文字列のみを期待する場合、`*args: (String | Integer)[]`より`*args: String[]`の方が良いです。
 
 6. **複雑なシグネチャを文書化する**: 多くのパラメータタイプを組み合わせる場合、使用法を説明するコメントを追加します。
 

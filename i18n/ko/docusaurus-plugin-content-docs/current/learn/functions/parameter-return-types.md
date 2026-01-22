@@ -124,7 +124,7 @@ save_to_database(user_record)
 <ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/functions/parameter_return_types_spec.rb" line={69} />
 
 ```trb title="complex.trb"
-def process_names(names: Array<String>): Integer
+def process_names(names: String[]): Integer
   names.map(&:capitalize).length
 end
 
@@ -246,11 +246,11 @@ can_edit = has_permission(current_user, "posts:edit")
 <ExampleBadge status="pass" testFile="spec/docs_site/pages/learn/functions/parameter_return_types_spec.rb" line={113} />
 
 ```trb title="generics.trb"
-def first_element<T>(array: Array<T>): T | nil
+def first_element<T>(array: T[]): T | nil
   array.first
 end
 
-def wrap_in_array<T>(value: T): Array<T>
+def wrap_in_array<T>(value: T): T[]
   [value]
 end
 
@@ -261,7 +261,7 @@ first_num = first_element(numbers)  # 타입: Integer | nil
 strings = ["a", "b", "c"]
 first_str = first_element(strings)  # 타입: String | nil
 
-wrapped = wrap_in_array(42)  # 타입: Array<Integer>
+wrapped = wrap_in_array(42)  # 타입: Integer[]
 ```
 
 ## 실전 예제: 사용자 서비스
@@ -295,7 +295,7 @@ class UserService
     database.delete("users", id)
   end
 
-  def list_all(): Array<User>
+  def list_all(): User[]
     database.query("SELECT * FROM users").map { |row| User.from_row(row) }
   end
 
@@ -323,7 +323,7 @@ updated = service.update(123, { "name" => "Bob", "age" => 31 })
 # void 반환
 service.delete(456)
 
-# Array<User> 반환
+# User[] 반환
 all_users = service.list_all()
 
 # Integer 반환
@@ -339,7 +339,7 @@ exists = service.is_email_taken("test@example.com")
 
 2. **반환 타입을 명시적으로 작성**: T-Ruby가 추론할 수 있더라도, 명시적인 반환 타입은 문서로서 역할합니다.
 
-3. **구체적인 타입 사용**: `Object`보다 `String`을, `Array`보다 `Array<Integer>`를 선호하세요.
+3. **구체적인 타입 사용**: `Object`보다 `String`을, `Array`보다 `Integer[]`를 선호하세요.
 
 4. **다중 반환 값에는 유니온 타입 사용**: `User | nil`은 아무 값이나 반환하는 것보다 명확합니다.
 
@@ -374,7 +374,7 @@ def to_boolean(value: String): Boolean
   ["true", "yes", "1"].include?(value.downcase)
 end
 
-def to_array(value: String): Array<String>
+def to_array(value: String): String[]
   value.split(",").map(&:strip)
 end
 ```

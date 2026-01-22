@@ -77,7 +77,7 @@ T-Rubyの最初のアルファリリースです！このリリースには、�
 - **特殊型** - `Any`、`void`、`never`、`self`
 - **ユニオン型** - `|`演算子で複数の型を結合
 - **オプショナル型** - `T | nil`の省略形`T?`
-- **Arrayジェネリクス** - 型付き配列用の`Array<T>`
+- **Arrayジェネリクス** - 型付き配列用の`T[]`
 - **Hashジェネリクス** - 型付きハッシュ用の`Hash<K, V>`
 - **型推論** - 変数と戻り値の自動型推論
 - **型絞り込み** - `is_a?`と`nil?`によるスマートな絞り込み
@@ -249,8 +249,8 @@ alice: User = User.new("Alice", "alice@example.com", 30)
 bob: User = User.new("Bob", "bob@example.com", 17)
 
 # 型安全な操作
-users: Array<User> = [alice, bob]
-adults: Array<User> = users.select { |u| u.adult? }
+users: User[] = [alice, bob]
+adults: User[] = users.select { |u| u.adult? }
 
 adults.each do |user|
   puts user.greet

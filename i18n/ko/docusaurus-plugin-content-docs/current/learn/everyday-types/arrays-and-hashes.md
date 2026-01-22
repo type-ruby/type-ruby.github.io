@@ -47,7 +47,7 @@ numbers = [1, 2, 3, 4, 5]
 names = ["Alice", "Bob", "Charlie"]
 
 # 빈 배열은 타입 어노테이션을 제공해야 함
-items: Array<String> = []
+items: String[] = []
 ```
 
 ### 배열 연산

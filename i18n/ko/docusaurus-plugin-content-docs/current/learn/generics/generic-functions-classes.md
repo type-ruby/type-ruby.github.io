@@ -617,5 +617,5 @@ puts result.unwrap_err if result.err?  # "Division by zero"
 이제 제네릭 함수와 클래스를 이해했으니:
 
 - [제약 조건](/docs/learn/generics/constraints)을 배워 제네릭에 사용할 수 있는 타입 제한
-- `Array<T>`와 `Hash<K, V>` 같은 [내장 제네릭](/docs/learn/generics/built-in-generics) 탐색
+- `T[]`와 `Hash<K, V>` 같은 [내장 제네릭](/docs/learn/generics/built-in-generics) 탐색
 - 제네릭이 [인터페이스](/docs/learn/interfaces/defining-interfaces)와 어떻게 작동하는지 확인

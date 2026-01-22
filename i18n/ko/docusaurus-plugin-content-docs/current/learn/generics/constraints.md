@@ -644,6 +644,6 @@ end
 
 이제 제약 조건을 이해했으니:
 
-- [내장 제네릭](/docs/learn/generics/built-in-generics)에서 `Array<T>`, `Hash<K, V>` 및 기타 내장 타입과 함께 제약 조건이 어떻게 작동하는지 확인
+- [내장 제네릭](/docs/learn/generics/built-in-generics)에서 `T[]`, `Hash<K, V>` 및 기타 내장 타입과 함께 제약 조건이 어떻게 작동하는지 확인
 - [인터페이스](/docs/learn/interfaces/defining-interfaces)에서 제약 조건으로 사용할 인터페이스 생성
 - [고급 타입](/docs/learn/advanced/type-aliases)에서 더 복잡한 타입 패턴 탐색
